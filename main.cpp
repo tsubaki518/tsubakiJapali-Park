@@ -22,12 +22,11 @@
 #include"Game.h"
 #include"Result.h"
 
-using namespace std;
+
 //ここまで3D用追加コード
 //===============================================
 
-vector <Cube> cube;
-Camera camera;
+
 /*------------------------------------------------------------------------------
    定数定義
 ------------------------------------------------------------------------------*/
@@ -188,21 +187,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 // ゲームの初期化関数
 bool Initialize(void)
 {
-	SetScene(TITLE);
-	for (int i = 0; i < 4; i++) {
-		cube.push_back(Cube());
-	}
-	cube[0].position.y = 10;
-	cube[0].scale.z = 2;
+	SetScene(GAME);
 
-	cube[1].position.y = 0;
-	cube[1].scale.x = 10;
-	cube[1].scale.z = 10;
-
-	cube[3].position.z = 15;
-	cube[3].scale.x = 10;
-	cube[3].scale.z = 10;
-	cube[3].rotation.z = 0.5f;
 
     // Direct3Dラッパーモジュールの初期化
     if( !MyDirect3D_Initialize(g_hWnd) ) {
@@ -222,49 +208,7 @@ bool Initialize(void)
 // ゲームの更新関数
 void Update(void){
 	Keyboard_Update();
-	//入力
-	{
-		if (Keyboard_IsPress(DIK_W)) {
-			cube[0].position += cube[0].GetForward() / 10;
-		} else if (Keyboard_IsPress(DIK_S)) {
-			cube[0].position -= cube[0].GetForward() / 10;
-		}
-		if (Keyboard_IsPress(DIK_D)) {
-			cube[0].rotation.y += 0.02f;
-		} else if (Keyboard_IsPress(DIK_A)) {
-			cube[0].rotation.y -= 0.02f;
-		}
-		if (Keyboard_IsPress(DIK_UP)) {
-			cube[0].position.y += 0.1f;
-		} else if (Keyboard_IsPress(DIK_DOWN)) {
-			cube[0].position.y -= 0.1f;
-		}
-		if (Keyboard_IsPress(DIK_RIGHT)) {
-			cube[0].position += cube[0].GetRight() / 10;
-		} else if (Keyboard_IsPress(DIK_LEFT)) {
-			cube[0].position -= cube[0].GetRight() / 10;
-		}
-		if (Keyboard_IsPress(DIK_SPACE)) {
-			cube[0].position.y += 0.2f;
-		}
-	}
-	BoxCollider collider;
-	BoxCollider2 collider2;
-	if (!collider.Collider(cube[0].collider, cube[1].collider) && !collider2.Collider(cube[0].collider, cube[3].collider)) {
-		cube[0].position.y -= 0.1f;
-	}
-	
-	
-	//カメラ追従
-	camera.eye.x = sinf(cube[0].rotation.y)*-10 + cube[0].position.x;
-	camera.eye.y = cube[0].position.y+3;
-	camera.eye.z = cosf(cube[0].rotation.y)*-10 + cube[0].position.z;
 
-	camera.at = cube[0].position;
-
-	camera.up.x = cube[0].position.x;
-	camera.up.y = cube[0].position.y+1;
-	camera.up.z = cube[0].position.z;
 
 	//各シーンごとのUpdate処理
 	switch (nowScene) {
@@ -295,11 +239,7 @@ void Draw(void)
     // 描画バッチ命令の開始
     pDevice->BeginScene();
 	
-	camera.SetCamera();
-	//Cube描画
-	cube[0].Draw(TEXTURE_INDEX_CEMENT);
-	cube[1].Draw(TEXTURE_INDEX_ICE);
-	cube[3].Draw(TEXTURE_INDEX_ICE);
+
 	//各シーンごとのDraw処理
 	switch (nowScene) {
 	case TITLE:
