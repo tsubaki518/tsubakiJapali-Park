@@ -18,6 +18,9 @@
 #include"Collision.h"
 #include<vector>
 #include"main.h"
+#include"title.h"
+#include"Game.h"
+#include"Result.h"
 
 using namespace std;
 //ここまで3D用追加コード
@@ -262,7 +265,20 @@ void Update(void){
 	camera.up.y = cube[0].position.y+1;
 	camera.up.z = cube[0].position.z;
 
+	//各シーンごとのUpdate処理
+	switch (nowScene) {
+	case Title:
+		TitleUpdate();
+		break;
 
+	case Game:
+		GameUpdate();
+		break;
+
+	case Result:
+		ResultUpdate();
+		break;
+	}
 }
 
 //#######################################################################
@@ -283,6 +299,20 @@ void Draw(void)
 	cube[0].Draw(TEXTURE_INDEX_CEMENT);
 	cube[1].Draw(TEXTURE_INDEX_ICE);
 	cube[3].Draw(TEXTURE_INDEX_ICE);
+	//各シーンごとのDraw処理
+	switch (nowScene) {
+	case Title:
+		TitleDraw();
+		break;
+
+	case Game:
+		GameDraw();
+		break;
+
+	case Result:
+		ResultUpdate();
+		break;
+	}
 	
     // 描画バッチ命令の終了
     pDevice->EndScene();
@@ -307,15 +337,15 @@ void SetScene(int scene) {
 	//各シーンごとの終了処理
 	switch (nowScene) {
 	case Title:
-
+		TitleUnInit();
 		break;
 
 	case Game:
-
+		GameInit();
 		break;
 
 	case Result:
-
+		ResultInit();
 		break;
 	}
 	nowScene = scene;
@@ -323,15 +353,15 @@ void SetScene(int scene) {
 	//各シーンごとのInit処理
 	switch (nowScene) {
 	case Title:
-
+		TitleInit();
 		break;
 
 	case Game:
-
+		GameUnInit();
 		break;
 
 	case Result:
-
+		ResultUnInit();
 		break;
 	}
 

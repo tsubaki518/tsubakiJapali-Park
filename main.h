@@ -5,3 +5,5 @@ enum {
 	Game,
 	Result
 };
+
+void SetScene(int scene)
