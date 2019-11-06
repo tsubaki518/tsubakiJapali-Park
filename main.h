@@ -1,9 +1,9 @@
 #pragma once
 
 enum {
-	Title,
-	Game,
-	Result
+	TITLE,
+	GAME,
+	RESULT
 };
 
-void SetScene(int scene)
+void SetScene(int scene);

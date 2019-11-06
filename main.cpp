@@ -56,7 +56,7 @@ static void Finalize(void);
    グローバル変数宣言
 ------------------------------------------------------------------------------*/
 static HWND g_hWnd;             // ウィンドウハンドル
-int nowScene;
+int nowScene=TITLE;
 /*------------------------------------------------------------------------------
    関数定義
 ------------------------------------------------------------------------------*/
@@ -267,15 +267,15 @@ void Update(void){
 
 	//各シーンごとのUpdate処理
 	switch (nowScene) {
-	case Title:
-		TitleUpdate();
+	case TITLE:
+		//TitleUpdate();
 		break;
 
-	case Game:
+	case GAME:
 		GameUpdate();
 		break;
 
-	case Result:
+	case RESULT:
 		ResultUpdate();
 		break;
 	}
@@ -301,15 +301,15 @@ void Draw(void)
 	cube[3].Draw(TEXTURE_INDEX_ICE);
 	//各シーンごとのDraw処理
 	switch (nowScene) {
-	case Title:
-		TitleDraw();
+	case TITLE:
+	//	TitleDraw();
 		break;
 
-	case Game:
+	case GAME:
 		GameDraw();
 		break;
 
-	case Result:
+	case RESULT:
 		ResultUpdate();
 		break;
 	}
@@ -336,15 +336,15 @@ void Finalize(void){
 void SetScene(int scene) {
 	//各シーンごとの終了処理
 	switch (nowScene) {
-	case Title:
-		TitleUnInit();
+	case TITLE:
+	//	TitleUnInit();
 		break;
 
-	case Game:
+	case GAME:
 		GameInit();
 		break;
 
-	case Result:
+	case RESULT:
 		ResultInit();
 		break;
 	}
@@ -352,15 +352,15 @@ void SetScene(int scene) {
 
 	//各シーンごとのInit処理
 	switch (nowScene) {
-	case Title:
-		TitleInit();
+	case TITLE:
+		//TitleInit();
 		break;
 
-	case Game:
+	case GAME:
 		GameUnInit();
 		break;
 
-	case Result:
+	case RESULT:
 		ResultUnInit();
 		break;
 	}
