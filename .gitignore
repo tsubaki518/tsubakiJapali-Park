@@ -1,4 +1,4 @@
-# Prerequisites
+﻿# Prerequisites
 *.d
 
 # Compiled Object files
@@ -6,6 +6,61 @@
 *.lo
 *.o
 *.obj
+
+# VSのユーザー設定など
+*.suo
+*.*.user
+*.sln.docstates
+*.opt
+*.clw
+*.ncb
+*.aps
+*.mak
+*.pdb
+.vs/
+
+#ビルドで出力されるもの
+[Dd]ebug/
+[Rr]elease/
+x64/
+build/
+[Bb]in/
+[Oo]bj/
+
+#テストで生成されるもの
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*_i.c
+*_p.c
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.log
+*.scc
+
+#C++のキャッシュ
+ipch/
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.cachefile
 
 # Precompiled Headers
 *.gch
