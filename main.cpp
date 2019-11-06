@@ -56,7 +56,7 @@ static void Finalize(void);
    グローバル変数宣言
 ------------------------------------------------------------------------------*/
 static HWND g_hWnd;             // ウィンドウハンドル
-int nowScene=TITLE;
+int nowScene;
 /*------------------------------------------------------------------------------
    関数定義
 ------------------------------------------------------------------------------*/
@@ -188,6 +188,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 // ゲームの初期化関数
 bool Initialize(void)
 {
+	SetScene(TITLE);
 	for (int i = 0; i < 4; i++) {
 		cube.push_back(Cube());
 	}
@@ -268,7 +269,7 @@ void Update(void){
 	//各シーンごとのUpdate処理
 	switch (nowScene) {
 	case TITLE:
-		//TitleUpdate();
+		TitleUpdate();
 		break;
 
 	case GAME:
@@ -302,7 +303,7 @@ void Draw(void)
 	//各シーンごとのDraw処理
 	switch (nowScene) {
 	case TITLE:
-	//	TitleDraw();
+		TitleDraw();
 		break;
 
 	case GAME:
@@ -337,7 +338,7 @@ void SetScene(int scene) {
 	//各シーンごとの終了処理
 	switch (nowScene) {
 	case TITLE:
-	//	TitleUnInit();
+		TitleUnInit();
 		break;
 
 	case GAME:
@@ -353,7 +354,7 @@ void SetScene(int scene) {
 	//各シーンごとのInit処理
 	switch (nowScene) {
 	case TITLE:
-		//TitleInit();
+		TitleInit();
 		break;
 
 	case GAME:
