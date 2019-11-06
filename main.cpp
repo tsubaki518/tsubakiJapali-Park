@@ -342,11 +342,11 @@ void SetScene(int scene) {
 		break;
 
 	case GAME:
-		GameInit();
+		GameUnInit();
 		break;
 
 	case RESULT:
-		ResultInit();
+		ResultUnInit();
 		break;
 	}
 	nowScene = scene;
@@ -358,11 +358,11 @@ void SetScene(int scene) {
 		break;
 
 	case GAME:
-		GameUnInit();
+		GameInit();
 		break;
 
 	case RESULT:
-		ResultUnInit();
+		ResultInit();
 		break;
 	}
 
