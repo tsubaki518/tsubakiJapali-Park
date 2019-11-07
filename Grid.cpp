@@ -39,12 +39,12 @@ void Grid::Draw() {
 		//’¸“_À•W‚Ìİ’è
 		{
 			for (int i = 0; i < 36; i += 2) {
-				pVtx[i].vtx = D3DXVECTOR3(0-4, 0, i/2-8);
-				pVtx[i+1].vtx = D3DXVECTOR3(10-4, 0, i/2-8);
+				pVtx[i].vtx = D3DXVECTOR3(0-4, 0, (float)i/2-8);
+				pVtx[i+1].vtx = D3DXVECTOR3((float)10-4, 0, (float)i/2-8);
 			}
 			for (int i = 36; i < 57; i += 2) {
-				pVtx[i].vtx = D3DXVECTOR3((i-36)/2-4, 0, 36/2-1-8);
-				pVtx[i+1].vtx = D3DXVECTOR3((i-36)/2-4, 0, 0-8);
+				pVtx[i].vtx = D3DXVECTOR3((float)(i-36)/2-4, 0, (float)36/2-1-8);
+				pVtx[i+1].vtx = D3DXVECTOR3((float)(i-36)/2-4, 0, 0-8);
 			}
 	
 		}
