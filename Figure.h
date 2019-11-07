@@ -1,5 +1,6 @@
 #pragma once
 #include"Collision.h"
+#include"texture.h"
 
 class Cube {
 private:
@@ -13,7 +14,7 @@ public:
 	D3DXVECTOR3 position{0,0,0};
 	D3DXVECTOR3 rotation{0,0,0};
 	D3DXVECTOR3 scale{1,1,1};
-	BoxCollider2 collider;
+	Collider3D collider;
 
 	void Draw(TextureIndex textureIndex, D3DXCOLOR color={1,1,1,1});
 

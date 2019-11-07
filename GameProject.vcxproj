@@ -166,7 +166,6 @@
     <ClCompile Include="debug_font.cpp" />
     <ClCompile Include="Figure.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mydirect3d.cpp" />
@@ -186,7 +185,6 @@
     <ClInclude Include="debug_printf.h" />
     <ClInclude Include="Figure.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Grid.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="mydirect3d.h" />

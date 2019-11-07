@@ -12,11 +12,6 @@
 #include "sprite.h"
 #include <d3dx9.h>
 #include"input.h"
-#include"Grid.h"
-#include"Camera.h"
-#include"Figure.h"
-#include"Collision.h"
-#include<vector>
 #include"main.h"
 #include"title.h"
 #include"Game.h"
