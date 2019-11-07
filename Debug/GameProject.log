@@ -1,18 +1,4 @@
-﻿  Camera.cpp
-  character.cpp
-d:\hewボブスレー\character.cpp(11): warning C4100: 'weight': 引数は関数の本体部で 1 度も参照されません。
-  Collision.cpp
-d:\hewボブスレー\collision.cpp(21): warning C4100: 'c2': 引数は関数の本体部で 1 度も参照されません。
-d:\hewボブスレー\collision.cpp(21): warning C4100: 'c1': 引数は関数の本体部で 1 度も参照されません。
-  Figure.cpp
-  Game.cpp
-  Grid.cpp
-  input.cpp
+﻿  debug_font.cpp
   main.cpp
-  mydirect3d.cpp
-  Result.cpp
-  sprite.cpp
-  texture.cpp
-  title.cpp
   コードを生成中...
   GameProject.vcxproj -> D:\HEWボブスレー\Debug\GameProject.exe

@@ -21,6 +21,7 @@
 #include"title.h"
 #include"Game.h"
 #include"Result.h"
+#include"debug_font.h"
 
 
 //ここまで3D用追加コード
@@ -200,6 +201,8 @@ bool Initialize(void)
         MessageBox(g_hWnd, "いくつか読み込めなかったテクスチャファイルがあります", "エラー", MB_OK);
     }
 
+	DebugFont_Initialize();
+
     return true;
 }
 
@@ -268,6 +271,8 @@ void Finalize(void){
 	Keyboard_Finalize();
     // テクスチャの解放
     Texture_Release();
+
+	DebugFont_Finalize();
 
     // Direct3Dラッパーモジュールの終了処理
     MyDirect3D_Finalize();
