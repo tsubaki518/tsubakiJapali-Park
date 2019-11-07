@@ -4,7 +4,6 @@
 #include "texture.h"
 #include "sprite.h"
 #include <d3dx9.h>
-
 #include"Figure.h"
 
 
@@ -19,6 +18,7 @@ typedef struct {
 
 //3Dポリゴンフォーマット
 #define FVF_VERTEX_3D (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1)
+static LPDIRECT3DVERTEXBUFFER9 g_pD3DVtxBuff;    //頂点バッファ	
 
 
 void Cube::Draw(TextureIndex textureIndex, D3DXCOLOR color) {

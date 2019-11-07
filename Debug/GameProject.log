@@ -1,3 +1,2 @@
-﻿  character.cpp
-d:\hewボブスレー\character.cpp(10): warning C4100: 'weight': 引数は関数の本体部で 1 度も参照されません。
+﻿  Figure.cpp
   GameProject.vcxproj -> D:\HEWボブスレー\Debug\GameProject.exe

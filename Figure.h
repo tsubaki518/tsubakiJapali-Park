@@ -8,7 +8,6 @@ private:
 	D3DXVECTOR3 g_rot;	                         //地面の向き
 	D3DXVECTOR3 g_scl;                          //地面の大きさ
 	D3DXMATRIX g_mtxWorld;                     //ワールドマトリクス
-	LPDIRECT3DVERTEXBUFFER9 g_pD3DVtxBuff;    //頂点バッファ	
 
 public:
 	D3DXVECTOR3 position{0,0,0};
