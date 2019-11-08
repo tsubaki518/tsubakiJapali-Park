@@ -3,10 +3,17 @@
 class Character {
 protected:
 	float moveAccel=0;
-	float ratateSpeed=0;
+	float rotateSpeed=0;
 public:
 	Character(){}
 	virtual void Draw();
+
+	Character operator=(Character c) {
+		moveAccel = c.moveAccel;
+		rotateSpeed = c.rotateSpeed;
+
+		return *this;
+	}
 };
 
 class Mouse :public Character {
