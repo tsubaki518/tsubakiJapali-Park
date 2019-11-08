@@ -31,12 +31,13 @@ void GameInit() {
 	cube[1].scale.x = 10;
 	cube[1].scale.z = 10;
 	cube[1].rotation.z = 0.5f;
+	//cube[1].rotation.x = 0.5f;
 }
 void GameUpdate() {
 
 	sori.Update();
 	//ƒ\ƒŠ‚Ì“–‚½‚è”»’è
-	if (!sori.Collision(cube[1].collider) && !sori.Collision(cube[0].collider)) {
+	if (!sori.Collision2(cube[1].collider) && !sori.Collision(cube[0].collider)) {
 		sori.cube.position.y -= 0.1f;
 	}
 

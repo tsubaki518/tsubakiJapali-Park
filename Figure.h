@@ -16,6 +16,7 @@ public:
 	D3DXVECTOR3 scale{1,1,1};
 	Collider3D collider;
 
+	Cube(){}
 	void Draw(TextureIndex textureIndex, D3DXCOLOR color={1,1,1,1});
 
 	D3DXVECTOR3 GetForward(); //³–Ê‚ğæ“¾

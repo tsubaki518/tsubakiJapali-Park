@@ -19,7 +19,7 @@ typedef struct {
 //3Dポリゴンフォーマット
 #define FVF_VERTEX_3D (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 static LPDIRECT3DVERTEXBUFFER9 g_pD3DVtxBuff;    //頂点バッファ	
-
+static bool isOnece = false;
 
 void Cube::Draw(TextureIndex textureIndex, D3DXCOLOR color) {
 	const float sizeX = 0.5f;
@@ -28,196 +28,197 @@ void Cube::Draw(TextureIndex textureIndex, D3DXCOLOR color) {
 	collider.position = position;
 	collider.size = scale;
 	collider.rad = rotation;
-
 	//3Dポリゴン用頂点の準備
 	LPDIRECT3DDEVICE9 pDevice = MyDirect3D_GetDevice();
+	if (isOnece == false) {
 
-	//オブジェクトの頂点バッファを生成
-	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * 36,
-		D3DUSAGE_WRITEONLY,
-		FVF_VERTEX_3D,
-		D3DPOOL_MANAGED,
-		&g_pD3DVtxBuff,
-		NULL);
 
-	//頂点バッファの中身を埋める
-	VERTEX_3D *pVtx;
+		//オブジェクトの頂点バッファを生成
+		pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * 36,
+			D3DUSAGE_WRITEONLY,
+			FVF_VERTEX_3D,
+			D3DPOOL_MANAGED,
+			&g_pD3DVtxBuff,
+			NULL);
 
-	//頂点バッファの範囲をロックし、頂点バッファへのポインタを取得
-	g_pD3DVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+		//頂点バッファの中身を埋める
+		VERTEX_3D *pVtx;
 
-	//3Dポリゴン用頂点の準備
-	{
-		//頂点座標の設定
+		//頂点バッファの範囲をロックし、頂点バッファへのポインタを取得
+		g_pD3DVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+
+		//3Dポリゴン用頂点の準備
 		{
-			pVtx[0].vtx = D3DXVECTOR3(-sizeX, sizeY, -sizeZ);  //1
-			pVtx[1].vtx = D3DXVECTOR3(sizeX, sizeY, -sizeZ);   //2
-			pVtx[2].vtx = D3DXVECTOR3(-sizeX, -sizeY, -sizeZ);  //3
+			//頂点座標の設定
+			{
+				pVtx[0].vtx = D3DXVECTOR3(-sizeX, sizeY, -sizeZ);  //1
+				pVtx[1].vtx = D3DXVECTOR3(sizeX, sizeY, -sizeZ);   //2
+				pVtx[2].vtx = D3DXVECTOR3(-sizeX, -sizeY, -sizeZ);  //3
 
-			pVtx[3].vtx = D3DXVECTOR3(sizeX, sizeY, -sizeZ);
-			pVtx[4].vtx = D3DXVECTOR3(sizeX, -sizeY, -sizeZ);
-			pVtx[5].vtx = D3DXVECTOR3(-sizeX, -sizeY, -sizeZ);
-			/////////////////////////////////////
-			pVtx[6].vtx = D3DXVECTOR3(sizeX, sizeY, sizeZ);
-			pVtx[7].vtx = D3DXVECTOR3(sizeX, -sizeY, -sizeZ);
-			pVtx[8].vtx = D3DXVECTOR3(sizeX, sizeY, -sizeZ);
+				pVtx[3].vtx = D3DXVECTOR3(sizeX, sizeY, -sizeZ);
+				pVtx[4].vtx = D3DXVECTOR3(sizeX, -sizeY, -sizeZ);
+				pVtx[5].vtx = D3DXVECTOR3(-sizeX, -sizeY, -sizeZ);
+				/////////////////////////////////////
+				pVtx[6].vtx = D3DXVECTOR3(sizeX, sizeY, sizeZ);
+				pVtx[7].vtx = D3DXVECTOR3(sizeX, -sizeY, -sizeZ);
+				pVtx[8].vtx = D3DXVECTOR3(sizeX, sizeY, -sizeZ);
 
-			pVtx[9].vtx = D3DXVECTOR3(sizeX, sizeY, sizeZ);
-			pVtx[10].vtx = D3DXVECTOR3(sizeX, -sizeY, sizeZ);
-			pVtx[11].vtx = D3DXVECTOR3(sizeX, -sizeY, -sizeZ);
-			///////////////////////////////////////////
-			pVtx[12].vtx = D3DXVECTOR3(-sizeX, sizeY, sizeZ);
-			pVtx[14].vtx = D3DXVECTOR3(-sizeX, -sizeY, -sizeZ);
-			pVtx[13].vtx = D3DXVECTOR3(-sizeX, sizeY, -sizeZ);
+				pVtx[9].vtx = D3DXVECTOR3(sizeX, sizeY, sizeZ);
+				pVtx[10].vtx = D3DXVECTOR3(sizeX, -sizeY, sizeZ);
+				pVtx[11].vtx = D3DXVECTOR3(sizeX, -sizeY, -sizeZ);
+				///////////////////////////////////////////
+				pVtx[12].vtx = D3DXVECTOR3(-sizeX, sizeY, sizeZ);
+				pVtx[14].vtx = D3DXVECTOR3(-sizeX, -sizeY, -sizeZ);
+				pVtx[13].vtx = D3DXVECTOR3(-sizeX, sizeY, -sizeZ);
 
-			pVtx[15].vtx = D3DXVECTOR3(-sizeX, sizeY, sizeZ);
-			pVtx[17].vtx = D3DXVECTOR3(-sizeX, -sizeY, sizeZ);
-			pVtx[16].vtx = D3DXVECTOR3(-sizeX, -sizeY, -sizeZ);
-			///////////////////////////////////////
+				pVtx[15].vtx = D3DXVECTOR3(-sizeX, sizeY, sizeZ);
+				pVtx[17].vtx = D3DXVECTOR3(-sizeX, -sizeY, sizeZ);
+				pVtx[16].vtx = D3DXVECTOR3(-sizeX, -sizeY, -sizeZ);
+				///////////////////////////////////////
 
-			pVtx[18].vtx = D3DXVECTOR3(-sizeX, sizeY, sizeZ);  //1
-			pVtx[19].vtx = D3DXVECTOR3(-sizeX, -sizeY, sizeZ);  //3
-			pVtx[20].vtx = D3DXVECTOR3(sizeX, sizeY, sizeZ);   //2
+				pVtx[18].vtx = D3DXVECTOR3(-sizeX, sizeY, sizeZ);  //1
+				pVtx[19].vtx = D3DXVECTOR3(-sizeX, -sizeY, sizeZ);  //3
+				pVtx[20].vtx = D3DXVECTOR3(sizeX, sizeY, sizeZ);   //2
 
-			pVtx[21].vtx = D3DXVECTOR3(sizeX, sizeY, sizeZ);
-			pVtx[22].vtx = D3DXVECTOR3(-sizeX, -sizeY, sizeZ);
-			pVtx[23].vtx = D3DXVECTOR3(sizeX, -sizeY, sizeZ);
-			/////////////////////////////////////
+				pVtx[21].vtx = D3DXVECTOR3(sizeX, sizeY, sizeZ);
+				pVtx[22].vtx = D3DXVECTOR3(-sizeX, -sizeY, sizeZ);
+				pVtx[23].vtx = D3DXVECTOR3(sizeX, -sizeY, sizeZ);
+				/////////////////////////////////////
 
-			pVtx[24].vtx = D3DXVECTOR3(-sizeX, sizeY, -sizeZ);  //1
-			pVtx[25].vtx = D3DXVECTOR3(-sizeX, sizeY, sizeZ);  //3
-			pVtx[26].vtx = D3DXVECTOR3(sizeX, sizeY, -sizeZ);   //2
+				pVtx[24].vtx = D3DXVECTOR3(-sizeX, sizeY, -sizeZ);  //1
+				pVtx[25].vtx = D3DXVECTOR3(-sizeX, sizeY, sizeZ);  //3
+				pVtx[26].vtx = D3DXVECTOR3(sizeX, sizeY, -sizeZ);   //2
 
-			pVtx[27].vtx = D3DXVECTOR3(-sizeX, sizeY, sizeZ);
-			pVtx[28].vtx = D3DXVECTOR3(sizeX, sizeY, sizeZ);
-			pVtx[29].vtx = D3DXVECTOR3(sizeX, sizeY, -sizeZ);
-			/////////////////////////////////////
-			pVtx[30].vtx = D3DXVECTOR3(-sizeX, -sizeY, -sizeZ);  //1
-			pVtx[32].vtx = D3DXVECTOR3(-sizeX, -sizeY, sizeZ);  //3
-			pVtx[31].vtx = D3DXVECTOR3(sizeX, -sizeY, -sizeZ);   //2
+				pVtx[27].vtx = D3DXVECTOR3(-sizeX, sizeY, sizeZ);
+				pVtx[28].vtx = D3DXVECTOR3(sizeX, sizeY, sizeZ);
+				pVtx[29].vtx = D3DXVECTOR3(sizeX, sizeY, -sizeZ);
+				/////////////////////////////////////
+				pVtx[30].vtx = D3DXVECTOR3(-sizeX, -sizeY, -sizeZ);  //1
+				pVtx[32].vtx = D3DXVECTOR3(-sizeX, -sizeY, sizeZ);  //3
+				pVtx[31].vtx = D3DXVECTOR3(sizeX, -sizeY, -sizeZ);   //2
 
-			pVtx[33].vtx = D3DXVECTOR3(-sizeX, -sizeY, sizeZ);
-			pVtx[35].vtx = D3DXVECTOR3(sizeX, -sizeY, sizeZ);
-			pVtx[34].vtx = D3DXVECTOR3(sizeX, -sizeY, -sizeZ);
-			/////////////////////////////////////
-		}
-		//法線ベクトルの設定
-		{
-			pVtx[0].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
-			pVtx[1].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
-			pVtx[2].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
+				pVtx[33].vtx = D3DXVECTOR3(-sizeX, -sizeY, sizeZ);
+				pVtx[35].vtx = D3DXVECTOR3(sizeX, -sizeY, sizeZ);
+				pVtx[34].vtx = D3DXVECTOR3(sizeX, -sizeY, -sizeZ);
+				/////////////////////////////////////
+			}
+			//法線ベクトルの設定
+			{
+				pVtx[0].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
+				pVtx[1].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
+				pVtx[2].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
 
-			pVtx[3].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
-			pVtx[4].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
-			pVtx[5].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
+				pVtx[3].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
+				pVtx[4].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
+				pVtx[5].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
 
-			pVtx[6].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[7].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[8].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[6].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[7].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[8].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 
-			pVtx[9].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[10].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[11].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[9].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[10].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[11].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 
-			pVtx[12].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[13].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[14].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[12].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[13].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[14].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 
-			pVtx[15].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[16].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[17].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[15].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[16].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[17].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 
-			pVtx[18].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[19].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[20].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[18].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[19].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[20].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 
-			pVtx[21].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[22].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[23].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[21].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[22].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[23].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 
-			pVtx[24].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[25].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[26].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[24].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[25].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[26].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 
-			pVtx[27].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[28].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[29].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[27].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[28].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[29].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 
-			pVtx[30].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[31].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[32].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[30].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[31].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[32].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 
-			pVtx[33].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[34].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-			pVtx[35].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-		}
-		//反射光の設定
-		{
-			for (int i = 0; i < 36; i++) {
-				pVtx[i].diffuse = color;
+				pVtx[33].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[34].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				pVtx[35].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+			}
+			//反射光の設定
+			{
+				for (int i = 0; i < 36; i++) {
+					pVtx[i].diffuse = color;
+				}
+			}
+			////テクスチャの設定
+			{
+				pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
+				pVtx[1].tex = D3DXVECTOR2(1.0f, 0.0f);
+				pVtx[2].tex = D3DXVECTOR2(0.0f, 1.0f);
+
+				pVtx[3].tex = D3DXVECTOR2(1.0f, 0.0f);
+				pVtx[4].tex = D3DXVECTOR2(1.0f, 1.0f);
+				pVtx[5].tex = D3DXVECTOR2(0.0f, 1.0f);
+				/////////////////////////////////////////////////////
+
+				pVtx[6].tex = D3DXVECTOR2(1.0f, 0.0f);
+				pVtx[7].tex = D3DXVECTOR2(0.0f, 1.0f);
+				pVtx[8].tex = D3DXVECTOR2(0.0f, 0.0f);
+
+				pVtx[9].tex = D3DXVECTOR2(1.0f, 0.0f);
+				pVtx[10].tex = D3DXVECTOR2(1.0f, 1.0f);
+				pVtx[11].tex = D3DXVECTOR2(0.0f, 1.0f);
+				//////////////////////////////////////////////////////////
+
+				pVtx[12].tex = D3DXVECTOR2(0.0f, 0.0f);
+				pVtx[13].tex = D3DXVECTOR2(0.0f, 1.0f);
+				pVtx[14].tex = D3DXVECTOR2(1.0f, 1.0f);
+
+				pVtx[15].tex = D3DXVECTOR2(0.0f, 0.0f);
+				pVtx[16].tex = D3DXVECTOR2(1.0f, 1.0f);
+				pVtx[17].tex = D3DXVECTOR2(1.0f, 0.0f);
+				////////////////////////////////////////////////////////
+
+				pVtx[18].tex = D3DXVECTOR2(0.0f, 0.0f);
+				pVtx[19].tex = D3DXVECTOR2(1.0f, 0.0f);
+				pVtx[20].tex = D3DXVECTOR2(0.0f, 1.0f);
+
+				pVtx[21].tex = D3DXVECTOR2(0.0f, 1.0f);
+				pVtx[22].tex = D3DXVECTOR2(1.0f, 0.0f);
+				pVtx[23].tex = D3DXVECTOR2(1.0f, 1.0f);
+				////////////////////////////////////////////////
+
+				pVtx[24].tex = D3DXVECTOR2(1.0f, 1.0f);
+				pVtx[25].tex = D3DXVECTOR2(0.0f, 1.0f);
+				pVtx[26].tex = D3DXVECTOR2(1.0f, 0.0f);
+
+				pVtx[27].tex = D3DXVECTOR2(0.0f, 1.0f);
+				pVtx[28].tex = D3DXVECTOR2(0.0f, 0.0f);
+
+				pVtx[29].tex = D3DXVECTOR2(1.0f, 0.0f);
+				////////////////////////////////////////////////////////
+
+				pVtx[30].tex = D3DXVECTOR2(1.0f, 1.0f);
+				pVtx[31].tex = D3DXVECTOR2(1.0f, 0.0f);
+				pVtx[32].tex = D3DXVECTOR2(0.0f, 1.0f);
+
+				pVtx[33].tex = D3DXVECTOR2(0.0f, 1.0f);
+				pVtx[34].tex = D3DXVECTOR2(1.0f, 0.0f);
+				pVtx[35].tex = D3DXVECTOR2(0.0f, 0.0f);
 			}
 		}
-		////テクスチャの設定
-		{
-			pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
-			pVtx[1].tex = D3DXVECTOR2(1.0f, 0.0f);
-			pVtx[2].tex = D3DXVECTOR2(0.0f, 1.0f);
 
-			pVtx[3].tex = D3DXVECTOR2(1.0f, 0.0f);
-			pVtx[4].tex = D3DXVECTOR2(1.0f, 1.0f);
-			pVtx[5].tex = D3DXVECTOR2(0.0f, 1.0f);
-			/////////////////////////////////////////////////////
-
-			pVtx[6].tex = D3DXVECTOR2(1.0f, 0.0f);
-			pVtx[7].tex = D3DXVECTOR2(0.0f, 1.0f);
-			pVtx[8].tex = D3DXVECTOR2(0.0f, 0.0f);
-
-			pVtx[9].tex = D3DXVECTOR2(1.0f, 0.0f);
-			pVtx[10].tex = D3DXVECTOR2(1.0f, 1.0f);
-			pVtx[11].tex = D3DXVECTOR2(0.0f, 1.0f);
-			//////////////////////////////////////////////////////////
-
-			pVtx[12].tex = D3DXVECTOR2(0.0f, 0.0f);
-			pVtx[13].tex = D3DXVECTOR2(0.0f, 1.0f);
-			pVtx[14].tex = D3DXVECTOR2(1.0f, 1.0f);
-
-			pVtx[15].tex = D3DXVECTOR2(0.0f, 0.0f);
-			pVtx[16].tex = D3DXVECTOR2(1.0f, 1.0f);
-			pVtx[17].tex = D3DXVECTOR2(1.0f, 0.0f);
-			////////////////////////////////////////////////////////
-
-			pVtx[18].tex = D3DXVECTOR2(0.0f, 0.0f);
-			pVtx[19].tex = D3DXVECTOR2(1.0f, 0.0f);
-			pVtx[20].tex = D3DXVECTOR2(0.0f, 1.0f);
-
-			pVtx[21].tex = D3DXVECTOR2(0.0f, 1.0f);
-			pVtx[22].tex = D3DXVECTOR2(1.0f, 0.0f);
-			pVtx[23].tex = D3DXVECTOR2(1.0f, 1.0f);
-			////////////////////////////////////////////////
-
-			pVtx[24].tex = D3DXVECTOR2(1.0f, 1.0f);
-			pVtx[25].tex = D3DXVECTOR2(0.0f, 1.0f);
-			pVtx[26].tex = D3DXVECTOR2(1.0f, 0.0f);
-
-			pVtx[27].tex = D3DXVECTOR2(0.0f, 1.0f);
-			pVtx[28].tex = D3DXVECTOR2(0.0f, 0.0f);
-
-			pVtx[29].tex = D3DXVECTOR2(1.0f, 0.0f);
-			////////////////////////////////////////////////////////
-
-			pVtx[30].tex = D3DXVECTOR2(1.0f, 1.0f);
-			pVtx[31].tex = D3DXVECTOR2(1.0f, 0.0f);
-			pVtx[32].tex = D3DXVECTOR2(0.0f, 1.0f);
-
-			pVtx[33].tex = D3DXVECTOR2(0.0f, 1.0f);
-			pVtx[34].tex = D3DXVECTOR2(1.0f, 0.0f);
-			pVtx[35].tex = D3DXVECTOR2(0.0f, 0.0f);
-		}
+		g_pD3DVtxBuff->Unlock();
+		isOnece = true;
 	}
-
-	g_pD3DVtxBuff->Unlock();
-
-
 
 	//ポリゴンのワールド行列の作成
 	D3DXMATRIX mtxScl;
