@@ -30,8 +30,8 @@ void GameInit() {
 	cube[1].position.z = 15;
 	cube[1].scale.x = 10;
 	cube[1].scale.z = 10;
-	cube[1].rotation.z = 0.5f;
-	//cube[1].rotation.x = 0.5f;
+	cube[1].rotation.z = -0.5f;
+	cube[1].rotation.x = 0.5f;
 }
 void GameUpdate() {
 

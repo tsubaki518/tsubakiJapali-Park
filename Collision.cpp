@@ -19,8 +19,8 @@ bool BoxCollider::Collider(Collider3D c1, Collider3D c2) {
 }
 
 bool BoxCollider2::Collider(Collider3D c1, Collider3D c2) {
-	if (tanf(c2.rad.z+0.15f)*(c2.position.y*2 + c1.position.x/* - c2.position.x*/) >= c1.position.y-c1.size.y*1.2f &&
-		tanf(-c2.rad.x+0.15f)*(c2.position.y*2 + c1.position.z/* - c2.position.z*/) >= c1.position.y - c1.size.y*1.2f
+	if (tanf(c2.rad.z*1.6f)*(c2.position.y + c1.position.x - c2.position.x) >= c1.position.y-c1.size.y*2 &&
+		tanf(-c2.rad.x*1.6f)*(c2.position.y + c1.position.z - c2.position.z) >= c1.position.y - c1.size.y*2
 		) {
 		return true;
 	}
