@@ -2,6 +2,7 @@
 #include"texture.h"
 #include"input.h"
 
+#define MOVE_HORIZON_SPEED 0.1f
 
 Sori::Sori() {
 	cube.position.y = 10;
@@ -13,11 +14,11 @@ void Sori::Update() {
 	{
 		if (Keyboard_IsPress(DIK_RIGHT)) {
 			//‰E‚ÉˆÚ“®
-			cube.position += cube.GetRight() * 0.1f;  //GetRight()*ˆÚ“®—Ê
+			cube.position += cube.GetRight() * MOVE_HORIZON_SPEED;  //GetRight()*ˆÚ“®—Ê
 
 		} else if (Keyboard_IsPress(DIK_LEFT)) {
 			//¶‚ÉˆÚ“®
-			cube.position -= cube.GetRight() * 0.1f;
+			cube.position -= cube.GetRight() * MOVE_HORIZON_SPEED;
 		}
 	}
 	//---------------------------------------------------------------
