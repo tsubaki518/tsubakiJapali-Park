@@ -16,11 +16,6 @@ public:
 	}
 };
 
-class Mouse :public Character {
-public:
-	Mouse(){}
-	void Draw(){}
-};
 
 class Elephant :public Character {
 public:
@@ -34,15 +29,21 @@ public:
 	void Draw(){}
 };
 
+class Dog :public Character {
+public:
+	Dog(){}
+	void Draw(){}
+};
+
 class Rabbit :public Character {
 public:
 	Rabbit(){}
 	void Draw(){}
 };
 
-class Dog :public Character {
+class Hamster :public Character {
 public:
-	Dog(){}
+	Hamster(){}
 	void Draw(){}
 };
 
