@@ -44,7 +44,7 @@ void GameInit() {
 	cube[3].scale.x = 10;
 	cube[3].scale.z = 10;
 	cube[3].rotation.x = 0.5f;
-	cube[3].rotation.z = 0.5f;
+	cube[3].rotation.z = 0.2f;
 
 	cube[4].position.x = 9;
 	cube[4].position.y = 12;
