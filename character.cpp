@@ -19,23 +19,23 @@ Character SetCharacter(float weight) {
 	//    ‚±‚±‚ÅƒLƒƒƒ‰‚ðŒˆ’è‚·‚é
 	//-------------------------------
 
-	if (weight <= 80)
+	if (weight >= 80)
 	{
 		return elephant;
 	}
-	else if (weight >= 79)
+	else if (weight <= 79)
 	{
 		return bear;
 	}
-	else if (weight >= 69)
+	else if (weight <= 69)
 	{
 		return dog;
 	}
-	else if (weight >= 59)
+	else if (weight <= 59)
 	{
 		return rabbit;
 	}
-	else if (weight >= 49)
+	else if (weight <= 49)
 	{
 		return hamster;
 	}
