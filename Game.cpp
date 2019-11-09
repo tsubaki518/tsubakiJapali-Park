@@ -75,7 +75,7 @@ void GameUpdate() {
 	//ÉJÉÅÉâí«è]
 	{
 		camera.eye.x = sinf(sori.cube.rotation.y)*-10 + sori.cube.position.x;
-		camera.eye.y = sori.cube.position.y + 3;
+		camera.eye.y = -sinf(sori.cube.rotation.x)*-5 + sori.cube.position.y+5;
 		camera.eye.z = cosf(sori.cube.rotation.y)*-10 + sori.cube.position.z;
 
 		camera.at = sori.cube.position;
