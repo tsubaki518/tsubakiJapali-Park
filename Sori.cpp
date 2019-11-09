@@ -59,6 +59,7 @@ bool Sori::Collision(Collider3D c) {
 	BoxCollider collider;
 
 	if (collider.Collider(cube.collider, c)) {
+		cube.rotation = c.rad;
 		return true;
 
 	} else {
@@ -69,6 +70,7 @@ bool Sori::Collision2(Collider3D c) {
 	BoxCollider2 collider;
 
 	if (collider.Collider(cube.collider, c)) {
+		cube.rotation = c.rad;
 		return true;
 
 	} else {
