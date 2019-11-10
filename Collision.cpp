@@ -19,7 +19,7 @@ bool BoxCollider::Collider(Collider3D c1, Collider3D c2) {
 }
 
 bool BoxCollider2::Collider(Collider3D c1, Collider3D c2) {
-	if (c2.rad.x == 0 && c2.rad.z == 0) {
+	if (c2.rotation.x == 0 && c2.rotation.z == 0) {
 		if (c1.position.x + c1.size.x / 2 >= c2.position.x - c2.size.x / 2 && c1.position.x - c1.size.x / 2 <= c2.position.x + c2.size.x / 2 &&
 			c1.position.y + c1.size.y / 2 >= c2.position.y - c2.size.y / 2 && c1.position.y - c1.size.y / 2 <= c2.position.y + c2.size.y / 2 &&
 			c1.position.z + c1.size.z / 2 >= c2.position.z - c2.size.z / 2 && c1.position.z - c1.size.z / 2 <= c2.position.z + c2.size.z / 2
@@ -27,8 +27,8 @@ bool BoxCollider2::Collider(Collider3D c1, Collider3D c2) {
 			return true;
 		}
 	} else {
-		if (tanf(-c2.rad.z*1.44f)* (c2.position.x - c1.position.x) + c2.position.y > c1.position.y - c1.size.y * 2 &&
-			tanf(c2.rad.x*1.44f)*(c2.position.z - c1.position.z) + c2.position.y + 0.5f > c1.position.y - c1.size.y * 2 &&
+		if (tanf(-c2.rotation.z*1.44f)* (c2.position.x - c1.position.x) + c2.position.y > c1.position.y - c1.size.y * 2 &&
+			tanf(c2.rotation.x*1.44f)*(c2.position.z - c1.position.z) + c2.position.y + 0.5f > c1.position.y - c1.size.y * 2 &&
 			c1.position.x + c1.size.x / 2 >= c2.position.x - c2.size.x / 2 && c1.position.x - c1.size.x / 2 <= c2.position.x + c2.size.x / 2 &&
 			c1.position.z + c1.size.z / 2 >= c2.position.z - c2.size.z / 2 && c1.position.z - c1.size.z / 2 <= c2.position.z + c2.size.z / 2
 			) {

@@ -12,6 +12,11 @@ Sori::Sori() {
 void Sori::Update() {
 	//--------------------ˆÚ“®---------------------------------------
 	{
+		if (Keyboard_IsPress(DIK_UP)) {
+			cube.position += cube.GetForward() * 0.1f;
+		} else if (Keyboard_IsPress(DIK_DOWN)) {
+			cube.position -= cube.GetForward() * 0.1f;
+		}
 		if (Keyboard_IsPress(DIK_RIGHT)) {
 			//‰E‚ÉˆÚ“®
 			cube.position += cube.GetRight() * MOVE_HORIZON_SPEED;  //GetRight()*ˆÚ“®—Ê
@@ -59,7 +64,7 @@ bool Sori::Collision(Collider3D c) {
 	BoxCollider collider;
 
 	if (collider.Collider(cube.collider, c)) {
-		cube.rotation = c.rad;
+		cube.rotation = c.rotation;
 		return true;
 
 	} else {
@@ -70,7 +75,7 @@ bool Sori::Collision2(Collider3D c) {
 	BoxCollider2 collider;
 
 	if (collider.Collider(cube.collider, c)) {
-		cube.rotation = c.rad;
+		cube.rotation = c.rotation;
 		return true;
 
 	} else {

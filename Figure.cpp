@@ -27,7 +27,7 @@ void Cube::Draw(TextureIndex textureIndex, D3DXCOLOR color) {
 	const float sizeZ = 0.5f;
 	collider.position = position;
 	collider.size = scale;
-	collider.rad = rotation;
+	collider.rotation = rotation;
 	//3DÉ|ÉäÉSÉìópí∏ì_ÇÃèÄîı
 	LPDIRECT3DDEVICE9 pDevice = MyDirect3D_GetDevice();
 	if (isOnece == false) {
@@ -277,8 +277,8 @@ D3DXVECTOR3 Cube::GetRight() {
 }
 D3DXVECTOR3 Cube::GetUp() {
 	D3DXVECTOR3 up;
-	up.x = sinf(rotation.z);
+	up.x = -sinf(rotation.z);
 	up.y = cosf(rotation.x);
-	up.z = -sinf(rotation.z);
+	up.z = sinf(rotation.x);
 	return up;
 }
