@@ -104,53 +104,29 @@ void Cube::Draw(TextureIndex textureIndex, D3DXCOLOR color) {
 			}
 			//法線ベクトルの設定
 			{
-				pVtx[0].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
-				pVtx[1].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
-				pVtx[2].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
+				for (int i = 0; i < 6; i++) {
+					pVtx[i].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
+				}
 
-				pVtx[3].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
-				pVtx[4].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
-				pVtx[5].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
+				for (int i = 0; i < 6; i++) {
+					pVtx[i + 6].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+				}
 
-				pVtx[6].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[7].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[8].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				for (int i = 0; i < 6; i++) {
+					pVtx[i + 12].nor = D3DXVECTOR3(0.0f, -1.0f, 0.0f);
+				}
 
-				pVtx[9].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[10].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[11].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				for (int i = 0; i < 6; i++) {
+					pVtx[i + 18].nor = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
+				}
 
-				pVtx[12].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[13].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[14].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				for (int i = 0; i < 6; i++) {
+					pVtx[i + 24].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+				}
 
-				pVtx[15].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[16].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[17].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-
-				pVtx[18].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[19].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[20].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-
-				pVtx[21].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[22].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[23].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-
-				pVtx[24].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[25].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[26].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-
-				pVtx[27].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[28].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[29].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-
-				pVtx[30].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[31].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[32].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-
-				pVtx[33].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[34].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-				pVtx[35].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+				for (int i = 0; i < 6; i++) {
+					pVtx[i + 30].nor = D3DXVECTOR3(0.0f, -1.0f, 0.0f);
+				}
 			}
 			//反射光の設定
 			{
@@ -255,7 +231,7 @@ void Cube::Draw(TextureIndex textureIndex, D3DXCOLOR color) {
 	pDevice->SetFVF(FVF_VERTEX_3D);
 
 	//ポリゴンの描画
-	pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+	pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
 	pDevice->SetTexture(0, Texture_GetTexture(textureIndex));
 	pDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 12);
 

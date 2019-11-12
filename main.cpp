@@ -183,7 +183,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 // ゲームの初期化関数
 bool Initialize(void)
 {
-	SetScene(GAME);
 
 
     // Direct3Dラッパーモジュールの初期化
@@ -197,6 +196,7 @@ bool Initialize(void)
     }
 
 	DebugFont_Initialize();
+	SetScene(GAME);
 
     return true;
 }

@@ -12,6 +12,7 @@
 #include"Sori.h"
 #include"Figure.h"
 #include"debug_font.h"
+#include"Light.h"
 
 #define CUBE_NUM 1
 
@@ -19,24 +20,26 @@ using namespace std;
 vector <Cube> cube;
 Camera camera;
 Sori sori;
-
-
+Light light;
 
 
 
 
 void GameInit() {
+	light.Init(D3DLIGHT_DIRECTIONAL);
+	light.Use(true);
+
+	sori.cube.position.y = 11;
+
 	for (int i = 0; i < CUBE_NUM; i++) {
 		cube.push_back(Cube());
 	}
 	cube[0].position.x = 0;
-	cube[0].position.y = 10;
-	cube[0].position.z = 10;
+	cube[0].position.y = 0;
+	cube[0].position.z = 0;
 	cube[0].scale.x = 10;
 	cube[0].scale.z = 10;
-	cube[0].rotation.z = 0.5f;
-	cube[0].rotation.y = 0.5f;
-	cube[0].rotation.x = 0.5f;
+	
 
 	//cube[1].position.x = -9;
 	//cube[1].position.y = 2;
@@ -63,8 +66,6 @@ void GameInit() {
 	//cube[4].scale.x = 10;
 	//cube[4].scale.z = 10;
 	//cube[4].rotation.z = 0.5f;
-
-	sori.cube.position.y = 11;
 
 }
 void GameUpdate() {
