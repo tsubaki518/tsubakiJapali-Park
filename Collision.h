@@ -21,3 +21,5 @@ class BoxCollider2 :public Collider3D {
 public:
 	bool Collider(Collider3D c1, Collider3D c2);
 };
+
+D3DXVECTOR3 Vec3Normalize(D3DXVECTOR3 pV);

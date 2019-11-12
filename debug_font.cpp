@@ -44,7 +44,7 @@ void DebugFont_Draw(int x, int y, const char* pFormat, ...) {
 
 	vsprintf_s(buf, DEBUG_PRINTF_BUFFER_MAX, pFormat, argp);
 	va_end(argp);
-	g_pD3DXFont->DrawText(NULL, buf, -1, &rect, DT_LEFT, D3DCOLOR_RGBA(0, 0, 0, 255));
+	g_pD3DXFont->DrawText(NULL, buf, -1, &rect, DT_LEFT, D3DCOLOR_RGBA(255, 255, 255, 255));
 #else
 	UNREFERENCED_PARAMETER(pFormat);
 	UNREFERENCED_PARAMETER(x);
