@@ -14,7 +14,7 @@
 #include"debug_font.h"
 #include"Light.h"
 
-#define CUBE_NUM 1
+#define CUBE_NUM 5
 
 using namespace std;
 vector <Cube> cube;
@@ -33,40 +33,35 @@ void GameInit() {
 	}
 
 	cube[0].position.x = 0;
-	cube[0].position.y = 10;
 	cube[0].position.z = 0;
-	cube[0].scale.x = 20;
-	cube[0].scale.z = 20;
-	cube[0].rotation.x = 0.5f;
-	cube[0].rotation.y = 0.5f;
-	cube[0].rotation.z = 0.5f;
+	cube[0].scale.x = 10;
+	cube[0].scale.z = 10;
 
-	//cube[1].position.x = -9;
-	//cube[1].position.y = 2;
-	//cube[1].scale.x = 10;
-	//cube[1].scale.z = 10;
-	//cube[1].rotation.z = -0.5f;
+	cube[1].position.x = -9;
+	cube[1].position.y = 2;
+	cube[1].scale.x = 10;
+	cube[1].scale.z = 10;
+	cube[1].rotation.z = -0.5f;
 
-	//cube[2].position.z = 9;
-	//cube[2].position.y = -2.3f;
-	//cube[2].scale.x = 10;
-	//cube[2].scale.z = 10;
-	//cube[2].rotation.x = 0.5f;
+	cube[2].position.z = 9;
+	cube[2].position.y = -2.3f;
+	cube[2].scale.x = 10;
+	cube[2].scale.z = 10;
+	cube[2].rotation.x = 0.5f;
 
-	//cube[3].position.y = 0;
-	//cube[3].position.z = 25;
-	//cube[3].scale.x = 10;
-	//cube[3].scale.z = 10;
-	//cube[3].rotation.x = 0.5f;
-	//cube[3].rotation.z = 0.5f;
-	//cube[3].rotation.y = 0.8f;
+	cube[3].position.x = 9;
+	cube[3].position.y = 2;
+	cube[3].scale.x = 10;
+	cube[3].scale.z = 10;
+	cube[3].rotation.z = 0.5f;
 
-	//cube[4].position.x = 9;
-	//cube[4].position.y = 2;
-	//cube[4].scale.x = 10;
-	//cube[4].scale.z = 10;
-	//cube[4].rotation.z = 0.5f;
-
+	cube[4].position.z = 17;
+	cube[4].position.y = -6.7f;
+	cube[4].scale.x = 10;
+	cube[4].scale.z = 10;
+	cube[4].rotation.x = 0.5f;
+	cube[4].rotation.y = 0.1f;
+	cube[4].rotation.z = 0.05f;
 }
 void GameUpdate() {
 
@@ -81,9 +76,7 @@ void GameUpdate() {
 
 		camera.at = sori.cube.position;
 
-		camera.up.x = sori.cube.position.x;
-		camera.up.y = sori.cube.position.y + 1;
-		camera.up.z = sori.cube.position.z;
+		camera.up = sori.cube.GetUp();
 	}
 }
 
@@ -100,6 +93,7 @@ void GameDraw() {
 	//ƒ\ƒŠ‚ÆCube‚Ì“–‚½‚è”»’è
 	for (int i = 0; i < (int)cube.size(); i++) {
 		if (sori.Collision2(cube[i].collider)) {
+			//sori.cube.position.y += 0.05f;
 			isGround = true;
 			break;
 		} else {

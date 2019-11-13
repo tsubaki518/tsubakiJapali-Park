@@ -236,24 +236,68 @@ void Cube::Draw(TextureIndex textureIndex, D3DXCOLOR color) {
 
 }
 D3DXVECTOR3 Cube::GetForward() {
-	D3DXVECTOR3 forward;//正面
-	forward.x = sinf(rotation.y);
-	forward.z = cosf(rotation.y);
-	forward.y = -sinf(rotation.x);
+	D3DXMATRIX matrixWorld;    //ワールド行列
+	D3DXMATRIX mtxRot;		   //回転行列
+	D3DXVECTOR3 direction;
+	direction.x = 0;
+	direction.y = 0;
+	direction.z = 1;
 
-	return forward;
+	{
+		//行列を初期化
+		D3DXMatrixIdentity(&matrixWorld);
+		D3DXMatrixIdentity(&mtxRot);
+
+		//回転行列を作成
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y,rotation.x, rotation.z);
+		D3DXMatrixMultiply(&matrixWorld, &matrixWorld, &mtxRot);
+
+		//行列から回転させたベクトルを取り出す
+		direction = D3DXVECTOR3(matrixWorld._31, matrixWorld._32, matrixWorld._33);
+	}
+	return direction;
 }
 D3DXVECTOR3 Cube::GetRight() {
-	D3DXVECTOR3 right;
-	right.x = cosf(rotation.y);
-	right.y = sinf(rotation.z);
-	right.z = -sinf(rotation.y);
-	return right;
+	D3DXMATRIX matrixWorld;    //頂点の行列
+	D3DXMATRIX mtxRot;
+	D3DXVECTOR3 direction;
+	direction.x = 1;
+	direction.y = 0;
+	direction.z = 0;
+
+	{
+		//行列を初期化
+		D3DXMatrixIdentity(&matrixWorld);
+		D3DXMatrixIdentity(&mtxRot);
+
+		//回転行列を作成
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y, rotation.x, rotation.z);
+		D3DXMatrixMultiply(&matrixWorld, &matrixWorld, &mtxRot);
+
+		//行列から回転させたベクトルを取り出す
+		direction = D3DXVECTOR3(matrixWorld._11, matrixWorld._12, matrixWorld._13);
+	}
+	return direction;
 }
 D3DXVECTOR3 Cube::GetUp() {
-	D3DXVECTOR3 up;
-	up.x = -sinf(rotation.z);
-	up.y = cosf(rotation.x);
-	up.z = sinf(rotation.x);
-	return up;
+	D3DXMATRIX matrixWorld;    //頂点の行列
+	D3DXMATRIX mtxRot;		   //回転行列
+	D3DXVECTOR3 direction;
+	direction.x = 0;
+	direction.y = 1;
+	direction.z = 0;
+
+	{
+		//行列を初期化
+		D3DXMatrixIdentity(&matrixWorld);
+		D3DXMatrixIdentity(&mtxRot);
+
+		//回転行列を作成
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y, rotation.x, rotation.z);
+		D3DXMatrixMultiply(&matrixWorld, &matrixWorld, &mtxRot);
+
+		//行列から回転させたベクトルを取り出す
+		direction = D3DXVECTOR3(matrixWorld._21, matrixWorld._22, matrixWorld._23);
+	}
+	return direction;
 }

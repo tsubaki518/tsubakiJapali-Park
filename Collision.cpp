@@ -75,11 +75,6 @@ bool BoxCollider2::Collider(Collider3D c1, Collider3D c2) {
 
 	//当たり判定に必要な情報を計算する
 	{
-		//頂点座標を求める
-		/*v[0] = (c2Forward*(c2.size.z / 2)) + (c2Right*(-c2.size.x / 2))+ c2.position;
-		v[1] = (c2Forward*(c2.size.z / 2)) + (c2Right*(c2.size.x / 2)) + c2.position;
-		v[2] = (c2Forward*(-c2.size.z / 2)) + (c2Right*(c2.size.x / 2)) + c2.position;
-		v[3] = (c2Forward*(-c2.size.z / 2)) + (c2Right*(-c2.size.x / 2))+ c2.position;*/
 
 		//面の辺のベクトルを求める
 		vD[0] = Vec3Normalize(v[1] - v[0]);
@@ -130,10 +125,7 @@ bool BoxCollider2::Collider(Collider3D c1, Collider3D c2) {
 			isOn = false;
 		}
 	}
-	for (int i = 0; i < VERTEX_NUM; i++) {
-		DebugFont_Draw(1, 1 + i * 25, "cross%d:x%lf, y%lf, z%lf", i, cross[i].x, cross[i].y, cross[i].z);
-		DebugFont_Draw(1, 150+i*25, "dot%lf", dot[i]);
-	}
+	
 
 	if (isOn == true && isInside == true) {
 		return true;
