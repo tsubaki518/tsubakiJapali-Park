@@ -223,7 +223,6 @@ void Cube::Draw(TextureIndex textureIndex, D3DXCOLOR color) {
 	//ワールドマトリクスを設定
 	pDevice->SetTransform(D3DTS_WORLD, &g_mtxWorld);
 
-
 	//描画したいポリゴン頂点バッファをデータストリームにセット
 	pDevice->SetStreamSource(0, g_pD3DVtxBuff, 0, sizeof(VERTEX_3D));
 
@@ -231,7 +230,7 @@ void Cube::Draw(TextureIndex textureIndex, D3DXCOLOR color) {
 	pDevice->SetFVF(FVF_VERTEX_3D);
 
 	//ポリゴンの描画
-	pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
+	pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 	pDevice->SetTexture(0, Texture_GetTexture(textureIndex));
 	pDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 12);
 
