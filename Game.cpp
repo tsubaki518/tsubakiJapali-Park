@@ -36,6 +36,7 @@ void GameInit() {
 	cube[0].position.z = 0;
 	cube[0].scale.x = 10;
 	cube[0].scale.z = 10;
+	//cube[0].rotation.z = -0.5f;
 
 	cube[1].position.x = -9;
 	cube[1].position.y = 2;
@@ -93,7 +94,6 @@ void GameDraw() {
 	//ƒ\ƒŠ‚ÆCube‚Ì“–‚½‚è”»’è
 	for (int i = 0; i < (int)cube.size(); i++) {
 		if (sori.Collision2(cube[i].collider)) {
-			//sori.cube.position.y += 0.05f;
 			isGround = true;
 			break;
 		} else {

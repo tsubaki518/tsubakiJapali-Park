@@ -19,7 +19,8 @@ bool BoxCollider::Collider(Collider3D c1, Collider3D c2) {
 }
 
 
-bool BoxCollider2::Collider(Collider3D c1, Collider3D c2) {
+Hit BoxCollider2::Collider(Collider3D c1, Collider3D c2) {
+	Hit hit;
 	bool isOn = false;
 	bool isInside = false;
 
@@ -90,6 +91,7 @@ bool BoxCollider2::Collider(Collider3D c1, Collider3D c2) {
 
 		//面の中心と面の頂点のベクトルを求める
 		for (int i = 0; i < VERTEX_NUM; i++) {
+			//頂点座標-面の中心
 			t[i] =  v[i] - (c2.position+D3DXVECTOR3(0,c2.size.y/2+ c1.size.y / 2, 0));
 		}
 
@@ -107,9 +109,10 @@ bool BoxCollider2::Collider(Collider3D c1, Collider3D c2) {
 	}
 
 
-	//当たり判定
+
+	//----------------------当たり判定----------------------------//
 	for (int i = 0; i < VERTEX_NUM; i++) {
-		//外積と内積が両方0以上だったら面の上に乗っている
+		//外積の結果が0以上だったら面の内側にいる
 		if (cross[i].y  >=0) {
 			isInside = true;
 		} else {
@@ -117,21 +120,61 @@ bool BoxCollider2::Collider(Collider3D c1, Collider3D c2) {
 			break;
 		}
 	}
-	for (int i = 0; i < VERTEX_NUM; i++) {
-		if (dot[i] <= 0) {
-			isOn = true;
-			break;
-		} else {
-			isOn = false;
+	if (isInside == true) {
+		for (int i = 0; i < VERTEX_NUM; i++) {
+			//内積の結果が1つでも0以下だったら面の下にいる
+			if (dot[i] <= 0.05f) {
+				isOn = true;
+				break;
+			} else {
+				isOn = false;
+			}
 		}
 	}
-	
-
-	if (isOn == true && isInside == true) {
-		return true;
+	//内積と外積の2つの結果がtrueだったら当たっている
+	if (isInside == true && isOn == true) {
+		hit.isHit = true;
+	} else {
+		hit.isHit = false;
 	}
+	//-----------------------------------------------------------
+
+
+	//埋まっていた場合に押し戻す
+	while (hit.isHit == true) {
+		bool isBreak = false;
+		for (int i = 0; i < VERTEX_NUM; i++) {
+			if (dot[i] >= 0.01f) {
+				isBreak = true;
+				break;
+			}
+		}
+		if (isBreak == true) {
+			break;
+		}
+
+		//上に押し出す
+		c1.position.y += 0.005f;
+
+		//面の頂点と点(プレイヤー)のベクトルを求める
+		sD[0] = Vec3Normalize(c1.position - v[0]);
+		sD[1] = Vec3Normalize(c1.position - v[1]);
+		sD[2] = Vec3Normalize(c1.position - v[2]);
+		sD[3] = Vec3Normalize(c1.position - v[3]);
+		//内積と外積を計算する
+		for (int i = 0; i < VERTEX_NUM; i++) {
+			cross[i] = { vD[i].y * sD[i].z - vD[i].z * sD[i].y, //X
+						 vD[i].z * sD[i].x - vD[i].x * sD[i].z, //Y
+						 vD[i].x * sD[i].y - vD[i].y * sD[i].x  //Z
+			};
+			dot[i] = D3DXVec3Dot(&cross[i], &t[i]);
+		}
+	}
+
+	//押し出し用
+	hit.posY = c1.position.y;
 	
-	return false;
+	return hit;
 }
 
 D3DXVECTOR3 Vec3Normalize(D3DXVECTOR3 pV)
