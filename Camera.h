@@ -17,7 +17,7 @@ private:
 	D3DXMATRIX g_mtxProjectioin;     //プロジェクションマトリクス
 	D3DXMATRIX g_mtxView;             //ビューマトリクス
 public:
-
+	D3DXVECTOR3 rad;
 	void SetCamera(Sori sori);
 };
 

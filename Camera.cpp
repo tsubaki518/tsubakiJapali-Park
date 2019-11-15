@@ -12,11 +12,34 @@
 
 
 void Camera::SetCamera(Sori sori) {
+	//カメラを少しずつ回転させる
+	if (rad.x < sori.cube.rotation.x) {
+		rad.x += 0.01f;
+	} else if (rad.x > sori.cube.rotation.x) {
+		rad.x -= 0.01f;
+	}
+
+	if (rad.z < sori.cube.rotation.z) {
+		rad.z += 0.01f;
+	} else if (rad.z > sori.cube.rotation.z) {
+		rad.z -= 0.01f;
+	}
+
+	if (rad.y < sori.cube.rotation.y) {
+		rad.y += 0.01f;
+	} else if (rad.y > sori.cube.rotation.y) {
+		rad.y -= 0.01f;
+	}
+
 	//==============================================
-	//ここを追加　テスト用カメラ情報を準備
-	eye.x = sinf(sori.cube.rotation.y)*-10 + sori.cube.position.x;
+	/*eye.x = sinf(sori.cube.rotation.y)*-10 + sori.cube.position.x;
 	eye.y = -sinf(sori.cube.rotation.x)*-5 + sori.cube.position.y + 8;
 	eye.z = cosf(sori.cube.rotation.y)*-10 + sori.cube.position.z;
+
+	at = sori.cube.position;*/
+	eye.x = sinf(rad.y)*-10 + sori.cube.position.x;
+	eye.y = -sinf(rad.x)*-5 + sori.cube.position.y + 8;
+	eye.z = cosf(rad.y)*-10 + sori.cube.position.z;
 
 	at = sori.cube.position;
 	
