@@ -36,7 +36,6 @@ void GameInit() {
 	cube[0].position.z = 0;
 	cube[0].scale.x = 10;
 	cube[0].scale.z = 10;
-	//cube[0].rotation.z = -0.5f;
 
 	cube[1].position.x = -9;
 	cube[1].position.y = 2;
@@ -68,21 +67,11 @@ void GameUpdate() {
 
 	sori.Update();
 	
-
-	//ÉJÉÅÉâí«è]
-	{
-		camera.eye.x = sinf(sori.cube.rotation.y)*-10 + sori.cube.position.x;
-		camera.eye.y = -sinf(sori.cube.rotation.x)*-5 + sori.cube.position.y+8;
-		camera.eye.z = cosf(sori.cube.rotation.y)*-10 + sori.cube.position.z;
-
-		camera.at = sori.cube.position;
-
-		camera.up = sori.cube.GetUp();
-	}
 }
 
 void GameDraw() {
-	camera.SetCamera();
+	//ÉJÉÅÉâí«è]
+	camera.SetCamera(sori);
 
 	//Cubeï`âÊ
 	for (int i = 0; i < (int)cube.size(); i++) {
