@@ -9,6 +9,7 @@ public:
 	Cube cube;	//ƒ‚ƒfƒ‹‚ª–³‚¢‚½‚ß‰¼‚ÅCube
 
 	float speed;
+	float maxSpeed;
 	Character character[2];
 
 	Sori();
