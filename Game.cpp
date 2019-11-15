@@ -13,11 +13,8 @@
 #include"Figure.h"
 #include"debug_font.h"
 #include"Light.h"
+#include"Stage.h"
 
-#define CUBE_NUM 5
-
-using namespace std;
-vector <Cube> cube;
 Camera camera;
 Sori sori;
 
@@ -27,41 +24,8 @@ Sori sori;
 void GameInit() {
 
 	sori.cube.position.y = 11;
+	StageInit();
 
-	for (int i = 0; i < CUBE_NUM; i++) {
-		cube.push_back(Cube());
-	}
-
-	cube[0].position.x = 0;
-	cube[0].position.z = 0;
-	cube[0].scale.x = 10;
-	cube[0].scale.z = 10;
-
-	cube[1].position.x = -9;
-	cube[1].position.y = 2;
-	cube[1].scale.x = 10;
-	cube[1].scale.z = 10;
-	cube[1].rotation.z = -0.5f;
-
-	cube[2].position.z = 9;
-	cube[2].position.y = -2.3f;
-	cube[2].scale.x = 10;
-	cube[2].scale.z = 10;
-	cube[2].rotation.x = 0.5f;
-
-	cube[3].position.x = 9;
-	cube[3].position.y = 2;
-	cube[3].scale.x = 10;
-	cube[3].scale.z = 10;
-	cube[3].rotation.z = 0.5f;
-
-	cube[4].position.z = 17;
-	cube[4].position.y = -6.7f;
-	cube[4].scale.x = 10;
-	cube[4].scale.z = 10;
-	cube[4].rotation.x = 0.5f;
-	cube[4].rotation.y = 0.1f;
-	cube[4].rotation.z = 0.05f;
 }
 void GameUpdate() {
 
@@ -73,16 +37,13 @@ void GameDraw() {
 	//ƒJƒƒ‰’Ç]
 	camera.SetCamera(sori);
 
-	//Cube•`‰æ
-	for (int i = 0; i < (int)cube.size(); i++) {
-		cube[i].Draw(TEXTURE_INDEX_ICE);
-	}
 
+	StageDraw();
 
 	bool isGround = false;
 	//ƒ\ƒŠ‚ÆCube‚Ì“–‚½‚è”»’è
-	for (int i = 0; i < (int)cube.size(); i++) {
-		if (sori.Collision2(cube[i].collider)) {
+	for (int i = 0; i < GetCubeNum(); i++) {
+		if (sori.Collision2(GetCube(i).collider)) {
 			isGround = true;
 			break;
 		} else {
