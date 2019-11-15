@@ -75,7 +75,7 @@ bool Sori::Collision2(Collider3D c) {
 	BoxCollider2 collider;
 
 	if (collider.Collider(cube.collider, c).isHit) {
-		cube.position.y = collider.Collider(cube.collider, c).posY;
+		cube.position += collider.Collider(cube.collider, c).addPosition;
 		cube.rotation = c.rotation;
 		return true;
 

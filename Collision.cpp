@@ -20,9 +20,9 @@ bool BoxCollider::Collider(Collider3D c1, Collider3D c2) {
 
 
 Hit BoxCollider2::Collider(Collider3D c1, Collider3D c2) {
-	Hit hit;
-	bool isOn = false;
-	bool isInside = false;
+	Hit hit;						//hit判定と押し出す座標
+	bool isOn = false;				//面の上にいるか
+	bool isInside = false;			//面の内側にいるか
 
 	const int VERTEX_NUM = 4;		//面の頂点数
 	D3DXVECTOR3 v[VERTEX_NUM];		//面の頂点
@@ -33,11 +33,14 @@ Hit BoxCollider2::Collider(Collider3D c1, Collider3D c2) {
 	D3DXVECTOR3 cross[VERTEX_NUM];  //vDとsDとの外積
 	float dot[VERTEX_NUM];			//crossとｔの内積
 
+	D3DXVECTOR3 nor = { 0,1,0 };   //面の法線ベクトル
 
-	D3DXMATRIX vertexMatrixWorld;    //頂点の行列
+	//頂点座標を取得するための行列
+	D3DXMATRIX vertexMatrixWorld;
 	D3DXMATRIX mtxRot;
 	D3DXMATRIX mtxTrs;
 
+	//頂点座標を指すベクトルを計算する
 	{
 		//行列を初期化
 		D3DXMatrixIdentity(&vertexMatrixWorld);
@@ -109,70 +112,61 @@ Hit BoxCollider2::Collider(Collider3D c1, Collider3D c2) {
 	}
 
 
-
 	//----------------------当たり判定----------------------------//
-	for (int i = 0; i < VERTEX_NUM; i++) {
-		//外積の結果が0以上だったら面の内側にいる
-		if (cross[i].y  >=0) {
-			isInside = true;
-		} else {
-			isInside = false;
-			break;
-		}
-	}
-	if (isInside == true) {
+	{
 		for (int i = 0; i < VERTEX_NUM; i++) {
-			//内積の結果が1つでも0以下だったら面の下にいる
-			if (dot[i] <= 0.05f) {
-				isOn = true;
-				break;
+			//外積の結果が0以上だったら面の内側にいる
+			if (cross[i].y >= 0) {
+				isInside = true;
 			} else {
-				isOn = false;
+				isInside = false;
+				break;
 			}
 		}
+		if (isInside == true) {
+			for (int i = 0; i < VERTEX_NUM; i++) {
+				//内積の結果が1つでも0以下だったら面の下にいる
+				if (dot[i] <= 0.05f) {
+					isOn = true;
+					break;
+				} else {
+					isOn = false;
+				}
+			}
+		}
+		//内積と外積の2つの結果がtrueだったら当たっている
+		if (isInside == true && isOn == true) {
+			hit.isHit = true;
+		} else {
+			hit.isHit = false;
+		}
 	}
-	//内積と外積の2つの結果がtrueだったら当たっている
-	if (isInside == true && isOn == true) {
-		hit.isHit = true;
-	} else {
-		hit.isHit = false;
-	}
-	//-----------------------------------------------------------
 
 
 	//埋まっていた場合に押し戻す
-	while (hit.isHit == true) {
-		bool isBreak = false;
+	{
+		//法線ベクトルを求める
+		if (hit.isHit == true) {
+			//行列を初期化
+			D3DXMatrixIdentity(&vertexMatrixWorld);
+
+			//回転行列を作成
+			D3DXMatrixRotationYawPitchRoll(&mtxRot, c2.rotation.y, c2.rotation.x, c2.rotation.z);
+			D3DXMatrixMultiply(&vertexMatrixWorld, &vertexMatrixWorld, &mtxRot);
+
+			nor= D3DXVECTOR3(vertexMatrixWorld._21, vertexMatrixWorld._22, vertexMatrixWorld._23);
+		}
+
+		//内積の結果が1つでも0.04以下があれば上に押し出す
+		bool isPush = false;
 		for (int i = 0; i < VERTEX_NUM; i++) {
-			if (dot[i] >= 0.01f) {
-				isBreak = true;
-				break;
+			if (dot[i] <= 0.04f) {
+				hit.addPosition = nor/200;
+			} else {
+				hit.addPosition = nor - nor;;
 			}
 		}
-		if (isBreak == true) {
-			break;
-		}
-
-		//上に押し出す
-		c1.position.y += 0.005f;
-
-		//面の頂点と点(プレイヤー)のベクトルを求める
-		sD[0] = Vec3Normalize(c1.position - v[0]);
-		sD[1] = Vec3Normalize(c1.position - v[1]);
-		sD[2] = Vec3Normalize(c1.position - v[2]);
-		sD[3] = Vec3Normalize(c1.position - v[3]);
-		//内積と外積を計算する
-		for (int i = 0; i < VERTEX_NUM; i++) {
-			cross[i] = { vD[i].y * sD[i].z - vD[i].z * sD[i].y, //X
-						 vD[i].z * sD[i].x - vD[i].x * sD[i].z, //Y
-						 vD[i].x * sD[i].y - vD[i].y * sD[i].x  //Z
-			};
-			dot[i] = D3DXVec3Dot(&cross[i], &t[i]);
-		}
 	}
-
-	//押し出し用
-	hit.posY = c1.position.y;
 	
 	return hit;
 }

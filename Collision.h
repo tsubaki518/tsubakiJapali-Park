@@ -5,7 +5,7 @@
 
 struct Hit {
 	bool isHit = false;
-	float posY;
+	D3DXVECTOR3 addPosition;
 };
 
 class Collider3D {
