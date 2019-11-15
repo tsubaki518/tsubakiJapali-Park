@@ -19,7 +19,7 @@ bool BoxCollider::Collider(Collider3D c1, Collider3D c2) {
 }
 
 
-Hit BoxCollider2::Collider(Collider3D c1, Collider3D c2) {
+Hit BoxCollider2::Collider(Collider3D point, Collider3D plane) {
 	Hit hit;						//hit判定と押し出す座標
 	bool isOn = false;				//面の上にいるか
 	bool isInside = false;			//面の内側にいるか
@@ -47,29 +47,29 @@ Hit BoxCollider2::Collider(Collider3D c1, Collider3D c2) {
 
 		//頂点へのベクトル
 		{
-			v[0].x = -c2.size.x / 2;
-			v[0].y = c2.size.y / 2+c1.size.y/2;
-			v[0].z = c2.size.z / 2;
+			v[0].x = -plane.size.x / 2;
+			v[0].y = plane.size.y / 2+ point.size.y/2;
+			v[0].z = plane.size.z / 2;
 
-			v[1].x = c2.size.x / 2;
-			v[1].y = c2.size.y / 2 + c1.size.y / 2;
-			v[1].z = c2.size.z / 2;
+			v[1].x = plane.size.x / 2;
+			v[1].y = plane.size.y / 2 + point.size.y / 2;
+			v[1].z = plane.size.z / 2;
 
-			v[2].x = c2.size.x / 2;
-			v[2].y = c2.size.y / 2 + c1.size.y / 2;
-			v[2].z = -c2.size.z / 2;
+			v[2].x = plane.size.x / 2;
+			v[2].y = plane.size.y / 2 + point.size.y / 2;
+			v[2].z = -plane.size.z / 2;
 
-			v[3].x = -c2.size.x / 2;
-			v[3].y = c2.size.y / 2 + c1.size.y / 2;
-			v[3].z = -c2.size.z / 2;
+			v[3].x = -plane.size.x / 2;
+			v[3].y = plane.size.y / 2 + point.size.y / 2;
+			v[3].z = -plane.size.z / 2;
 		}
 
 		//回転行列を作成
-		D3DXMatrixRotationYawPitchRoll(&mtxRot, c2.rotation.y, c2.rotation.x, c2.rotation.z);
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, plane.rotation.y, plane.rotation.x, plane.rotation.z);
 		D3DXMatrixMultiply(&vertexMatrixWorld, &vertexMatrixWorld, &mtxRot);
 
 		//平行行列
-		D3DXMatrixTranslation(&mtxTrs, c2.position.x, c2.position.y, c2.position.z);
+		D3DXMatrixTranslation(&mtxTrs, plane.position.x, plane.position.y, plane.position.z);
 		D3DXMatrixMultiply(&vertexMatrixWorld, &vertexMatrixWorld, &mtxTrs);
 
 		for (int i = 0; i < VERTEX_NUM; i++) {
@@ -87,15 +87,15 @@ Hit BoxCollider2::Collider(Collider3D c1, Collider3D c2) {
 		vD[3] = Vec3Normalize(v[0] - v[3]);
 
 		//面の頂点と点(プレイヤー)のベクトルを求める
-		sD[0] = Vec3Normalize(c1.position - v[0]);
-		sD[1] = Vec3Normalize(c1.position - v[1]);
-		sD[2] = Vec3Normalize(c1.position - v[2]);
-		sD[3] = Vec3Normalize(c1.position - v[3]);
+		sD[0] = Vec3Normalize(point.position - v[0]);
+		sD[1] = Vec3Normalize(point.position - v[1]);
+		sD[2] = Vec3Normalize(point.position - v[2]);
+		sD[3] = Vec3Normalize(point.position - v[3]);
 
 		//面の中心と面の頂点のベクトルを求める
 		for (int i = 0; i < VERTEX_NUM; i++) {
 			//頂点座標-面の中心
-			t[i] =  v[i] - (c2.position+D3DXVECTOR3(0,c2.size.y/2+ c1.size.y / 2, 0));
+			t[i] =  v[i] - (plane.position+D3DXVECTOR3(0, plane.size.y/2+ point.size.y / 2, 0));
 		}
 
 
@@ -151,17 +151,16 @@ Hit BoxCollider2::Collider(Collider3D c1, Collider3D c2) {
 			D3DXMatrixIdentity(&vertexMatrixWorld);
 
 			//回転行列を作成
-			D3DXMatrixRotationYawPitchRoll(&mtxRot, c2.rotation.y, c2.rotation.x, c2.rotation.z);
+			D3DXMatrixRotationYawPitchRoll(&mtxRot, plane.rotation.y, plane.rotation.x, plane.rotation.z);
 			D3DXMatrixMultiply(&vertexMatrixWorld, &vertexMatrixWorld, &mtxRot);
 
 			nor= D3DXVECTOR3(vertexMatrixWorld._21, vertexMatrixWorld._22, vertexMatrixWorld._23);
 		}
 
 		//内積の結果が1つでも0.04以下があれば上に押し出す
-		bool isPush = false;
 		for (int i = 0; i < VERTEX_NUM; i++) {
 			if (dot[i] <= 0.04f) {
-				hit.addPosition = nor/200;
+				hit.addPosition = nor*0.02f;
 			} else {
 				hit.addPosition = nor - nor;;
 			}
