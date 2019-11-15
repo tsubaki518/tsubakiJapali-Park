@@ -1,5 +1,6 @@
 #include"character.h"
 
+
 void Character::Draw() {
 
 }
@@ -7,6 +8,7 @@ void Character::Draw() {
 
 //ifでweightに値の範囲を指定してreturnさせるキャラを決める
 Character SetCharacter(float weight) {
+
 	Character character;
 	Elephant elephant;			//80kg以上
 	Bear bear;					//70～79kg
@@ -14,11 +16,7 @@ Character SetCharacter(float weight) {
 	Rabbit rabbit;				//50～59kg
 	Hamster hamster;			//49kg以下
 	
-
-	//--------------------------------
-	//    ここでキャラを決定する
-	//-------------------------------
-
+	//キャラの選定
 	if (weight >= 80)
 	{
 		return elephant;
@@ -40,9 +38,7 @@ Character SetCharacter(float weight) {
 		return hamster;
 	}
 
-	//---------------------------------
-
-
 	//条件に当てはまらない場合characterをreturnさせる
 	return character;
+
 }
