@@ -16,6 +16,8 @@ Character SetCharacter(float weight) {
 	Rabbit rabbit;				//50～59kg
 	Hamster hamster;			//49kg以下
 	
+
+
 	//キャラの選定
 	if (weight >= 80)
 	{
@@ -41,4 +43,30 @@ Character SetCharacter(float weight) {
 	//条件に当てはまらない場合characterをreturnさせる
 	return character;
 
+}
+
+
+//最高速維持でｼﾁｮｳﾘﾂ（スコア）を加点
+float Character::GetMaxSpeed() {
+	return maxSpeed;
+}
+
+float Elephant::GetMaxSpeed() {
+	return maxSpeed;
+}
+
+float Bear::GetMaxSpeed() {
+	return maxSpeed;
+}
+
+float Dog::GetMaxSpeed() {
+	return maxSpeed;
+}
+
+float Rabbit::GetMaxSpeed() {
+	return maxSpeed;
+}
+
+float Hamster::GetMaxSpeed() {
+	return maxSpeed;
 }

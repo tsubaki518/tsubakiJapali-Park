@@ -11,13 +11,15 @@
 //クラス定義
 class Character {
 protected:
-	float maxSpeed = 0.0f;			//最大速度
+	float maxSpeed = 0.0f;		//最大速度
 	float moveAccel = 0.0f;		//加速性能
-	float handling = 0.0f;			//ハンドリング性能
-	float defense = 0.0f;			//弾き耐性
+	float handling = 0.0f;		//ハンドリング性能
+	float defense = 0.0f;		//弾き耐性
 	int	spinNum = 0.0f;			//スピン持続
+
 public:
 	Character(){}
+	virtual float GetMaxSpeed();	//最高速維持_スコア加点
 	virtual void Draw();
 
 	Character operator=(Character c) {
@@ -42,6 +44,7 @@ public:
 	  //spinNum= NORMAL_SPIN_NUM;
 	}
 	void Draw(){}
+	float GetMaxSpeed();
 };
 
 class Bear :public Character {
@@ -54,6 +57,7 @@ public:
 	  //spinNum= NORMAL_SPIN_NUM;
 	}
 	void Draw(){}
+	float GetMaxSpeed();
 };
 
 class Dog :public Character {
@@ -66,6 +70,7 @@ public:
 	  //spinNum= NORMAL_SPIN_NUM;
 	}
 	void Draw(){}
+	float GetMaxSpeed();
 };
 
 class Rabbit :public Character {
@@ -78,6 +83,7 @@ public:
 	  //spinNum= NORMAL_SPIN_NUM;
 	}
 	void Draw(){}
+	float GetMaxSpeed();
 };
 
 class Hamster :public Character {
@@ -90,6 +96,7 @@ public:
 	  //spinNum= NORMAL_SPIN_NUM;
 	}
 	void Draw(){}
+	float GetMaxSpeed();
 };
 
 
