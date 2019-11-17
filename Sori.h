@@ -4,10 +4,14 @@
 
 class Sori {
 private:
-	bool isGround = false;
+	void Move();
+	void Friction();
+	void SlideDown();
 public:
 	Cube cube;	//モデルが無いため仮でCube
 
+	bool canMoveRight = true;
+	bool canMoveLeft = true;
 	float speed;
 	float maxSpeed;
 	Character character[2];
@@ -15,9 +19,9 @@ public:
 	Sori();
 	void Update();
 	void Draw();
-	bool Collision(Collider3D c);
+	bool CollisionWall(Collider3D c);
 	~Sori();
 
-	//斜め判定のデバッグ用	
-	bool Collision2(Collider3D c);
+	//斜め判定
+	bool Collision(Collider3D c);
 };

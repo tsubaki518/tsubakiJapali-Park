@@ -30,20 +30,11 @@ void GameInit() {
 void GameUpdate() {
 
 	sori.Update();
-	
-}
-
-void GameDraw() {
-	//カメラ追従
-	camera.SetCamera(sori);
-
-
-	StageDraw();
 
 	bool isGround = false;
-	//ソリとCubeの当たり判定
+	//ソリとCube(床)の当たり判定
 	for (int i = 0; i < GetCubeNum(); i++) {
-		if (sori.Collision2(GetCube(i).collider)) {
+		if (sori.Collision(GetCube(i).collider)) {
 			isGround = true;
 			break;
 		} else {
@@ -54,8 +45,39 @@ void GameDraw() {
 		sori.cube.position.y -= 0.1f;
 	}
 
+	//ソリと右の壁の当たり判定
+	for (int i = 0; i < GetRightWallNum(); i++) {
+		if (sori.CollisionWall(GetRightWall(i).collider)) {
+			sori.canMoveRight = false;
+			break;
+		} else {
+			sori.canMoveRight = true;
+		}
+	}
+
+	//ソリと左の壁の当たり判定
+	for (int i = 0; i < GetLeftWallNum(); i++) {
+		if (sori.CollisionWall(GetLeftWall(i).collider)) {
+			sori.canMoveLeft = false;
+			break;
+		} else {
+			sori.canMoveLeft = true;
+		}
+	}
+	
+}
+
+void GameDraw() {
+	//カメラ追従
+	camera.SetCamera(sori);
+
+	//ステージの描画
+	StageDraw();
+
 	//そりの描画
 	sori.Draw();
+
+
 
 }
 
