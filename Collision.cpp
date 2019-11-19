@@ -26,6 +26,7 @@ Hit BoxCollider2::Collider(Collider3D point, Collider3D plane) {
 
 	const int VERTEX_NUM = 4;		//面の頂点数
 	D3DXVECTOR3 v[VERTEX_NUM];		//面の頂点
+	D3DXVECTOR3 planeCenter;        //面の中心
 	D3DXVECTOR3 vD[VERTEX_NUM];		//面の辺のベクトル
 	D3DXVECTOR3 sD[VERTEX_NUM];		//面の頂点と点(プレイヤー)のベクトル
 	D3DXVECTOR3 t[VERTEX_NUM];		//面の中心と面の頂点のベクトル
@@ -48,7 +49,7 @@ Hit BoxCollider2::Collider(Collider3D point, Collider3D plane) {
 		//頂点へのベクトル
 		{
 			v[0].x = -plane.size.x / 2;
-			v[0].y = plane.size.y / 2+ point.size.y/2;
+			v[0].y = plane.size.y / 2 + point.size.y / 2;
 			v[0].z = plane.size.z / 2;
 
 			v[1].x = plane.size.x / 2;
@@ -62,6 +63,8 @@ Hit BoxCollider2::Collider(Collider3D point, Collider3D plane) {
 			v[3].x = -plane.size.x / 2;
 			v[3].y = plane.size.y / 2 + point.size.y / 2;
 			v[3].z = -plane.size.z / 2;
+
+			planeCenter = D3DXVECTOR3(0, plane.size.y / 2 + point.size.y / 2, 0);
 		}
 
 		//回転行列を作成
@@ -75,6 +78,7 @@ Hit BoxCollider2::Collider(Collider3D point, Collider3D plane) {
 		for (int i = 0; i < VERTEX_NUM; i++) {
 			D3DXVec3TransformCoord(&v[i], &v[i], &vertexMatrixWorld);
 		}
+		D3DXVec3TransformCoord(&planeCenter, &planeCenter, &vertexMatrixWorld);
 	}
 
 	//当たり判定に必要な情報を計算する
@@ -95,7 +99,7 @@ Hit BoxCollider2::Collider(Collider3D point, Collider3D plane) {
 		//面の中心と面の頂点のベクトルを求める
 		for (int i = 0; i < VERTEX_NUM; i++) {
 			//頂点座標-面の中心
-			t[i] =  v[i] - (plane.position+D3DXVECTOR3(0, plane.size.y/2+ point.size.y / 2, 0));
+			t[i] = v[i] - planeCenter;
 		}
 
 
@@ -154,19 +158,19 @@ Hit BoxCollider2::Collider(Collider3D point, Collider3D plane) {
 			D3DXMatrixRotationYawPitchRoll(&mtxRot, plane.rotation.y, plane.rotation.x, plane.rotation.z);
 			D3DXMatrixMultiply(&vertexMatrixWorld, &vertexMatrixWorld, &mtxRot);
 
-			nor= D3DXVECTOR3(vertexMatrixWorld._21, vertexMatrixWorld._22, vertexMatrixWorld._23);
+			nor = D3DXVECTOR3(vertexMatrixWorld._21, vertexMatrixWorld._22, vertexMatrixWorld._23);
 		}
 
 		//内積の結果が1つでも0.04以下があれば上に押し出す
 		for (int i = 0; i < VERTEX_NUM; i++) {
 			if (dot[i] <= 0.04f) {
-				hit.addPosition = nor*0.02f;
+				hit.addPosition = nor * 0.02f;
 			} else {
 				hit.addPosition = nor - nor;;
 			}
 		}
 	}
-	
+
 	return hit;
 }
 
