@@ -7,10 +7,12 @@
 Sori::Sori() {
 	cube.position.y = 10;
 	cube.scale.z = 2;
-	maxSpeed = 1;
 }
 
 void Sori::Update() {
+	//Å‚‘¬‚Ìİ’è
+	maxSpeed = (character[0].maxSpeed + character[1].maxSpeed) / 2;
+
 	//ˆÚ“®ˆ—
 	Move();
 
@@ -84,21 +86,24 @@ void Sori::Move() {
 	if (Keyboard_IsPress(DIK_UP)) {
 		//speed‚ªmaxSpeed‚ğ’´‚¦‚È‚¢‚æ‚¤‚É‚·‚é
 		if (speed < maxSpeed) {
-			speed += 0.0005f;
+			//speed += 0.0005f;
+			speed += (character[0].moveAccel + character[1].moveAccel) / 2;
 		}
 	} else if (Keyboard_IsPress(DIK_DOWN)) {
 		//Œã‚ë‚ÉˆÚ“®‚Å‚«‚È‚¢‚æ‚¤‚É‚·‚é
 		if (speed >= 0.001f) {
-			speed -= 0.0005f;
+			//speed -= 0.0005f;
+			speed -= (character[0].moveAccel + character[1].moveAccel) / 2;
 		}
 	}
 	if (Keyboard_IsPress(DIK_RIGHT) && canMoveRight==true) {
 		//‰E‚ÉˆÚ“®
-		cube.position += cube.GetRight() * MOVE_HORIZON_SPEED;  //GetRight()*ˆÚ“®—Ê
-
+		//cube.position += cube.GetRight() * MOVE_HORIZON_SPEED;  //GetRight()*ˆÚ“®—Ê
+		cube.position += cube.GetRight() * ((character[0].handling+ character[1].handling)/2);  //GetRight()*ˆÚ“®—Ê
+		
 	} else if (Keyboard_IsPress(DIK_LEFT) && canMoveLeft==true) {
 		//¶‚ÉˆÚ“®
-		cube.position -= cube.GetRight() * MOVE_HORIZON_SPEED;
+		cube.position -= cube.GetRight() * ((character[0].handling + character[1].handling) / 2);
 	}
 }
 void Sori::Friction() {

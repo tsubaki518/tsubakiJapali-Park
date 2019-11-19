@@ -23,7 +23,9 @@ Sori sori;
 
 void GameInit() {
 
-	sori.cube.position.y = 11;
+	sori.cube.position.y = 1;
+	sori.character[0] = SetCharacter(60);
+	sori.character[1] = SetCharacter(60);
 	StageInit();
 
 }

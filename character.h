@@ -1,23 +1,22 @@
 #pragma once
 
 //各パラメータの基準値
-#define NORMAL_MAX_SPEED 1.0f
-#define NORMAL_MOVE_ACCEL 1.0f
-#define NORMAL_HANDLING 1.0f
+#define NORMAL_MAX_SPEED 0.5f
+#define NORMAL_MOVE_ACCEL 0.001f
+#define NORMAL_HANDLING 0.05f
 #define NORMAL_DEFENSE 1.0f
 #define NORMAL_SPIN_NUM 1.0f
 
 
 //クラス定義
 class Character {
-protected:
+public:
 	float maxSpeed = 0.0f;		//最大速度
 	float moveAccel = 0.0f;		//加速性能
 	float handling = 0.0f;		//ハンドリング性能
 	float defense = 0.0f;		//弾き耐性
-	int	spinNum = 0.0f;			//スピン持続
+	int	spinNum = 0;			//スピン持続
 
-public:
 	Character(){}
 	virtual float GetMaxSpeed();	//最高速維持_スコア加点
 	virtual void Draw();
