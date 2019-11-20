@@ -5,6 +5,7 @@
 #include "debug_Printf.h"
 #include "mydirect3d.h"
 #include "texture.h"
+#include "common.h"
 
 
 /*------------------------------------------------------------------------------
@@ -27,7 +28,7 @@ typedef struct TextureFile_tag
 // 読み込みテクスチャ情報
 static const TextureFile g_TextureFiles[] = {
 	{ "asset/texture/images.jpg", 225, 225 },
-{"asset/texture/title.jpg",474,266},
+{"asset/texture/title.jpg",SCREEN_WIDTH,SCREEN_HEIGHT},
 {"asset/texture/number.png",1536,150},
 };
 // 読み込みテクスチャ数
