@@ -14,6 +14,7 @@
 #include"debug_font.h"
 #include"Light.h"
 #include"Stage.h"
+#include"Rating.h"
 
 Camera camera;
 Sori sori;
@@ -27,10 +28,10 @@ void GameInit() {
 	sori.character[0] = SetCharacter(60);
 	sori.character[1] = SetCharacter(60);
 	StageInit();
-
+	RatingInit();
 }
 void GameUpdate() {
-
+	RatingUpdate(sori);
 	sori.Update();
 
 	bool isGround = false;
@@ -70,6 +71,7 @@ void GameUpdate() {
 }
 
 void GameDraw() {
+	RatingDraw();
 	//ÉJÉÅÉâí«è]
 	camera.SetCamera(sori);
 
