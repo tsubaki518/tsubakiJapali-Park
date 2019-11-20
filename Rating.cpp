@@ -24,7 +24,7 @@ void RatingUpdate(Sori sori) {
 	//秒間スタート
 	if (start == NULL) {
 		start = clock();
-		timer = 1 * CLOCKS_PER_SEC + clock();
+		timer = 1 * (double)CLOCKS_PER_SEC + clock();
 	}
 	
 	//スピン判定挿入
@@ -97,13 +97,13 @@ void RatingUpdate(Sori sori) {
 	rating += 3.0f;
 	cnt = 0;
 	}
-
-
 	*/
-	//最大最小
+
+	//最大
 	if (rating >= 200) {
 		rating = 200;
 	}
+	//最小
 	if (rating < 5) {
 		rating = 5.0f;
 	}
