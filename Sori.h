@@ -4,15 +4,20 @@
 
 class Sori {
 private:
+	bool isBoundRight = false;
+	bool isBoundLeft = false;
+	int boundCount = 0;
+
 	void Move();
 	void Friction();
 	void SlideDown();
+	void Bound();
 public:
 	Cube cube;	//ƒ‚ƒfƒ‹‚ª–³‚¢‚½‚ß‰¼‚ÅCube
 
 	bool isSpin = false;
-	bool isHitRightWall = true;
-	bool isHitLeftWall = true;
+	bool isHitRightWall = false;
+	bool isHitLeftWall = false;
 	float speed;
 	float maxSpeed=1;
 	Character character[2];

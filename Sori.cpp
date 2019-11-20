@@ -22,6 +22,9 @@ void Sori::Update() {
 	//斜面に乗っていたら滑る
 	SlideDown();
 
+	//壁に当たったら跳ね返る
+	Bound();
+
 	//---------------デバッグ用の移動(移動量が一定)--------------//
 	{
 		if (Keyboard_IsPress(DIK_W)) {
@@ -44,7 +47,6 @@ void Sori::Update() {
 		}
 	}
 }
-
 void Sori::Draw() {
 	cube.Draw(TEXTURE_INDEX_MAX,character[0].color);
 }
@@ -80,6 +82,9 @@ Sori::~Sori() {
 
 
 void Sori::Move() {
+	bool isMoveRight = Keyboard_IsPress(DIK_RIGHT) && isHitRightWall == false && isBoundRight == false && isBoundLeft == false;
+	bool isMoveLeft = Keyboard_IsPress(DIK_LEFT) && isHitLeftWall == false && isBoundRight == false && isBoundLeft == false;
+
 	//正面に移動
 	cube.position += cube.GetForward() * speed;
 
@@ -96,12 +101,12 @@ void Sori::Move() {
 			speed -= (character[0].moveAccel + character[1].moveAccel) / 2;
 		}
 	}
-	if (Keyboard_IsPress(DIK_RIGHT) && isHitRightWall ==false) {
+	if (isMoveRight) {
 		//右に移動
 		//cube.position += cube.GetRight() * MOVE_HORIZON_SPEED;  //GetRight()*移動量
 		cube.position += cube.GetRight() * ((character[0].handling+ character[1].handling)/2);  //GetRight()*移動量
 		
-	} else if (Keyboard_IsPress(DIK_LEFT) && isHitLeftWall ==false) {
+	} else if (isMoveLeft) {
 		//左に移動
 		cube.position -= cube.GetRight() * ((character[0].handling + character[1].handling) / 2);
 	}
@@ -120,5 +125,30 @@ void Sori::SlideDown() {
 	}
 	if (-cube.GetRight().y < 0) {
 		cube.position -= cube.GetRight()*cube.GetRight().y*0.03f;
+	}
+}
+void Sori::Bound() {
+	//壁に当たった判定
+	if (isHitLeftWall == true) {
+		boundCount = 0;
+		isBoundRight = true;
+	}
+	if (isHitRightWall == true) {
+		boundCount = 0;
+		isBoundLeft = true;
+	}
+	
+	
+	if (isBoundRight == true && boundCount <= 100) {
+		cube.position += cube.GetRight() * ((character[0].handling + character[1].handling));  //GetRight()*移動量
+		boundCount++;
+	} else {
+		isBoundRight = false;
+	}
+	if (isBoundLeft == true && boundCount <= 100) {
+		cube.position -= cube.GetRight() * ((character[0].handling + character[1].handling) );  //GetRight()*移動量
+		boundCount++;
+	} else {
+		isBoundLeft = false;
 	}
 }
