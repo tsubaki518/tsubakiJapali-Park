@@ -24,7 +24,7 @@ void RatingUpdate(Sori sori) {
 	//秒間スタート
 	if (start == NULL) {
 		start = clock();
-		timer = 1 * (double)CLOCKS_PER_SEC + clock();
+		timer = 1 * CLOCKS_PER_SEC + clock();
 	}
 	
 	//スピン判定挿入
