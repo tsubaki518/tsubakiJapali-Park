@@ -34,13 +34,7 @@ void RatingUpdate(Sori sori) {
 		hitcrimp = true;
 	}
 
-	//最大最小
-	if (rating >= 200) {
-		rating = 200;
-	}
-	if (rating < 5) {
-		rating = 5.0f;
-	}
+	
 	
 	//1秒間判定(ホールド)
 	end = clock();
@@ -96,6 +90,13 @@ void RatingUpdate(Sori sori) {
 
 
 	*/
+	//最大最小
+	if (rating >= 200) {
+		rating = 200;
+	}
+	if (rating < 5) {
+		rating = 5.0f;
+	}
 }
 
 //引数で指定した座標に視聴率を表示する
