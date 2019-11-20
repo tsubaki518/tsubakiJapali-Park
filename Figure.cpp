@@ -31,8 +31,6 @@ void Cube::Draw(TextureIndex textureIndex, D3DXCOLOR color) {
 	//3Dポリゴン用頂点の準備
 	LPDIRECT3DDEVICE9 pDevice = MyDirect3D_GetDevice();
 	if (isOnece == false) {
-
-
 		//オブジェクトの頂点バッファを生成
 		pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * 36,
 			D3DUSAGE_WRITEONLY,
@@ -40,6 +38,7 @@ void Cube::Draw(TextureIndex textureIndex, D3DXCOLOR color) {
 			D3DPOOL_MANAGED,
 			&g_pD3DVtxBuff,
 			NULL);
+		isOnece = true;
 
 		//頂点バッファの中身を埋める
 		VERTEX_3D *pVtx;
@@ -128,12 +127,7 @@ void Cube::Draw(TextureIndex textureIndex, D3DXCOLOR color) {
 					pVtx[i + 30].nor = D3DXVECTOR3(0.0f, -1.0f, 0.0f);
 				}
 			}
-			//反射光の設定
-			{
-				for (int i = 0; i < 36; i++) {
-					pVtx[i].diffuse = color;
-				}
-			}
+	
 			////テクスチャの設定
 			{
 				pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
@@ -193,8 +187,19 @@ void Cube::Draw(TextureIndex textureIndex, D3DXCOLOR color) {
 		}
 
 		g_pD3DVtxBuff->Unlock();
-		isOnece = true;
 	}
+	//頂点バッファの中身を埋める
+	VERTEX_3D *pVtx;
+
+	//頂点バッファの範囲をロックし、頂点バッファへのポインタを取得
+	g_pD3DVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+	//反射光の設定
+	
+	for (int i = 0; i < 36; i++) {
+		pVtx[i].diffuse = color;
+	}
+
+	g_pD3DVtxBuff->Unlock();
 
 	//ポリゴンのワールド行列の作成
 	D3DXMATRIX mtxScl;

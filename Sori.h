@@ -13,7 +13,7 @@ public:
 	bool canMoveRight = true;
 	bool canMoveLeft = true;
 	float speed;
-	float maxSpeed;
+	float maxSpeed=1;
 	Character character[2];
 
 	Sori();

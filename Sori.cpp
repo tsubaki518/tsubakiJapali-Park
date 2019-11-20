@@ -46,7 +46,7 @@ void Sori::Update() {
 }
 
 void Sori::Draw() {
-	cube.Draw(TEXTURE_INDEX_CEMENT);
+	cube.Draw(TEXTURE_INDEX_MAX,character[0].color);
 }
 
 bool Sori::CollisionWall(Collider3D c) {

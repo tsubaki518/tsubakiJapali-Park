@@ -32,6 +32,7 @@ public:
 		handling = c.handling;
 		defense = c.defense;
 		spinNum = c.spinNum;
+		color = c.color;
 		return *this;
 	}
 };
