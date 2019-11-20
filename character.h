@@ -1,4 +1,8 @@
 #pragma once
+#include <Windows.h>
+#include "mydirect3d.h"
+#include <d3dx9.h>
+
 
 //各パラメータの基準値
 #define NORMAL_MAX_SPEED 0.5f
@@ -16,6 +20,7 @@ public:
 	float handling = 0.0f;		//ハンドリング性能
 	float defense = 0.0f;		//弾き耐性
 	int	spinNum = 0;			//スピン持続
+	D3DXCOLOR color;			//キャラクターカラー
 
 	Character(){}
 	virtual float GetMaxSpeed();	//最高速維持_スコア加点
@@ -41,6 +46,7 @@ public:
 		handling = NORMAL_HANDLING * 0.90f;
 		defense = NORMAL_DEFENSE * 1.10f;
 	  //spinNum= NORMAL_SPIN_NUM;
+		color = { 71,163,255,255 };		//水商売色
 	}
 	void Draw(){}
 	float GetMaxSpeed();
@@ -54,6 +60,7 @@ public:
 		handling = NORMAL_HANDLING * 0.92f;
 		defense = NORMAL_DEFENSE * 1.06f;
 	  //spinNum= NORMAL_SPIN_NUM;
+		color = { 255,182,0,255 };		//運古色
 	}
 	void Draw(){}
 	float GetMaxSpeed();
@@ -67,6 +74,7 @@ public:
 		handling = NORMAL_HANDLING * 0.94f;
 		defense = NORMAL_DEFENSE * 1.00f;
 	  //spinNum= NORMAL_SPIN_NUM;
+		color = { 255,255,255,255 };	//純白色
 	}
 	void Draw(){}
 	float GetMaxSpeed();
@@ -80,6 +88,7 @@ public:
 		handling = NORMAL_HANDLING * 0.96f;
 		defense = NORMAL_DEFENSE * 0.90f;
 	  //spinNum= NORMAL_SPIN_NUM;
+		color = { 247,140,124,255 };	//驚愕の赤色
 	}
 	void Draw(){}
 	float GetMaxSpeed();
@@ -93,6 +102,8 @@ public:
 		handling = NORMAL_HANDLING * 1.00f;
 		defense = NORMAL_DEFENSE * 0.74f;
 	  //spinNum= NORMAL_SPIN_NUM;
+	  //※未設定
+		color = { 0,0,0,255 };			//
 	}
 	void Draw(){}
 	float GetMaxSpeed();
