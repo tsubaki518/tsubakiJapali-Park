@@ -10,8 +10,9 @@ private:
 public:
 	Cube cube;	//ƒ‚ƒfƒ‹‚ª–³‚¢‚½‚ß‰¼‚ÅCube
 
-	bool canMoveRight = true;
-	bool canMoveLeft = true;
+	bool isSpin = false;
+	bool isHitRightWall = true;
+	bool isHitLeftWall = true;
 	float speed;
 	float maxSpeed=1;
 	Character character[2];

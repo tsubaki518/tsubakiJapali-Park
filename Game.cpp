@@ -50,20 +50,20 @@ void GameUpdate() {
 	//ƒ\ƒŠ‚Æ‰E‚Ì•Ç‚Ì“–‚½‚è”»’è
 	for (int i = 0; i < GetRightWallNum(); i++) {
 		if (sori.CollisionWall(GetRightWall(i).collider)) {
-			sori.canMoveRight = false;
+			sori.isHitRightWall = true;
 			break;
 		} else {
-			sori.canMoveRight = true;
+			sori.isHitRightWall = false;
 		}
 	}
 
 	//ƒ\ƒŠ‚Æ¶‚Ì•Ç‚Ì“–‚½‚è”»’è
 	for (int i = 0; i < GetLeftWallNum(); i++) {
 		if (sori.CollisionWall(GetLeftWall(i).collider)) {
-			sori.canMoveLeft = false;
+			sori.isHitLeftWall = true;
 			break;
 		} else {
-			sori.canMoveLeft = true;
+			sori.isHitLeftWall = false;
 		}
 	}
 	

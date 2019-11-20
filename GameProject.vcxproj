@@ -167,14 +167,18 @@
     <ClCompile Include="Figure.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mydirect3d.cpp" />
+    <ClCompile Include="Rating.cpp" />
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="Sori.cpp" />
     <ClCompile Include="sprite.cpp" />
+    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="title.cpp" />
+    <ClCompile Include="XInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -186,14 +190,18 @@
     <ClInclude Include="Figure.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="mydirect3d.h" />
+    <ClInclude Include="Rating.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="Sori.h" />
     <ClInclude Include="sprite.h" />
+    <ClInclude Include="Stage.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="title.h" />
+    <ClInclude Include="XInput.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
