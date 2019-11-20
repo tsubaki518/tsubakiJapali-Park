@@ -5,7 +5,7 @@
 float rating;
 
 //•bŠÔˆ—
-clock_t start,timer, end;
+static clock_t start,timer, end;
 
 bool sorispin = false;//ƒXƒsƒ“”»’è
 bool hitcrimp = false;//áŠQ•¨“–‚½‚é

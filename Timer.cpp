@@ -3,7 +3,8 @@
 #include<time.h>
 #include"debug_font.h"
 double jikan;
-clock_t start, end;
+clock_t microSec;
+static clock_t start, end;
 
 void TimerInit() {
 	 start = clock();
@@ -28,5 +29,5 @@ void TimerUpdate() {
 
 //ˆø”‚Åw’è‚µ‚½À•W‚ÉŠÔ‚ğ•\¦‚·‚é
 void TimerDraw(float x, float y) {
-	DebugFont_Draw(x,y,"%d",(int)jikan);
+	DebugFont_Draw(x,y,"%lf",(float)jikan);
 }

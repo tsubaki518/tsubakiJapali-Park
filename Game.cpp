@@ -15,7 +15,7 @@
 #include"Light.h"
 #include"Stage.h"
 #include"Rating.h"
-
+#include"Timer.h"
 Camera camera;
 Sori sori;
 
@@ -29,16 +29,18 @@ void GameInit() {
 	sori.character[1] = SetCharacter(60);
 	StageInit();
 	RatingInit();
+	TimerInit();
 }
 void GameUpdate() {
 	RatingUpdate(sori);
 	sori.Update();
+	TimerUpdate();
 
 	bool isGround = false;
 	//ソリとCube(床)の当たり判定
 	for (int i = 0; i < GetCubeNum(); i++) {
 		if (sori.Collision(GetCube(i).collider)) {
-			isGround = true;
+ 			isGround = true;
 			break;
 		} else {
 			isGround = false;
@@ -74,17 +76,18 @@ void GameDraw() {
 	RatingDraw();
 	//カメラ追従
 	camera.SetCamera(sori);
-
+	TimerDraw(1,1);
 	//ステージの描画
 	StageDraw();
 
 	//そりの描画
 	sori.Draw();
 
+	
 
 
 }
 
 void GameUnInit() {
-
+	
 }
