@@ -47,7 +47,7 @@ public:
 		handling = NORMAL_HANDLING * 0.90f;
 		defense = NORMAL_DEFENSE * 1.10f;
 	  //spinNum= NORMAL_SPIN_NUM;
-		color = { 71,163,255,255 };		//水商売色
+		color = { 0.3f,0.6f,1,1 };			//水商売色
 	}
 	void Draw(){}
 	float GetMaxSpeed();
@@ -61,7 +61,7 @@ public:
 		handling = NORMAL_HANDLING * 0.92f;
 		defense = NORMAL_DEFENSE * 1.06f;
 	  //spinNum= NORMAL_SPIN_NUM;
-		color = { 255,182,0,255 };		//運古色
+		color = { 1,0.7f,0,1 };				//運古色
 	}
 	void Draw(){}
 	float GetMaxSpeed();
@@ -75,7 +75,7 @@ public:
 		handling = NORMAL_HANDLING * 0.94f;
 		defense = NORMAL_DEFENSE * 1.00f;
 	  //spinNum= NORMAL_SPIN_NUM;
-		color = { 255,255,255,255 };	//純白色
+		color = { 1,0.2f,0.3f,1 };			//驚愕の赤色
 	}
 	void Draw(){}
 	float GetMaxSpeed();
@@ -89,7 +89,7 @@ public:
 		handling = NORMAL_HANDLING * 0.96f;
 		defense = NORMAL_DEFENSE * 0.90f;
 	  //spinNum= NORMAL_SPIN_NUM;
-		color = { 247,140,124,255 };	//驚愕の赤色
+		color = { 1,1,1,1 };				//純白の白色
 	}
 	void Draw(){}
 	float GetMaxSpeed();
@@ -103,8 +103,7 @@ public:
 		handling = NORMAL_HANDLING * 1.00f;
 		defense = NORMAL_DEFENSE * 0.74f;
 	  //spinNum= NORMAL_SPIN_NUM;
-	  //※未設定
-		color = { 0,0,0,255 };			//
+		color = { 0.5f,0.9f,0.9f,1 };		//あの大空な色
 	}
 	void Draw(){}
 	float GetMaxSpeed();
