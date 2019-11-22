@@ -21,7 +21,7 @@ public:
 	float defense = 0.0f;		//弾き耐性
 	int	spinNum = 0;			//スピン持続
 	D3DXCOLOR color;			//キャラクターカラー
-	XFile model;				//モデルデータ
+	XFile *model;				//モデルデータ
 
 	Character(){}
 	virtual void Init();
@@ -29,15 +29,7 @@ public:
 	virtual void Draw();
 	virtual void UnInit();
 
-	Character operator=(Character c) {
-		maxSpeed = c.maxSpeed;
-		moveAccel = c.moveAccel;
-		handling = c.handling;
-		defense = c.defense;
-		spinNum = c.spinNum;
-		color = c.color;
-		return *this;
-	}
+
 };
 
 
@@ -123,5 +115,3 @@ public:
 };
 
 
-//引数に体重を入れてキャラクターを返す関数
-Character SetCharacter(float weight);

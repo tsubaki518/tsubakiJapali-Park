@@ -20,7 +20,7 @@ public:
 	bool isHitLeftWall = false;
 	float speed;
 	float maxSpeed=1;
-	Character character[2];
+	Character *character[2];
 	Collider3D collisoin;
 
 	Sori();
@@ -33,4 +33,8 @@ public:
 	//斜め判定
 	bool CollisionWall(Collider3D c);
 	bool Collision(Collider3D c);
+
+
+	//引数に体重を入れてキャラクターをセットする
+	void SetCharacter(float weight1, float weight2);
 };

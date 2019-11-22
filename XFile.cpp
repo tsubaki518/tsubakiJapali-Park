@@ -77,7 +77,7 @@ void XFile::RenderParactice()
 	D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxScl);
 
 	//回転行列を作成＆ワールド行列へ合成
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y+3.1415f, rotation.x, rotation.z);
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y+3.1415f, rotation.x-0.1f, rotation.z);
 	D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxRot);
 
 	//平行行列

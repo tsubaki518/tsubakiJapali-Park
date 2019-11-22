@@ -18,16 +18,20 @@
 #include"Timer.h"
 #include"XFile.h"
 
+Light *light;
+
 Camera camera;
 Sori sori;
 
 
 
 void GameInit() {
+	light = new Light();
+	light->Init(D3DLIGHT_DIRECTIONAL);
+	light->Use(true);
 
 	sori.bobsled.position.y = 1;
-	sori.character[0] = SetCharacter(70);
-	sori.character[1] = SetCharacter(70);
+	sori.SetCharacter(72, 75);
 	StageInit();
 	RatingInit();
 	TimerInit();
@@ -91,4 +95,5 @@ void GameDraw() {
 
 void GameUnInit() {
 	sori.UnInit();
+	delete light;
 }

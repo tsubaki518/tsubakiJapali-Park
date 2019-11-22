@@ -45,7 +45,6 @@ static void Update(void);
 static void Draw(void);
 // ゲームの終了処理
 static void Finalize(void);
-Light light;
 
 /*------------------------------------------------------------------------------
    グローバル変数宣言
@@ -194,9 +193,7 @@ bool Initialize(void)
     if( Texture_Load() > 0 ) {
         MessageBox(g_hWnd, "いくつか読み込めなかったテクスチャファイルがあります", "エラー", MB_OK);
     }
-
-	light.Init(D3DLIGHT_DIRECTIONAL);
-	light.Use(true);
+	
 	DebugFont_Initialize();
 	SetScene(GAME);
 
