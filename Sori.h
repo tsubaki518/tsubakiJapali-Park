@@ -1,7 +1,7 @@
 #pragma once
 #include"character.h"
 #include"Figure.h"
-
+#include"XFile.h"
 class Sori {
 private:
 	bool isBoundRight = false;
@@ -13,7 +13,7 @@ private:
 	void SlideDown();
 	void Bound();
 public:
-	Cube cube;	//モデルが無いため仮でCube
+	XFile bobsled;	//モデルデータ
 
 	bool isSpin = false;
 	bool isHitRightWall = false;
@@ -21,13 +21,16 @@ public:
 	float speed;
 	float maxSpeed=1;
 	Character character[2];
+	Collider3D collisoin;
 
 	Sori();
+	void Init();
 	void Update();
 	void Draw();
-	bool CollisionWall(Collider3D c);
+	void UnInit();
 	~Sori();
 
 	//斜め判定
+	bool CollisionWall(Collider3D c);
 	bool Collision(Collider3D c);
 };

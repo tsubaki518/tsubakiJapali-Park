@@ -16,20 +16,22 @@
 #include"Stage.h"
 #include"Rating.h"
 #include"Timer.h"
+#include"XFile.h"
+
 Camera camera;
 Sori sori;
 
 
 
-
 void GameInit() {
 
-	sori.cube.position.y = 1;
+	sori.bobsled.position.y = 1;
 	sori.character[0] = SetCharacter(60);
 	sori.character[1] = SetCharacter(60);
 	StageInit();
 	RatingInit();
 	TimerInit();
+	sori.Init();
 }
 void GameUpdate() {
 	RatingUpdate(sori);
@@ -47,7 +49,7 @@ void GameUpdate() {
 		}
 	}
 	if (isGround == false) {
-		sori.cube.position.y -= 0.1f;
+		sori.bobsled.position.y -= 0.1f;
 	}
 
 	//ƒ\ƒŠ‚Æ‰E‚Ì•Ç‚Ì“–‚½‚è”»’è
@@ -83,11 +85,10 @@ void GameDraw() {
 	//‚»‚è‚Ì•`‰æ
 	sori.Draw();
 
-	
 
 
 }
 
 void GameUnInit() {
-	
+	sori.UnInit();
 }

@@ -17,7 +17,7 @@
 #include"Game.h"
 #include"Result.h"
 #include"debug_font.h"
-
+#include"Light.h"
 
 //ここまで3D用追加コード
 //===============================================
@@ -45,7 +45,7 @@ static void Update(void);
 static void Draw(void);
 // ゲームの終了処理
 static void Finalize(void);
-
+Light light;
 
 /*------------------------------------------------------------------------------
    グローバル変数宣言
@@ -195,6 +195,8 @@ bool Initialize(void)
         MessageBox(g_hWnd, "いくつか読み込めなかったテクスチャファイルがあります", "エラー", MB_OK);
     }
 
+	light.Init(D3DLIGHT_DIRECTIONAL);
+	light.Use(true);
 	DebugFont_Initialize();
 	SetScene(GAME);
 

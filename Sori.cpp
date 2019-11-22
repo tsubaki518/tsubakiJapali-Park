@@ -5,11 +5,21 @@
 #define MOVE_HORIZON_SPEED 0.1f
 
 Sori::Sori() {
-	cube.position.y = 10;
-	cube.scale.z = 2;
+	bobsled.position.y = 10;
+}
+
+void Sori::Init() {
+	bobsled.LoadMesh("asset/model/bobsleight.x");
 }
 
 void Sori::Update() {
+	//ìñÇΩÇËîªíËÇÃèÓïÒÇì¸ÇÍÇÈ
+	collisoin.position = bobsled.position;
+	collisoin.rotation = bobsled.rotation;
+	collisoin.size.x = 0;
+	collisoin.size.y = -1;
+	collisoin.size.z = 0;
+
 	//ç≈çÇë¨ÇÃê›íË
 	maxSpeed = (character[0].maxSpeed + character[1].maxSpeed) / 2;
 
@@ -29,33 +39,42 @@ void Sori::Update() {
 	{
 		if (Keyboard_IsPress(DIK_W)) {
 			//ê≥ñ Ç…à⁄ìÆ
-			cube.position += cube.GetForward() * 0.1f;
+			bobsled.position += bobsled.GetForward() * 0.1f;
 		} else if (Keyboard_IsPress(DIK_S)) {
 			//å„ÇÎÇ…à⁄ìÆ
-			cube.position -= cube.GetForward() * 0.1f;
+			bobsled.position -= bobsled.GetForward() * 0.1f;
 		}
 
 		//âÒì]
 		if (Keyboard_IsPress(DIK_D) && isHitRightWall ==false) {
-			cube.position += cube.GetRight() * MOVE_HORIZON_SPEED;  //GetRight()*à⁄ìÆó 
+			bobsled.position += bobsled.GetRight() * MOVE_HORIZON_SPEED;  //GetRight()*à⁄ìÆó 
 		} else if (Keyboard_IsPress(DIK_A) && isHitLeftWall ==false) {
-			cube.position -= cube.GetRight() * MOVE_HORIZON_SPEED;
+			bobsled.position -= bobsled.GetRight() * MOVE_HORIZON_SPEED;
 		}
 
 		if (Keyboard_IsPress(DIK_SPACE)) {
-			cube.position.y += 0.2f;
+			bobsled.position.y += 0.2f;
 		}
 	}
 }
 void Sori::Draw() {
-	cube.Draw(TEXTURE_INDEX_MAX,character[0].color);
+	bobsled.RenderParactice();
 }
+void Sori::UnInit() {
+	bobsled.CleanUp();
+}
+
+
+Sori::~Sori() {
+
+}
+
 
 bool Sori::CollisionWall(Collider3D c) {
 	BoxCollider2 collider;
 
-	if (collider.Collider(cube.collider, c).isHit) {
-		cube.position += collider.Collider(cube.collider, c).addPosition;
+	if (collider.Collider(collisoin, c).isHit) {
+		bobsled.position += collider.Collider(collisoin, c).addPosition;
 		return true;
 
 	} else {
@@ -65,9 +84,9 @@ bool Sori::CollisionWall(Collider3D c) {
 bool Sori::Collision(Collider3D c) {
 	BoxCollider2 collider;
 
-	if (collider.Collider(cube.collider, c).isHit) {
-		cube.position += collider.Collider(cube.collider, c).addPosition;
-		cube.rotation = c.rotation;
+	if (collider.Collider(collisoin, c).isHit) {
+		bobsled.position += collider.Collider(collisoin, c).addPosition;
+		bobsled.rotation = -c.rotation;
 		return true;
 
 	} else {
@@ -75,18 +94,13 @@ bool Sori::Collision(Collider3D c) {
 	}
 }
 
-Sori::~Sori() {
-
-}
-
-
 
 void Sori::Move() {
 	bool isMoveRight = Keyboard_IsPress(DIK_RIGHT) && isHitRightWall == false && isBoundRight == false && isBoundLeft == false;
 	bool isMoveLeft = Keyboard_IsPress(DIK_LEFT) && isHitLeftWall == false && isBoundRight == false && isBoundLeft == false;
 
 	//ê≥ñ Ç…à⁄ìÆ
-	cube.position += cube.GetForward() * speed;
+	bobsled.position += bobsled.GetForward() * speed;
 
 	if (Keyboard_IsPress(DIK_UP)) {
 		//speedÇ™maxSpeedÇí¥Ç¶Ç»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
@@ -104,11 +118,11 @@ void Sori::Move() {
 	if (isMoveRight) {
 		//âEÇ…à⁄ìÆ
 		//cube.position += cube.GetRight() * MOVE_HORIZON_SPEED;  //GetRight()*à⁄ìÆó 
-		cube.position += cube.GetRight() * ((character[0].handling+ character[1].handling)/2);  //GetRight()*à⁄ìÆó 
+		bobsled.position += bobsled.GetRight() * ((character[0].handling+ character[1].handling)/2);  //GetRight()*à⁄ìÆó 
 		
 	} else if (isMoveLeft) {
 		//ç∂Ç…à⁄ìÆ
-		cube.position -= cube.GetRight() * ((character[0].handling + character[1].handling) / 2);
+		bobsled.position -= bobsled.GetRight() * ((character[0].handling + character[1].handling) / 2);
 	}
 }
 void Sori::Friction() {
@@ -117,14 +131,14 @@ void Sori::Friction() {
 	}
 }
 void Sori::SlideDown() {
-	if (cube.GetForward().y < 0) {
-		cube.position += cube.GetForward()*-cube.GetForward().y*0.03f;
+	if (bobsled.GetForward().y < 0) {
+		bobsled.position += bobsled.GetForward()*-bobsled.GetForward().y*0.03f;
 	}
-	if (cube.GetRight().y < 0) {
-		cube.position += cube.GetRight()*-cube.GetRight().y*0.03f;
+	if (bobsled.GetRight().y < 0) {
+		bobsled.position += bobsled.GetRight()*-bobsled.GetRight().y*0.03f;
 	}
-	if (-cube.GetRight().y < 0) {
-		cube.position -= cube.GetRight()*cube.GetRight().y*0.03f;
+	if (-bobsled.GetRight().y < 0) {
+		bobsled.position -= bobsled.GetRight()*bobsled.GetRight().y*0.03f;
 	}
 }
 void Sori::Bound() {
@@ -140,13 +154,13 @@ void Sori::Bound() {
 	
 	
 	if (isBoundRight == true && boundCount <= 100) {
-		cube.position += cube.GetRight() * ((character[0].handling + character[1].handling));  //GetRight()*à⁄ìÆó 
+		bobsled.position += bobsled.GetRight() * ((character[0].handling + character[1].handling));  //GetRight()*à⁄ìÆó 
 		boundCount++;
 	} else {
 		isBoundRight = false;
 	}
 	if (isBoundLeft == true && boundCount <= 100) {
-		cube.position -= cube.GetRight() * ((character[0].handling + character[1].handling) );  //GetRight()*à⁄ìÆó 
+		bobsled.position -= bobsled.GetRight() * ((character[0].handling + character[1].handling) );  //GetRight()*à⁄ìÆó 
 		boundCount++;
 	} else {
 		isBoundLeft = false;
