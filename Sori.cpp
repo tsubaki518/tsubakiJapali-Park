@@ -9,7 +9,7 @@ Sori::Sori() {
 }
 
 void Sori::Init() {
-	bobsled.LoadMesh("asset/model/bobsleight.x");
+	bobsled.LoadMesh("asset/model/Bobsled/bobsleight.x");
 }
 
 void Sori::Update() {

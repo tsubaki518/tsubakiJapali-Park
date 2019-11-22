@@ -11,12 +11,11 @@
 #define FVF_VERTEX_3D (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 
 // メッシュの読み込み
-BOOL XFile::LoadMesh(const char* fileName)
+BOOL XFile::LoadMesh(const char* fileName, const char* textureName)
 {
 	LPDIRECT3DDEVICE9	pDev;
 	pDev = MyDirect3D_GetDevice();
 	LPD3DXBUFFER lpD3DXBuffer = NULL;	// 一時的なメモリエリア
-	char	fname[256];
 
 	// Ｘファイルの読み込み
 	D3DXLoadMeshFromX(
@@ -46,7 +45,7 @@ BOOL XFile::LoadMesh(const char* fileName)
 		model.Mat[i].Ambient = model.Mat[i].Diffuse;
 
 		// テクスチャの読み込み
-		if (FAILED(D3DXCreateTextureFromFile(pDev, fname, &(model.Tex[i]))))
+		if (FAILED(D3DXCreateTextureFromFile(pDev, textureName, &(model.Tex[i]))))
 		{
 			model.Tex[i] = NULL;
 		}

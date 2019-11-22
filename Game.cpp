@@ -26,8 +26,8 @@ Sori sori;
 void GameInit() {
 
 	sori.bobsled.position.y = 1;
-	sori.character[0] = SetCharacter(60);
-	sori.character[1] = SetCharacter(60);
+	sori.character[0] = SetCharacter(70);
+	sori.character[1] = SetCharacter(70);
 	StageInit();
 	RatingInit();
 	TimerInit();

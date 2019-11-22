@@ -34,7 +34,7 @@ public:
 	D3DXVECTOR3 rotation;
 
 	void RenderParactice();
-	BOOL LoadMesh(const char* fileName);
+	BOOL LoadMesh(const char* fileName, const char* textureName="none");
 	void CleanUp();
 
 	D3DXVECTOR3 GetForward(); //³–Ê‚ğæ“¾
