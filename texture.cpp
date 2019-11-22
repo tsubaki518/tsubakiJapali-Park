@@ -28,8 +28,13 @@ typedef struct TextureFile_tag
 // 読み込みテクスチャ情報
 static const TextureFile g_TextureFiles[] = {
 	{ "asset/texture/images.jpg", 225, 225 },
-{"asset/texture/title.jpg",SCREEN_WIDTH,SCREEN_HEIGHT},
+{"asset/texture/title.png",SCREEN_WIDTH,SCREEN_HEIGHT},
+{"asset/texture/title1.png",SCREEN_WIDTH,SCREEN_HEIGHT},
 {"asset/texture/number.png",1536,150},
+{"asset/texture/選択バー.png",200,50},
+{"asset/texture/顔素材セカンド.png",1810,362},
+{"asset/texture/選択肢01.png",640,33},
+
 };
 // 読み込みテクスチャ数
 static const int TEXTURE_FILE_COUNT = sizeof(g_TextureFiles) / sizeof(g_TextureFiles[0]);

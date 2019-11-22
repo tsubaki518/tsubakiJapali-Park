@@ -5,7 +5,6 @@
 #include"XInput.h"
 #include"main.h"
 #include"debug_font.h"
-#include <time.h>
 
 static float cursorPos = PosGame;
 static float t = 0;
@@ -60,20 +59,19 @@ void TitleUpdate() {
 void TitleDraw() {
 	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
 	Sprite_Draw(TEXTURE_INDEX_TITLE, 0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	Sprite_Draw(TEXTURE_INDEX_TITLE1, 0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	if (cursorPos == PosGame) {
-		Sprite_Draw(TEXTURE_INDEX_TITLE, SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 + 120, 0, 0, 80, 25);
+		Sprite_Draw(TEXTURE_INDEX_BAR, SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 + 160, 0, 0, 200, 50);
 	}
 	if (cursorPos == PosOption) {
-		Sprite_Draw(TEXTURE_INDEX_TITLE, SCREEN_WIDTH / 2 - 300, SCREEN_HEIGHT / 2 + 120, 0, 0, 100, 25);
+		Sprite_Draw(TEXTURE_INDEX_BAR, SCREEN_WIDTH / 2 - 300, SCREEN_HEIGHT / 2 + 160, 0, 0, 200, 50);
 	}
 	if (cursorPos == PosDate) {
-		Sprite_Draw(TEXTURE_INDEX_TITLE, SCREEN_WIDTH / 2 + 200, SCREEN_HEIGHT / 2 + 120, 0, 0, 130, 25);
+		Sprite_Draw(TEXTURE_INDEX_BAR, SCREEN_WIDTH / 2 + 200, SCREEN_HEIGHT / 2 + 160, 0, 0, 200, 50);
 	}
 
-	DebugFont_Draw(SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 + 120, "START");
-	DebugFont_Draw(SCREEN_WIDTH / 2 - 300, SCREEN_HEIGHT / 2 + 120, "OPTIONS");
-	DebugFont_Draw(SCREEN_WIDTH / 2 + 200, SCREEN_HEIGHT / 2 + 120, "DATEBASE");
+	Sprite_Draw(TEXTURE_INDEX_SELECT, 180, SCREEN_HEIGHT / 2 + 160, 0, 0, 640, 33);
 
 }
 
