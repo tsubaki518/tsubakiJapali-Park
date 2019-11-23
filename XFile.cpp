@@ -11,7 +11,7 @@
 #define FVF_VERTEX_3D (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 
 // メッシュの読み込み
-BOOL XFile::LoadMesh(const char* fileName, const char* textureName)
+BOOL XFile::Init(const char* fileName, const char* textureName)
 {
 	LPDIRECT3DDEVICE9	pDev;
 	pDev = MyDirect3D_GetDevice();
@@ -57,7 +57,7 @@ BOOL XFile::LoadMesh(const char* fileName, const char* textureName)
 }
 
 
-void XFile::RenderParactice()
+void XFile::Draw()
 {
 	//ポリゴンのワールド行列の作成
 	D3DXMATRIX g_mtxWorld;
@@ -98,7 +98,7 @@ void XFile::RenderParactice()
 	}
 
 }
-void XFile::CleanUp()
+void XFile::UnInit()
 {
 	// マテリアル
 	if (model.Mat != NULL)	delete[]	model.Mat;

@@ -10,7 +10,7 @@ void Elephant::Init() {
 }
 void Bear::Init() {
 	model = new XFile();
-	model->LoadMesh("asset/model/Bear/bear.x", "asset/model/Bear/bearuv.jpg");
+	model->Init("asset/model/Bear/bear.x", "asset/model/Bear/bearuv.jpg");
 }
 void Dog::Init() {
 
@@ -31,7 +31,7 @@ void Elephant::Draw() {
 
 }
 void Bear::Draw() {
-	model->RenderParactice();
+	model->Draw();
 }
 void Dog::Draw() {
 
@@ -51,7 +51,7 @@ void Elephant::UnInit() {
 
 }
 void Bear::UnInit() {
-	model->CleanUp();
+	model->UnInit();
 	delete model;
 }
 void Dog::UnInit() {

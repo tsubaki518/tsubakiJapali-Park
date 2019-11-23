@@ -9,7 +9,7 @@ Sori::Sori() {
 }
 
 void Sori::Init() {
-	bobsled.LoadMesh("asset/model/Bobsled/bobsleight.x");
+	bobsled.Init("asset/model/Bobsled/bobsleight.x");
 	character[0]->Init();
 	character[1]->Init();
 }
@@ -70,12 +70,12 @@ void Sori::Update() {
 	}
 }
 void Sori::Draw() {
-	bobsled.RenderParactice();
+	bobsled.Draw();
 	character[0]->Draw();
 	character[1]->Draw();
 }
 void Sori::UnInit() {
-	bobsled.CleanUp();
+	bobsled.Draw();
 	character[0]->UnInit();
 	character[1]->UnInit();
 
@@ -186,7 +186,7 @@ void Sori::Bound() {
 	}
 }
 
-//ifでweightに値の範囲を指定してreturnさせるキャラを決める
+//ifでweightに値の範囲を指定してセットするキャラを決める
 void Sori::SetCharacter(float weight1, float weight2) {
 
 	//キャラの選定
