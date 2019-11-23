@@ -30,23 +30,48 @@ void GameInit() {
 	light->Init(D3DLIGHT_DIRECTIONAL);
 	light->Use(true);
 
-	sori.bobsled.position.y = 1;
-	sori.SetCharacter(72, 75);
 	StageInit();
 	RatingInit();
 	TimerInit();
-	sori.Init();
+	sori.bobsled.position.y = 1;
+	sori.Init(72, 75);
 }
+
 void GameUpdate() {
 	RatingUpdate(sori);
 	sori.Update();
 	TimerUpdate();
+	GameCollision();
+	
+}
+
+void GameDraw() {
+	RatingDraw();
+	//カメラ追従
+	camera.SetCamera(sori);
+	TimerDraw(1,1);
+	//ステージの描画
+	StageDraw();
+
+	//そりの描画
+	sori.Draw();
+
+
+
+}
+
+void GameUnInit() {
+	sori.UnInit();
+	delete light;
+}
+
+void GameCollision() {
 
 	bool isGround = false;
 	//ソリとCube(床)の当たり判定
 	for (int i = 0; i < GetCubeNum(); i++) {
 		if (sori.Collision(GetCube(i).collider)) {
- 			isGround = true;
+			isGround = true;
 			break;
 		} else {
 			isGround = false;
@@ -75,25 +100,4 @@ void GameUpdate() {
 			sori.isHitLeftWall = false;
 		}
 	}
-	
-}
-
-void GameDraw() {
-	RatingDraw();
-	//カメラ追従
-	camera.SetCamera(sori);
-	TimerDraw(1,1);
-	//ステージの描画
-	StageDraw();
-
-	//そりの描画
-	sori.Draw();
-
-
-
-}
-
-void GameUnInit() {
-	sori.UnInit();
-	delete light;
 }

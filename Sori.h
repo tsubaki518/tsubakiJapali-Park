@@ -12,6 +12,9 @@ private:
 	void Friction();
 	void SlideDown();
 	void Bound();
+
+	//引数に体重を入れてキャラクターをセットする
+	void SetCharacter(float weight1, float weight2);
 public:
 	XFile bobsled;	//モデルデータ
 
@@ -24,7 +27,7 @@ public:
 	Collider3D collisoin;
 
 	Sori();
-	void Init();
+	void Init(float weight1, float weight2);
 	void Update();
 	void Draw();
 	void UnInit();
@@ -33,8 +36,4 @@ public:
 	//斜め判定
 	bool CollisionWall(Collider3D c);
 	bool Collision(Collider3D c);
-
-
-	//引数に体重を入れてキャラクターをセットする
-	void SetCharacter(float weight1, float weight2);
 };

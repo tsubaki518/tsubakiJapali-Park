@@ -33,6 +33,7 @@ public:
 	D3DXVECTOR3 scale = { 50,50,50 };
 	D3DXVECTOR3 rotation;
 
+	//モデルデータを読み込む   
 	BOOL Init(const char* fileName, const char* textureName = "none");
 	void Draw();
 	void UnInit();

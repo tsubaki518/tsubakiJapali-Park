@@ -89,7 +89,7 @@ void XFile::Draw()
 	g_pd3dDevice->SetTransform(D3DTS_WORLD, &g_mtxWorld);
 
 
-
+	//モデルの描画
 	for (DWORD i = 0; i < model.NumMaterial; i++)
 	{
 		g_pd3dDevice->SetMaterial(&model.Mat[i]);	// マテリアル
@@ -128,7 +128,7 @@ D3DXVECTOR3 XFile::GetForward() {
 		D3DXMatrixIdentity(&mtxRot);
 
 		//回転行列を作成
-		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y , rotation.x, rotation.z);
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y + 3.1415f, rotation.x-0.1f, rotation.z);
 		D3DXMatrixMultiply(&matrixWorld, &matrixWorld, &mtxRot);
 
 		//行列から回転させたベクトルを取り出す

@@ -8,10 +8,16 @@ Sori::Sori() {
 	bobsled.position.y = 10;
 }
 
-void Sori::Init() {
+void Sori::Init(float weight1, float weight2) {
 	bobsled.Init("asset/model/Bobsled/bobsleight.x");
+
+	//キャラクターをセットする
+	SetCharacter(weight1, weight2);
 	character[0]->Init();
 	character[1]->Init();
+
+	//最高速の設定
+	maxSpeed = (character[0]->maxSpeed + character[1]->maxSpeed) / 2;
 }
 
 void Sori::Update() {
@@ -27,13 +33,11 @@ void Sori::Update() {
 		character[i]->model->scale.x = 30;
 		character[i]->model->scale.y = 30;
 		character[i]->model->scale.z = 30;
-		character[i]->model->position.x = bobsled.position.x;
-		character[i]->model->position.y = bobsled.position.y+2.0f;
-		character[i]->model->position.z = bobsled.position.z-i-0.2f;
+		character[i]->model->position.x =-bobsled.GetUp().x+ bobsled.position.x;
+		character[i]->model->position.y = bobsled.GetUp().y+bobsled.position.y+1;
+		character[i]->model->position.z = bobsled.GetUp().z+bobsled.position.z-i-0.2f;
+		character[i]->model->rotation = bobsled.rotation;
 	}
-
-	//最高速の設定
-	maxSpeed = (character[0]->maxSpeed + character[1]->maxSpeed) / 2;
 
 	//移動処理
 	Move();
@@ -51,17 +55,25 @@ void Sori::Update() {
 	{
 		if (Keyboard_IsPress(DIK_W)) {
 			//正面に移動
-			bobsled.position += bobsled.GetForward() * 0.1f;
+			bobsled.position -= bobsled.GetForward() * 0.1f;
 		} else if (Keyboard_IsPress(DIK_S)) {
 			//後ろに移動
-			bobsled.position -= bobsled.GetForward() * 0.1f;
+			bobsled.position += bobsled.GetForward() * 0.1f;
 		}
 
 		//回転
 		if (Keyboard_IsPress(DIK_D) && isHitRightWall ==false) {
 			bobsled.position += bobsled.GetRight() * MOVE_HORIZON_SPEED;  //GetRight()*移動量
+			
+			//左右に移動した時のキャラクターのずれを修正
+			character[0]->model->position += bobsled.GetRight() * MOVE_HORIZON_SPEED;
+			character[1]->model->position += bobsled.GetRight() * MOVE_HORIZON_SPEED;
 		} else if (Keyboard_IsPress(DIK_A) && isHitLeftWall ==false) {
 			bobsled.position -= bobsled.GetRight() * MOVE_HORIZON_SPEED;
+
+			//左右に移動した時のキャラクターのずれを修正
+			character[0]->model->position -= bobsled.GetRight() * MOVE_HORIZON_SPEED;
+			character[1]->model->position -= bobsled.GetRight() * MOVE_HORIZON_SPEED;
 		}
 
 		if (Keyboard_IsPress(DIK_SPACE)) {
@@ -106,6 +118,7 @@ bool Sori::Collision(Collider3D c) {
 	if (collider.Collider(collisoin, c).isHit) {
 		bobsled.position += collider.Collider(collisoin, c).addPosition;
 		bobsled.rotation = -c.rotation;
+		bobsled.rotation.x += 0.1f;
 		return true;
 
 	} else {
@@ -119,7 +132,7 @@ void Sori::Move() {
 	bool isMoveLeft = Keyboard_IsPress(DIK_LEFT) && isHitLeftWall == false && isBoundRight == false && isBoundLeft == false;
 
 	//正面に移動
-	bobsled.position += bobsled.GetForward() * speed;
+	bobsled.position -= bobsled.GetForward() * speed;
 
 	if (Keyboard_IsPress(DIK_UP)) {
 		//speedがmaxSpeedを超えないようにする
@@ -138,10 +151,18 @@ void Sori::Move() {
 		//右に移動
 		//cube.position += cube.GetRight() * MOVE_HORIZON_SPEED;  //GetRight()*移動量
 		bobsled.position += bobsled.GetRight() * ((character[0]->handling+ character[1]->handling)/2);  //GetRight()*移動量
+
+		//左右に移動した時のキャラクターのずれを修正
+		character[0]->model->position+= bobsled.GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+		character[1]->model->position += bobsled.GetRight() * ((character[0]->handling + character[1]->handling) / 2);
 		
 	} else if (isMoveLeft) {
 		//左に移動
 		bobsled.position -= bobsled.GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+
+		//左右に移動した時のキャラクターのずれを修正
+		character[0]->model->position -= bobsled.GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+		character[1]->model->position -= bobsled.GetRight() * ((character[0]->handling + character[1]->handling) / 2);
 	}
 }
 void Sori::Friction() {
