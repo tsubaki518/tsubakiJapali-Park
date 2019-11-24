@@ -35,7 +35,8 @@ void Sori::Update() {
 		character[i]->model->scale.z = 30;
 		character[i]->model->position.x =-bobsled.GetUp().x+ bobsled.position.x;
 		character[i]->model->position.y = bobsled.GetUp().y+bobsled.position.y+1;
-		character[i]->model->position.z = bobsled.GetUp().z+bobsled.position.z-i-0.2f;
+		character[i]->model->position.z = bobsled.GetUp().z+bobsled.position.z;
+		character[i]->model->position += bobsled.GetForward()*i + bobsled.GetForward()*0.5f;
 		character[i]->model->rotation = bobsled.rotation;
 	}
 
