@@ -16,7 +16,7 @@ void StageInit() {			//座標とサイズと角度を入れる
 
   //床
 	cube[0].position = D3DXVECTOR3(0,0,0);
-	cube[0].rotation = D3DXVECTOR3(0.17f, 1, 0);
+	cube[0].rotation = D3DXVECTOR3(0.17f, 0, 0);
 	cube[0].scale = D3DXVECTOR3(10, 0, 10);
 	
 	cube[1].position = D3DXVECTOR3(0, -1.7f, 9.63f);
