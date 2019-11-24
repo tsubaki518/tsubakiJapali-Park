@@ -16,13 +16,15 @@ private:
 	//引数に体重を入れてキャラクターをセットする
 	void SetCharacter(float weight1, float weight2);
 public:
-	XFile bobsled;	//モデルデータ
-
+	D3DXVECTOR3 rotation;
+	D3DXVECTOR3 position;
+	D3DXVECTOR3 scale = { 50,50,50 };
 	bool isSpin = false;
 	bool isHitRightWall = false;
 	bool isHitLeftWall = false;
 	float speed;
 	float maxSpeed=1;
+	XFile bobsled;	//モデルデータ
 	Character *character[2];
 	Collider3D collisoin;
 
@@ -36,4 +38,9 @@ public:
 	//斜め判定
 	bool CollisionWall(Collider3D c);
 	bool Collision(Collider3D c);
+
+
+	D3DXVECTOR3 GetForward(); //正面を取得
+	D3DXVECTOR3 GetRight();  //右側取得
+	D3DXVECTOR3 GetUp();    //上取得
 };

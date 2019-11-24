@@ -13,21 +13,21 @@
 
 void Camera::SetCamera(Sori sori) {
 	//カメラを少しずつ回転させる
-	if (rad.x < sori.bobsled.rotation.x) {
+	if (rad.x < sori.rotation.x) {
 		rad.x += 0.01f;
-	} else if (rad.x > sori.bobsled.rotation.x) {
+	} else if (rad.x > sori.rotation.x) {
 		rad.x -= 0.01f;
 	}
 
-	if (rad.z < sori.bobsled.rotation.z) {
+	if (rad.z < sori.rotation.z) {
 		rad.z += 0.01f;
-	} else if (rad.z > sori.bobsled.rotation.z) {
+	} else if (rad.z > sori.rotation.z) {
 		rad.z -= 0.01f;
 	}
 
-	if (rad.y < sori.bobsled.rotation.y) {
+	if (rad.y < sori.rotation.y) {
 		rad.y += 0.01f;
-	} else if (rad.y > sori.bobsled.rotation.y) {
+	} else if (rad.y > sori.rotation.y) {
 		rad.y -= 0.01f;
 	}
 
@@ -37,11 +37,11 @@ void Camera::SetCamera(Sori sori) {
 	eye.z = cosf(sori.cube.rotation.y)*-10 + sori.cube.position.z;
 
 	at = sori.cube.position;*/
-	eye.x = sinf(rad.y)*-10 + sori.bobsled.position.x;
-	eye.y = -sinf(rad.x)*-5 + sori.bobsled.position.y + 8;
-	eye.z = cosf(rad.y)*-10 + sori.bobsled.position.z;
+	eye.x = sinf(rad.y)*-10 + sori.position.x;
+	eye.y = -sinf(rad.x)*-5 + sori.position.y + 8;
+	eye.z = cosf(rad.y)*-10 + sori.position.z;
 
-	at = sori.bobsled.position;
+	at = sori.position;
 	
 	//ビュー行列の作成
 	D3DXVECTOR3 up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);

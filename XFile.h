@@ -29,16 +29,10 @@ private:
 	xFILE model;		//モデルデータを読み込むために必要な変数をまとめた構造体
 
 public:
-	D3DXVECTOR3 position;
-	D3DXVECTOR3 scale = { 50,50,50 };
-	D3DXVECTOR3 rotation;
 
 	//モデルデータを読み込む   
 	BOOL Init(const char* fileName, const char* textureName = "none");
 	void Draw();
 	void UnInit();
 
-	D3DXVECTOR3 GetForward(); //正面を取得
-	D3DXVECTOR3 GetRight();  //右側取得
-	D3DXVECTOR3 GetUp();    //上取得
 };

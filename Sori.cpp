@@ -3,9 +3,10 @@
 #include"input.h"
 
 #define MOVE_HORIZON_SPEED 0.1f
+#define CHARACTER_ROTATION_SPEED 0.1f
 
 Sori::Sori() {
-	bobsled.position.y = 10;
+	position.y = 10;
 }
 
 void Sori::Init(float weight1, float weight2) {
@@ -22,19 +23,20 @@ void Sori::Init(float weight1, float weight2) {
 
 void Sori::Update() {
 	//当たり判定の情報を入れる
-	collisoin.position = bobsled.position;
-	collisoin.rotation = bobsled.rotation;
+	collisoin.position = position;
+	collisoin.rotation = rotation;
 	collisoin.size.x = 0;
 	collisoin.size.y = -1;
 	collisoin.size.z = 0;
 
 	//キャラクターの情報を入れる
 	for (int i = 0; i < 2; i++) {
-		character[i]->model->position.x =-bobsled.GetUp().x+ bobsled.position.x;
-		character[i]->model->position.y = bobsled.GetUp().y+bobsled.position.y+1;
-		character[i]->model->position.z = bobsled.GetUp().z+bobsled.position.z;
-		character[i]->model->position += bobsled.GetForward()*(float)i + bobsled.GetForward()*0.5f;
-		character[i]->model->rotation = bobsled.rotation;
+		character[i]->position.x =-GetUp().x+ position.x;
+		character[i]->position.y = GetUp().y+position.y+1;
+		character[i]->position.z = GetUp().z+position.z;
+		character[i]->position += GetForward()*(float)i + GetForward()*0.5f;
+		character[i]->rotation = rotation;
+		character[i]->rotation.z += character[i]->inputRotZ;
 	}
 
 	//移動処理
@@ -49,38 +51,83 @@ void Sori::Update() {
 	//壁に当たったら跳ね返る
 	Bound();
 
-	//---------------デバッグ用の移動(移動量が一定)--------------//
+	//---------------デバッグの移動(移動量が一定)--------------//
 	{
 		if (Keyboard_IsPress(DIK_W)) {
 			//正面に移動
-			bobsled.position -= bobsled.GetForward() * 0.1f;
+			position -= GetForward() * 0.1f;
 		} else if (Keyboard_IsPress(DIK_S)) {
 			//後ろに移動
-			bobsled.position += bobsled.GetForward() * 0.1f;
+			position += GetForward() * 0.1f;
 		}
 
 		//回転
 		if (Keyboard_IsPress(DIK_D) && isHitRightWall ==false) {
-			bobsled.position += bobsled.GetRight() * MOVE_HORIZON_SPEED;  //GetRight()*移動量
+			position += GetRight() * MOVE_HORIZON_SPEED;  //GetRight()*移動量
 			
 			//左右に移動した時のキャラクターのずれを修正
-			character[0]->model->position += bobsled.GetRight() * MOVE_HORIZON_SPEED;
-			character[1]->model->position += bobsled.GetRight() * MOVE_HORIZON_SPEED;
+			character[0]->position += GetRight() * MOVE_HORIZON_SPEED;
+			character[1]->position += GetRight() * MOVE_HORIZON_SPEED;
+
+			//移動方向にキャラクターが傾く
+			if (character[1]->inputRotZ <= 0.8f) {
+				character[1]->inputRotZ += CHARACTER_ROTATION_SPEED;
+			}
+
 		} else if (Keyboard_IsPress(DIK_A) && isHitLeftWall ==false) {
-			bobsled.position -= bobsled.GetRight() * MOVE_HORIZON_SPEED;
+			position -= GetRight() * MOVE_HORIZON_SPEED;
 
 			//左右に移動した時のキャラクターのずれを修正
-			character[0]->model->position -= bobsled.GetRight() * MOVE_HORIZON_SPEED;
-			character[1]->model->position -= bobsled.GetRight() * MOVE_HORIZON_SPEED;
+			character[0]->position -= GetRight() * MOVE_HORIZON_SPEED;
+			character[1]->position -= GetRight() * MOVE_HORIZON_SPEED;
+
+			//移動方向にキャラクターが傾く
+			if (character[1]->inputRotZ >=-0.8f) {
+				character[1]->inputRotZ -= CHARACTER_ROTATION_SPEED;
+			}
 		}
 
 		if (Keyboard_IsPress(DIK_SPACE)) {
-			bobsled.position.y += 0.2f;
+			position.y += 0.2f;
 		}
 	}
 }
 void Sori::Draw() {
+	//ソリ用の行列を作成
+	{
+		D3DXMATRIX g_mtxWorld;
+		D3DXMATRIX mtxScl;
+		D3DXMATRIX mtxRot;
+		D3DXMATRIX mtxTrs;
+		LPDIRECT3DDEVICE9	g_pd3dDevice;
+		g_pd3dDevice = MyDirect3D_GetDevice();
+
+
+		// ワールド変換
+		//ワールド行列を単位行列へ初期化
+		D3DXMatrixIdentity(&g_mtxWorld);
+
+		//スケール行列を作成＆ワールド行列へ合成
+		D3DXMatrixScaling(&mtxScl, scale.x, scale.y, scale.z);
+		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxScl);
+
+		//回転行列を作成＆ワールド行列へ合成
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y + 3.1415f, rotation.x - 0.1f, rotation.z);
+		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxRot);
+
+		//平行行列
+		D3DXMatrixTranslation(&mtxTrs, position.x, position.y, position.z);
+		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxTrs);
+
+
+		//ワールドマトリクスを設定
+		g_pd3dDevice->SetTransform(D3DTS_WORLD, &g_mtxWorld);
+	}
+
+	//ソリの描画
 	bobsled.Draw();
+
+	//キャラクターの描画
 	character[0]->Draw();
 	character[1]->Draw();
 }
@@ -103,7 +150,7 @@ bool Sori::CollisionWall(Collider3D c) {
 	BoxCollider2 collider;
 
 	if (collider.Collider(collisoin, c).isHit) {
-		bobsled.position += collider.Collider(collisoin, c).addPosition;
+		position += collider.Collider(collisoin, c).addPosition;
 		return true;
 
 	} else {
@@ -114,9 +161,9 @@ bool Sori::Collision(Collider3D c) {
 	BoxCollider2 collider;
 
 	if (collider.Collider(collisoin, c).isHit) {
-		bobsled.position += collider.Collider(collisoin, c).addPosition;
-		bobsled.rotation = -c.rotation;
-		bobsled.rotation.x += 0.1f;
+		position += collider.Collider(collisoin, c).addPosition;
+		rotation = -c.rotation;
+		rotation.x += 0.1f;
 		return true;
 
 	} else {
@@ -130,37 +177,55 @@ void Sori::Move() {
 	bool isMoveLeft = Keyboard_IsPress(DIK_LEFT) && isHitLeftWall == false && isBoundRight == false && isBoundLeft == false;
 
 	//正面に移動
-	bobsled.position -= bobsled.GetForward() * speed;
+	position -= GetForward() * speed;
 
 	if (Keyboard_IsPress(DIK_UP)) {
 		//speedがmaxSpeedを超えないようにする
 		if (speed < maxSpeed) {
-			//speed += 0.0005f;
 			speed += (character[0]->moveAccel + character[1]->moveAccel) / 2;
 		}
 	} else if (Keyboard_IsPress(DIK_DOWN)) {
 		//後ろに移動できないようにする
 		if (speed >= 0.001f) {
-			//speed -= 0.0005f;
 			speed -= (character[0]->moveAccel + character[1]->moveAccel) / 2;
 		}
 	}
 	if (isMoveRight) {
 		//右に移動
-		//cube.position += cube.GetRight() * MOVE_HORIZON_SPEED;  //GetRight()*移動量
-		bobsled.position += bobsled.GetRight() * ((character[0]->handling+ character[1]->handling)/2);  //GetRight()*移動量
+		position += GetRight() * ((character[0]->handling+ character[1]->handling)/2);  //GetRight()*移動量
 
 		//左右に移動した時のキャラクターのずれを修正
-		character[0]->model->position+= bobsled.GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-		character[1]->model->position += bobsled.GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+		character[0]->position+= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+		character[1]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+
+
+		//移動方向にキャラクターが傾く
+		if (character[0]->inputRotZ <= 0.8f) {
+			character[0]->inputRotZ += CHARACTER_ROTATION_SPEED;
+		}
 		
 	} else if (isMoveLeft) {
 		//左に移動
-		bobsled.position -= bobsled.GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+		position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
 
 		//左右に移動した時のキャラクターのずれを修正
-		character[0]->model->position -= bobsled.GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-		character[1]->model->position -= bobsled.GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+		character[0]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+		character[1]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+
+		//移動方向にキャラクターが傾く
+		if (character[0]->inputRotZ >= -0.8f) {
+			character[0]->inputRotZ -= CHARACTER_ROTATION_SPEED;
+		}
+	}
+
+	//操作していなかったらキャラクターが傾いてるのを直す
+	for (int i = 0; i < 2; i++) {
+		if (character[i]->inputRotZ > 0) {
+			character[i]->inputRotZ -= CHARACTER_ROTATION_SPEED/2;
+
+		} else if (character[i]->inputRotZ < 0) {
+			character[i]->inputRotZ += CHARACTER_ROTATION_SPEED/2;
+		}
 	}
 }
 void Sori::Friction() {
@@ -169,14 +234,14 @@ void Sori::Friction() {
 	}
 }
 void Sori::SlideDown() {
-	if (bobsled.GetForward().y < 0) {
-		bobsled.position += bobsled.GetForward()*-bobsled.GetForward().y*0.03f;
+	if (GetForward().y < 0) {
+		position -= GetForward()*GetForward().y*0.03f;
 	}
-	if (bobsled.GetRight().y < 0) {
-		bobsled.position += bobsled.GetRight()*-bobsled.GetRight().y*0.03f;
+	if (GetRight().y < 0) {
+		position += GetRight()*-GetRight().y*0.03f;
 	}
-	if (-bobsled.GetRight().y < 0) {
-		bobsled.position -= bobsled.GetRight()*bobsled.GetRight().y*0.03f;
+	if (-GetRight().y < 0) {
+		position -= GetRight()*GetRight().y*0.03f;
 	}
 }
 void Sori::Bound() {
@@ -192,13 +257,13 @@ void Sori::Bound() {
 	
 	
 	if (isBoundRight == true && boundCount <= 100) {
-		bobsled.position += bobsled.GetRight() * ((character[0]->handling + character[1]->handling));  //GetRight()*移動量
+		position += GetRight() * ((character[0]->handling + character[1]->handling));  //GetRight()*移動量
 		boundCount++;
 	} else {
 		isBoundRight = false;
 	}
 	if (isBoundLeft == true && boundCount <= 100) {
-		bobsled.position -= bobsled.GetRight() * ((character[0]->handling + character[1]->handling) );  //GetRight()*移動量
+		position -= GetRight() * ((character[0]->handling + character[1]->handling) );  //GetRight()*移動量
 		boundCount++;
 	} else {
 		isBoundLeft = false;
@@ -246,4 +311,71 @@ void Sori::SetCharacter(float weight1, float weight2) {
 		character[1] = new Hamster;
 	}
 
+}
+D3DXVECTOR3 Sori::GetForward() {
+	D3DXMATRIX matrixWorld;    //ワールド行列
+	D3DXMATRIX mtxRot;		   //回転行列
+	D3DXVECTOR3 direction;
+	direction.x = 0;
+	direction.y = 0;
+	direction.z = 1;
+
+	{
+		//行列を初期化
+		D3DXMatrixIdentity(&matrixWorld);
+		D3DXMatrixIdentity(&mtxRot);
+
+		//回転行列を作成
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y + 3.1415f, rotation.x - 0.1f, rotation.z);
+		D3DXMatrixMultiply(&matrixWorld, &matrixWorld, &mtxRot);
+
+		//行列から回転させたベクトルを取り出す
+		direction = D3DXVECTOR3(matrixWorld._31, matrixWorld._32, matrixWorld._33);
+	}
+	return direction;
+}
+D3DXVECTOR3 Sori::GetRight() {
+	D3DXMATRIX matrixWorld;    //頂点の行列
+	D3DXMATRIX mtxRot;
+	D3DXVECTOR3 direction;
+	direction.x = 1;
+	direction.y = 0;
+	direction.z = 0;
+
+	{
+		//行列を初期化
+		D3DXMatrixIdentity(&matrixWorld);
+		D3DXMatrixIdentity(&mtxRot);
+
+		//回転行列を作成
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y, rotation.x, rotation.z);
+		D3DXMatrixMultiply(&matrixWorld, &matrixWorld, &mtxRot);
+
+		//行列から回転させたベクトルを取り出す
+		direction = D3DXVECTOR3(matrixWorld._11, matrixWorld._12, matrixWorld._13);
+	}
+	direction.y *= -1;
+	return direction;
+}
+D3DXVECTOR3 Sori::GetUp() {
+	D3DXMATRIX matrixWorld;    //頂点の行列
+	D3DXMATRIX mtxRot;		   //回転行列
+	D3DXVECTOR3 direction;
+	direction.x = 0;
+	direction.y = 1;
+	direction.z = 0;
+
+	{
+		//行列を初期化
+		D3DXMatrixIdentity(&matrixWorld);
+		D3DXMatrixIdentity(&mtxRot);
+
+		//回転行列を作成
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y, rotation.x, rotation.z);
+		D3DXMatrixMultiply(&matrixWorld, &matrixWorld, &mtxRot);
+
+		//行列から回転させたベクトルを取り出す
+		direction = D3DXVECTOR3(matrixWorld._21, matrixWorld._22, matrixWorld._23);
+	}
+	return direction;
 }

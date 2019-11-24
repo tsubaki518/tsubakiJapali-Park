@@ -33,7 +33,7 @@ void GameInit() {
 	StageInit();
 	RatingInit();
 	TimerInit();
-	sori.bobsled.position.y = 1;
+	sori.position.y = 1;
 	sori.Init(72, 75);
 }
 
@@ -55,9 +55,6 @@ void GameDraw() {
 
 	//‚»‚è‚Ì•`‰æ
 	sori.Draw();
-
-
-
 }
 
 void GameUnInit() {
@@ -78,7 +75,7 @@ void GameCollision() {
 		}
 	}
 	if (isGround == false) {
-		sori.bobsled.position.y -= 0.1f;
+		sori.position.y -= 0.1f;
 	}
 
 	//ƒ\ƒŠ‚Æ‰E‚Ì•Ç‚Ì“–‚½‚è”»’è
