@@ -30,13 +30,10 @@ void Sori::Update() {
 
 	//キャラクターの情報を入れる
 	for (int i = 0; i < 2; i++) {
-		character[i]->model->scale.x = 30;
-		character[i]->model->scale.y = 30;
-		character[i]->model->scale.z = 30;
 		character[i]->model->position.x =-bobsled.GetUp().x+ bobsled.position.x;
 		character[i]->model->position.y = bobsled.GetUp().y+bobsled.position.y+1;
 		character[i]->model->position.z = bobsled.GetUp().z+bobsled.position.z;
-		character[i]->model->position += bobsled.GetForward()*i + bobsled.GetForward()*0.5f;
+		character[i]->model->position += bobsled.GetForward()*(float)i + bobsled.GetForward()*0.5f;
 		character[i]->model->rotation = bobsled.rotation;
 	}
 

@@ -11,6 +11,9 @@ void Elephant::Init() {
 void Bear::Init() {
 	model = new XFile();
 	model->Init("asset/model/Bear/bear.x", "asset/model/Bear/bearuv.jpg");
+	model->scale.x = 30;
+	model->scale.y = 30;
+	model->scale.z = 30;
 }
 void Dog::Init() {
 
