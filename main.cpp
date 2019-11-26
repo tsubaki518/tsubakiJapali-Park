@@ -195,7 +195,7 @@ bool Initialize(void)
     }
 	
 	DebugFont_Initialize();
-	SetScene(GAME);
+	SetScene(TITLE);
 
     return true;
 }
