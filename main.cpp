@@ -268,6 +268,8 @@ void Finalize(void){
 
 	DebugFont_Finalize();
 
+	GameUnInit();
+
     // Direct3Dラッパーモジュールの終了処理
     MyDirect3D_Finalize();
 

@@ -7,11 +7,14 @@ private:
 	bool isBoundRight = false;
 	bool isBoundLeft = false;
 	int boundCount = 0;
+	D3DXVECTOR3 spinMoveDirection;
+	D3DXVECTOR3 beforRotation;
 
 	void Move();
 	void Friction();
 	void SlideDown();
 	void Bound();
+	void Spin();
 
 	//引数に体重を入れてキャラクターをセットする
 	void SetCharacter(float weight1, float weight2);

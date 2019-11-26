@@ -3,6 +3,8 @@
 #include"input.h"
 
 #define CHARACTER_ROTATION_SPEED 0.1f
+#define SPIN_NUM 2
+#define SPIN_SPEED 0.5f
 
 Sori::Sori() {
 	position.y = 10;
@@ -40,6 +42,9 @@ void Sori::Update() {
 
 	//à⁄ìÆèàóù
 	Move();
+
+	//ÉXÉsÉìèàóù
+	Spin();
 
 	//ñÄéC
 	Friction();
@@ -122,8 +127,10 @@ bool Sori::Collision(Collider3D c) {
 
 	if (collider.Collider(collisoin, c).isHit) {
 		position += collider.Collider(collisoin, c).addPosition;
-		rotation = -c.rotation;
-		rotation.x += 0.1f;
+		if (isSpin == false) {
+			rotation = -c.rotation;
+			rotation.x += 0.1f;
+		}
 		return true;
 
 	} else {
@@ -133,20 +140,26 @@ bool Sori::Collision(Collider3D c) {
 
 
 void Sori::Move() {
-	bool canMoveRight = isHitRightWall == false && isBoundRight == false && isBoundLeft == false;
-	bool canMoveLeft = isHitLeftWall == false && isBoundRight == false && isBoundLeft == false;
+	bool canMoveRight = isHitRightWall == false && isBoundRight == false && isBoundLeft == false && isSpin==false;
+	bool canMoveLeft = isHitLeftWall == false && isBoundRight == false && isBoundLeft == false && isSpin == false;
 
 	//ê≥ñ Ç…à⁄ìÆ
-	position -= GetForward() * speed;
+	if (isSpin == false) {
+		position -= GetForward() * speed;
+		spinMoveDirection = GetForward() * speed;
+
+	} else if (isSpin == true) {
+		position -= spinMoveDirection;
+	}
 
 	//1PÇÃà⁄ìÆ
 	{
-		if (Keyboard_IsPress(DIK_UP)) {
+		if (Keyboard_IsPress(DIK_UP) &&isSpin==false) {
 			//speedÇ™maxSpeedÇí¥Ç¶Ç»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
 			if (speed < maxSpeed) {
 				speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
 			}
-		} else if (Keyboard_IsPress(DIK_DOWN)) {
+		} else if (Keyboard_IsPress(DIK_DOWN) && isSpin == false) {
 			//å„ÇÎÇ…à⁄ìÆÇ≈Ç´Ç»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
 			if (speed >= 0.001f) {
 				speed -= (character[0]->moveAccel + character[1]->moveAccel) / 4;
@@ -183,12 +196,12 @@ void Sori::Move() {
 
 	//2PÇÃà⁄ìÆ
 	{
-		if (Keyboard_IsPress(DIK_W)) {
+		if (Keyboard_IsPress(DIK_W) && isSpin == false) {
 			//speedÇ™maxSpeedÇí¥Ç¶Ç»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
 			if (speed < maxSpeed) {
 				speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
 			}
-		} else if (Keyboard_IsPress(DIK_S)) {
+		} else if (Keyboard_IsPress(DIK_S) && isSpin == false) {
 			//å„ÇÎÇ…à⁄ìÆÇ≈Ç´Ç»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
 			if (speed >= 0.001f) {
 				speed -= (character[0]->moveAccel + character[1]->moveAccel) / 4;
@@ -271,6 +284,20 @@ void Sori::Bound() {
 		boundCount++;
 	} else {
 		isBoundLeft = false;
+	}
+}
+void Sori::Spin() {
+	if (Keyboard_IsPress(DIK_A) && Keyboard_IsPress(DIK_RIGHT) && isSpin==false ||
+		Keyboard_IsPress(DIK_D) && Keyboard_IsPress(DIK_LEFT) && isSpin == false) {
+		isSpin = true;
+		beforRotation = rotation;
+	}
+
+	if (isSpin == true) {
+		rotation.y += SPIN_SPEED;
+		if (beforRotation.y + SPIN_NUM * 6.28f <= rotation.y) {
+			isSpin = false;
+		}
 	}
 }
 

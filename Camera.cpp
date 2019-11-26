@@ -4,7 +4,7 @@
 #include "texture.h"
 #include "sprite.h"
 #include <d3dx9.h>
-
+#include"debug_font.h"
 #include"Camera.h"
 
 
@@ -12,23 +12,27 @@
 
 
 void Camera::SetCamera(Sori sori) {
+	DebugFont_Draw(1, 1, "%d", sori.isSpin);
+
 	//ÉJÉÅÉâÇè≠ÇµÇ∏Ç¬âÒì]Ç≥ÇπÇÈ
-	if (rad.x < sori.rotation.x) {
-		rad.x += 0.01f;
-	} else if (rad.x > sori.rotation.x) {
-		rad.x -= 0.01f;
-	}
+	if (sori.isSpin == false) {
+		if (rad.x < sori.rotation.x) {
+			rad.x += 0.01f;
+		} else if (rad.x > sori.rotation.x) {
+			rad.x -= 0.01f;
+		}
 
-	if (rad.z < sori.rotation.z) {
-		rad.z += 0.01f;
-	} else if (rad.z > sori.rotation.z) {
-		rad.z -= 0.01f;
-	}
+		if (rad.z < sori.rotation.z) {
+			rad.z += 0.01f;
+		} else if (rad.z > sori.rotation.z) {
+			rad.z -= 0.01f;
+		}
 
-	if (rad.y < sori.rotation.y) {
-		rad.y += 0.01f;
-	} else if (rad.y > sori.rotation.y) {
-		rad.y -= 0.01f;
+		if (rad.y < sori.rotation.y) {
+			rad.y += 0.01f;
+		} else if (rad.y > sori.rotation.y) {
+			rad.y -= 0.01f;
+		}
 	}
 
 	//==============================================
