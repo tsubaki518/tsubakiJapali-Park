@@ -15,8 +15,9 @@ void Sori::Init(float weight1, float weight2) {
 
 	//キャラクターをセットする
 	SetCharacter(weight1, weight2);
-	character[0]->Init();
 	character[1]->Init();
+	character[0]->Init();
+
 
 	//最高速の設定
 	maxSpeed = (character[0]->maxSpeed + character[1]->maxSpeed) / 2;
