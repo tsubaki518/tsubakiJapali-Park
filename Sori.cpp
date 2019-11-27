@@ -3,8 +3,8 @@
 #include"input.h"
 
 #define CHARACTER_ROTATION_SPEED 0.1f
-#define SPIN_NUM 2
-#define SPIN_SPEED 0.5f
+#define SPIN_NUM 4
+#define SPIN_SPEED 1.5f
 
 Sori::Sori() {
 	position.y = 10;
