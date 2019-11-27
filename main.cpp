@@ -193,7 +193,6 @@ bool Initialize(void)
     if( Texture_Load() > 0 ) {
         MessageBox(g_hWnd, "いくつか読み込めなかったテクスチャファイルがあります", "エラー", MB_OK);
     }
-	
 	DebugFont_Initialize();
 	SetScene(GAME);
 

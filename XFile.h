@@ -31,7 +31,7 @@ private:
 public:
 
 	//モデルデータを読み込む   
-	BOOL Init(const char* fileName, const char* textureName = "none");
+	BOOL Init(const char* fileName, const char* textureName);
 	void Draw();
 	void UnInit();
 

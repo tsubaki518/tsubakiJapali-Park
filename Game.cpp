@@ -17,35 +17,51 @@
 #include"Rating.h"
 #include"Timer.h"
 #include"XFile.h"
+#include"Animation.h"
 
-Light *light;
-
+Light light;
+StartAnimation startAnimation;
 Camera camera;
 Sori sori;
-
-
+static bool isAnimatioin;
 
 void GameInit() {
-	light = new Light();
-	light->Init(D3DLIGHT_DIRECTIONAL);
-	light->Use(true);
+	//ライト初期化
+	light.Init(D3DLIGHT_DIRECTIONAL);
+	light.Use(true);
 
+	//ステージ初期化
 	StageInit();
+
+	//視聴率初期化
 	RatingInit();
+
+	//体重をもとにキャラクターを設定する
+	sori.Init(72, 55);
+
+	//アニメーションの初期化
+	startAnimation.Init();
+
+	//タイム初期化
 	TimerInit();
+
+	//プレイヤーの初期位置
 	sori.position.y = 1;
-	sori.Init(72, 75);
+
 }
 
 void GameUpdate() {
-	RatingUpdate(sori);
-	sori.Update();
-	TimerUpdate();
-	GameCollision();
-	
+	if (isAnimatioin == false) {
+		RatingUpdate(sori);
+		sori.Update();
+		TimerUpdate();
+		GameCollision();
+	}
 }
 
 void GameDraw() {
+	isAnimatioin = startAnimation.Draw();
+
 	RatingDraw();
 	//カメラ追従
 	camera.SetCamera(sori);
@@ -59,8 +75,8 @@ void GameDraw() {
 
 void GameUnInit() {
 	sori.UnInit();
-	delete light;
 }
+
 
 void GameCollision() {
 
@@ -97,4 +113,10 @@ void GameCollision() {
 			sori.isHitLeftWall = false;
 		}
 	}
+
+	//ソリと左の壁の当たり判定
+	/*if (sori.CollisionWall(GetGoalCube().collider)) {
+		sori.speed = 0;
+	}*/
+	
 }

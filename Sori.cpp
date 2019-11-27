@@ -7,17 +7,17 @@
 #define SPIN_SPEED 1.5f
 
 Sori::Sori() {
-	position.y = 10;
+	position.y = 2;
 }
 
 void Sori::Init(float weight1, float weight2) {
-	bobsled.Init("asset/model/Bobsled/bobsleight.x");
+	bobsled = new XFile;
 
 	//キャラクターをセットする
 	SetCharacter(weight1, weight2);
 	character[1]->Init();
 	character[0]->Init();
-
+	bobsled->Init("asset/model/Bobsled/bobuv.x", "asset/model/Bobsled/bobuv02.jpg");
 
 	//最高速の設定
 	maxSpeed = (character[0]->maxSpeed + character[1]->maxSpeed) / 2;
@@ -28,17 +28,17 @@ void Sori::Update() {
 	collisoin.position = position;
 	collisoin.rotation = rotation;
 	collisoin.size.x = 0;
-	collisoin.size.y = -1;
+	collisoin.size.y = 1;
 	collisoin.size.z = 0;
 
 	//キャラクターの情報を入れる
 	for (int i = 0; i < 2; i++) {
-		character[i]->position.x =-GetUp().x+ position.x;
-		character[i]->position.y = GetUp().y+position.y+1;
+		character[i]->position.x =GetUp().x+ position.x;
+		character[i]->position.y = GetUp().y+position.y+1.0f;
 		character[i]->position.z = GetUp().z+position.z;
-		character[i]->position += GetForward()*(float)i + GetForward()*0.5f;
+		character[i]->position += GetForward()*(float)i - GetForward()*0.7f-GetForward();
 		character[i]->rotation = rotation;
-		character[i]->rotation.z += character[i]->inputRotZ;
+		character[i]->rotation.z += character[i]->inputRotZ-rotation.z*2;
 	}
 
 	//移動処理
@@ -78,7 +78,7 @@ void Sori::Draw() {
 		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxScl);
 
 		//回転行列を作成＆ワールド行列へ合成
-		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y + 3.1415f, rotation.x - 0.1f, rotation.z);
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y, rotation.x, rotation.z);
 		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxRot);
 
 		//平行行列
@@ -91,19 +91,20 @@ void Sori::Draw() {
 	}
 
 	//ソリの描画
-	bobsled.Draw();
+	bobsled->Draw();
 
 	//キャラクターの描画
 	character[0]->Draw();
 	character[1]->Draw();
 }
 void Sori::UnInit() {
-	bobsled.Draw();
 	character[0]->UnInit();
 	character[1]->UnInit();
 
 	delete character[0];
 	delete character[1];
+	bobsled->UnInit();
+	delete bobsled;
 }
 
 
@@ -129,9 +130,21 @@ bool Sori::Collision(Collider3D c) {
 	if (collider.Collider(collisoin, c).isHit) {
 		position += collider.Collider(collisoin, c).addPosition;
 		if (isSpin == false) {
-			rotation = -c.rotation;
+			rotation = c.rotation;
 			rotation.x += 0.1f;
 		}
+		return true;
+
+	} else {
+		return false;
+	}
+}
+bool Sori::CollisionGoal(Collider3D c) {
+	BoxCollider2 collider;
+
+	if (collider.Collider(collisoin, c).isHit) {
+		position += collider.Collider(collisoin, c).addPosition;
+		speed = 0;
 		return true;
 
 	} else {
@@ -146,11 +159,11 @@ void Sori::Move() {
 
 	//正面に移動
 	if (isSpin == false) {
-		position -= GetForward() * speed;
+		position += GetForward() * speed;
 		spinMoveDirection = GetForward() * speed;
 
 	} else if (isSpin == true) {
-		position -= spinMoveDirection;
+		position += spinMoveDirection;
 	}
 
 	//1Pの移動
@@ -358,7 +371,7 @@ D3DXVECTOR3 Sori::GetForward() {
 		D3DXMatrixIdentity(&mtxRot);
 
 		//回転行列を作成
-		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y + 3.1415f, rotation.x - 0.1f, rotation.z);
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y, rotation.x - 0.1f, rotation.z);
 		D3DXMatrixMultiply(&matrixWorld, &matrixWorld, &mtxRot);
 
 		//行列から回転させたベクトルを取り出す
@@ -386,7 +399,6 @@ D3DXVECTOR3 Sori::GetRight() {
 		//行列から回転させたベクトルを取り出す
 		direction = D3DXVECTOR3(matrixWorld._11, matrixWorld._12, matrixWorld._13);
 	}
-	direction.y *= -1;
 	return direction;
 }
 D3DXVECTOR3 Sori::GetUp() {

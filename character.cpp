@@ -21,6 +21,11 @@ void Dog::Init() {
 	inputRotZ = 0;
 }
 void Rabbit::Init() {
+	model = new XFile();
+	model->Init("asset/model/Rabbit/usagi.x", "asset/model/Rabbit/texture.jpg");
+	scale.x = 15;
+	scale.y = 15;
+	scale.z = 15;
 	inputRotZ = 0;
 }
 void Hamster::Init() {
@@ -76,7 +81,39 @@ void Dog::Draw() {
 
 }
 void Rabbit::Draw() {
+	//ポリゴンのワールド行列の作成
+	D3DXMATRIX g_mtxWorld;
+	D3DXMATRIX mtxScl;
+	D3DXMATRIX mtxRot;
+	D3DXMATRIX mtxInputRot;
+	D3DXMATRIX mtxTrs;
+	LPDIRECT3DDEVICE9	g_pd3dDevice;
+	g_pd3dDevice = MyDirect3D_GetDevice();
 
+
+	// ワールド変換
+	//ワールド行列を単位行列へ初期化
+	D3DXMatrixIdentity(&g_mtxWorld);
+
+	//スケール行列を作成＆ワールド行列へ合成
+	D3DXMatrixScaling(&mtxScl, scale.x, scale.y, scale.z);
+	D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxScl);
+
+
+	//回転行列を作成＆ワールド行列へ合成
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y + 3.1415f, rotation.x - 0.1f, rotation.z);
+	D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxRot);
+
+
+
+	//平行行列
+	D3DXMatrixTranslation(&mtxTrs, position.x, position.y, position.z);
+	D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxTrs);
+
+
+	//ワールドマトリクスを設定
+	g_pd3dDevice->SetTransform(D3DTS_WORLD, &g_mtxWorld);
+	model->Draw();
 }
 void Hamster::Draw() {
 
@@ -97,7 +134,8 @@ void Dog::UnInit() {
 
 }
 void Rabbit::UnInit() {
-
+	model->UnInit();
+	delete model;
 }
 void Hamster::UnInit() {
 

@@ -27,12 +27,17 @@ public:
 	bool isHitLeftWall = false;
 	float speed;
 	float maxSpeed=1;
-	XFile bobsled;	//モデルデータ
+	XFile *bobsled;		//モデルデータ(ソリ)
 	Character *character[2];
 	Collider3D collisoin;
 
 	Sori();
+
+	//Init()の引数
+	//weight1は1Pの体重を入れる
+	//weight2は2Pの体重を入れる
 	void Init(float weight1, float weight2);
+
 	void Update();
 	void Draw();
 	void UnInit();
@@ -41,6 +46,7 @@ public:
 	//斜め判定
 	bool CollisionWall(Collider3D c);
 	bool Collision(Collider3D c);
+	bool CollisionGoal(Collider3D c);
 
 
 	D3DXVECTOR3 GetForward(); //正面を取得
