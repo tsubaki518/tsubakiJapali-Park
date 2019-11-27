@@ -21,9 +21,12 @@
 
 Light light;
 StartAnimation startAnimation;
+GoalAnimation goalAnimation;
 Camera camera;
 Sori sori;
 static bool isAnimatioin;
+
+void UIDraw();
 
 void GameInit() {
 	//ライト初期化
@@ -60,7 +63,6 @@ void GameUpdate() {
 }
 
 void GameDraw() {
-	isAnimatioin = startAnimation.Draw();
 
 	RatingDraw();
 	//カメラ追従
@@ -71,6 +73,10 @@ void GameDraw() {
 
 	//そりの描画
 	sori.Draw();
+
+	//UIを描画する
+	UIDraw();
+
 }
 
 void GameUnInit() {
@@ -90,7 +96,7 @@ void GameCollision() {
 			isGround = false;
 		}
 	}
-	if (isGround == false) {
+	if (isGround == false && sori.isGoalGround==false) {
 		sori.position.y -= 0.1f;
 	}
 
@@ -115,8 +121,17 @@ void GameCollision() {
 	}
 
 	//ソリと左の壁の当たり判定
-	/*if (sori.CollisionWall(GetGoalCube().collider)) {
+	if (sori.CollisionWall(GetGoalCube().collider)) {
 		sori.speed = 0;
-	}*/
+		sori.isGoalGround = true;
+	}
 	
+}
+
+void UIDraw() {
+	if (sori.isGoalGround == true) {
+		goalAnimation.Draw();
+	}
+
+	isAnimatioin = startAnimation.Draw();
 }

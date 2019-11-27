@@ -2250,7 +2250,7 @@ Cube GetRightWall(int n) {
 Cube GetLeftWall(int n) {
 	return leftWall[n];
 }
-Cube GoalCube() {
+Cube GetGoalCube() {
 	return goalCube;
 }
 

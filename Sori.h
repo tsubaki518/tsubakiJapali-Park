@@ -25,9 +25,10 @@ public:
 	bool isSpin = false;
 	bool isHitRightWall = false;
 	bool isHitLeftWall = false;
+	bool isGoalGround = false;
 	float speed;
 	float maxSpeed=1;
-	XFile *bobsled;		//モデルデータ(ソリ)
+	XFile bobsled;		//モデルデータ(ソリ)
 	Character *character[2];
 	Collider3D collisoin;
 

@@ -41,5 +41,5 @@ bool StartAnimation::Draw() {
 
 void GoalAnimation::Draw() {
 	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
-	Sprite_Draw(TEXTURE_INDEX_TITLE, SCREEN_WIDTH / 2 - 500 / 2, SCREEN_HEIGHT / 2 - 500 / 2, 0, 0, 500, 200);
+	Sprite_Draw(TEXTURE_INDEX_GOAL, SCREEN_WIDTH / 2 - 500 / 2, SCREEN_HEIGHT / 2 / 2, 0, 0, 500, 200);
 }

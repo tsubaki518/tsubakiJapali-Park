@@ -11,13 +11,12 @@ Sori::Sori() {
 }
 
 void Sori::Init(float weight1, float weight2) {
-	bobsled = new XFile;
 
 	//キャラクターをセットする
 	SetCharacter(weight1, weight2);
 	character[1]->Init();
 	character[0]->Init();
-	bobsled->Init("asset/model/Bobsled/bobuv.x", "asset/model/Bobsled/bobuv02.jpg");
+	bobsled.Init("asset/model/Bobsled/bobuv2.x", "asset/model/Bobsled/bobuv02.jpg");
 
 	//最高速の設定
 	maxSpeed = (character[0]->maxSpeed + character[1]->maxSpeed) / 2;
@@ -91,7 +90,7 @@ void Sori::Draw() {
 	}
 
 	//ソリの描画
-	bobsled->Draw();
+	bobsled.Draw();
 
 	//キャラクターの描画
 	character[0]->Draw();
@@ -103,8 +102,7 @@ void Sori::UnInit() {
 
 	delete character[0];
 	delete character[1];
-	bobsled->UnInit();
-	delete bobsled;
+	//bobsled.UnInit();
 }
 
 
