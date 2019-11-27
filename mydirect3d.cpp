@@ -60,6 +60,12 @@ bool MyDirect3D_Initialize(HWND hWnd)
 
     // 頂点カラーとテクスチャのブレンド設定
     g_pD3DDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+	//ここから下明滅用に追加
+	g_pD3DDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+	g_pD3DDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+
+	// 半透明処理を行う
+	g_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 
 	return true;
 }

@@ -66,3 +66,37 @@ void Sprite_Draw(TextureIndex texture_index, float dx, float dy, int tx, int ty,
 	pDevice->SetTexture(0, Texture_GetTexture(texture_index));
     pDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, vertexes, sizeof(Vertex2D));
 }
+
+//明滅用スプライト描画
+void Sprite_Draw2(TextureIndex texture_index, float dx, float dy, int tx, int ty, int tw, int th, int Alpha)
+{
+	D3DCOLOR    color;  // 頂点カラー
+
+// 半透明処理をするかどうかを判断し、頂点カラーを決定
+	if (Alpha == 255) color = D3DCOLOR_XRGB(255, 255, 255);
+	else                color = D3DCOLOR_RGBA(255, 255, 255, Alpha);
+
+	LPDIRECT3DDEVICE9 pDevice = MyDirect3D_GetDevice();
+	if (!pDevice) return;
+
+	float w = (float)Texture_GetWidth(texture_index);
+	float h = (float)Texture_GetHeight(texture_index);
+
+	// UV座標計算
+	float u[2], v[2];
+	u[0] = (float)tx / w;
+	v[0] = (float)ty / h;
+	u[1] = (float)(tx + tw) / w;
+	v[1] = (float)(ty + th) / h;
+
+	Vertex2D vertexes[] = {
+		{ D3DXVECTOR4(dx - 0.5f, dy - 0.5f, 0.0f, 1.0f), color, D3DXVECTOR2(u[0], v[0]) },
+		{ D3DXVECTOR4(dx + tw - 0.5f, dy - 0.5f, 0.0f, 1.0f), color, D3DXVECTOR2(u[1], v[0]) },
+		{ D3DXVECTOR4(dx - 0.5f, dy + th - 0.5f, 0.0f, 1.0f), color, D3DXVECTOR2(u[0], v[1]) },
+		{ D3DXVECTOR4(dx + tw - 0.5f, dy + th - 0.5f, 0.0f, 1.0f), color, D3DXVECTOR2(u[1], v[1]) },
+	};
+
+	pDevice->SetFVF(FVF_VERTEX2D);
+	pDevice->SetTexture(0, Texture_GetTexture(texture_index));
+	pDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, vertexes, sizeof(Vertex2D));
+}

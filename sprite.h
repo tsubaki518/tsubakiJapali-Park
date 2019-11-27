@@ -53,4 +53,6 @@ void Sprite_Draw(TextureIndex texture_index, float dx, float dy, int tx, int ty,
 //      rotation      ... 回転角度（ラジアン）
 void Sprite_Draw(TextureIndex texture_index, float dx, float dy, int tx, int ty, int tw, int th, float cx, float cy, float sx, float sy, float rotation);
 
+//明滅用描画
+void Sprite_Draw2(TextureIndex texture_index, float dx, float dy, int tx, int ty, int tw, int th,int Alpha);
 #endif // SPRITE_H_
