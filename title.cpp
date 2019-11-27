@@ -86,18 +86,18 @@ void TitleDraw() {
 
 	//選択バー明滅
 	if (cursorPos == PosGame) {
-		Sprite_Draw2(TEXTURE_INDEX_BAR, SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 + 160, 0, 0, 200, 50, i);
+		Sprite_Draw2(TEXTURE_INDEX_BAR, SCREEN_WIDTH / 5 * 2, SCREEN_HEIGHT / 50 * 39, 0, 0, SCREEN_WIDTH / 5.5, SCREEN_HEIGHT / 25 * 2, i);
 	}
 	if (cursorPos == PosOption) {
-		Sprite_Draw2(TEXTURE_INDEX_BAR, SCREEN_WIDTH / 2 - 360, SCREEN_HEIGHT / 2 + 160, 0, 0, 200, 50, i);
+		Sprite_Draw2(TEXTURE_INDEX_BAR, SCREEN_WIDTH / 50 * 9, SCREEN_HEIGHT / 50 * 39, 0, 0, SCREEN_WIDTH / 5.5, SCREEN_HEIGHT / 25 * 2, i);
 	}
 	if (cursorPos == PosDate) {
-		Sprite_Draw2(TEXTURE_INDEX_BAR, SCREEN_WIDTH / 2 + 120, SCREEN_HEIGHT / 2 + 160, 0, 0, 200, 50, i);
+		Sprite_Draw2(TEXTURE_INDEX_BAR, SCREEN_WIDTH / 102 * 63, SCREEN_HEIGHT / 50 * 39, 0, 0, SCREEN_WIDTH / 5.5, SCREEN_HEIGHT / 25 * 2, i);
 	}
 
 	//選択肢
 	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
-	Sprite_Draw(TEXTURE_INDEX_SELECT, 180, SCREEN_HEIGHT / 2 + 160, 0, 0, 640, 33);
+	Sprite_Draw(TEXTURE_INDEX_SELECT, SCREEN_WIDTH / 5, SCREEN_HEIGHT / 50 * 39, 0, 0, SCREEN_WIDTH / 1.7, SCREEN_HEIGHT / 15);
 
 }
 

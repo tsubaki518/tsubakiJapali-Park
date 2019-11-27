@@ -31,9 +31,9 @@ static const TextureFile g_TextureFiles[] = {
 {"asset/texture/title.png",SCREEN_WIDTH,SCREEN_HEIGHT},
 {"asset/texture/title1.png",SCREEN_WIDTH,SCREEN_HEIGHT},
 {"asset/texture/number.png",1536,150},
-{"asset/texture/選択バー.png",200,50},
+{"asset/texture/選択バー.png",SCREEN_WIDTH / 5.5,SCREEN_HEIGHT / 25 * 2},
 {"asset/texture/顔素材セカンド.png",750,250},
-{"asset/texture/選択肢01.png",640,33},
+{"asset/texture/選択肢01.png",SCREEN_WIDTH/1.7,SCREEN_HEIGHT/15},
 
 };
 // 読み込みテクスチャ数
