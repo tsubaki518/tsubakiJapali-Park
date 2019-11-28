@@ -5,7 +5,8 @@
 float rating;
 
 //秒間処理
-static clock_t start,timer, end;
+static clock_t start, end;
+static int timer;
 
 static bool sorispin = false;//スピン判定
 static bool hitcrimp = false;//障害物当たる
@@ -14,19 +15,14 @@ static int cnt;//2秒間カウント
 //視聴率の初期化
 void RatingInit() {
 	rating = 5.0f;
-	start = NULL;
+	start = clock();
 	sorispin = false;
 	cnt = 0;
+	end = clock();
 }
 
 //視聴率の計測
 void RatingUpdate(Sori sori) {
-	//秒間スタート
-	if (start == NULL) {
-		start = clock();
-		timer = 1 * CLOCKS_PER_SEC + clock();
-	}
-	
 	//スピン判定挿入
 	if (sori.isSpin == true) {
 		sorispin = true;
@@ -40,19 +36,20 @@ void RatingUpdate(Sori sori) {
 	
 	//1秒間判定(ホールド)
 	end = clock();
-	if (end - start >= timer) {
-		start += timer;
+	if ((end - start) / (int)CLOCKS_PER_SEC >= 1) {
+		start = clock();//スタートの時間を初期化
 		cnt += 1;
 
 		//自機が高スピードを維持し続ける。80%以上の時
 		if (sori.speed >= sori.maxSpeed*0.8) {
 			rating += 0.5f;
-			cnt = 0;
+			
 		}
 		
 		//加点が無い状態が2秒以上継続。
 		if (cnt >= 2) {
 			rating -= 0.1f;
+			cnt = 0;
 		}
 
 		/*
