@@ -1,10 +1,14 @@
 #include"Sori.h"
 #include"texture.h"
 #include"input.h"
+#include"debug_font.h"
 
 #define CHARACTER_ROTATION_SPEED 0.1f
 #define SPIN_NUM 4
 #define SPIN_SPEED 1.5f
+#define ACCEL_FLOOR_ACCEL_SPEED 0.5f
+
+
 
 Sori::Sori() {
 	position.y = 2;
@@ -18,16 +22,19 @@ void Sori::Init(float weight1, float weight2) {
 	character[0]->Init();
 	bobsled.Init("asset/model/Bobsled/bobuv2.x", "asset/model/Bobsled/bobuv02.jpg");
 
+
+	//------------------スピードなどのパラメータの初期化----------------------------//
 	//最高速の設定
 	maxSpeed = (character[0]->maxSpeed + character[1]->maxSpeed) / 2;
-}
 
+	speedAccel = 0;//加速床に当たったときに加速する速度を初期化する
+}
 void Sori::Update() {
 	//当たり判定の情報を入れる
 	collisoin.position = position;
 	collisoin.rotation = rotation;
 	collisoin.size.x = 0;
-	collisoin.size.y = 1;
+	collisoin.size.y = 0.7;
 	collisoin.size.z = 0;
 
 	//キャラクターの情報を入れる
@@ -52,6 +59,9 @@ void Sori::Update() {
 
 	//壁に当たったら跳ね返る
 	Bound();
+
+	//加速床
+	SpeedAccel();
 
 	
 }
@@ -100,7 +110,6 @@ void Sori::UnInit() {
 	bobsled.UnInit();
 }
 
-
 Sori::~Sori() {
 
 }
@@ -144,6 +153,15 @@ bool Sori::CollisionGoal(Collider3D c) {
 		return false;
 	}
 }
+void Sori::AccelFloorCollision(Collider3D c) {
+	BoxCollider2 collider;
+
+	if (collider.Collider(collisoin, c).isHit) {
+		speedAccel = ACCEL_FLOOR_ACCEL_SPEED;
+
+		DebugFont_Draw(5, 5, "lsdfhsf");
+	}
+}
 
 
 void Sori::Move() {
@@ -152,8 +170,8 @@ void Sori::Move() {
 
 	//正面に移動
 	if (isSpin == false) {
-		position += GetForward() * speed;
-		spinMoveDirection = GetForward() * speed;
+		position += GetForward() * (speed+speedAccel);
+		spinMoveDirection = GetForward() * (speed + speedAccel);
 
 	} else if (isSpin == true) {
 		position += spinMoveDirection;
@@ -305,6 +323,11 @@ void Sori::Spin() {
 		if (beforRotation.y + SPIN_NUM * 6.28f <= rotation.y) {
 			isSpin = false;
 		}
+	}
+}
+void Sori::SpeedAccel() {
+	if (speedAccel > 0) {
+		speedAccel -= 0.0004;
 	}
 }
 

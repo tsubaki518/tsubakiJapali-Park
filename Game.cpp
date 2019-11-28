@@ -28,7 +28,9 @@ Sori sori;
 static bool isAnimatioin=false;
 static bool isChangeScene = false;
 
+//UIÇÃï`âÊ
 void UIDraw();
+
 
 void GameInit() {
 	isChangeScene = false;
@@ -84,7 +86,9 @@ void GameDraw() {
 	sori.Draw();
 
 	//UIÇï`âÊÇ∑ÇÈ
+	//UIÇÃï`âÊÇÕÇ±ÇÃä÷êîì‡Ç≈Ç‚ÇÈ
 	UIDraw();
+
 
 }
 
@@ -135,6 +139,10 @@ void GameCollision() {
 		sori.speed = 0;
 		sori.isGoalGround = true;
 	}
+
+	//â¡ë¨è∞ÇÃìñÇΩÇËîªíË
+	//sori.AccelFloorCollision(cube.collider);
+
 	
 }
 
@@ -142,6 +150,5 @@ void UIDraw() {
 	if (sori.isGoalGround == true) {
 		isChangeScene = goalAnimation.Draw();
 	}
-
 	isAnimatioin = startAnimation.Draw();
 }

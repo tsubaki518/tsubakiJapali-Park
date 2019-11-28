@@ -4,17 +4,19 @@
 #include"XFile.h"
 class Sori {
 private:
-	bool isBoundRight = false;
-	bool isBoundLeft = false;
+	float speedAccel = 0;		//加速床に当たったときに加速する速度
+	bool isBoundRight = false;  //右に跳ね返る判定
+	bool isBoundLeft = false;   //左に跳ね返る判定
 	int boundCount = 0;
-	D3DXVECTOR3 spinMoveDirection;
-	D3DXVECTOR3 beforRotation;
+	D3DXVECTOR3 spinMoveDirection;  //スピン中の移動方向
+	D3DXVECTOR3 beforRotation;		//スピン前の角度を取得して何回回転するか判定するために使う
 
-	void Move();
-	void Friction();
-	void SlideDown();
-	void Bound();
+	void Move();		//移動処理
+	void Friction();	//摩擦
+	void SlideDown();	//斜面で滑り落ちる
+	void Bound();		//壁に当たると跳ね返る
 	void Spin();
+	void SpeedAccel();  //加速床に当たった時の処理
 
 	//引数に体重を入れてキャラクターをセットする
 	void SetCharacter(float weight1, float weight2);
@@ -22,15 +24,15 @@ public:
 	D3DXVECTOR3 rotation;
 	D3DXVECTOR3 position;
 	D3DXVECTOR3 scale = { 50,50,50 };
-	bool isSpin = false;
-	bool isHitRightWall = false;
-	bool isHitLeftWall = false;
-	bool isGoalGround = false;
-	float speed;
-	float maxSpeed=1;
-	XFile bobsled;		//モデルデータ(ソリ)
-	Character *character[2];
-	Collider3D collisoin;
+	bool isSpin = false;			//スピン判定 スピン中はtrue
+	bool isHitRightWall = false;	//右壁に当たった判定
+	bool isHitLeftWall = false;		//左壁に当たった判定
+	bool isGoalGround = false;		//ゴールに到達判定
+	float speed;					//現在の速度
+	float maxSpeed;				   //最高速
+	XFile bobsled;				  //モデルデータ(ソリ)
+	Character *character[2];	  //キャラクター 要素番号0が1P　要素番号1が2P
+	Collider3D collisoin;		 //ソリの当たり判定を入れる
 
 	Sori();
 
@@ -44,11 +46,11 @@ public:
 	void UnInit();
 	~Sori();
 
-	//斜め判定
+	//当たり判定
 	bool CollisionWall(Collider3D c);
 	bool Collision(Collider3D c);
 	bool CollisionGoal(Collider3D c);
-
+	void AccelFloorCollision(Collider3D c);
 
 	D3DXVECTOR3 GetForward(); //正面を取得
 	D3DXVECTOR3 GetRight();  //右側取得
