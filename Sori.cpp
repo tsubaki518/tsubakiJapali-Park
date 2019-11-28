@@ -6,12 +6,11 @@
 #define CHARACTER_ROTATION_SPEED 0.1f
 #define SPIN_NUM 4
 #define SPIN_SPEED 1.5f
-#define ACCEL_FLOOR_ACCEL_SPEED 0.5f
+#define ACCEL_FLOOR_ACCEL_SPEED 0.3f
 
 
 
 Sori::Sori() {
-	position.y = 2;
 }
 
 void Sori::Init(float weight1, float weight2) {
@@ -20,14 +19,18 @@ void Sori::Init(float weight1, float weight2) {
 	SetCharacter(weight1, weight2);
 	character[1]->Init();
 	character[0]->Init();
-	bobsled.Init("asset/model/Bobsled/bobuv2.x", "asset/model/Bobsled/bobuv02.jpg");
-
-
 	//------------------スピードなどのパラメータの初期化----------------------------//
 	//最高速の設定
 	maxSpeed = (character[0]->maxSpeed + character[1]->maxSpeed) / 2;
 
 	speedAccel = 0;//加速床に当たったときに加速する速度を初期化する
+	position = D3DXVECTOR3(0, 1, 0);
+	rotation = D3DXVECTOR3(0, 0, 0);
+	isGoalGround = false;
+}
+void Sori::LoadModel() {
+	bobsled.Init("asset/model/Bobsled/bobuv2.x", "asset/model/Bobsled/bobuv02.jpg");
+
 }
 void Sori::Update() {
 	//当たり判定の情報を入れる
@@ -327,7 +330,7 @@ void Sori::Spin() {
 }
 void Sori::SpeedAccel() {
 	if (speedAccel > 0) {
-		speedAccel -= 0.0004;
+		speedAccel -= 0.0008;
 	}
 }
 

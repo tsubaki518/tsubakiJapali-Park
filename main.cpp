@@ -21,6 +21,7 @@
 
 //ここまで3D用追加コード
 //===============================================
+Light light;
 
 
 /*------------------------------------------------------------------------------
@@ -192,6 +193,10 @@ bool Initialize(void)
         MessageBox(g_hWnd, "いくつか読み込めなかったテクスチャファイルがあります", "エラー", MB_OK);
     }
 	DebugFont_Initialize();
+
+	light.Init(D3DLIGHT_DIRECTIONAL);
+	light.Use(true);
+
 	SetScene(GAME);
 
     return true;

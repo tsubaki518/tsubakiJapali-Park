@@ -17,6 +17,7 @@ private:
 	void Bound();		//壁に当たると跳ね返る
 	void Spin();
 	void SpeedAccel();  //加速床に当たった時の処理
+	
 
 	//引数に体重を入れてキャラクターをセットする
 	void SetCharacter(float weight1, float weight2);
@@ -44,6 +45,7 @@ public:
 	void Update();
 	void Draw();
 	void UnInit();
+	void LoadModel();
 	~Sori();
 
 	//当たり判定

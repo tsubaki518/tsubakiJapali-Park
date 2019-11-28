@@ -20,7 +20,6 @@
 #include"Animation.h"
 #include"main.h"
 
-Light light;
 StartAnimation startAnimation;
 GoalAnimation goalAnimation;
 Camera camera;
@@ -31,14 +30,12 @@ static bool isChangeScene = false;
 //UIの描画
 void UIDraw();
 
-
+void LoadModel(){
+	sori.LoadModel();
+}
 void GameInit() {
 	isChangeScene = false;
 	isAnimatioin = false;
-
-	//ライト初期化
-	light.Init(D3DLIGHT_DIRECTIONAL);
-	light.Use(true);
 
 	//ステージ初期化
 	StageInit();
@@ -48,7 +45,7 @@ void GameInit() {
 
 	//体重をもとにキャラクターを設定する
 	sori.Init(72, 55);
-
+	LoadModel();
 	//アニメーションの初期化
 	startAnimation.Init();
 
@@ -141,7 +138,10 @@ void GameCollision() {
 	}
 
 	//加速床の当たり判定
-	//sori.AccelFloorCollision(cube.collider);
+	for (int i = 0; i < GetAccelSpeedNum(); i++) {
+		sori.AccelFloorCollision(GetAccelSpeedCube(i).collider);
+	}
+
 
 	
 }

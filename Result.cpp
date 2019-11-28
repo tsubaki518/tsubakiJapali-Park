@@ -3,12 +3,16 @@
 #include"common.h"
 #include"Rating.h"
 #include"Timer.h"
+#include"input.h"
+#include"main.h"
 
 void ResultInit() {
 
 }
 void ResultUpdate() {
-
+	if (Keyboard_IsPress(DIK_RETURN)) {
+		SetScene(TITLE);
+	}
 }
 
 void ResultDraw() {
