@@ -39,7 +39,17 @@ bool StartAnimation::Draw() {
 	return true;
 }
 
-void GoalAnimation::Draw() {
+
+void GoalAnimation::Init() {
+	endCount = 0;
+}
+bool GoalAnimation::Draw() {
 	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
 	Sprite_Draw(TEXTURE_INDEX_GOAL, SCREEN_WIDTH / 2 - 500 / 2, SCREEN_HEIGHT / 2 / 2, 0, 0, 500, 200);
+
+	endCount++;
+	if (endCount > 100) {
+		return true;
+	}
+	return false;
 }

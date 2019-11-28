@@ -18,6 +18,9 @@ public:
 };
 
 class GoalAnimation :public Animation {
+private :
+	int endCount = 0;
 public:
-	void Draw();
+	void Init();
+	bool Draw();
 };

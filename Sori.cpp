@@ -32,10 +32,8 @@ void Sori::Update() {
 
 	//キャラクターの情報を入れる
 	for (int i = 0; i < 2; i++) {
-		character[i]->position.x =GetUp().x+ position.x;
-		character[i]->position.y = GetUp().y+position.y+1.0f;
-		character[i]->position.z = GetUp().z+position.z;
-		character[i]->position += GetForward()*(float)i - GetForward()*0.7f-GetForward();
+		character[i]->position = GetUp()*1.75f + position;
+		character[i]->position += GetForward()*(float)i - GetForward()*0.7f-GetForward()*0.5f;
 		character[i]->rotation = rotation;
 		character[i]->rotation.z += character[i]->inputRotZ-rotation.z*2;
 	}
@@ -97,12 +95,9 @@ void Sori::Draw() {
 	character[1]->Draw();
 }
 void Sori::UnInit() {
-	character[0]->UnInit();
-	character[1]->UnInit();
 
-	delete character[0];
-	delete character[1];
-	//bobsled.UnInit();
+
+	bobsled.UnInit();
 }
 
 

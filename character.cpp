@@ -13,7 +13,7 @@ void Bear::Init() {
 	model = new XFile();
 	model->Init("asset/model/Bear/bear.x", "asset/model/Bear/bearuv.jpg");
 	scale.x = 30;
-	scale.y = 30;
+	scale.y = 35;
 	scale.z = 30;
 	inputRotZ = 0;
 }
@@ -122,6 +122,8 @@ void Hamster::Draw() {
 
 //各キャラクターの終了処理
 void Character::UnInit() {
+	model->UnInit();
+	delete model;
 }
 void Elephant::UnInit() {
 

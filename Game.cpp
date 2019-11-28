@@ -18,17 +18,22 @@
 #include"Timer.h"
 #include"XFile.h"
 #include"Animation.h"
+#include"main.h"
 
 Light light;
 StartAnimation startAnimation;
 GoalAnimation goalAnimation;
 Camera camera;
 Sori sori;
-static bool isAnimatioin;
+static bool isAnimatioin=false;
+static bool isChangeScene = false;
 
 void UIDraw();
 
 void GameInit() {
+	isChangeScene = false;
+	isAnimatioin = false;
+
 	//ÉâÉCÉgèâä˙âª
 	light.Init(D3DLIGHT_DIRECTIONAL);
 	light.Use(true);
@@ -60,6 +65,10 @@ void GameUpdate() {
 		TimerUpdate();
 		GameCollision();
 	}
+
+	if (isChangeScene == true) {
+		SetScene(RESULT);
+	}
 }
 
 void GameDraw() {
@@ -80,6 +89,7 @@ void GameDraw() {
 }
 
 void GameUnInit() {
+
 	sori.UnInit();
 }
 
@@ -130,7 +140,7 @@ void GameCollision() {
 
 void UIDraw() {
 	if (sori.isGoalGround == true) {
-		goalAnimation.Draw();
+		isChangeScene = goalAnimation.Draw();
 	}
 
 	isAnimatioin = startAnimation.Draw();

@@ -182,8 +182,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 // ゲームの初期化関数
 bool Initialize(void)
 {
-
-
     // Direct3Dラッパーモジュールの初期化
     if( !MyDirect3D_Initialize(g_hWnd) ) {
         return false;
@@ -247,7 +245,7 @@ void Draw(void)
 		break;
 
 	case RESULT:
-		ResultUpdate();
+		ResultDraw();
 		break;
 	}
 	
@@ -266,8 +264,6 @@ void Finalize(void){
     Texture_Release();
 
 	DebugFont_Finalize();
-
-	GameUnInit();
 
     // Direct3Dラッパーモジュールの終了処理
     MyDirect3D_Finalize();
