@@ -32,7 +32,7 @@ static const TextureFile g_TextureFiles[] = {
 {"asset/texture/title1.png",SCREEN_WIDTH,SCREEN_HEIGHT},
 {"asset/texture/number.png",1536,150},
 {"asset/texture/選択バー.png",SCREEN_WIDTH / 5.5,SCREEN_HEIGHT / 25 * 2},
-{"asset/texture/顔素材セカンド.png",SCREEN_WIDTH / 2,SCREEN_HEIGHT / 5},
+{"asset/texture/顔素材セカンド.png",SCREEN_HEIGHT,SCREEN_HEIGHT},
 {"asset/texture/選択肢01.png",SCREEN_WIDTH/1.7,SCREEN_HEIGHT/15},
 {"asset/texture/カウントダウン１.png",500,100},
 {"asset/texture/カウントダウン２.png",500,100},
