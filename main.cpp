@@ -5,6 +5,7 @@
 #pragma comment(lib,"dxguid.lib")
 #pragma comment(lib,"dinput8.lib")
 
+
 #include <Windows.h>
 #include "common.h"
 #include "mydirect3d.h"
@@ -197,7 +198,7 @@ bool Initialize(void)
 	light.Init(D3DLIGHT_DIRECTIONAL);
 	light.Use(true);
 
-	SetScene(GAME);
+	SetScene(TITLE);
 
     return true;
 }

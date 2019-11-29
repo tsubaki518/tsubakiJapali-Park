@@ -14,11 +14,14 @@ Sori::Sori() {
 }
 
 void Sori::Init(float weight1, float weight2) {
-
+	
 	//キャラクターをセットする
 	SetCharacter(weight1, weight2);
 	character[1]->Init();
 	character[0]->Init();
+	bobsled.Init("asset/model/Bobsled/bobuv2.x", "asset/model/Bobsled/bobuv022.jpg");
+
+
 	//------------------スピードなどのパラメータの初期化----------------------------//
 	//最高速の設定
 	maxSpeed = (character[0]->maxSpeed + character[1]->maxSpeed) / 2;
@@ -27,10 +30,7 @@ void Sori::Init(float weight1, float weight2) {
 	position = D3DXVECTOR3(0, 1, 0);
 	rotation = D3DXVECTOR3(0, 0, 0);
 	isGoalGround = false;
-}
-void Sori::LoadModel() {
-	bobsled.Init("asset/model/Bobsled/bobuv2.x", "asset/model/Bobsled/bobuv02.jpg");
-
+	isSpin = false;
 }
 void Sori::Update() {
 	//当たり判定の情報を入れる
@@ -108,8 +108,10 @@ void Sori::Draw() {
 	character[1]->Draw();
 }
 void Sori::UnInit() {
-
-
+	for (int i = 0; i < 2; i++) {
+		character[i]->UnInit();
+		delete character[i];
+	}
 	bobsled.UnInit();
 }
 

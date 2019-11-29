@@ -30,12 +30,13 @@ static bool isChangeScene = false;
 //UIの描画
 void UIDraw();
 
-void LoadModel(){
-	sori.LoadModel();
-}
+
 void GameInit() {
 	isChangeScene = false;
 	isAnimatioin = false;
+
+	//体重をもとにキャラクターを設定する
+	sori.Init(72, 55);
 
 	//ステージ初期化
 	StageInit();
@@ -43,17 +44,16 @@ void GameInit() {
 	//視聴率初期化
 	RatingInit();
 
-	//体重をもとにキャラクターを設定する
-	sori.Init(72, 55);
-	LoadModel();
 	//アニメーションの初期化
 	startAnimation.Init();
+	goalAnimation.Init();
 
 	//タイム初期化
 	TimerInit();
 
 	//プレイヤーの初期位置
-	sori.position.y = 1;
+	sori.position = D3DXVECTOR3(0, -2.5f, 0);
+	sori.rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0, 0);
 
 }
 
@@ -72,6 +72,9 @@ void GameUpdate() {
 
 void GameDraw() {
 
+	//そりの描画
+	sori.Draw();
+
 	RatingDraw();
 	//カメラ追従
 	camera.SetCamera(sori);
@@ -79,8 +82,6 @@ void GameDraw() {
 	//ステージの描画
 	StageDraw();
 
-	//そりの描画
-	sori.Draw();
 
 	//UIを描画する
 	//UIの描画はこの関数内でやる

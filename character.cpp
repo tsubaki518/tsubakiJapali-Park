@@ -11,7 +11,7 @@ void Elephant::Init() {
 }
 void Bear::Init() {
 	model = new XFile();
-	model->Init("asset/model/Bear/bear.x", "asset/model/Bear/bearuv.jpg");
+	model->Init("asset/model/Bear/bear.x", "asset/model/Bear/bearuv2.jpg");
 	scale.x = 30;
 	scale.y = 35;
 	scale.z = 30;
@@ -22,7 +22,7 @@ void Dog::Init() {
 }
 void Rabbit::Init() {
 	model = new XFile();
-	model->Init("asset/model/Rabbit/usagi.x", "asset/model/Rabbit/texture.jpg");
+	model->Init("asset/model/Rabbit/usagi.x", "asset/model/Rabbit/texture2.jpg");
 	scale.x = 15;
 	scale.y = 15;
 	scale.z = 15;

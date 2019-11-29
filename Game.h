@@ -5,4 +5,3 @@ void GameUpdate();
 void GameDraw();
 void GameUnInit();
 void GameCollision();
-void LoadModel();
