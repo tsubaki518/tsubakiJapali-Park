@@ -53,6 +53,8 @@ void GameInit() {
 	//ƒ^ƒCƒ€‰Šú‰»
 	TimerInit();
 
+	camera.Init(sori);
+
 }
 
 void GameUpdate() {

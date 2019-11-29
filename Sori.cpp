@@ -29,7 +29,7 @@ void Sori::Init(float weight1, float weight2) {
 	speedAccel = 0;//加速床に当たったときに加速する速度を初期化する
 
 	//プレイヤーの初期位置
-	position = D3DXVECTOR3(0, -2.5f, 0);
+	position = D3DXVECTOR3(2, -3.51f, 0);
 	rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0, 0);
 	isGoalGround = false;
 	isSpin = false;
@@ -46,8 +46,8 @@ void Sori::Update() {
 	//当たり判定の情報を入れる
 	collisoin.position = position;
 	collisoin.rotation = rotation;
-	collisoin.size.x = 0;
-	collisoin.size.y = 0.7f;
+	collisoin.size.x = 1;
+	collisoin.size.y = -1.0f;
 	collisoin.size.z = 0;
 
 	//キャラクターの情報を入れる

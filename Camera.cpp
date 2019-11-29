@@ -4,15 +4,16 @@
 #include "texture.h"
 #include "sprite.h"
 #include <d3dx9.h>
-#include"debug_font.h"
 #include"Camera.h"
 
 
 
 
-
+void Camera::Init(Sori sori) {
+	rad.y = sori.rotation.y + 3.14f;
+	rad.x = sori.rotation.x - 3.14f;
+}
 void Camera::SetCamera(Sori sori) {
-	DebugFont_Draw(1, 1, "%d", sori.isSpin);
 
 	//ƒJƒƒ‰‚ğ­‚µ‚¸‚Â‰ñ“]‚³‚¹‚é
 	if (sori.isSpin == false) {
