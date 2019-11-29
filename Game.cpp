@@ -30,13 +30,15 @@ static bool isChangeScene = false;
 //UIの描画
 void UIDraw();
 
-
+//初期化
+//プレイヤーの初期位置はSoriクラスのInit()関数で行う
 void GameInit() {
+	//フラグの初期化
 	isChangeScene = false;
 	isAnimatioin = false;
 
 	//体重をもとにキャラクターを設定する
-	sori.Init(72, 55);
+	sori.Init(72, 55);//この関数内でプレイヤーの初期位置を決める
 
 	//ステージ初期化
 	StageInit();
@@ -51,20 +53,18 @@ void GameInit() {
 	//タイム初期化
 	TimerInit();
 
-	//プレイヤーの初期位置
-	sori.position = D3DXVECTOR3(0, -2.5f, 0);
-	sori.rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0, 0);
-
 }
 
 void GameUpdate() {
+	//スタートアニメーション中はUpdate処理を止める
 	if (isAnimatioin == false) {
-		RatingUpdate(sori);
 		sori.Update();
+		RatingUpdate(sori);
 		TimerUpdate();
 		GameCollision();
 	}
 
+	//シーンの切り替え
 	if (isChangeScene == true) {
 		SetScene(RESULT);
 	}
@@ -90,12 +90,13 @@ void GameDraw() {
 
 }
 
+//終了処理
 void GameUnInit() {
 
 	sori.UnInit();
 }
 
-
+//当たり判定
 void GameCollision() {
 
 	bool isGround = false;
@@ -147,6 +148,7 @@ void GameCollision() {
 	
 }
 
+//UIの描画
 void UIDraw() {
 	if (sori.isGoalGround == true) {
 		isChangeScene = goalAnimation.Draw();

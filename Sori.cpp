@@ -27,17 +27,27 @@ void Sori::Init(float weight1, float weight2) {
 	maxSpeed = (character[0]->maxSpeed + character[1]->maxSpeed) / 2;
 
 	speedAccel = 0;//加速床に当たったときに加速する速度を初期化する
-	position = D3DXVECTOR3(0, 1, 0);
-	rotation = D3DXVECTOR3(0, 0, 0);
+
+	//プレイヤーの初期位置
+	position = D3DXVECTOR3(0, -2.5f, 0);
+	rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0, 0);
 	isGoalGround = false;
 	isSpin = false;
+
+	//キャラクターの情報を入れる
+	for (int i = 0; i < 2; i++) {
+		character[i]->position = GetUp()*1.75f + position;
+		character[i]->position += GetForward()*(float)i - GetForward()*0.7f - GetForward()*0.5f;
+		character[i]->rotation = rotation;
+		character[i]->rotation.z += character[i]->inputRotZ - rotation.z * 2;
+	}
 }
 void Sori::Update() {
 	//当たり判定の情報を入れる
 	collisoin.position = position;
 	collisoin.rotation = rotation;
 	collisoin.size.x = 0;
-	collisoin.size.y = 0.7;
+	collisoin.size.y = 0.7f;
 	collisoin.size.z = 0;
 
 	//キャラクターの情報を入れる
@@ -332,7 +342,7 @@ void Sori::Spin() {
 }
 void Sori::SpeedAccel() {
 	if (speedAccel > 0) {
-		speedAccel -= 0.0008;
+		speedAccel -= 0.0008f;
 	}
 }
 

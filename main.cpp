@@ -140,10 +140,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
             DispatchMessage(&msg);
         }
         else {
-            // ゲームの更新
-			Update();
 			// ゲームの描画
 			Draw();
+            // ゲームの更新
+			Update();
+			
         }
     }
 

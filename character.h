@@ -25,7 +25,7 @@ public:
 	float defense = 0.0f;		//弾き耐性
 	int	spinNum = 0;			//スピン持続
 	D3DXCOLOR color;			//キャラクターカラー
-	XFile *model;				//モデルデータ
+	XFile model;				//モデルデータ
 
 	Character(){}
 	virtual void Init();

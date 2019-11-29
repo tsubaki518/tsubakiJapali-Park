@@ -10,8 +10,7 @@ void Elephant::Init() {
 	inputRotZ = 0;
 }
 void Bear::Init() {
-	model = new XFile();
-	model->Init("asset/model/Bear/bear.x", "asset/model/Bear/bearuv2.jpg");
+	model.Init("asset/model/Bear/bear.x", "asset/model/Bear/bearuv2.jpg");
 	scale.x = 30;
 	scale.y = 35;
 	scale.z = 30;
@@ -21,8 +20,7 @@ void Dog::Init() {
 	inputRotZ = 0;
 }
 void Rabbit::Init() {
-	model = new XFile();
-	model->Init("asset/model/Rabbit/usagi.x", "asset/model/Rabbit/texture2.jpg");
+	model.Init("asset/model/Rabbit/usagi.x", "asset/model/Rabbit/texture2.jpg");
 	scale.x = 15;
 	scale.y = 15;
 	scale.z = 15;
@@ -74,7 +72,7 @@ void Bear::Draw() {
 
 	//ワールドマトリクスを設定
 	g_pd3dDevice->SetTransform(D3DTS_WORLD, &g_mtxWorld);
-	model->Draw();
+	model.Draw();
 
 }
 void Dog::Draw() {
@@ -113,7 +111,7 @@ void Rabbit::Draw() {
 
 	//ワールドマトリクスを設定
 	g_pd3dDevice->SetTransform(D3DTS_WORLD, &g_mtxWorld);
-	model->Draw();
+	model.Draw();
 }
 void Hamster::Draw() {
 
@@ -122,22 +120,19 @@ void Hamster::Draw() {
 
 //各キャラクターの終了処理
 void Character::UnInit() {
-	model->UnInit();
-	delete model;
+	model.UnInit();
 }
 void Elephant::UnInit() {
 
 }
 void Bear::UnInit() {
-	model->UnInit();
-	delete model;
+	model.UnInit();
 }
 void Dog::UnInit() {
 
 }
 void Rabbit::UnInit() {
-	model->UnInit();
-	delete model;
+	model.UnInit();
 }
 void Hamster::UnInit() {
 
