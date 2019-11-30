@@ -5,7 +5,7 @@
 
 #define CHARACTER_ROTATION_SPEED 0.1f
 #define SPIN_NUM 4
-#define SPIN_SPEED 1.5f
+#define SPIN_SPEED 1.0f
 #define ACCEL_FLOOR_ACCEL_SPEED 0.3f
 
 
@@ -192,6 +192,8 @@ void Sori::Move() {
 		position += spinMoveDirection;
 	}
 
+	
+
 	//1Pの移動
 	{
 		if (Keyboard_IsPress(DIK_UP) &&isSpin==false) {
@@ -312,30 +314,47 @@ void Sori::Bound() {
 		isBoundLeft = true;
 	}
 	
+
+	//壁に当たった時の移動方向を取得
+	if (isSpin == false) {
+		spinMoveDirectionRight = GetRight();
+	}
 	
 	if (isBoundRight == true && boundCount <= 100) {
-		position += GetRight() * ((character[0]->handling + character[1]->handling));  //GetRight()*移動量
+		if (isSpin == false) {
+			position += GetRight() * ((character[0]->handling + character[1]->handling));  //GetRight()*移動量
+			position.y -= GetRight().y * ((character[0]->handling + character[1]->handling));//跳ね返ってる間にスピンするとステージ外に行くバグの対策
+		} else if (isSpin == true) {
+			position += spinMoveDirectionRight * ((character[0]->handling + character[1]->handling));  //GetRight()*移動量
+			position.y -= spinMoveDirectionRight.y * ((character[0]->handling + character[1]->handling));//跳ね返ってる間にスピンするとステージ外に行くバグの対策
+		}
 		boundCount++;
 	} else {
 		isBoundRight = false;
 	}
 	if (isBoundLeft == true && boundCount <= 100) {
-		position -= GetRight() * ((character[0]->handling + character[1]->handling) );  //GetRight()*移動量
+		if (isSpin == false) {
+			position -= GetRight() * ((character[0]->handling + character[1]->handling));  //GetRight()*移動量
+			position.y += GetRight().y * ((character[0]->handling + character[1]->handling));//跳ね返ってる間にスピンするとステージ外に行くバグの対策
+		} else if (isSpin == true) {
+			position -= spinMoveDirectionRight * ((character[0]->handling + character[1]->handling));  //GetRight()*移動量
+			position.y += spinMoveDirectionRight.y * ((character[0]->handling + character[1]->handling));//跳ね返ってる間にスピンするとステージ外に行くバグの対策
+		}
 		boundCount++;
 	} else {
 		isBoundLeft = false;
 	}
 }
 void Sori::Spin() {
-	if (Keyboard_IsPress(DIK_A) && Keyboard_IsPress(DIK_RIGHT) && isSpin==false ||
-		Keyboard_IsPress(DIK_D) && Keyboard_IsPress(DIK_LEFT) && isSpin == false) {
+	if (Keyboard_IsPress(DIK_A) && Keyboard_IsPress(DIK_RIGHT) ||
+		Keyboard_IsPress(DIK_D) && Keyboard_IsPress(DIK_LEFT) ) {
 		isSpin = true;
 		beforRotation = rotation;
 	}
 
 	if (isSpin == true) {
 		rotation.y += SPIN_SPEED;
-		if (beforRotation.y + SPIN_NUM * 6.28f <= rotation.y) {
+		if (beforRotation.y + SPIN_NUM * 6.28f < rotation.y) {
 			isSpin = false;
 		}
 	}

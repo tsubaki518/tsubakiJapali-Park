@@ -9,6 +9,7 @@ private:
 	bool isBoundLeft = false;   //左に跳ね返る判定
 	int boundCount = 0;
 	D3DXVECTOR3 spinMoveDirection;  //スピン中の移動方向
+	D3DXVECTOR3 spinMoveDirectionRight;//スピン中の跳ね返る方向
 	D3DXVECTOR3 beforRotation;		//スピン前の角度を取得して何回回転するか判定するために使う
 
 	void Move();		//移動処理

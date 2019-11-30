@@ -18,7 +18,6 @@ bool BoxCollider::Collider(Collider3D c1, Collider3D c2) {
 	return false;
 }
 
-
 Hit BoxCollider2::Collider(Collider3D point, Collider3D plane) {
 	Hit hit;						//hit”»’è‚Æ‰Ÿ‚µo‚·À•W
 	bool isOn = false;				//–Ê‚Ìã‚É‚¢‚é‚©
