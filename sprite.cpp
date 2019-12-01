@@ -40,7 +40,7 @@ void Sprite_SetColor(D3DCOLOR color)
 
 // スプライト描画
 // ※テクスチャ切り取り幅、高さと同じ大きさのスプライトを指定座標に描画する
-void Sprite_Draw(TextureIndex texture_index, float dx, float dy, int tx, int ty,int tw, int th)
+void Sprite_Draw(TextureIndex texture_index, float dx, float dy, int tx, int ty,int tw, int th, float sx, float sy)
 {
 	LPDIRECT3DDEVICE9 pDevice = MyDirect3D_GetDevice();
     if( !pDevice ) return;
@@ -56,10 +56,10 @@ void Sprite_Draw(TextureIndex texture_index, float dx, float dy, int tx, int ty,
 	v[1] = (float)(ty + th) / h;
 
     Vertex2D vertexes[] = {
-        { D3DXVECTOR4(dx      - 0.5f, dy      - 0.5f, 0.0f, 1.0f), g_Color, D3DXVECTOR2(u[0], v[0]) },
-        { D3DXVECTOR4(dx + tw - 0.5f, dy      - 0.5f, 0.0f, 1.0f), g_Color, D3DXVECTOR2(u[1], v[0]) },
-		{ D3DXVECTOR4(dx      - 0.5f, dy + th - 0.5f, 0.0f, 1.0f), g_Color, D3DXVECTOR2(u[0], v[1]) },
-		{ D3DXVECTOR4(dx + tw - 0.5f, dy + th - 0.5f, 0.0f, 1.0f), g_Color, D3DXVECTOR2(u[1], v[1]) },
+        { D3DXVECTOR4((dx      - 0.5f)*sx, (dy      - 0.5f)*sy, 0.0f, 1.0f), g_Color, D3DXVECTOR2(u[0], v[0]) },
+        { D3DXVECTOR4((dx + tw - 0.5f)*sx, (dy      - 0.5f)*sy, 0.0f, 1.0f), g_Color, D3DXVECTOR2(u[1], v[0]) },
+		{ D3DXVECTOR4((dx      - 0.5f)*sx, (dy + th - 0.5f)*sy, 0.0f, 1.0f), g_Color, D3DXVECTOR2(u[0], v[1]) },
+		{ D3DXVECTOR4((dx + tw - 0.5f)*sx, (dy + th - 0.5f)*sy, 0.0f, 1.0f), g_Color, D3DXVECTOR2(u[1], v[1]) },
     };
 
     pDevice->SetFVF(FVF_VERTEX2D);

@@ -34,8 +34,9 @@ void Sprite_Draw(TextureIndex texture_index, float dx, float dy);
 //      ty            ... テクスチャ切り取り座標y
 //      tw            ... テクスチャ切り取り幅
 //      th            ... テクスチャ切り取り高さ
-void Sprite_Draw(TextureIndex texture_index, float dx, float dy, int tx, int ty, int tw, int th);
-
+//      sx            ... 拡大率x方向
+//      sy            ... 拡大率y方向
+void Sprite_Draw(TextureIndex texture_index, float dx, float dy, int tx, int ty, int tw, int th, float sx=1, float sy=1);
 // スプライト描画
 // ※テクスチャ切り取り幅、高さと同じ大きさのスプライトを指定座標に配置してスプライトの指定座標を中心に拡大、回転描画する
 //
