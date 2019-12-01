@@ -77,13 +77,11 @@ void GameDraw() {
 	//そりの描画
 	sori.Draw();
 
-	RatingDraw();
 	//カメラ追従
 	camera.SetCamera(sori);
-	TimerDraw(1,1);
+
 	//ステージの描画
 	StageDraw();
-
 
 	//UIを描画する
 	//UIの描画はこの関数内でやる
@@ -156,4 +154,10 @@ void UIDraw() {
 		isChangeScene = goalAnimation.Draw();
 	}
 	isAnimatioin = startAnimation.Draw();
+
+	//経過時間表示
+	TimerDraw(1, 1);
+
+	//視聴率表示
+	RatingDraw();
 }

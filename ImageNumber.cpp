@@ -1,0 +1,18 @@
+#include"ImageNumber.h"
+
+void ImageNumberDraw(D3DXVECTOR2 position, int num) {
+	const int TEXTURE_SIZR_X = 1536 / 10;
+	const int TEXTURE_SIZR_Y = 150;
+
+	int remainder;	//1の位の値を格納
+	int i = 0;//2桁目から表示座標をずらすために使用
+
+	//numの値が割り切れなくなるまでループ
+	do{
+		remainder = num % 10;
+		num = num / 10;
+		Sprite_Draw(TEXTURE_INDEX_NUMBER, position.x-i* TEXTURE_SIZR_X*0.85f, position.y, remainder*TEXTURE_SIZR_X*1.02f, 0, TEXTURE_SIZR_X*0.95f, TEXTURE_SIZR_Y);
+		i++;
+	} while (num != 0);
+	
+}
