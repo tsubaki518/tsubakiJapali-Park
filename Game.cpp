@@ -98,15 +98,24 @@ void GameUnInit() {
 
 //当たり判定
 void GameCollision() {
-
+	const float HIT_CHECK_RANGE = 15;
+	D3DXVECTOR3 distance;
 	bool isGround = false;
 	//ソリとCube(床)の当たり判定
 	for (int i = 0; i < GetCubeNum(); i++) {
-		if (sori.Collision(GetCube(i).collider)) {
-			isGround = true;
-			break;
-		} else {
-			isGround = false;
+		distance = GetCube(i).position - sori.position;//ソリとオブジェクトとの距離を計算
+		const bool isCollisoinRangeX = distance.x> -HIT_CHECK_RANGE && distance.x < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeY = distance.y> -HIT_CHECK_RANGE && distance.y < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeZ = distance.z> -HIT_CHECK_RANGE && distance.z < HIT_CHECK_RANGE;
+
+		//一定範囲内にCubeが存在する場合当たり判定を実行する
+		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
+			if (sori.Collision(GetCube(i).collider)) {
+				isGround = true;
+				break;
+			} else {
+				isGround = false;
+			}
 		}
 	}
 	if (isGround == false && sori.isGoalGround==false) {
@@ -115,25 +124,41 @@ void GameCollision() {
 
 	//ソリと右の壁の当たり判定
 	for (int i = 0; i < GetRightWallNum(); i++) {
-		if (sori.CollisionWall(GetRightWall(i).collider)) {
-			sori.isHitRightWall = true;
-			break;
-		} else {
-			sori.isHitRightWall = false;
+		distance = GetRightWall(i).position - sori.position;//ソリとオブジェクトとの距離を計算
+		const bool isCollisoinRangeX = distance.x > -HIT_CHECK_RANGE && distance.x < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeY = distance.y > -HIT_CHECK_RANGE && distance.y < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeZ = distance.z > -HIT_CHECK_RANGE && distance.z < HIT_CHECK_RANGE;
+
+		//一定範囲内にCubeが存在する場合当たり判定を実行する
+		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
+			if (sori.CollisionWall(GetRightWall(i).collider)) {
+				sori.isHitRightWall = true;
+				break;
+			} else {
+				sori.isHitRightWall = false;
+			}
 		}
 	}
 
 	//ソリと左の壁の当たり判定
 	for (int i = 0; i < GetLeftWallNum(); i++) {
-		if (sori.CollisionWall(GetLeftWall(i).collider)) {
-			sori.isHitLeftWall = true;
-			break;
-		} else {
-			sori.isHitLeftWall = false;
+		distance = GetLeftWall(i).position - sori.position;//ソリとオブジェクトとの距離を計算
+		const bool isCollisoinRangeX = distance.x > -HIT_CHECK_RANGE && distance.x < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeY = distance.y > -HIT_CHECK_RANGE && distance.y < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeZ = distance.z > -HIT_CHECK_RANGE && distance.z < HIT_CHECK_RANGE;
+
+		//一定範囲内にCubeが存在する場合当たり判定を実行する
+		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
+			if (sori.CollisionWall(GetLeftWall(i).collider)) {
+				sori.isHitLeftWall = true;
+				break;
+			} else {
+				sori.isHitLeftWall = false;
+			}
 		}
 	}
 
-	//ソリと左の壁の当たり判定
+	//ゴール判定
 	if (sori.CollisionWall(GetGoalCube().collider)) {
 		sori.speed = 0;
 		sori.isGoalGround = true;
@@ -141,7 +166,15 @@ void GameCollision() {
 
 	//加速床の当たり判定
 	for (int i = 0; i < GetAccelSpeedNum(); i++) {
-		sori.AccelFloorCollision(GetAccelSpeedCube(i).collider);
+		distance = GetAccelSpeedCube(i).position - sori.position;//ソリとオブジェクトとの距離を計算
+		const bool isCollisoinRangeX = distance.x > -HIT_CHECK_RANGE && distance.x < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeY = distance.y > -HIT_CHECK_RANGE && distance.y < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeZ = distance.z > -HIT_CHECK_RANGE && distance.z < HIT_CHECK_RANGE;
+
+		//一定範囲内にCubeが存在する場合当たり判定を実行する
+		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
+			sori.AccelFloorCollision(GetAccelSpeedCube(i).collider);
+		}
 	}
 
 

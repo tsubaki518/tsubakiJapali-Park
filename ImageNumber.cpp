@@ -11,7 +11,7 @@ void ImageNumberDraw(D3DXVECTOR2 position, D3DXVECTOR2 size, int num) {
 	do{
 		remainder = num % 10;
 		num = num / 10;
-		Sprite_Draw(TEXTURE_INDEX_NUMBER, position.x-i* TEXTURE_SIZR_X*0.85f, position.y, (int)(remainder*TEXTURE_SIZR_X*1.02f), 0, (float)(TEXTURE_SIZR_X*0.95f), TEXTURE_SIZR_Y, size.x, size.y);
+		Sprite_Draw(TEXTURE_INDEX_NUMBER, position.x-i* TEXTURE_SIZR_X*0.85f, position.y, (int)(remainder*TEXTURE_SIZR_X*1.02f), 0, (int)(TEXTURE_SIZR_X*0.95f), TEXTURE_SIZR_Y, size.x, size.y);
 		i++;
 	} while (num != 0);
 	
