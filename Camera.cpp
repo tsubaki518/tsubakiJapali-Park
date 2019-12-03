@@ -47,17 +47,17 @@ void Camera::SetCamera(Sori sori) {
 	}
 	if (isStop == true) {
 		//ソリの後ろ方向に少しずつ下がる
-		addPos -= sori.GetForward()*sori.speed;
-		addPos.y += 0.1f;
+		addPos -= sori.GetForward()*sori.speed*0.2f;
+		addPos.y += 0.015f;
 		stopCount++;
 		
-		//4フレーム経過で終了
-		if (stopCount == 4) {
+		//15フレーム経過で終了
+		if (stopCount == 15) {
 			isStop = false;
 		}
 	} else if (isStop == false) {
 		//後ろに下がったカメラを元に戻す
-		addPos *= 0.99f;
+		addPos *= 0.98f;
 	}
 
 
