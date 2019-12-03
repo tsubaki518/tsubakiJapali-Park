@@ -10,31 +10,34 @@
 
 
 void Camera::Init(Sori sori) {
+	//スタート時のカメラの初期位置
 	rad.y = sori.rotation.y + 3.14f;
-	rad.x = sori.rotation.x - 3.14f;
-	addPos = D3DXVECTOR3(0, 0, 0);
+	rad.x = sori.rotation.x - 1.9f;
 
+	//加速したときeyeをプラスする値
+	addPos = D3DXVECTOR3(0, 0, 0);
 	isStop = false;
 	stopCount = 0;
 }
 void Camera::SetCamera(Sori sori) {
 	//カメラを少しずつ回転させる
 	if (sori.isSpin == false) {
-		if (rad.x < sori.rotation.x) {
+		if (rad.x < sori.rotation.x-0.02f) {
 			rad.x += 0.01f;
-		} else if (rad.x > sori.rotation.x) {
+		} else if (rad.x > sori.rotation.x+0.02f) {
 			rad.x -= 0.01f;
 		}
 
-		if (rad.z < sori.rotation.z) {
+		if (rad.z < sori.rotation.z-0.02f) {
 			rad.z += 0.01f;
-		} else if (rad.z > sori.rotation.z) {
+
+		} else if (rad.z > sori.rotation.z+0.02f) {
 			rad.z -= 0.01f;
 		}
 
-		if (rad.y < sori.rotation.y) {
+		if (rad.y < sori.rotation.y-0.02f) {
 			rad.y += 0.01f;
-		} else if (rad.y > sori.rotation.y) {
+		} else if (rad.y > sori.rotation.y+0.02f) {
 			rad.y -= 0.01f;
 		}
 	}
@@ -57,12 +60,12 @@ void Camera::SetCamera(Sori sori) {
 		}
 	} else if (isStop == false) {
 		//後ろに下がったカメラを元に戻す
-		addPos *= 0.98f;
+		addPos *= 0.99f;
 	}
 
 
 	eye.x = sinf(rad.y)*-10 + sori.position.x;
-	eye.y = -sinf(rad.x)*-5 + sori.position.y + 8;
+	eye.y = -sinf(rad.x)*-5 + sori.position.y + 5;
 	eye.z = cosf(rad.y)*-10 + sori.position.z;
 	eye += addPos;
 	at = sori.position;
