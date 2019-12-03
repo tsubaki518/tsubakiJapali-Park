@@ -14,7 +14,7 @@ void Camera::Init(Sori sori) {
 	rad.y = sori.rotation.y + 3.14f;
 	rad.x = sori.rotation.x - 1.9f;
 
-	//加速したときeyeをプラスする値
+	//加速したときeyeをプラスする値を初期化
 	addPos = D3DXVECTOR3(0, 0, 0);
 	isStop = false;
 	stopCount = 0;
@@ -23,9 +23,9 @@ void Camera::SetCamera(Sori sori) {
 	//カメラを少しずつ回転させる
 	if (sori.isSpin == false) {
 		if (rad.x < sori.rotation.x-0.02f) {
-			rad.x += 0.01f;
+			rad.x += 0.007f;
 		} else if (rad.x > sori.rotation.x+0.02f) {
-			rad.x -= 0.01f;
+			rad.x -= 0.007f;
 		}
 
 		if (rad.z < sori.rotation.z-0.02f) {

@@ -277,10 +277,10 @@ void Sori::Move() {
 
 	//操作していなかったらキャラクターが傾いてるのを直す
 	for (int i = 0; i < 2; i++) {
-		if (character[i]->inputRotZ > 0) {
+		if (character[i]->inputRotZ > 0.05f) {
 			character[i]->inputRotZ -= CHARACTER_ROTATION_SPEED/2;
 
-		} else if (character[i]->inputRotZ < 0) {
+		} else if (character[i]->inputRotZ < -0.05f) {
 			character[i]->inputRotZ += CHARACTER_ROTATION_SPEED/2;
 		}
 	}
