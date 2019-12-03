@@ -12,9 +12,12 @@
 void Camera::Init(Sori sori) {
 	rad.y = sori.rotation.y + 3.14f;
 	rad.x = sori.rotation.x - 3.14f;
+	addPos = D3DXVECTOR3(0, 0, 0);
+
+	isStop = false;
+	stopCount = 0;
 }
 void Camera::SetCamera(Sori sori) {
-
 	//カメラを少しずつ回転させる
 	if (sori.isSpin == false) {
 		if (rad.x < sori.rotation.x) {
@@ -36,16 +39,32 @@ void Camera::SetCamera(Sori sori) {
 		}
 	}
 
-	//==============================================
-	/*eye.x = sinf(sori.cube.rotation.y)*-10 + sori.cube.position.x;
-	eye.y = -sinf(sori.cube.rotation.x)*-5 + sori.cube.position.y + 8;
-	eye.z = cosf(sori.cube.rotation.y)*-10 + sori.cube.position.z;
+	//ソリが加速した時に少し後ろに下がる
+	if (sori.isHitSpeedAccelBoard == true && sori.isSpin==false) {
+		isStop = true;
+		stopCount = 0;
 
-	at = sori.cube.position;*/
+	}
+	if (isStop == true) {
+		//ソリの後ろ方向に少しずつ下がる
+		addPos -= sori.GetForward()*sori.speed;
+		addPos.y += 0.1f;
+		stopCount++;
+		
+		//4フレーム経過で終了
+		if (stopCount == 4) {
+			isStop = false;
+		}
+	} else if (isStop == false) {
+		//後ろに下がったカメラを元に戻す
+		addPos *= 0.99f;
+	}
+
+
 	eye.x = sinf(rad.y)*-10 + sori.position.x;
 	eye.y = -sinf(rad.x)*-5 + sori.position.y + 8;
 	eye.z = cosf(rad.y)*-10 + sori.position.z;
-
+	eye += addPos;
 	at = sori.position;
 	
 	//ビュー行列の作成

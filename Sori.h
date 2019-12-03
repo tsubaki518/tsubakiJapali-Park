@@ -29,6 +29,7 @@ public:
 	bool isSpin = false;			//スピン判定 スピン中はtrue
 	bool isHitRightWall = false;	//右壁に当たった判定
 	bool isHitLeftWall = false;		//左壁に当たった判定
+	bool isHitSpeedAccelBoard = false;
 	bool isGoalGround = false;		//ゴールに到達判定
 	float speed;					//現在の速度
 	float maxSpeed;				   //最高速

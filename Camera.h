@@ -14,10 +14,14 @@ private:
 	D3DXVECTOR3 eye;
 	D3DXVECTOR3 at;
 	D3DXVECTOR3 rad;
-
+	D3DXVECTOR3 addPos;
 	//プロジェクション＆カメラ行列
 	D3DXMATRIX g_mtxProjectioin;     //プロジェクションマトリクス
 	D3DXMATRIX g_mtxView;             //ビューマトリクス
+
+	//加速演出用
+	bool isStop;
+	int stopCount;
 public:
 	void Init(Sori sori);
 	void SetCamera(Sori sori);

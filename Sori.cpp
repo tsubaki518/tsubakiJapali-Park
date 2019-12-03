@@ -171,10 +171,8 @@ bool Sori::CollisionGoal(Collider3D c) {
 void Sori::AccelFloorCollision(Collider3D c) {
 	BoxCollider2 collider;
 
-	if (collider.Collider(collisoin, c).isHit) {
-		speedAccel = ACCEL_FLOOR_ACCEL_SPEED;
-
-		DebugFont_Draw(5, 5, "lsdfhsf");
+	if (collider.Collider(collisoin, c).isHit && isSpin == false) {
+		isHitSpeedAccelBoard = true;
 	}
 }
 
@@ -360,6 +358,10 @@ void Sori::Spin() {
 	}
 }
 void Sori::SpeedAccel() {
+	if (isHitSpeedAccelBoard == true && isSpin==false) {
+		speedAccel = ACCEL_FLOOR_ACCEL_SPEED;
+		isHitSpeedAccelBoard = false;
+	}
 	if (speedAccel > 0) {
 		speedAccel -= 0.0008f;
 	}
