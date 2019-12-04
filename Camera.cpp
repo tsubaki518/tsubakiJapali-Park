@@ -41,12 +41,14 @@ void Camera::SetCamera(Sori sori) {
 		} else if (rad.y > sori.rotation.y + 0.02f) {
 			rad.y -= 0.01f;
 		}
+
 		
 		if (rad.x > sori.rotation.x) {
 			isStartOnece = false;
 		}
 
 	}
+
 	//’Êí‚ÌˆÚ“®
 	if (isStartOnece == false) {
 		if (rad.x < sori.rotation.x - 0.02f) {

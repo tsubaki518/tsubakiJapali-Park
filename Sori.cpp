@@ -7,7 +7,7 @@
 #define SPIN_NUM 4
 #define SPIN_SPEED 1.0f
 #define ACCEL_FLOOR_ACCEL_SPEED 0.3f
-#define CENTRIFUGAL_FORCE 0.03f
+#define CENTRIFUGAL_FORCE 0.035f
 
 
 Sori::Sori() {
@@ -192,7 +192,7 @@ void Sori::Move() {
 	bool canMoveLeft = isHitLeftWall == false && isBoundRight == false && isBoundLeft == false && isSpin == false;
 
 	//ê≥ñ Ç…à⁄ìÆ
-	position += GetForward() * (speed+speedAccel/2)+ (centrifugalDirection*speed/2);
+	position += GetForward() * (speed/2+speedAccel)+ (centrifugalDirection*speed/2);
 
 	//1PÇÃà⁄ìÆ
 	{
