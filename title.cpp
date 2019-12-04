@@ -13,16 +13,12 @@ static float posX = 0;
 static float posY = 0;
 static int i = 0;
 static int add = 7;
-static float titleposX = SCREEN_WIDTH / 2;
+static float titleposX = SCREEN_WIDTH - SCREEN_HEIGHT;
 static float titleposY = 0;
-static float titleposX1 = SCREEN_WIDTH / 2 + SCREEN_WIDTH / 8;
-static float titleposY1 = 250;
-static float titleposX2 = SCREEN_WIDTH / 2 + SCREEN_WIDTH / 4;
-static float titleposY2 = 500;
-static float titleposX3 = SCREEN_WIDTH / 2 + SCREEN_WIDTH / 2;
-static float titleposY3 = 750;
-static float titleposX4 = SCREEN_WIDTH / 2 + SCREEN_WIDTH;
-static float titleposY4 = 1000;
+static float titleposX1 = SCREEN_WIDTH - (SCREEN_HEIGHT * 2);
+static float titleposY1 = SCREEN_HEIGHT / -4;
+static float titleposX2 = SCREEN_WIDTH - (SCREEN_HEIGHT * 3);
+static float titleposY2 = SCREEN_HEIGHT / -2;
 
 
 void TitleInit() {
@@ -42,30 +38,22 @@ void TitleUpdate() {
 	}
 
 	titleposX += 3;
-	titleposY += 1;
+	titleposY -= 1;
 	titleposX1 += 3;
-	titleposY1 += 1;
+	titleposY1 -= 1;
 	titleposX2 += 3;
-	titleposY2 += 1;
-	titleposX3 += 3;
-	titleposY3 += 1;
-	titleposX4 += 3;
-	titleposY4 += 1;
-	if (titleposY >= SCREEN_HEIGHT) {
-		titleposX = SCREEN_WIDTH / 2;
+	titleposY2 -= 1;
+	if (titleposX >= SCREEN_WIDTH) {
+		titleposX = SCREEN_WIDTH - (SCREEN_HEIGHT * 3);
 		titleposY = SCREEN_HEIGHT / -5;
 	}
-	if (titleposY1 >= SCREEN_HEIGHT) {
-		titleposX1 = SCREEN_WIDTH / 2 + SCREEN_WIDTH / 8;
+	if (titleposX1 >= SCREEN_WIDTH) {
+		titleposX1 = SCREEN_WIDTH - (SCREEN_HEIGHT * 3);
 		titleposY1 = SCREEN_HEIGHT / -5;
 	}
-	if (titleposY2 >= SCREEN_HEIGHT) {
-		titleposX2 = SCREEN_WIDTH / 2 + SCREEN_WIDTH / 4;
+	if (titleposX2 >= SCREEN_WIDTH) {
+		titleposX2 = SCREEN_WIDTH - (SCREEN_HEIGHT * 3);
 		titleposY2 = SCREEN_HEIGHT / -5;
-	}
-	if (titleposY3 >= SCREEN_HEIGHT) {
-		titleposX3 = SCREEN_WIDTH / 2 + SCREEN_WIDTH / 2;
-		titleposY3 = SCREEN_HEIGHT / -5;
 	}
 
 
@@ -115,49 +103,17 @@ void TitleDraw() {
 	Sprite_Draw(TEXTURE_INDEX_TITLE, 0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	//“®•¨Šç
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX, titleposY, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX + SCREEN_WIDTH / -2 - SCREEN_WIDTH / 40, titleposY, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX + SCREEN_WIDTH * -1 - SCREEN_WIDTH / 20, titleposY, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX + SCREEN_WIDTH / -2 * 3 - SCREEN_WIDTH / 10, titleposY, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX + SCREEN_WIDTH / -2 * 4 - SCREEN_WIDTH / 9, titleposY, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX + SCREEN_WIDTH / -2 * 5 - SCREEN_WIDTH / 8, titleposY, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX + SCREEN_WIDTH / -2 * 6 - SCREEN_WIDTH / 7, titleposY, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
+	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX, titleposY, 0, 0, SCREEN_HEIGHT, SCREEN_HEIGHT);
+	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX, titleposY + SCREEN_HEIGHT, 0, 0, SCREEN_HEIGHT, SCREEN_HEIGHT);
+	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX, titleposY + SCREEN_HEIGHT * 2, 0, 0, SCREEN_HEIGHT, SCREEN_HEIGHT);
 
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX1, titleposY1, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX1 + SCREEN_WIDTH / -2 - SCREEN_WIDTH / 40, titleposY1, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX1 + SCREEN_WIDTH * -1 - SCREEN_WIDTH / 20, titleposY1, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX1 + SCREEN_WIDTH / -2 * 3 - SCREEN_WIDTH / 10, titleposY1, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX1 + SCREEN_WIDTH / -2 * 4 - SCREEN_WIDTH / 9, titleposY1, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX1 + SCREEN_WIDTH / -2 * 5 - SCREEN_WIDTH / 8, titleposY1, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX1 + SCREEN_WIDTH / -2 * 6 - SCREEN_WIDTH / 7, titleposY1, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
+	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX1, titleposY1, 0, 0, SCREEN_HEIGHT, SCREEN_HEIGHT);
+	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX1, titleposY1 + SCREEN_HEIGHT, 0, 0, SCREEN_HEIGHT, SCREEN_HEIGHT);
+	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX1, titleposY1 + SCREEN_HEIGHT * 2, 0, 0, SCREEN_HEIGHT, SCREEN_HEIGHT);
 
-
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX2, titleposY2, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX2 + SCREEN_WIDTH / -2 - SCREEN_WIDTH / 40, titleposY2, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX2 + SCREEN_WIDTH * -1 - SCREEN_WIDTH / 20, titleposY2, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX2 + SCREEN_WIDTH / -2 * 3 - SCREEN_WIDTH / 10, titleposY2, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX2 + SCREEN_WIDTH / -2 * 4 - SCREEN_WIDTH / 9, titleposY2, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX2 + SCREEN_WIDTH / -2 * 5 - SCREEN_WIDTH / 8, titleposY2, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX2 + SCREEN_WIDTH / -2 * 6 - SCREEN_WIDTH / 7, titleposY2, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-
-
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX3, titleposY3, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX3 + SCREEN_WIDTH / -2 - SCREEN_WIDTH / 40, titleposY3, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX3 + SCREEN_WIDTH * -1 - SCREEN_WIDTH / 20, titleposY3, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX3 + SCREEN_WIDTH / -2 * 3 - SCREEN_WIDTH / 10, titleposY3, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX3 + SCREEN_WIDTH / -2 * 4 - SCREEN_WIDTH / 9, titleposY3, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX3 + SCREEN_WIDTH / -2 * 5 - SCREEN_WIDTH / 8, titleposY3, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX3 + SCREEN_WIDTH / -2 * 6 - SCREEN_WIDTH / 7, titleposY3, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-
-
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX4, titleposY4, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX4 + SCREEN_WIDTH / -2 - SCREEN_WIDTH / 40, titleposY4, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX4 + SCREEN_WIDTH * -1 - SCREEN_WIDTH / 20, titleposY4, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX4 + SCREEN_WIDTH / -2 * 3 - SCREEN_WIDTH / 10, titleposY4, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX4 + SCREEN_WIDTH / -2 * 4 - SCREEN_WIDTH / 9, titleposY4, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX4 + SCREEN_WIDTH / -2 * 5 - SCREEN_WIDTH / 8, titleposY4, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX4 + SCREEN_WIDTH / -2 * 6 - SCREEN_WIDTH / 7, titleposY4, 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5);
-
+	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX2, titleposY2, 0, 0, SCREEN_HEIGHT, SCREEN_HEIGHT);
+	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX2, titleposY2 + SCREEN_HEIGHT, 0, 0, SCREEN_HEIGHT, SCREEN_HEIGHT);
+	Sprite_Draw(TEXTURE_INDEX_FACE, titleposX2, titleposY2 + SCREEN_HEIGHT * 2, 0, 0, SCREEN_HEIGHT, SCREEN_HEIGHT);
 
 	//ƒ^ƒCƒgƒ‹
 	Sprite_Draw(TEXTURE_INDEX_TITLE1, 0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
