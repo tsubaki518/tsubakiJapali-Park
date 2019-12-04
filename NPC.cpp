@@ -10,7 +10,8 @@
 #define SPIN_SPEED 1.0f
 #define ACCEL_FLOOR_ACCEL_SPEED 0.3f
 #define CENTRIFUGAL_FORCE 0.035f
-
+#define MOVE_PROBABILITY 5
+#define MOVE_HORIZON_COUNT 150
 
 NPC::NPC() {
 	
@@ -72,7 +73,8 @@ void NPC::Update() {
 	}
 
 	//ˆÚ“®ˆ—
-	Move();
+	MoveForward();
+	MoveHorizon();
 
 	//ƒXƒsƒ“ˆ—
 	Spin();
@@ -196,17 +198,36 @@ void NPC::AccelFloorCollision(Collider3D c) {
 }
 
 
-void NPC::Move() {
+void NPC::MoveForward() {
 	bool canMoveRight = isHitRightWall == false && isBoundRight == false && isBoundLeft == false && isSpin == false;
 	bool canMoveLeft = isHitLeftWall == false && isBoundRight == false && isBoundLeft == false && isSpin == false;
 
 	//³–Ê‚ÉˆÚ“®
 	position += GetForward() * (speed / 2 + speedAccel) + (centrifugalDirection*speed / 2);
 
-	int num=100;
-	if (moveHorizonCount == 0) {
-		num = rand() % 50;
+	//1P‚ÌˆÚ“®
+	{
+			//speed‚ªmaxSpeed‚ğ’´‚¦‚È‚¢‚æ‚¤‚É‚·‚é
+		if (speed < maxSpeed) {
+			speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
+		}
+
 	}
+
+	//2P‚ÌˆÚ“®
+	{
+		//speed‚ªmaxSpeed‚ğ’´‚¦‚È‚¢‚æ‚¤‚É‚·‚é
+		if (speed < maxSpeed) {
+			speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
+		}
+	}
+}
+void NPC::MoveHorizon() {
+	int num = 0;
+	if (moveHorizonCount == 0) {
+		num = rand() % MOVE_PROBABILITY;
+	}
+	moveHorizonCount++;
 
 	if (num == 1) {
 		isMoveLeft = true;
@@ -214,7 +235,7 @@ void NPC::Move() {
 	} else if (num == 2) {
 		isMoveRight = true;
 	}
-	
+
 	if (isMoveRight == true) {
 		//‰E‚ÉˆÚ“®
 		position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);  //GetRight()*ˆÚ“®—Ê
@@ -233,8 +254,7 @@ void NPC::Move() {
 			character[1]->inputRotZ += CHARACTER_ROTATION_SPEED;
 		}
 
-		moveHorizonCount++;
-		if (moveHorizonCount == 150) {
+		if (moveHorizonCount == MOVE_HORIZON_COUNT) {
 			moveHorizonCount = 0;
 			isMoveRight = false;
 		}
@@ -255,8 +275,7 @@ void NPC::Move() {
 			character[1]->inputRotZ -= CHARACTER_ROTATION_SPEED;
 		}
 
-		moveHorizonCount++;
-		if (moveHorizonCount == 150) {
+		if (moveHorizonCount == MOVE_HORIZON_COUNT) {
 			moveHorizonCount = 0;
 			isMoveLeft = false;
 		}
@@ -270,22 +289,8 @@ void NPC::Move() {
 			character[i]->inputRotZ += CHARACTER_ROTATION_SPEED / 2;
 		}
 	}
-
-	//1P‚ÌˆÚ“®
-	{
-			//speed‚ªmaxSpeed‚ğ’´‚¦‚È‚¢‚æ‚¤‚É‚·‚é
-		if (speed < maxSpeed) {
-			speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
-		}
-
-	}
-
-	//2P‚ÌˆÚ“®
-	{
-		//speed‚ªmaxSpeed‚ğ’´‚¦‚È‚¢‚æ‚¤‚É‚·‚é
-		if (speed < maxSpeed) {
-			speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
-		}
+	if (moveHorizonCount == MOVE_HORIZON_COUNT) {
+		moveHorizonCount = 0;
 	}
 }
 void NPC::Friction() {

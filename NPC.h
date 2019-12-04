@@ -18,7 +18,8 @@ private:
 	D3DXVECTOR3 centrifugalDirection; //‰“S—Í‚ÌŒü‚«
 	D3DXVECTOR3 centrifugalRotation;  //‰“S—Í‚ÌŒü‚«‚ğæ“¾‚·‚é‚½‚ß‚ÌŠp“x
 
-	void Move();		//ˆÚ“®ˆ—
+	void MoveForward();		//ˆÚ“®ˆ—
+	void MoveHorizon();
 	void Friction();	//–€C
 	void SlideDown();	//Î–Ê‚ÅŠŠ‚è—‚¿‚é
 	void Bound();		//•Ç‚É“–‚½‚é‚Æ’µ‚Ë•Ô‚é
