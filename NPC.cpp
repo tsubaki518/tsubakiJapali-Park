@@ -1,7 +1,9 @@
-#include"Sori.h"
+#include"NPC.h"
 #include"texture.h"
 #include"input.h"
 #include"debug_font.h"
+#include<time.h>
+#include<stdlib.h>
 
 #define CHARACTER_ROTATION_SPEED 0.1f
 #define SPIN_NUM 4
@@ -10,12 +12,12 @@
 #define CENTRIFUGAL_FORCE 0.035f
 
 
-Sori::Sori() {
-
+NPC::NPC() {
+	
 }
 
-void Sori::Init(float weight1, float weight2) {
-	
+void NPC::Init(float weight1, float weight2) {
+
 	//キャラクターをセットする
 	SetCharacter(weight1, weight2);
 	character[1]->Init();
@@ -30,16 +32,13 @@ void Sori::Init(float weight1, float weight2) {
 	speedAccel = 0;//加速床に当たったときに加速する速度を初期化する
 
 	//プレイヤーの初期位置
-	position = D3DXVECTOR3(2, -10.10f, 2);
+	position = D3DXVECTOR3(-0.5f, -10.10f, 2);
 	rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0, 0);
 	isGoalGround = false;
 	isSpin = false;
 
 	//遠心力初期化
 	centrifugalDirection = D3DXVECTOR3(0, 0, 0);
-
-	//スピン初期化
-	spinRot = D3DXVECTOR3(0, 0, 0);
 
 	//キャラクターの情報を入れる
 	for (int i = 0; i < 2; i++) {
@@ -49,7 +48,7 @@ void Sori::Init(float weight1, float weight2) {
 		character[i]->rotation.z += character[i]->inputRotZ - rotation.z * 2;
 	}
 }
-void Sori::Update() {
+void NPC::Update() {
 	//当たり判定の情報を入れる
 	collisoin.position = position;
 	collisoin.rotation = rotation;
@@ -60,9 +59,9 @@ void Sori::Update() {
 	//キャラクターをソリに追従させる
 	for (int i = 0; i < 2; i++) {
 		character[i]->position = GetUp()*1.75f + position;
-		character[i]->position += GetForward()*(float)i - GetForward()*0.7f-GetForward()*0.5f;
-		character[i]->rotation = rotation+spinRot;
-		character[i]->rotation.z += character[i]->inputRotZ-rotation.z*2;
+		character[i]->position += GetForward()*(float)i - GetForward()*0.7f - GetForward()*0.5f;
+		character[i]->rotation = rotation + spinRot;
+		character[i]->rotation.z += character[i]->inputRotZ - rotation.z * 2;
 	}
 
 	//移動処理
@@ -86,7 +85,7 @@ void Sori::Update() {
 	//遠心力
 	CentrifugalForce();
 }
-void Sori::Draw() {
+void NPC::Draw() {
 	//ソリ用の行列を作成
 	{
 		D3DXMATRIX g_mtxWorld;
@@ -130,7 +129,7 @@ void Sori::Draw() {
 	character[0]->Draw();
 	character[1]->Draw();
 }
-void Sori::UnInit() {
+void NPC::UnInit() {
 	for (int i = 0; i < 2; i++) {
 		character[i]->UnInit();
 		delete character[i];
@@ -138,12 +137,12 @@ void Sori::UnInit() {
 	bobsled.UnInit();
 }
 
-Sori::~Sori() {
+NPC::~NPC() {
 
 }
 
 
-bool Sori::CollisionWall(Collider3D c) {
+bool NPC::CollisionWall(Collider3D c) {
 	BoxCollider2 collider;
 
 	if (collider.Collider(collisoin, c).isHit) {
@@ -154,7 +153,7 @@ bool Sori::CollisionWall(Collider3D c) {
 		return false;
 	}
 }
-bool Sori::Collision(Collider3D c) {
+bool NPC::Collision(Collider3D c) {
 	BoxCollider2 collider;
 
 	if (collider.Collider(collisoin, c).isHit) {
@@ -169,7 +168,7 @@ bool Sori::Collision(Collider3D c) {
 		return false;
 	}
 }
-bool Sori::CollisionGoal(Collider3D c) {
+bool NPC::CollisionGoal(Collider3D c) {
 	BoxCollider2 collider;
 
 	if (collider.Collider(collisoin, c).isHit) {
@@ -181,7 +180,7 @@ bool Sori::CollisionGoal(Collider3D c) {
 		return false;
 	}
 }
-void Sori::AccelFloorCollision(Collider3D c) {
+void NPC::AccelFloorCollision(Collider3D c) {
 	BoxCollider2 collider;
 
 	if (collider.Collider(collisoin, c).isHit && isSpin == false) {
@@ -190,113 +189,36 @@ void Sori::AccelFloorCollision(Collider3D c) {
 }
 
 
-void Sori::Move() {
-	bool canMoveRight = isHitRightWall == false && isBoundRight == false && isBoundLeft == false && isSpin==false;
+void NPC::Move() {
+	bool canMoveRight = isHitRightWall == false && isBoundRight == false && isBoundLeft == false && isSpin == false;
 	bool canMoveLeft = isHitLeftWall == false && isBoundRight == false && isBoundLeft == false && isSpin == false;
 
 	//正面に移動
-	position += GetForward() * (speed/2+speedAccel)+ (centrifugalDirection*speed/2);
+	position += GetForward() * (speed / 2 + speedAccel) + (centrifugalDirection*speed / 2);
 
 	//1Pの移動
 	{
-		if (Keyboard_IsPress(DIK_UP) &&isSpin==false) {
 			//speedがmaxSpeedを超えないようにする
-			if (speed < maxSpeed) {
-				speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
-			}
-
-		} else if (Keyboard_IsPress(DIK_DOWN) && isSpin == false) {
-			//後ろに移動できないようにする
-			if (speed >= 0.001f) {
-				speed -= (character[0]->moveAccel + character[1]->moveAccel) / 4;
-			}
+		if (speed < maxSpeed) {
+			speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
 		}
-		if (Keyboard_IsPress(DIK_RIGHT) && canMoveRight) {
-			//右に移動
-			position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);  //GetRight()*移動量
 
-			//左右に移動した時のキャラクターのずれを修正
-			character[0]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-			character[1]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-
-
-			//移動方向にキャラクターが傾く
-			if (character[0]->inputRotZ <= 0.8f) {
-				character[0]->inputRotZ += CHARACTER_ROTATION_SPEED;
-			}
-
-		} else if (Keyboard_IsPress(DIK_LEFT) && canMoveLeft) {
-			//左に移動
-			position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-
-			//左右に移動した時のキャラクターのずれを修正
-			character[0]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-			character[1]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-
-			//移動方向にキャラクターが傾く
-			if (character[0]->inputRotZ >= -0.8f) {
-				character[0]->inputRotZ -= CHARACTER_ROTATION_SPEED;
-			}
-		}
 	}
 
 	//2Pの移動
 	{
-		if (Keyboard_IsPress(DIK_W) && isSpin == false) {
-			//speedがmaxSpeedを超えないようにする
-			if (speed < maxSpeed) {
-				speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
-			}
-		} else if (Keyboard_IsPress(DIK_S) && isSpin == false) {
-			//後ろに移動できないようにする
-			if (speed >= 0.001f) {
-				speed -= (character[0]->moveAccel + character[1]->moveAccel) / 4;
-			}
-		}
-
-		//回転
-		if (Keyboard_IsPress(DIK_D) &&canMoveRight) {
-			position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);;  //GetRight()*移動量
-
-			//左右に移動した時のキャラクターのずれを修正
-			character[0]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-			character[1]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-
-			//移動方向にキャラクターが傾く
-			if (character[1]->inputRotZ <= 0.8f) {
-				character[1]->inputRotZ += CHARACTER_ROTATION_SPEED;
-			}
-
-		} else if (Keyboard_IsPress(DIK_A) && canMoveLeft) {
-			position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-
-			//左右に移動した時のキャラクターのずれを修正
-			character[0]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-			character[1]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-
-			//移動方向にキャラクターが傾く
-			if (character[1]->inputRotZ >= -0.8f) {
-				character[1]->inputRotZ -= CHARACTER_ROTATION_SPEED;
-			}
-		}
-	}
-
-	//操作していなかったらキャラクターが傾いてるのを直す
-	for (int i = 0; i < 2; i++) {
-		if (character[i]->inputRotZ > 0.05f) {
-			character[i]->inputRotZ -= CHARACTER_ROTATION_SPEED/2;
-
-		} else if (character[i]->inputRotZ < -0.05f) {
-			character[i]->inputRotZ += CHARACTER_ROTATION_SPEED/2;
+		//speedがmaxSpeedを超えないようにする
+		if (speed < maxSpeed) {
+			speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
 		}
 	}
 }
-void Sori::Friction() {
+void NPC::Friction() {
 	if (speed >= 0.001f) {
 		speed -= 0.0002f;
 	}
 }
-void Sori::SlideDown() {
+void NPC::SlideDown() {
 	if (GetForward().y < 0) {
 		position -= GetForward()*GetForward().y*0.03f;
 	}
@@ -307,7 +229,7 @@ void Sori::SlideDown() {
 		position -= GetRight()*GetRight().y*0.03f;
 	}
 }
-void Sori::Bound() {
+void NPC::Bound() {
 	//壁に当たった判定
 	if (isHitLeftWall == true) {
 		boundCount = 0;
@@ -317,13 +239,13 @@ void Sori::Bound() {
 		boundCount = 0;
 		isBoundLeft = true;
 	}
-	
+
 
 	//壁に当たった時の移動方向を取得
 	if (isSpin == false) {
 		spinMoveDirectionRight = GetRight();
 	}
-	
+
 	if (isBoundRight == true && boundCount <= 100) {
 		if (isSpin == false) {
 			position += GetRight() * ((character[0]->handling + character[1]->handling));  //GetRight()*移動量
@@ -349,9 +271,9 @@ void Sori::Bound() {
 		isBoundLeft = false;
 	}
 }
-void Sori::Spin() {
-	if (Keyboard_IsPress(DIK_A) && Keyboard_IsPress(DIK_RIGHT) ||
-		Keyboard_IsPress(DIK_D) && Keyboard_IsPress(DIK_LEFT) ) {
+void NPC::Spin() {
+	int num = rand() % 800;
+	if (num == 0) {
 		isSpin = true;
 		beforRotation = spinRot;
 	}
@@ -364,8 +286,8 @@ void Sori::Spin() {
 		}
 	}
 }
-void Sori::SpeedAccel() {
-	if (isHitSpeedAccelBoard == true && isSpin==false) {
+void NPC::SpeedAccel() {
+	if (isHitSpeedAccelBoard == true && isSpin == false) {
 		speedAccel = ACCEL_FLOOR_ACCEL_SPEED;
 		isHitSpeedAccelBoard = false;
 	}
@@ -373,7 +295,7 @@ void Sori::SpeedAccel() {
 		speedAccel -= 0.0008f;
 	}
 }
-void Sori::CentrifugalForce() {
+void NPC::CentrifugalForce() {
 	D3DXMATRIX matrixWorld;    //ワールド行列
 	D3DXMATRIX centrifugalMtxRot;		   //回転行列
 
@@ -413,7 +335,7 @@ void Sori::CentrifugalForce() {
 }
 
 //ifでweightに値の範囲を指定してセットするキャラを決める
-void Sori::SetCharacter(float weight1, float weight2) {
+void NPC::SetCharacter(float weight1, float weight2) {
 
 	//キャラの選定
 	if (weight1 >= 80)
@@ -454,7 +376,7 @@ void Sori::SetCharacter(float weight1, float weight2) {
 	}
 
 }
-D3DXVECTOR3 Sori::GetForward() {
+D3DXVECTOR3 NPC::GetForward() {
 	D3DXMATRIX matrixWorld;    //ワールド行列
 	D3DXMATRIX mtxRot;		   //回転行列
 	D3DXVECTOR3 direction;
@@ -476,7 +398,7 @@ D3DXVECTOR3 Sori::GetForward() {
 	}
 	return direction;
 }
-D3DXVECTOR3 Sori::GetRight() {
+D3DXVECTOR3 NPC::GetRight() {
 	D3DXMATRIX matrixWorld;    //頂点の行列
 	D3DXMATRIX mtxRot;
 	D3DXVECTOR3 direction;
@@ -498,7 +420,7 @@ D3DXVECTOR3 Sori::GetRight() {
 	}
 	return direction;
 }
-D3DXVECTOR3 Sori::GetUp() {
+D3DXVECTOR3 NPC::GetUp() {
 	D3DXMATRIX matrixWorld;    //頂点の行列
 	D3DXMATRIX mtxRot;		   //回転行列
 	D3DXVECTOR3 direction;

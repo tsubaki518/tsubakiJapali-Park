@@ -19,11 +19,13 @@
 #include"XFile.h"
 #include"Animation.h"
 #include"main.h"
+#include"NPC.h"
 
 StartAnimation startAnimation;
 GoalAnimation goalAnimation;
 Camera camera;
 Sori sori;
+NPC npc;
 static bool isAnimatioin=false;
 static bool isChangeScene = false;
 
@@ -39,6 +41,7 @@ void GameInit() {
 
 	//体重をもとにキャラクターを設定する
 	sori.Init(72, 55);//この関数内でプレイヤーの初期位置を決める
+	npc.Init(55, 72);
 
 	//ステージ初期化
 	StageInit();
@@ -61,6 +64,7 @@ void GameUpdate() {
 	//スタートアニメーション中はUpdate処理を止める
 	if (isAnimatioin == false) {
 		sori.Update();
+		npc.Update();
 		RatingUpdate(sori);
 		TimerUpdate();
 		GameCollision();
@@ -76,6 +80,7 @@ void GameDraw() {
 
 	//そりの描画
 	sori.Draw();
+	npc.Draw();
 
 	//カメラ追従
 	camera.SetCamera(sori);
@@ -92,8 +97,8 @@ void GameDraw() {
 
 //終了処理
 void GameUnInit() {
-
 	sori.UnInit();
+	npc.UnInit();
 }
 
 //当たり判定
@@ -178,7 +183,84 @@ void GameCollision() {
 	}
 
 
-	
+	//////////////////////////////////////////////////////////////////////////////////////////
+
+	bool isGroundNPC = false;
+	//ソリとCube(床)の当たり判定
+	for (int i = 0; i < GetCubeNum(); i++) {
+		distance = GetCube(i).position - npc.position;//ソリとオブジェクトとの距離を計算
+		const bool isCollisoinRangeX = distance.x > -HIT_CHECK_RANGE && distance.x < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeY = distance.y > -HIT_CHECK_RANGE && distance.y < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeZ = distance.z > -HIT_CHECK_RANGE && distance.z < HIT_CHECK_RANGE;
+
+		//一定範囲内にCubeが存在する場合当たり判定を実行する
+		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
+			if (npc.Collision(GetCube(i).collider)) {
+				isGroundNPC = true;
+				break;
+			} else {
+				isGroundNPC = false;
+			}
+		}
+	}
+	if (isGroundNPC == false && npc.isGoalGround == false) {
+		npc.position.y -= 0.1f;
+	}
+
+	//ソリと右の壁の当たり判定
+	for (int i = 0; i < GetRightWallNum(); i++) {
+		distance = GetRightWall(i).position - npc.position;//ソリとオブジェクトとの距離を計算
+		const bool isCollisoinRangeX = distance.x > -HIT_CHECK_RANGE && distance.x < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeY = distance.y > -HIT_CHECK_RANGE && distance.y < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeZ = distance.z > -HIT_CHECK_RANGE && distance.z < HIT_CHECK_RANGE;
+
+		//一定範囲内にCubeが存在する場合当たり判定を実行する
+		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
+			if (npc.CollisionWall(GetRightWall(i).collider)) {
+				npc.isHitRightWall = true;
+				break;
+			} else {
+				npc.isHitRightWall = false;
+			}
+		}
+	}
+
+	//ソリと左の壁の当たり判定
+	for (int i = 0; i < GetLeftWallNum(); i++) {
+		distance = GetLeftWall(i).position - sori.position;//ソリとオブジェクトとの距離を計算
+		const bool isCollisoinRangeX = distance.x > -HIT_CHECK_RANGE && distance.x < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeY = distance.y > -HIT_CHECK_RANGE && distance.y < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeZ = distance.z > -HIT_CHECK_RANGE && distance.z < HIT_CHECK_RANGE;
+
+		//一定範囲内にCubeが存在する場合当たり判定を実行する
+		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
+			if (npc.CollisionWall(GetLeftWall(i).collider)) {
+				npc.isHitLeftWall = true;
+				break;
+			} else {
+				npc.isHitLeftWall = false;
+			}
+		}
+	}
+
+	//ゴール判定
+	if (npc.CollisionWall(GetGoalCube().collider)) {
+		npc.speed = 0;
+		npc.isGoalGround = true;
+	}
+
+	//加速床の当たり判定
+	for (int i = 0; i < GetAccelSpeedNum(); i++) {
+		distance = GetAccelSpeedCube(i).position - npc.position;//ソリとオブジェクトとの距離を計算
+		const bool isCollisoinRangeX = distance.x > -HIT_CHECK_RANGE && distance.x < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeY = distance.y > -HIT_CHECK_RANGE && distance.y < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeZ = distance.z > -HIT_CHECK_RANGE && distance.z < HIT_CHECK_RANGE;
+
+		//一定範囲内にCubeが存在する場合当たり判定を実行する
+		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
+			npc.AccelFloorCollision(GetAccelSpeedCube(i).collider);
+		}
+	}
 }
 
 //UIの描画
