@@ -30,7 +30,7 @@ void Sori::Init(float weight1, float weight2) {
 	speedAccel = 0;//加速床に当たったときに加速する速度を初期化する
 
 	//プレイヤーの初期位置
-	position = D3DXVECTOR3(2, -3.51f, 0);
+	position = D3DXVECTOR3(2, -10.10f, 2);
 	rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0, 0);
 	isGoalGround = false;
 	isSpin = false;
@@ -54,7 +54,7 @@ void Sori::Update() {
 	collisoin.size.y = -1.0f;
 	collisoin.size.z = 0;
 
-	//キャラクターの情報を入れる
+	//キャラクターをソリに追従させる
 	for (int i = 0; i < 2; i++) {
 		character[i]->position = GetUp()*1.75f + position;
 		character[i]->position += GetForward()*(float)i - GetForward()*0.7f-GetForward()*0.5f;
@@ -373,24 +373,24 @@ void Sori::CentrifugalForce() {
 	D3DXMATRIX matrixWorld;    //ワールド行列
 	D3DXMATRIX centrifugalMtxRot;		   //回転行列
 
-	if (centrifugalRotation.x > rotation.x + 0.2f) {
+	if (centrifugalRotation.x > rotation.x) {
 		centrifugalRotation.x -= CENTRIFUGAL_FORCE;
 
-	} else if (centrifugalRotation.x < rotation.x - 0.2f) {
+	} else if (centrifugalRotation.x < rotation.x) {
 		centrifugalRotation.x += CENTRIFUGAL_FORCE;
 	}
 
-	if (centrifugalRotation.y > rotation.y + 0.2f) {
+	if (centrifugalRotation.y > rotation.y) {
 		centrifugalRotation.y -= CENTRIFUGAL_FORCE;
 
-	} else if (centrifugalRotation.y < rotation.y - 0.2f) {
+	} else if (centrifugalRotation.y < rotation.y) {
 		centrifugalRotation.y += CENTRIFUGAL_FORCE;
 	}
 
-	if (centrifugalRotation.z > rotation.z + 0.2f) {
+	if (centrifugalRotation.z > rotation.z) {
 		centrifugalRotation.z -= CENTRIFUGAL_FORCE;
 
-	} else if (centrifugalRotation.z < rotation.z - 0.2f) {
+	} else if (centrifugalRotation.z < rotation.z) {
 		centrifugalRotation.z += CENTRIFUGAL_FORCE;
 	}
 
