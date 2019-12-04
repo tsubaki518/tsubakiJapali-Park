@@ -47,6 +47,13 @@ void NPC::Init(float weight1, float weight2) {
 		character[i]->rotation = rotation;
 		character[i]->rotation.z += character[i]->inputRotZ - rotation.z * 2;
 	}
+
+	speed = 0;
+	spinRot = D3DXVECTOR3(0, 0, 0);
+
+	moveHorizonCount = 0;
+	isMoveLeft = false;
+	isMoveRight = false;
 }
 void NPC::Update() {
 	//当たり判定の情報を入れる
@@ -195,6 +202,74 @@ void NPC::Move() {
 
 	//正面に移動
 	position += GetForward() * (speed / 2 + speedAccel) + (centrifugalDirection*speed / 2);
+
+	int num=100;
+	if (moveHorizonCount == 0) {
+		num = rand() % 50;
+	}
+
+	if (num == 1) {
+		isMoveLeft = true;
+
+	} else if (num == 2) {
+		isMoveRight = true;
+	}
+	
+	if (isMoveRight == true) {
+		//右に移動
+		position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);  //GetRight()*移動量
+
+		//左右に移動した時のキャラクターのずれを修正
+		character[0]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+		character[1]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+
+
+		//移動方向にキャラクターが傾く
+		if (character[0]->inputRotZ <= 0.8f) {
+			character[0]->inputRotZ += CHARACTER_ROTATION_SPEED;
+		}
+		//移動方向にキャラクターが傾く
+		if (character[1]->inputRotZ <= 0.8f) {
+			character[1]->inputRotZ += CHARACTER_ROTATION_SPEED;
+		}
+
+		moveHorizonCount++;
+		if (moveHorizonCount == 150) {
+			moveHorizonCount = 0;
+			isMoveRight = false;
+		}
+	}
+	if (isMoveLeft == true) {
+		//左に移動
+		position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+
+		//左右に移動した時のキャラクターのずれを修正
+		character[0]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+		character[1]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+
+		//移動方向にキャラクターが傾く
+		if (character[0]->inputRotZ >= -0.8f) {
+			character[0]->inputRotZ -= CHARACTER_ROTATION_SPEED;
+		}
+		if (character[1]->inputRotZ >= -0.8f) {
+			character[1]->inputRotZ -= CHARACTER_ROTATION_SPEED;
+		}
+
+		moveHorizonCount++;
+		if (moveHorizonCount == 150) {
+			moveHorizonCount = 0;
+			isMoveLeft = false;
+		}
+	}
+	//操作していなかったらキャラクターが傾いてるのを直す
+	for (int i = 0; i < 2; i++) {
+		if (character[i]->inputRotZ > 0.05f) {
+			character[i]->inputRotZ -= CHARACTER_ROTATION_SPEED / 2;
+
+		} else if (character[i]->inputRotZ < -0.05f) {
+			character[i]->inputRotZ += CHARACTER_ROTATION_SPEED / 2;
+		}
+	}
 
 	//1Pの移動
 	{

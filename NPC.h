@@ -9,6 +9,9 @@ private:
 	bool isBoundRight = false;  //右に跳ね返る判定
 	bool isBoundLeft = false;   //左に跳ね返る判定
 	int boundCount = 0;
+	bool isMoveRight = false;
+	bool isMoveLeft = false;
+	int moveHorizonCount = 0;
 	D3DXVECTOR3 spinMoveDirection;     //スピン中の移動方向
 	D3DXVECTOR3 spinMoveDirectionRight;//スピン中の跳ね返る方向
 	D3DXVECTOR3 beforRotation;		   //スピン前の角度を取得して何回回転するか判定するために使う
@@ -52,7 +55,6 @@ public:
 	void Update();
 	void Draw();
 	void UnInit();
-	void LoadModel();
 	~NPC();
 
 	//当たり判定

@@ -19,6 +19,7 @@
 #include"Result.h"
 #include"debug_font.h"
 #include"Light.h"
+#include<time.h>
 
 //ここまで3D用追加コード
 //===============================================
@@ -198,6 +199,8 @@ bool Initialize(void)
 
 	light.Init(D3DLIGHT_DIRECTIONAL);
 	light.Use(true);
+
+	srand((unsigned int)time(NULL));
 
 	SetScene(TITLE);
 
