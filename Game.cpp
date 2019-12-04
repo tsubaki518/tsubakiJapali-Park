@@ -270,6 +270,8 @@ void UIDraw() {
 	}
 	isAnimatioin = startAnimation.Draw();
 
+	Sprite_Draw(TEXTURE_INDEX_UI, 0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
 	//Œo‰ßŽžŠÔ•\Ž¦
 	TimerDraw(1, 1);
 

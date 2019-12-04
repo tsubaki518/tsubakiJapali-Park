@@ -109,6 +109,5 @@ void RatingUpdate(Sori sori) {
 
 //ˆø”‚Åw’è‚µ‚½À•W‚É‹’®—¦‚ğ•\¦‚·‚é
 void RatingDraw() {
-	ImageNumberDraw(D3DXVECTOR2(500,100), D3DXVECTOR2(0.5,0.5), rating * 100);
-	DebugFont_Draw(1, 250, "‹’®—¦%0.2lf%%", rating);
+	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH*5/12*11,SCREEN_HEIGHT * 5/ 10), D3DXVECTOR2(0.2f,0.2f), rating * 100);
 }
