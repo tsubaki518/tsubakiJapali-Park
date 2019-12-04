@@ -115,12 +115,12 @@ void NPC::Draw() {
 		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxScl);
 
 		//回転行列を作成＆ワールド行列へ合成
-		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y, rotation.x, rotation.z);
-		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxRot);
-
-		//回転行列を作成＆ワールド行列へ合成
 		D3DXMatrixRotationYawPitchRoll(&spinMtxRot, spinRot.y, spinRot.x, spinRot.z);
 		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &spinMtxRot);
+
+		//回転行列を作成＆ワールド行列へ合成
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y, rotation.x, rotation.z);
+		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxRot);
 
 		//平行行列
 		D3DXMatrixTranslation(&mtxTrs, position.x, position.y, position.z);
