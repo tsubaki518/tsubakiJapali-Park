@@ -1,7 +1,7 @@
 #pragma once
-
 void StageInit();
 void StageDraw();
+
 
 //---ˆø”‚Åw’è‚µ‚½cube‚ğ“¾‚é
 Cube GetCube(int n);
