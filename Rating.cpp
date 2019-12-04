@@ -1,8 +1,9 @@
 #include"Rating.h"
 #include"debug_font.h"
+#include"ImageNumber.h"
 #include <time.h>
 
-float rating;
+static float rating;
 
 //•bŠÔˆ—
 static clock_t start, end;
@@ -108,5 +109,6 @@ void RatingUpdate(Sori sori) {
 
 //ˆø”‚Åw’è‚µ‚½À•W‚É‹’®—¦‚ğ•\¦‚·‚é
 void RatingDraw() {
+	ImageNumberDraw(D3DXVECTOR2(500,100), D3DXVECTOR2(0.5,0.5), rating * 100);
 	DebugFont_Draw(1, 250, "‹’®—¦%0.2lf%%", rating);
 }
