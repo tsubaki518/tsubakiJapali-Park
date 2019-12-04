@@ -22,6 +22,9 @@ private:
 	//加速演出用
 	bool isStop;
 	int stopCount;
+
+	//スタート時のアニメーション用
+	bool isStartOnece;
 public:
 	void Init(Sori sori);
 	void SetCamera(Sori sori);

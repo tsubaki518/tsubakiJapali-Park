@@ -18,27 +18,55 @@ void Camera::Init(Sori sori) {
 	addPos = D3DXVECTOR3(0, 0, 0);
 	isStop = false;
 	stopCount = 0;
+
+	isStartOnece = true;
 }
 void Camera::SetCamera(Sori sori) {
-	//カメラを少しずつ回転させる
-		if (rad.x < sori.rotation.x-0.02f) {
-			rad.x += 0.007f;
-		} else if (rad.x > sori.rotation.x+0.02f) {
-			rad.x -= 0.007f;
+	//スタートアニメーション用の移動
+	if (isStartOnece == true) {
+		if (rad.x < sori.rotation.x - 0.02f) {
+			rad.x += 0.006f;
+		} else if (rad.x > sori.rotation.x + 0.02f) {
+			rad.x -= 0.006f;
 		}
 
-		if (rad.z < sori.rotation.z-0.02f) {
+		if (rad.z < sori.rotation.z - 0.02f) {
 			rad.z += 0.01f;
-
-		} else if (rad.z > sori.rotation.z+0.02f) {
+		} else if (rad.z > sori.rotation.z + 0.02f) {
 			rad.z -= 0.01f;
 		}
 
-		if (rad.y < sori.rotation.y-0.02f) {
+		if (rad.y < sori.rotation.y - 0.02f) {
+			rad.y += 0.01f;
+		} else if (rad.y > sori.rotation.y + 0.02f) {
+			rad.y -= 0.01f;
+		}
+		
+		if (rad.x > sori.rotation.x) {
+			isStartOnece = false;
+		}
+
+	}
+	//通常の移動
+	if (isStartOnece == false) {
+		if (rad.x < sori.rotation.x - 0.02f) {
+			rad.x += 0.007f;
+		} else if (rad.x > sori.rotation.x + 0.02f) {
+			rad.x -= 0.007f;
+		}
+
+		if (rad.z < sori.rotation.z - 0.02f) {
+			rad.z += 0.01f;
+		} else if (rad.z > sori.rotation.z + 0.02f) {
+			rad.z -= 0.01f;
+		}
+
+		if (rad.y < sori.rotation.y - 0.02f) {
 			rad.y += 0.03f;
-		} else if (rad.y > sori.rotation.y+0.02f) {
+		} else if (rad.y > sori.rotation.y + 0.02f) {
 			rad.y -= 0.03f;
 		}
+	}
 
 	//ソリが加速した時に少し後ろに下がる
 	if (sori.isHitSpeedAccelBoard == true && sori.isSpin==false) {
