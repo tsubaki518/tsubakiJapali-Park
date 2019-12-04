@@ -36,9 +36,9 @@ void Camera::SetCamera(Sori sori) {
 		}
 
 		if (rad.y < sori.rotation.y-0.02f) {
-			rad.y += 0.01f;
+			rad.y += 0.03f;
 		} else if (rad.y > sori.rotation.y+0.02f) {
-			rad.y -= 0.01f;
+			rad.y -= 0.03f;
 		}
 	}
 

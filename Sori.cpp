@@ -7,10 +7,11 @@
 #define SPIN_NUM 4
 #define SPIN_SPEED 1.0f
 #define ACCEL_FLOOR_ACCEL_SPEED 0.3f
-
+#define CENTRIFUGAL_FORCE 0.03f
 
 
 Sori::Sori() {
+
 }
 
 void Sori::Init(float weight1, float weight2) {
@@ -34,6 +35,9 @@ void Sori::Init(float weight1, float weight2) {
 	isGoalGround = false;
 	isSpin = false;
 
+	//遠心力初期化
+	centrifugalDirection = D3DXVECTOR3(0, 0, 0);
+
 	//キャラクターの情報を入れる
 	for (int i = 0; i < 2; i++) {
 		character[i]->position = GetUp()*1.75f + position;
@@ -54,7 +58,7 @@ void Sori::Update() {
 	for (int i = 0; i < 2; i++) {
 		character[i]->position = GetUp()*1.75f + position;
 		character[i]->position += GetForward()*(float)i - GetForward()*0.7f-GetForward()*0.5f;
-		character[i]->rotation = rotation;
+		character[i]->rotation = rotation+spinRot;
 		character[i]->rotation.z += character[i]->inputRotZ-rotation.z*2;
 	}
 
@@ -76,7 +80,8 @@ void Sori::Update() {
 	//加速床
 	SpeedAccel();
 
-	
+	//遠心力
+	CentrifugalForce();
 }
 void Sori::Draw() {
 	//ソリ用の行列を作成
@@ -84,6 +89,7 @@ void Sori::Draw() {
 		D3DXMATRIX g_mtxWorld;
 		D3DXMATRIX mtxScl;
 		D3DXMATRIX mtxRot;
+		D3DXMATRIX spinMtxRot;
 		D3DXMATRIX mtxTrs;
 		LPDIRECT3DDEVICE9	g_pd3dDevice;
 		g_pd3dDevice = MyDirect3D_GetDevice();
@@ -100,6 +106,10 @@ void Sori::Draw() {
 		//回転行列を作成＆ワールド行列へ合成
 		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y, rotation.x, rotation.z);
 		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxRot);
+
+		//回転行列を作成＆ワールド行列へ合成
+		D3DXMatrixRotationYawPitchRoll(&spinMtxRot, spinRot.y, spinRot.x, spinRot.z);
+		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &spinMtxRot);
 
 		//平行行列
 		D3DXMatrixTranslation(&mtxTrs, position.x, position.y, position.z);
@@ -146,9 +156,9 @@ bool Sori::Collision(Collider3D c) {
 
 	if (collider.Collider(collisoin, c).isHit) {
 		position += collider.Collider(collisoin, c).addPosition;
+		rotation = c.rotation;
 		if (isSpin == false) {
 			rotation = c.rotation;
-			rotation.x += 0.1f;
 		}
 		return true;
 
@@ -182,15 +192,7 @@ void Sori::Move() {
 	bool canMoveLeft = isHitLeftWall == false && isBoundRight == false && isBoundLeft == false && isSpin == false;
 
 	//正面に移動
-	if (isSpin == false) {
-		position += GetForward() * (speed+speedAccel);
-		spinMoveDirection = GetForward() * (speed + speedAccel);
-
-	} else if (isSpin == true) {
-		position += spinMoveDirection;
-	}
-
-	
+	position += GetForward() * (speed+speedAccel/2)+ (centrifugalDirection*speed/2);
 
 	//1Pの移動
 	{
@@ -347,13 +349,14 @@ void Sori::Spin() {
 	if (Keyboard_IsPress(DIK_A) && Keyboard_IsPress(DIK_RIGHT) ||
 		Keyboard_IsPress(DIK_D) && Keyboard_IsPress(DIK_LEFT) ) {
 		isSpin = true;
-		beforRotation = rotation;
+		beforRotation = spinRot;
 	}
 
 	if (isSpin == true) {
-		rotation.y += SPIN_SPEED;
-		if (beforRotation.y + SPIN_NUM * 6.28f < rotation.y) {
+		spinRot.y += SPIN_SPEED;
+		if (beforRotation.y + SPIN_NUM * 6.28f < spinRot.y) {
 			isSpin = false;
+			spinRot.y = 0;
 		}
 	}
 }
@@ -365,6 +368,44 @@ void Sori::SpeedAccel() {
 	if (speedAccel > 0) {
 		speedAccel -= 0.0008f;
 	}
+}
+void Sori::CentrifugalForce() {
+	D3DXMATRIX matrixWorld;    //ワールド行列
+	D3DXMATRIX centrifugalMtxRot;		   //回転行列
+
+	if (centrifugalRotation.x > rotation.x + 0.2f) {
+		centrifugalRotation.x -= CENTRIFUGAL_FORCE;
+
+	} else if (centrifugalRotation.x < rotation.x - 0.2f) {
+		centrifugalRotation.x += CENTRIFUGAL_FORCE;
+	}
+
+	if (centrifugalRotation.y > rotation.y + 0.2f) {
+		centrifugalRotation.y -= CENTRIFUGAL_FORCE;
+
+	} else if (centrifugalRotation.y < rotation.y - 0.2f) {
+		centrifugalRotation.y += CENTRIFUGAL_FORCE;
+	}
+
+	if (centrifugalRotation.z > rotation.z + 0.2f) {
+		centrifugalRotation.z -= CENTRIFUGAL_FORCE;
+
+	} else if (centrifugalRotation.z < rotation.z - 0.2f) {
+		centrifugalRotation.z += CENTRIFUGAL_FORCE;
+	}
+
+
+	//行列を初期化
+	D3DXMatrixIdentity(&matrixWorld);
+	D3DXMatrixIdentity(&centrifugalMtxRot);
+
+	//回転行列を作成
+	D3DXMatrixRotationYawPitchRoll(&centrifugalMtxRot, centrifugalRotation.y, centrifugalRotation.x, centrifugalRotation.z);
+	D3DXMatrixMultiply(&matrixWorld, &matrixWorld, &centrifugalMtxRot);
+
+	//行列から回転させたベクトルを取り出す
+	centrifugalDirection = D3DXVECTOR3(matrixWorld._31, matrixWorld._32, matrixWorld._33);
+
 }
 
 //ifでweightに値の範囲を指定してセットするキャラを決める
@@ -423,7 +464,7 @@ D3DXVECTOR3 Sori::GetForward() {
 		D3DXMatrixIdentity(&mtxRot);
 
 		//回転行列を作成
-		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y, rotation.x - 0.1f, rotation.z);
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y, rotation.x, rotation.z);
 		D3DXMatrixMultiply(&matrixWorld, &matrixWorld, &mtxRot);
 
 		//行列から回転させたベクトルを取り出す
