@@ -21,7 +21,6 @@ void Camera::Init(Sori sori) {
 }
 void Camera::SetCamera(Sori sori) {
 	//ƒJƒƒ‰‚ğ­‚µ‚¸‚Â‰ñ“]‚³‚¹‚é
-	if (sori.isSpin == false) {
 		if (rad.x < sori.rotation.x-0.02f) {
 			rad.x += 0.007f;
 		} else if (rad.x > sori.rotation.x+0.02f) {
@@ -40,7 +39,6 @@ void Camera::SetCamera(Sori sori) {
 		} else if (rad.y > sori.rotation.y+0.02f) {
 			rad.y -= 0.03f;
 		}
-	}
 
 	//ƒ\ƒŠ‚ª‰Á‘¬‚µ‚½‚É­‚µŒã‚ë‚É‰º‚ª‚é
 	if (sori.isHitSpeedAccelBoard == true && sori.isSpin==false) {
