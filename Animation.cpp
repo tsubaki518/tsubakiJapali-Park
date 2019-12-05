@@ -32,7 +32,7 @@ bool StartAnimation::Draw() {
 		Sprite_Draw(TEXTURE_INDEX_COUNT_DOWN3, SCREEN_WIDTH / 2 - 500 / 2, SCREEN_HEIGHT / 2 / 2, 0, 0, 500, 100);
 	}
 
-	//500フレームの間スタートを表示する
+	//7秒になったらアニメーション終了
 	if (time >= 7) {
 		return false;
 	}

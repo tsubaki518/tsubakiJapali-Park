@@ -21,7 +21,8 @@ private:
 	void Spin();
 	void SpeedAccel();		 //加速床に当たった時の処理
 	void CentrifugalForce(); //遠心力
-	
+	void SetCollisionTransform(); //当たり判定の情報を入れる
+	void CharacterTouch(); //キャラクターがプレイヤーにくっつく
 
 	//引数に体重を入れてキャラクターをセットする
 	void SetCharacter(float weight1, float weight2);

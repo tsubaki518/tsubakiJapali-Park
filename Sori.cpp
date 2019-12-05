@@ -51,19 +51,10 @@ void Sori::Init(float weight1, float weight2) {
 }
 void Sori::Update() {
 	//当たり判定の情報を入れる
-	collisoin.position = position;
-	collisoin.rotation = rotation;
-	collisoin.size.x = 1;
-	collisoin.size.y = -1.0f;
-	collisoin.size.z = 0;
+	SetCollisionTransform();
 
 	//キャラクターをソリに追従させる
-	for (int i = 0; i < 2; i++) {
-		character[i]->position = GetUp()*1.75f + position;
-		character[i]->position += GetForward()*(float)i - GetForward()*0.7f-GetForward()*0.5f;
-		character[i]->rotation = rotation+spinRot;
-		character[i]->rotation.z += character[i]->inputRotZ-rotation.z*2;
-	}
+	CharacterTouch();
 
 	//移動処理
 	Move();
@@ -106,7 +97,7 @@ void Sori::Draw() {
 		D3DXMatrixScaling(&mtxScl, scale.x, scale.y, scale.z);
 		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxScl);
 
-		//回転行列を作成＆ワールド行列へ合成
+		//スピン用の回転行列を作成
 		D3DXMatrixRotationYawPitchRoll(&spinMtxRot, spinRot.y, spinRot.x, spinRot.z);
 		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &spinMtxRot);
 
@@ -410,6 +401,22 @@ void Sori::CentrifugalForce() {
 
 	//行列から回転させたベクトルを取り出す
 	centrifugalDirection = D3DXVECTOR3(matrixWorld._31, matrixWorld._32, matrixWorld._33);
+
+}
+void Sori::SetCollisionTransform() {
+	collisoin.position = position;
+	collisoin.rotation = rotation;
+	collisoin.size.x = 1;
+	collisoin.size.y = -1.0f;
+	collisoin.size.z = 0;
+}
+void Sori::CharacterTouch() {
+	for (int i = 0; i < 2; i++) {
+		character[i]->position = GetUp()*1.75f + position;
+		character[i]->position += GetForward()*(float)i - GetForward()*0.7f - GetForward()*0.5f;
+		character[i]->rotation = rotation + spinRot;
+		character[i]->rotation.z += character[i]->inputRotZ - rotation.z * 2;
+	}
 
 }
 

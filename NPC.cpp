@@ -58,19 +58,10 @@ void NPC::Init(float weight1, float weight2) {
 }
 void NPC::Update() {
 	//当たり判定の情報を入れる
-	collisoin.position = position;
-	collisoin.rotation = rotation;
-	collisoin.size.x = 1;
-	collisoin.size.y = -1.0f;
-	collisoin.size.z = 0;
+	SetCollisionTransform();
 
 	//キャラクターをソリに追従させる
-	for (int i = 0; i < 2; i++) {
-		character[i]->position = GetUp()*1.75f + position;
-		character[i]->position += GetForward()*(float)i - GetForward()*0.7f - GetForward()*0.5f;
-		character[i]->rotation = rotation + spinRot;
-		character[i]->rotation.z += character[i]->inputRotZ - rotation.z * 2;
-	}
+	CharacterTouch();
 
 	//移動処理
 	MoveForward();
@@ -114,7 +105,7 @@ void NPC::Draw() {
 		D3DXMatrixScaling(&mtxScl, scale.x, scale.y, scale.z);
 		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxScl);
 
-		//回転行列を作成＆ワールド行列へ合成
+		//スピン用の回転行列を作成
 		D3DXMatrixRotationYawPitchRoll(&spinMtxRot, spinRot.y, spinRot.x, spinRot.z);
 		D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &spinMtxRot);
 
@@ -413,6 +404,22 @@ void NPC::CentrifugalForce() {
 	centrifugalDirection = D3DXVECTOR3(matrixWorld._31, matrixWorld._32, matrixWorld._33);
 
 }
+void NPC::SetCollisionTransform() {
+	collisoin.position = position;
+	collisoin.rotation = rotation;
+	collisoin.size.x = 1;
+	collisoin.size.y = -1.0f;
+	collisoin.size.z = 0;
+}
+void NPC::CharacterTouch() {
+	for (int i = 0; i < 2; i++) {
+		character[i]->position = GetUp()*1.75f + position;
+		character[i]->position += GetForward()*(float)i - GetForward()*0.7f - GetForward()*0.5f;
+		character[i]->rotation = rotation + spinRot;
+		character[i]->rotation.z += character[i]->inputRotZ - rotation.z * 2;
+	}
+
+}
 
 //ifでweightに値の範囲を指定してセットするキャラを決める
 void NPC::SetCharacter(float weight1, float weight2) {
@@ -456,6 +463,7 @@ void NPC::SetCharacter(float weight1, float weight2) {
 	}
 
 }
+
 D3DXVECTOR3 NPC::GetForward() {
 	D3DXMATRIX matrixWorld;    //ワールド行列
 	D3DXMATRIX mtxRot;		   //回転行列
