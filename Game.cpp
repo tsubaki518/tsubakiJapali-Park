@@ -265,6 +265,7 @@ void GameCollision() {
 
 //UI‚Ì•`‰æ
 void UIDraw() {
+	//Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
 	if (sori.isGoalGround == true) {
 		isChangeScene = goalAnimation.Draw();
 	}

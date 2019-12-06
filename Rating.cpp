@@ -109,5 +109,6 @@ void RatingUpdate(Sori sori) {
 
 //ˆø”‚Åw’è‚µ‚½À•W‚É‹’®—¦‚ğ•\¦‚·‚é
 void RatingDraw() {
+	Sprite_SetColor(D3DCOLOR_RGBA(0, 255, 0, 255));
 	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH*5/12*11,SCREEN_HEIGHT * 5/ 10), D3DXVECTOR2(0.2f,0.2f), rating * 100);
 }
