@@ -3,7 +3,7 @@
 #include"ImageNumber.h"
 #include <time.h>
 
-static float rating;
+static int rating;
 
 //秒間処理
 static clock_t start, end;
@@ -15,7 +15,7 @@ static int cnt;//2秒間カウント
 
 //視聴率の初期化
 void RatingInit() {
-	rating = 5.0f;
+	rating = 50.0;
 	start = clock();
 	sorispin = false;
 	cnt = 0;
@@ -43,13 +43,13 @@ void RatingUpdate(Sori sori) {
 
 		//自機が高スピードを維持し続ける。80%以上の時
 		if (sori.speed >= sori.maxSpeed*0.8) {
-			rating += 0.5f;
-			
+			rating += 5;
+			cnt = 0;
 		}
 		
 		//加点が無い状態が2秒以上継続。
 		if (cnt >= 2) {
-			rating -= 0.1f;
+			rating -= 1;
 			cnt = 0;
 		}
 
@@ -61,7 +61,7 @@ void RatingUpdate(Sori sori) {
 		*/
 		//自機がスピンをしている。
 		if (sorispin == true) {
-			rating += 0.6f;
+			rating += 6;
 			sorispin = false;
 			cnt = 0;
 		}
@@ -71,7 +71,7 @@ void RatingUpdate(Sori sori) {
 	//その場判定(トリガー)
 	//自機が障害物にぶつかる。
 	if (hitcrimp == true) {
-		rating += 0.05f;
+		rating += 0.5;
 		hitcrimp = false;
 		cnt = 0;
 	}
@@ -98,17 +98,18 @@ void RatingUpdate(Sori sori) {
 	*/
 
 	//最大
-	if (rating >= 200) {
-		rating = 200;
+	if (rating >= 9999) {
+		rating = 9999;
 	}
 	//最小
-	if (rating < 5) {
-		rating = 5.0f;
+	if (rating < 50) {
+		rating = 50;
 	}
 }
 
 //引数で指定した座標に視聴率を表示する
 void RatingDraw() {
 	Sprite_SetColor(D3DCOLOR_RGBA(0, 255, 0, 255));
-	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH*5/12*11,SCREEN_HEIGHT * 5/ 10), D3DXVECTOR2(0.2f,0.2f), rating * 100);
+	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 20 / 3 / 100 * 94, SCREEN_HEIGHT * 20 / 3 / 11), D3DXVECTOR2(0.15f, 0.15f), (int)rating / 10);
+	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 10 / 100 * 96, SCREEN_HEIGHT * 10 / 10), D3DXVECTOR2(0.1f, 0.1f), (int)rating % 10);
 }
