@@ -2,17 +2,15 @@
 #include"character.h"
 #include"Figure.h"
 #include"XFile.h"
+
+class NPC;
+
 class Sori {
 private:
-	float speedAccel = 0;		//加速床に当たったときに加速する速度
 	bool isBoundRight = false;  //右に跳ね返る判定
 	bool isBoundLeft = false;   //左に跳ね返る判定
 	int boundCount = 0;
-	D3DXVECTOR3 spinMoveDirection;     //スピン中の移動方向
-	D3DXVECTOR3 spinMoveDirectionRight;//スピン中の跳ね返る方向
-	D3DXVECTOR3 beforRotation;		   //スピン前の角度を取得して何回回転するか判定するために使う
-	D3DXVECTOR3 centrifugalDirection; //遠心力の向き
-	D3DXVECTOR3 centrifugalRotation;  //遠心力の向きを取得するための角度
+
 
 	void Move();		//移動処理
 	void Friction();	//摩擦
@@ -37,10 +35,22 @@ public:
 	bool isHitSpeedAccelBoard = false;
 	bool isGoalGround = false;		//ゴールに到達判定
 	float speed;					//現在の速度
+	D3DXVECTOR3 rightSpeed = D3DXVECTOR3(0, 0, 0);
+	D3DXVECTOR3 leftSpeed = D3DXVECTOR3(0, 0, 0);
 	float maxSpeed;				   //最高速
+	D3DXVECTOR3 spinMoveDirection;     //スピン中の移動方向
+	D3DXVECTOR3 spinMoveDirectionRight;//スピン中の跳ね返る方向
+	D3DXVECTOR3 beforRotation;		   //スピン前の角度を取得して何回回転するか判定するために使う
+	D3DXVECTOR3 centrifugalDirection; //遠心力の向き
+	D3DXVECTOR3 centrifugalRotation;  //遠心力の向きを取得するための角度
+	float speedAccel = 0;		//加速床に当たったときに加速する速度
 	XFile bobsled;				  //モデルデータ(ソリ)
 	Character *character[2];	  //キャラクター 要素番号0が1P　要素番号1が2P
 	Collider3D collisoin;		 //ソリの当たり判定を入れる
+	Collider3D rightCollider; //右側の当たり判定
+	Collider3D leftCollider; //左側の当たり判定
+	Collider3D forwardCollider;
+	Collider3D backCollider;
 
 	Sori();
 
@@ -52,7 +62,6 @@ public:
 	void Update();
 	void Draw();
 	void UnInit();
-	void LoadModel();
 	~Sori();
 
 	//当たり判定
@@ -60,6 +69,11 @@ public:
 	bool Collision(Collider3D c);
 	bool CollisionGoal(Collider3D c);
 	void AccelFloorCollision(Collider3D c);
+
+	//NPCとの当たり判定
+	void CollisionRight(NPC c);
+	void CollisionLeft(NPC c);
+	void CollisionBack(NPC c);
 
 	D3DXVECTOR3 GetForward(); //正面を取得
 	D3DXVECTOR3 GetRight();  //右側取得

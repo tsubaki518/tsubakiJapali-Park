@@ -261,6 +261,16 @@ void GameCollision() {
 			npc.AccelFloorCollision(GetAccelSpeedCube(i).collider);
 		}
 	}
+
+	//NPC‚ÆƒvƒŒƒCƒ„[‚Æ‚Ì“–‚½‚è”»’è
+	npc.CollisionBack(sori);
+	npc.CollisionRight(sori);
+	npc.CollisionLeft(sori);
+	sori.CollisionBack(npc);
+	sori.CollisionRight(npc);
+	sori.CollisionLeft(npc);
+	
+	
 }
 
 //UI‚Ì•`‰æ

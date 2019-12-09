@@ -24,6 +24,7 @@ public:
 class BoxCollider2 :public Collider3D {
 public:
 	Hit Collider(Collider3D point, Collider3D plane);
+	bool CharacterCollider(Collider3D point, Collider3D plane);
 };
 
 D3DXVECTOR3 Vec3Normalize(D3DXVECTOR3 pV);

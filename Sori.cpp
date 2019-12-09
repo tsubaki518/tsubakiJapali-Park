@@ -2,6 +2,7 @@
 #include"texture.h"
 #include"input.h"
 #include"debug_font.h"
+#include"NPC.h"
 
 #define CHARACTER_ROTATION_SPEED 0.1f
 #define SPIN_NUM 4
@@ -66,7 +67,7 @@ void Sori::Update() {
 	Friction();
 
 	//斜面に乗っていたら滑る
-	SlideDown();
+	//SlideDown();
 
 	//壁に当たったら跳ね返る
 	Bound();
@@ -177,6 +178,27 @@ void Sori::AccelFloorCollision(Collider3D c) {
 		isHitSpeedAccelBoard = true;
 	}
 }
+void Sori::CollisionRight(NPC c) {
+	BoxCollider2 collider;
+
+	if (collider.CharacterCollider(rightCollider, c.leftCollider)) {
+		position += c.leftSpeed*2.0f;
+	}
+}
+void Sori::CollisionLeft(NPC c) {
+	BoxCollider2 collider;
+
+	if (collider.CharacterCollider(leftCollider, c.rightCollider)) {
+		position += c.rightSpeed*2.0f;
+	}
+}
+void Sori::CollisionBack(NPC c) {
+	BoxCollider2 collider;
+
+	if (collider.CharacterCollider(backCollider, c.forwardCollider)) {
+		position += c.GetForward() * (c.speed / 2 + c.speedAccel) + (c.centrifugalDirection*c.speed / 2)*2.0f;
+	}
+}
 
 
 void Sori::Move() {
@@ -185,8 +207,10 @@ void Sori::Move() {
 
 	//正面に移動
 	position += GetForward() * (speed/2+speedAccel)+ (centrifugalDirection*speed/2);
-
-
+	position += rightSpeed;
+	position += leftSpeed;
+	leftSpeed = D3DXVECTOR3(0, 0, 0);
+	rightSpeed = D3DXVECTOR3(0, 0, 0);
 
 	//1Pの移動
 	{
@@ -204,7 +228,7 @@ void Sori::Move() {
 
 		//回転
 		if (Keyboard_IsPress(DIK_D) &&canMoveRight) {
-			position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);;  //GetRight()*移動量
+			rightSpeed += GetRight() * ((character[0]->handling + character[1]->handling) / 2);  //GetRight()*移動量
 
 			//左右に移動した時のキャラクターのずれを修正
 			character[0]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
@@ -216,7 +240,7 @@ void Sori::Move() {
 			}
 
 		} else if (Keyboard_IsPress(DIK_A) && canMoveLeft) {
-			position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+			leftSpeed -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
 
 			//左右に移動した時のキャラクターのずれを修正
 			character[0]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
@@ -246,7 +270,7 @@ void Sori::Move() {
 		}
 		if (Keyboard_IsPress(DIK_RIGHT) && canMoveRight) {
 			//右に移動
-			position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);  //GetRight()*移動量
+			rightSpeed += GetRight() * ((character[0]->handling + character[1]->handling) / 2);  //GetRight()*移動量
 
 			//左右に移動した時のキャラクターのずれを修正
 			character[0]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
@@ -260,7 +284,7 @@ void Sori::Move() {
 
 		} else if (Keyboard_IsPress(DIK_LEFT) && canMoveLeft) {
 			//左に移動
-			position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+			leftSpeed -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
 
 			//左右に移動した時のキャラクターのずれを修正
 			character[0]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
@@ -318,11 +342,11 @@ void Sori::Bound() {
 	
 	if (isBoundRight == true && boundCount <= 100) {
 		if (isSpin == false) {
-			position += GetRight() * ((character[0]->handling + character[1]->handling));  //GetRight()*移動量
-			position.y -= GetRight().y * ((character[0]->handling + character[1]->handling));//跳ね返ってる間にスピンするとステージ外に行くバグの対策
+			rightSpeed += GetRight() * ((character[0]->handling + character[1]->handling));  //GetRight()*移動量
+			rightSpeed.y -= GetRight().y * ((character[0]->handling + character[1]->handling));//跳ね返ってる間にスピンするとステージ外に行くバグの対策
 		} else if (isSpin == true) {
-			position += spinMoveDirectionRight * ((character[0]->handling + character[1]->handling));  //GetRight()*移動量
-			position.y -= spinMoveDirectionRight.y * ((character[0]->handling + character[1]->handling));//跳ね返ってる間にスピンするとステージ外に行くバグの対策
+			rightSpeed += spinMoveDirectionRight * ((character[0]->handling + character[1]->handling));  //GetRight()*移動量
+			rightSpeed.y -= spinMoveDirectionRight.y * ((character[0]->handling + character[1]->handling));//跳ね返ってる間にスピンするとステージ外に行くバグの対策
 		}
 		boundCount++;
 	} else {
@@ -330,11 +354,11 @@ void Sori::Bound() {
 	}
 	if (isBoundLeft == true && boundCount <= 100) {
 		if (isSpin == false) {
-			position -= GetRight() * ((character[0]->handling + character[1]->handling));  //GetRight()*移動量
-			position.y += GetRight().y * ((character[0]->handling + character[1]->handling));//跳ね返ってる間にスピンするとステージ外に行くバグの対策
+			leftSpeed -= GetRight() * ((character[0]->handling + character[1]->handling));  //GetRight()*移動量
+			leftSpeed.y += GetRight().y * ((character[0]->handling + character[1]->handling));//跳ね返ってる間にスピンするとステージ外に行くバグの対策
 		} else if (isSpin == true) {
-			position -= spinMoveDirectionRight * ((character[0]->handling + character[1]->handling));  //GetRight()*移動量
-			position.y += spinMoveDirectionRight.y * ((character[0]->handling + character[1]->handling));//跳ね返ってる間にスピンするとステージ外に行くバグの対策
+			leftSpeed -= spinMoveDirectionRight * ((character[0]->handling + character[1]->handling));  //GetRight()*移動量
+			leftSpeed.y += spinMoveDirectionRight.y * ((character[0]->handling + character[1]->handling));//跳ね返ってる間にスピンするとステージ外に行くバグの対策
 		}
 		boundCount++;
 	} else {
@@ -404,11 +428,41 @@ void Sori::CentrifugalForce() {
 
 }
 void Sori::SetCollisionTransform() {
+	//床との当たり判定
 	collisoin.position = position;
 	collisoin.rotation = rotation;
 	collisoin.size.x = 1;
 	collisoin.size.y = -1.0f;
 	collisoin.size.z = 0;
+
+	//NPCとの当たり判定用
+	rightCollider.position = position;
+	rightCollider.position.x += 0.4f;
+	rightCollider.rotation = rotation;
+	rightCollider.size.x = 1.8f;
+	rightCollider.size.y = 1;
+	rightCollider.size.z = 5;
+
+	leftCollider.position = position;
+	leftCollider.position.x -= 0.4f;
+	leftCollider.rotation = rotation;
+	leftCollider.size.x = 1.8f;
+	leftCollider.size.y = 1;
+	leftCollider.size.z = 5;
+
+	forwardCollider.position = position;
+	forwardCollider.position.z += 2.0f;
+	forwardCollider.rotation = rotation;
+	forwardCollider.size.x = 1.8f;
+	forwardCollider.size.y = 1;
+	forwardCollider.size.z = 3;
+
+	backCollider.position = position;
+	backCollider.position.z -= 2.0f;
+	backCollider.rotation = rotation;
+	backCollider.size.x = 1.8f;
+	backCollider.size.y = 1;
+	backCollider.size.z = 3;
 }
 void Sori::CharacterTouch() {
 	for (int i = 0; i < 2; i++) {
