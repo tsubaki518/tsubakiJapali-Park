@@ -582,3 +582,4 @@ D3DXVECTOR3 Sori::GetUp() {
 	}
 	return direction;
 }
+

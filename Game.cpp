@@ -20,6 +20,7 @@
 #include"Animation.h"
 #include"main.h"
 #include"NPC.h"
+#include"ImageNumber.h"
 
 StartAnimation startAnimation;
 GoalAnimation goalAnimation;
@@ -31,6 +32,7 @@ static bool isChangeScene = false;
 
 //UIの描画
 void UIDraw();
+
 
 //初期化
 //プレイヤーの初期位置はSoriクラスのInit()関数で行う
@@ -275,10 +277,11 @@ void GameCollision() {
 
 //UIの描画
 void UIDraw() {
-
+	
 	//Speed表示
 	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
-	Sprite_Draw(TEXTURE_INDEX_METER, 1170,680, 0, 0, 32, 56);
+	Sprite_Draw(TEXTURE_INDEX_METER, 1170, 680, 0, 0,sori.speed * (316/sori.maxSpeed), 56);
+	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH/2 * 5 / 12 * 19, SCREEN_HEIGHT /2 *9 ), D3DXVECTOR2(0.2, 0.2), 0);
 	
 
 	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
@@ -297,3 +300,5 @@ void UIDraw() {
 
 	
 }
+
+
