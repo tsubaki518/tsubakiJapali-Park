@@ -42,6 +42,16 @@ static const TextureFile g_TextureFiles[] = {
 {"asset/texture/メーター.png",316,66},
 {"asset/texture/UI下地.png",SCREEN_WIDTH,SCREEN_HEIGHT},
 
+{"asset/texture/ソクテイカンリョウ!.png",717,65},
+{"asset/texture/ソクテイチュウ.png",717,65},
+{"asset/texture/そのままボードの上で～.png",594,107},
+{"asset/texture/どちらかがジャンプすると～.png",594,107},
+{"asset/texture/プレイヤーエントリー.png",717,65},
+{"asset/texture/プレイヤーを探しています.png",369,135},
+{"asset/texture/共通背景.png",1920,1080},
+{"asset/texture/参加プレイヤーを認識~.png",353,108},
+{"asset/texture/情報アイコン.png",158,162},
+{"asset/texture/立ち絵その１.png",366,475},
 };
 // 読み込みテクスチャ数
 static const int TEXTURE_FILE_COUNT = sizeof(g_TextureFiles) / sizeof(g_TextureFiles[0]);
