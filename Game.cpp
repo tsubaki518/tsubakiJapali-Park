@@ -275,6 +275,12 @@ void GameCollision() {
 
 //UI‚Ì•`‰æ
 void UIDraw() {
+
+	//Speed•\Ž¦
+	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
+	Sprite_Draw(TEXTURE_INDEX_METER, 1170,680, 0, 0, 32, 56);
+	
+
 	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
 	if (sori.isGoalGround == true) {
 		isChangeScene = goalAnimation.Draw();
@@ -288,4 +294,6 @@ void UIDraw() {
 
 	//Ž‹’®—¦•\Ž¦
 	RatingDraw();
+
+	
 }

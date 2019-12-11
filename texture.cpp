@@ -39,7 +39,7 @@ static const TextureFile g_TextureFiles[] = {
 {"asset/texture/カウントダウン３.png",500,100},
 {"asset/texture/ゴール！.png",500,200},
 {"asset/texture/スタート！.png",500,200},
-{"asset/texture/メーター.png",396,66},
+{"asset/texture/メーター.png",316,66},
 {"asset/texture/UI下地.png",SCREEN_WIDTH,SCREEN_HEIGHT},
 
 };
