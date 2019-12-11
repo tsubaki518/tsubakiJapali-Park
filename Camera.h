@@ -30,3 +30,16 @@ public:
 	void SetCamera(Sori sori);
 };
 
+class SettingCamera {
+private:
+	//カメラ用パラメータ
+	D3DXVECTOR3 eye;
+	D3DXVECTOR3 at;
+	D3DXVECTOR3 rad;
+	//プロジェクション＆カメラ行列
+	D3DXMATRIX g_mtxProjectioin;     //プロジェクションマトリクス
+	D3DXMATRIX g_mtxView;             //ビューマトリクス
+
+public:
+	void SetCamera();
+};

@@ -20,6 +20,7 @@
 #include"Animation.h"
 #include"main.h"
 #include"NPC.h"
+#include"Setting.h"
 #include"ImageNumber.h"
 
 StartAnimation startAnimation;
@@ -27,12 +28,11 @@ GoalAnimation goalAnimation;
 Camera camera;
 Sori sori;
 NPC npc;
-static bool isAnimatioin=false;
+static bool isAnimatioin = false;
 static bool isChangeScene = false;
 
 //UIの描画
 void UIDraw();
-
 
 //初期化
 //プレイヤーの初期位置はSoriクラスのInit()関数で行う
@@ -42,7 +42,7 @@ void GameInit() {
 	isAnimatioin = false;
 
 	//体重をもとにキャラクターを設定する
-	sori.Init(72, 55);//この関数内でプレイヤーの初期位置を決める
+	sori.Init(GetSettingPlayer().weight[0], GetSettingPlayer().weight[1]);//この関数内でプレイヤーの初期位置を決める
 	npc.Init(55, 72);
 
 	//ステージ初期化
@@ -111,9 +111,9 @@ void GameCollision() {
 	//ソリとCube(床)の当たり判定
 	for (int i = 0; i < GetCubeNum(); i++) {
 		distance = GetCube(i).position - sori.position;//ソリとオブジェクトとの距離を計算
-		const bool isCollisoinRangeX = distance.x> -HIT_CHECK_RANGE && distance.x < HIT_CHECK_RANGE;
-		const bool isCollisoinRangeY = distance.y> -HIT_CHECK_RANGE && distance.y < HIT_CHECK_RANGE;
-		const bool isCollisoinRangeZ = distance.z> -HIT_CHECK_RANGE && distance.z < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeX = distance.x > -HIT_CHECK_RANGE && distance.x < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeY = distance.y > -HIT_CHECK_RANGE && distance.y < HIT_CHECK_RANGE;
+		const bool isCollisoinRangeZ = distance.z > -HIT_CHECK_RANGE && distance.z < HIT_CHECK_RANGE;
 
 		//一定範囲内にCubeが存在する場合当たり判定を実行する
 		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
@@ -125,7 +125,7 @@ void GameCollision() {
 			}
 		}
 	}
-	if (isGround == false && sori.isGoalGround==false) {
+	if (isGround == false && sori.isGoalGround == false) {
 		sori.position.y -= 0.1f;
 	}
 
@@ -229,7 +229,7 @@ void GameCollision() {
 
 	//ソリと左の壁の当たり判定
 	for (int i = 0; i < GetLeftWallNum(); i++) {
-		distance = GetLeftWall(i).position - sori.position;//ソリとオブジェクトとの距離を計算
+		distance = GetLeftWall(i).position - npc.position;//ソリとオブジェクトとの距離を計算
 		const bool isCollisoinRangeX = distance.x > -HIT_CHECK_RANGE && distance.x < HIT_CHECK_RANGE;
 		const bool isCollisoinRangeY = distance.y > -HIT_CHECK_RANGE && distance.y < HIT_CHECK_RANGE;
 		const bool isCollisoinRangeZ = distance.z > -HIT_CHECK_RANGE && distance.z < HIT_CHECK_RANGE;
@@ -271,8 +271,8 @@ void GameCollision() {
 	sori.CollisionBack(npc);
 	sori.CollisionRight(npc);
 	sori.CollisionLeft(npc);
-	
-	
+
+
 }
 
 //UIの描画

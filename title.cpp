@@ -82,7 +82,7 @@ void TitleUpdate() {
 	if (Keyboard_IsTrigger(DIK_RETURN) || XinputPressButtonDown(B_BUTTON)) {
 		switch ((int)cursorPos) {
 		case PosGame:
-			SetScene(GAME);
+			SetScene(SETTING);
 			break;
 
 		case PosOption:

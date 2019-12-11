@@ -4,7 +4,7 @@
 #include"character.h"
 
 struct SettingPlayer {
-	XFile characterModel[2];
+	Character *character[2];
 	XFile soriModel;
 	int weight[2];
 };
