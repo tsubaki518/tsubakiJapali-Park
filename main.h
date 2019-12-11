@@ -3,6 +3,7 @@
 enum {
 	TITLE,
 	GAME,
+	SETTING,
 	RESULT
 };
 

@@ -20,6 +20,7 @@
 #include"debug_font.h"
 #include"Light.h"
 #include<time.h>
+#include"Setting.h"
 
 //ここまで3D用追加コード
 //===============================================
@@ -220,6 +221,10 @@ void Update(void){
 		TitleUpdate();
 		break;
 
+	case SETTING:
+		SettingUpdate();
+		break;
+
 	case GAME:
 		GameUpdate();
 		break;
@@ -248,6 +253,10 @@ void Draw(void)
 	switch (nowScene) {
 	case TITLE:
 		TitleDraw();
+		break;
+
+	case SETTING:
+		SettingDraw();
 		break;
 
 	case GAME:
@@ -287,6 +296,10 @@ void SetScene(int scene) {
 		TitleUnInit();
 		break;
 
+	case SETTING:
+		SettingUnInit();
+		break;
+
 	case GAME:
 		GameUnInit();
 		break;
@@ -301,6 +314,10 @@ void SetScene(int scene) {
 	switch (nowScene) {
 	case TITLE:
 		TitleInit();
+		break;
+
+	case SETTING:
+		SettingInit();
 		break;
 
 	case GAME:
