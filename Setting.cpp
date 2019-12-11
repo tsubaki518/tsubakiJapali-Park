@@ -295,7 +295,7 @@ void SettingSetWeightUpdate() {
 				settingPlayer.weight[1] = 75;
 				settingPlayer.character[1] = new Bear();
 			} else {
-				settingPlayer.weight[1] = 75;
+				settingPlayer.weight[1] = 65;
 				settingPlayer.character[1] = new Dog();
 			}
 		} else {

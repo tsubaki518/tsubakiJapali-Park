@@ -333,10 +333,12 @@ void NPC::Bound() {
 	if (isHitLeftWall == true) {
 		boundCount = 0;
 		isBoundRight = true;
+		moveHorizonCount = 0;
 	}
 	if (isHitRightWall == true) {
 		boundCount = 0;
 		isBoundLeft = true;
+		moveHorizonCount = 0;
 	}
 
 

@@ -499,20 +499,20 @@ void Sori::SetCharacter(float weight1, float weight2) {
 
 	if (weight2 >= 80)
 	{
-		character[1] = new Elephant;
+		character[1] = new Elephant();
 
 	} else if (weight2 >= 70 && weight2 <= 79)
 	{
-		character[1] = new Bear;
+		character[1] = new Bear();
 	} else if (weight2 >= 60 && weight2 <= 69)
 	{
-		character[1] = new Dog;
+		character[1] = new Dog();
 	} else if (weight2 >= 50 && weight2 <= 59)
 	{
-		character[1] = new Rabbit;
+		character[1] = new Rabbit();
 	} else if (weight2 <= 49)
 	{
-		character[1] = new Hamster;
+		character[1] = new Hamster();
 	}
 
 }
@@ -582,4 +582,3 @@ D3DXVECTOR3 Sori::GetUp() {
 	}
 	return direction;
 }
-
