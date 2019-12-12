@@ -25,6 +25,7 @@ private:
 	void CentrifugalForce(); //遠心力
 	void SetCollisionTransform(); //当たり判定の情報を入れる
 	void CharacterTouch(); //キャラクターがプレイヤーにくっつく
+	void ReceiveSpinMove(); //敵のスピンが当たった時に吹っ飛ぶ
 
 	//引数に体重を入れてキャラクターをセットする
 	void SetCharacter(float weight1, float weight2);
@@ -33,6 +34,9 @@ public:
 	D3DXVECTOR3 position;
 	D3DXVECTOR3 scale = { 50,50,50 };
 	D3DXVECTOR3 spinRot;
+	bool isReceiveMoveForward = false; //吹っ飛ぶ方向を判定
+	bool isReceiveMoveLeft = false;		//吹っ飛ぶ方向を判定
+	bool isReceiveMoveRight = false;	//吹っ飛ぶ方向を判定
 	bool isSpin = false;			//スピン判定 スピン中はtrue
 	bool isHitRightWall = false;	//右壁に当たった判定
 	bool isHitLeftWall = false;		//左壁に当たった判定
@@ -42,12 +46,13 @@ public:
 	D3DXVECTOR3 rightSpeed = D3DXVECTOR3(0, 0, 0);
 	D3DXVECTOR3 leftSpeed = D3DXVECTOR3(0, 0, 0);
 	float maxSpeed;				   //最高速
+	D3DXVECTOR3 receiveSpinSpeed;    //敵のスピンが当たった時の吹っ飛ぶ移動量(絶対値)
 	D3DXVECTOR3 spinMoveDirection;     //スピン中の移動方向
 	D3DXVECTOR3 spinMoveDirectionRight;//スピン中の跳ね返る方向
 	D3DXVECTOR3 beforRotation;		   //スピン前の角度を取得して何回回転するか判定するために使う
 	D3DXVECTOR3 centrifugalDirection; //遠心力の向き
 	D3DXVECTOR3 centrifugalRotation;  //遠心力の向きを取得するための角度
-	float speedAccel = 0;		//加速床に当たったときに加速する速度
+	float speedAccel = 0;			//加速床に当たったときに加速する速度
 	XFile bobsled;				  //モデルデータ(ソリ)
 	Character *character[2];	  //キャラクター 要素番号0が1P　要素番号1が2P
 	Collider3D collisoin;		 //ソリの当たり判定を入れる
@@ -74,9 +79,9 @@ public:
 	void AccelFloorCollision(Collider3D c);
 
 	//プレイヤーとの当たり判定
-	void CollisionRight(Sori c);
-	void CollisionLeft(Sori c);
-	void CollisionBack(Sori c);
+	bool CollisionRight(Sori c);
+	bool CollisionLeft(Sori c);
+	bool CollisionBack(Sori c);
 
 	D3DXVECTOR3 GetForward(); //正面を取得
 	D3DXVECTOR3 GetRight();  //右側取得

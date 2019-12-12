@@ -32,6 +32,7 @@ void Sori::Init(float weight1, float weight2) {
 
 	//プレイヤーの初期位置
 	position = D3DXVECTOR3(2, -10.10f, 2);
+	position = D3DXVECTOR3(-0.5f, -10.10f, 2);
 	rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0, 0);
 	isGoalGround = false;
 	isSpin = false;
@@ -43,12 +44,7 @@ void Sori::Init(float weight1, float weight2) {
 	spinRot = D3DXVECTOR3(0, 0, 0);
 
 	//キャラクターの情報を入れる
-	for (int i = 0; i < 2; i++) {
-		character[i]->position = GetUp()*1.75f + position;
-		character[i]->position += GetForward()*(float)i - GetForward()*0.7f - GetForward()*0.5f;
-		character[i]->rotation = rotation;
-		character[i]->rotation.z += character[i]->inputRotZ - rotation.z * 2;
-	}
+	CharacterTouch();
 }
 void Sori::Update() {
 	//当たり判定の情報を入れる
@@ -77,6 +73,9 @@ void Sori::Update() {
 
 	//遠心力
 	CentrifugalForce();
+
+	//敵のスピンが当たった時吹っ飛ぶ
+	ReceiveSpinMove();
 }
 void Sori::Draw() {
 	//ソリ用の行列を作成
@@ -178,26 +177,32 @@ void Sori::AccelFloorCollision(Collider3D c) {
 		isHitSpeedAccelBoard = true;
 	}
 }
-void Sori::CollisionRight(NPC c) {
+bool Sori::CollisionRight(NPC c) {
 	BoxCollider2 collider;
 
 	if (collider.CharacterCollider(rightCollider, c.leftCollider)) {
 		position += c.leftSpeed*2.0f;
+		return true;
 	}
+	return false;
 }
-void Sori::CollisionLeft(NPC c) {
+bool Sori::CollisionLeft(NPC c) {
 	BoxCollider2 collider;
 
 	if (collider.CharacterCollider(leftCollider, c.rightCollider)) {
 		position += c.rightSpeed*2.0f;
+		return true;
 	}
+	return false;
 }
-void Sori::CollisionBack(NPC c) {
+bool Sori::CollisionBack(NPC c) {
 	BoxCollider2 collider;
 
 	if (collider.CharacterCollider(backCollider, c.forwardCollider)) {
 		position += c.GetForward() * (c.speed / 2 + c.speedAccel) + (c.centrifugalDirection*c.speed / 2)*2.0f;
+		return true;
 	}
+	return false;
 }
 
 
@@ -467,11 +472,25 @@ void Sori::SetCollisionTransform() {
 void Sori::CharacterTouch() {
 	for (int i = 0; i < 2; i++) {
 		character[i]->position = GetUp()*1.75f + position;
-		character[i]->position += GetForward()*(float)i - GetForward()*0.7f - GetForward()*0.5f;
+		character[i]->position -= GetForward()*(float)i + GetForward()*0.3f + GetForward()*0.2f;
 		character[i]->rotation = rotation + spinRot;
 		character[i]->rotation.z += character[i]->inputRotZ - rotation.z * 2;
 	}
 
+}
+void Sori::ReceiveSpinMove() {
+	if (isReceiveMoveForward == true) {
+		position += receiveSpinSpeed;
+
+	} else if (isReceiveMoveRight == true) {
+		position += receiveSpinSpeed;
+		receiveSpinSpeed.y *= GetRight().y;
+
+	} else if (isReceiveMoveLeft == true) {
+		position -= receiveSpinSpeed;
+		receiveSpinSpeed.y *= -GetRight().y;
+	}
+	receiveSpinSpeed *= 0.8f;
 }
 
 //ifでweightに値の範囲を指定してセットするキャラを決める

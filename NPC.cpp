@@ -35,6 +35,7 @@ void NPC::Init(float weight1, float weight2) {
 
 	//プレイヤーの初期位置
 	position = D3DXVECTOR3(-0.5f, -10.10f, 2);
+	position = D3DXVECTOR3(2, -10.10f, 2);
 	rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0, 0);
 	isGoalGround = false;
 	isSpin = false;
@@ -43,12 +44,7 @@ void NPC::Init(float weight1, float weight2) {
 	centrifugalDirection = D3DXVECTOR3(0, 0, 0);
 
 	//キャラクターの情報を入れる
-	for (int i = 0; i < 2; i++) {
-		character[i]->position = GetUp()*1.75f + position;
-		character[i]->position += GetForward()*(float)i - GetForward()*0.7f - GetForward()*0.5f;
-		character[i]->rotation = rotation;
-		character[i]->rotation.z += character[i]->inputRotZ - rotation.z * 2;
-	}
+	CharacterTouch();
 
 	speed = 0;
 	spinRot = D3DXVECTOR3(0, 0, 0);
@@ -85,6 +81,9 @@ void NPC::Update() {
 
 	//遠心力
 	CentrifugalForce();
+
+	//敵のスピンに当たったら吹っ飛ぶ
+	ReceiveSpinMove();
 }
 void NPC::Draw() {
 	//ソリ用の行列を作成
@@ -148,7 +147,7 @@ bool NPC::CollisionWall(Collider3D c) {
 	BoxCollider2 collider;
 
 	if (collider.Collider(collisoin, c).isHit) {
-		position += collider.Collider(collisoin, c).addPosition;
+		position += collider.Collider(collisoin, c).addPosition*1.2f;
 		return true;
 
 	} else {
@@ -189,26 +188,32 @@ void NPC::AccelFloorCollision(Collider3D c) {
 		isHitSpeedAccelBoard = true;
 	}
 }
-void NPC::CollisionRight(Sori c) {
+bool NPC::CollisionRight(Sori c) {
 	BoxCollider2 collider;
 
 	if (collider.CharacterCollider(rightCollider, c.leftCollider)) {
 		position += c.leftSpeed*2.0f;
+		return true;
 	}
+	return false;
 }
-void NPC::CollisionLeft(Sori c) {
+bool NPC::CollisionLeft(Sori c) {
 	BoxCollider2 collider;
 
 	if (collider.CharacterCollider(leftCollider, c.rightCollider)) {
 		position += c.rightSpeed*2.0f;
+		return true;
 	}
+	return false;
 }
-void NPC::CollisionBack(Sori c) {
+bool NPC::CollisionBack(Sori c) {
 	BoxCollider2 collider;
 
 	if (collider.CharacterCollider(backCollider, c.forwardCollider)) {
 		position += c.GetForward() * (c.speed / 2 + c.speedAccel) + (c.centrifugalDirection*c.speed / 2)*2.0f;
+		return true;
 	}
+	return false;
 }
 
 
@@ -475,11 +480,26 @@ void NPC::SetCollisionTransform() {
 void NPC::CharacterTouch() {
 	for (int i = 0; i < 2; i++) {
 		character[i]->position = GetUp()*1.75f + position;
-		character[i]->position += GetForward()*(float)i - GetForward()*0.7f - GetForward()*0.5f;
+		character[i]->position -= GetForward()*(float)i + GetForward()*0.3f + GetForward()*0.2f;
 		character[i]->rotation = rotation + spinRot;
 		character[i]->rotation.z += character[i]->inputRotZ - rotation.z * 2;
 	}
 
+}
+void NPC::ReceiveSpinMove() {
+	if (isReceiveMoveForward == true) {
+		position += receiveSpinSpeed;
+
+	}else if (isReceiveMoveRight == true) {
+		position += receiveSpinSpeed;
+		receiveSpinSpeed.y *= GetRight().y;
+
+	} else if (isReceiveMoveLeft == true) {
+		position -= receiveSpinSpeed;
+		receiveSpinSpeed.y *= -GetRight().y;
+	}
+	receiveSpinSpeed *= 0.8f;
+	
 }
 
 //ifでweightに値の範囲を指定してセットするキャラを決める

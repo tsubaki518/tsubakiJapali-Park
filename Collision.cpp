@@ -162,8 +162,8 @@ Hit BoxCollider2::Collider(Collider3D point, Collider3D plane) {
 
 		//“àÏ‚ÌŒ‹‰Ê‚ª1‚Â‚Å‚à0.04ˆÈ‰º‚ª‚ ‚ê‚Îã‚É‰Ÿ‚µo‚·
 		for (int i = 0; i < VERTEX_NUM; i++) {
-			if (dot[i] <= 0.04f) {
-				hit.addPosition = nor * 0.06f;
+			if (dot[i] <= 0.00f) {
+				hit.addPosition = nor * 0.15f;
 			} else {
 				hit.addPosition = nor - nor;;
 			}

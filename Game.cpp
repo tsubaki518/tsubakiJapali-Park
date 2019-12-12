@@ -140,6 +140,9 @@ void GameCollision() {
 		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
 			if (sori.CollisionWall(GetRightWall(i).collider)) {
 				sori.isHitRightWall = true;
+				sori.isReceiveMoveForward = false;
+				sori.isReceiveMoveLeft = true;
+				sori.isReceiveMoveRight = false;
 				break;
 			} else {
 				sori.isHitRightWall = false;
@@ -158,6 +161,9 @@ void GameCollision() {
 		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
 			if (sori.CollisionWall(GetLeftWall(i).collider)) {
 				sori.isHitLeftWall = true;
+				sori.isReceiveMoveForward = false;
+				sori.isReceiveMoveLeft = false;
+				sori.isReceiveMoveRight = true;
 				break;
 			} else {
 				sori.isHitLeftWall = false;
@@ -209,7 +215,7 @@ void GameCollision() {
 		npc.position.y -= 0.1f;
 	}
 
-	//ソリと右の壁の当たり判定
+	//NPCと右の壁の当たり判定
 	for (int i = 0; i < GetRightWallNum(); i++) {
 		distance = GetRightWall(i).position - npc.position;//ソリとオブジェクトとの距離を計算
 		const bool isCollisoinRangeX = distance.x > -HIT_CHECK_RANGE && distance.x < HIT_CHECK_RANGE;
@@ -220,6 +226,9 @@ void GameCollision() {
 		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
 			if (npc.CollisionWall(GetRightWall(i).collider)) {
 				npc.isHitRightWall = true;
+				npc.isReceiveMoveForward = false;
+				npc.isReceiveMoveLeft = true;
+				npc.isReceiveMoveRight = false;
 				break;
 			} else {
 				npc.isHitRightWall = false;
@@ -227,7 +236,7 @@ void GameCollision() {
 		}
 	}
 
-	//ソリと左の壁の当たり判定
+	//NPCと左の壁の当たり判定
 	for (int i = 0; i < GetLeftWallNum(); i++) {
 		distance = GetLeftWall(i).position - npc.position;//ソリとオブジェクトとの距離を計算
 		const bool isCollisoinRangeX = distance.x > -HIT_CHECK_RANGE && distance.x < HIT_CHECK_RANGE;
@@ -238,6 +247,9 @@ void GameCollision() {
 		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
 			if (npc.CollisionWall(GetLeftWall(i).collider)) {
 				npc.isHitLeftWall = true;
+				npc.isReceiveMoveForward = false;
+				npc.isReceiveMoveLeft = false;
+				npc.isReceiveMoveRight = true;
 				break;
 			} else {
 				npc.isHitLeftWall = false;
@@ -263,14 +275,59 @@ void GameCollision() {
 			npc.AccelFloorCollision(GetAccelSpeedCube(i).collider);
 		}
 	}
-
+	const float SPIN_POWER = 0.7f;
 	//NPCとプレイヤーとの当たり判定
-	npc.CollisionBack(sori);
-	npc.CollisionRight(sori);
-	npc.CollisionLeft(sori);
-	sori.CollisionBack(npc);
-	sori.CollisionRight(npc);
-	sori.CollisionLeft(npc);
+	if (npc.CollisionBack(sori)) {
+		if (sori.isSpin == true) {
+			npc.isReceiveMoveForward = true;
+			npc.isReceiveMoveLeft = false;
+			npc.isReceiveMoveRight = false;
+			npc.receiveSpinSpeed = sori.GetForward() * SPIN_POWER;
+		}
+	}
+
+
+	if(npc.CollisionRight(sori)) {
+		if (sori.isSpin == true) {
+			npc.isReceiveMoveForward = false;
+			npc.isReceiveMoveLeft = true;
+			npc.isReceiveMoveRight = false;
+			npc.receiveSpinSpeed = sori.GetRight() * SPIN_POWER;
+		}
+	}
+	if (npc.CollisionLeft(sori)) {
+		if (sori.isSpin == true) {
+			npc.isReceiveMoveForward = false;
+			npc.isReceiveMoveLeft = false;
+			npc.isReceiveMoveRight = true;
+			npc.receiveSpinSpeed = sori.GetRight() * SPIN_POWER;
+		}
+	}
+
+	if (sori.CollisionBack(npc)) {
+		if (npc.isSpin == true) {
+			sori.isReceiveMoveForward = true;
+			sori.isReceiveMoveLeft = false;
+			sori.isReceiveMoveRight = false;
+			sori.receiveSpinSpeed = npc.GetForward() * SPIN_POWER;
+		}
+	}
+	if(sori.CollisionRight(npc)){
+		if (npc.isSpin == true) {
+			sori.isReceiveMoveForward = false;
+			sori.isReceiveMoveLeft = true;
+			sori.isReceiveMoveRight = false;
+			sori.receiveSpinSpeed = npc.GetRight() * SPIN_POWER;
+		}
+	}
+	if (sori.CollisionLeft(npc)) {
+		if (npc.isSpin == true) {
+			sori.isReceiveMoveForward = false;
+			sori.isReceiveMoveLeft = false;
+			sori.isReceiveMoveRight = true;
+			sori.receiveSpinSpeed = npc.GetRight() * SPIN_POWER;
+		}
+	}
 
 
 }

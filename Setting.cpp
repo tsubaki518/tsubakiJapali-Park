@@ -385,7 +385,7 @@ void SettingSetWeightEndDraw() {
 	//キャラクターの描画
 	for (int i = 0; i < 2; i++) {
 		settingPlayer.character[i]->position = GetUp()*1.75f + D3DXVECTOR3(-1.6f, -1.5f, 0);
-		settingPlayer.character[i]->position += GetForward()*(float)i*0.6f - GetForward()*0.7f - GetForward()*0.5f;
+		settingPlayer.character[i]->position -= GetForward()*(float)i*0.6f + GetForward()*0.3f + GetForward()*0.2f;
 		settingPlayer.character[i]->rotation = rotation;
 		settingPlayer.character[i]->rotation.x -= 0.45f;
 		settingPlayer.character[i]->Draw();
