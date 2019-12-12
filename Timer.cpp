@@ -6,7 +6,7 @@
 #include"common.h"
 #include<math.h>
 double byou;
-int hun;
+float hun;
 float seisuu;
 float syousuu;
 
@@ -50,4 +50,8 @@ void TimerDraw(float x, float y) {
 	//•ª‚Ì•\Ž¦
 	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH*5/12*10.5, SCREEN_HEIGHT * 5 / 18), D3DXVECTOR2(0.2,0.2), (int)hun);
 	
+}
+
+float GetTime() {
+	return hun * 60 + byou + syousuu / 100;
 }

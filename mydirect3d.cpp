@@ -65,7 +65,7 @@ bool MyDirect3D_Initialize(HWND hWnd)
 	g_pD3DDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
 
 	// ”¼“§–¾ˆ—‚ðs‚¤
-	g_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	//g_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 
 	return true;
 }

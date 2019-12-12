@@ -11,7 +11,7 @@ void ResultInit() {
 }
 void ResultUpdate() {
 	if (Keyboard_IsPress(DIK_RETURN)) {
-		SetScene(TITLE);
+		SetScene(RANKING);
 	}
 }
 

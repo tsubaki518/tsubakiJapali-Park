@@ -4,7 +4,8 @@ enum {
 	TITLE,
 	GAME,
 	SETTING,
-	RESULT
+	RESULT,
+	RANKING
 };
 
 void SetScene(int scene);

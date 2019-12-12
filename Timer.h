@@ -7,3 +7,5 @@ void TimerUpdate();
 
 //ˆø”‚Åw’è‚µ‚½À•W‚ÉŠÔ‚ğ•\¦‚·‚é
 void TimerDraw(float x, float y);
+
+float GetTime();

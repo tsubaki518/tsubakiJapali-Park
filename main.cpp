@@ -17,6 +17,7 @@
 #include"title.h"
 #include"Game.h"
 #include"Result.h"
+#include"Ranking.h"
 #include"debug_font.h"
 #include"Light.h"
 #include<time.h>
@@ -232,6 +233,10 @@ void Update(void){
 	case RESULT:
 		ResultUpdate();
 		break;
+
+	case RANKING:
+		RankingUpdate();
+		break;
 	}
 }
 
@@ -265,6 +270,10 @@ void Draw(void)
 
 	case RESULT:
 		ResultDraw();
+		break;
+
+	case RANKING:
+		RankingDraw();
 		break;
 	}
 	
@@ -307,6 +316,10 @@ void SetScene(int scene) {
 	case RESULT:
 		ResultUnInit();
 		break;
+
+	case RANKING:
+		RankingUnInit();
+		break;
 	}
 	nowScene = scene;
 
@@ -326,6 +339,10 @@ void SetScene(int scene) {
 
 	case RESULT:
 		ResultInit();
+		break;
+
+	case RANKING:
+		RankingInit();
 		break;
 	}
 
