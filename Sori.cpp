@@ -32,7 +32,6 @@ void Sori::Init(float weight1, float weight2) {
 
 	//プレイヤーの初期位置
 	position = D3DXVECTOR3(2, -10.10f, 2);
-	position = D3DXVECTOR3(-0.5f, -10.10f, 2);
 	rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0, 0);
 	isGoalGround = false;
 	isSpin = false;
