@@ -408,19 +408,57 @@ void SettingSetWeightEndDraw() {
 		UI[3]->Draw(TEXTURE_INDEX_DOTIRAKAZYANPU);
 	}
 
-	if (isNext[0] == false) {
-		//1Pの体重測定中のリングを表示
+
+	//1Pの体重によって表示するキャラクターを変える
+	if (settingPlayer.weight[0] == 75) {
 		UI[4]->position = D3DXVECTOR3(2.0f, 0.65f, 0);
-		UI[4]->scale = D3DXVECTOR3(0.5f, 0.5f, 0);
-		UI[4]->rotation.z += 0.05f;
-		UI[4]->Draw(TEXTURE_INDEX_RING, D3DXCOLOR(1, 1, 1, 1));
+		UI[4]->scale = D3DXVECTOR3(1.0f, 1.0f, 0);
+		UI[4]->rotation.z = 0;
+		UI[4]->Draw(TEXTURE_INDEX_ICON_BEAR, D3DXCOLOR(1, 1, 1, 1));
+
+	} else if (settingPlayer.weight[0] == 65) {
+		UI[4]->position = D3DXVECTOR3(2.0f, 0.65f, 0);
+		UI[4]->scale = D3DXVECTOR3(1.0f, 1.0f, 0);
+		UI[4]->rotation.z = 0;
+		UI[4]->Draw(TEXTURE_INDEX_ICON_DOG, D3DXCOLOR(1, 1, 1, 1));
+
+	} else if (settingPlayer.weight[0] == 55) {
+		UI[4]->position = D3DXVECTOR3(2.0f, 0.65f, 0);
+		UI[4]->scale = D3DXVECTOR3(1.0f, 1.0f, 0);
+		UI[4]->rotation.z = 0;
+		UI[4]->Draw(TEXTURE_INDEX_ICON_RABBIT, D3DXCOLOR(1, 1, 1, 1));
+
+	}else if (settingPlayer.weight[0] == 45) {
+		UI[4]->position = D3DXVECTOR3(2.0f, 0.65f, 0);
+		UI[4]->scale = D3DXVECTOR3(1.0f, 1.0f, 0);
+		UI[4]->rotation.z = 0;
+		UI[4]->Draw(TEXTURE_INDEX_ICON_HAMSTER, D3DXCOLOR(1, 1, 1, 1));
 	}
 
-	if (isNext[1] == false) {
-		//2Pの体重測定中のリングを表示
+
+	//2Pの体重によって表示するキャラクターを変える
+	if (settingPlayer.weight[1] == 75) {
 		UI[5]->position = D3DXVECTOR3(2.0f, -0.3f, 0);
-		UI[5]->scale = D3DXVECTOR3(0.5f, 0.5f, 0);
-		UI[5]->rotation.z += 0.05f;
-		UI[5]->Draw(TEXTURE_INDEX_RING, D3DXCOLOR(1, 1, 1, 1));
+		UI[5]->scale = D3DXVECTOR3(1.0f, 1.0f, 0);
+		UI[5]->rotation.z = 0;
+		UI[5]->Draw(TEXTURE_INDEX_ICON_BEAR, D3DXCOLOR(1, 1, 1, 1));
+
+	} else if (settingPlayer.weight[1] == 65) {
+		UI[5]->position = D3DXVECTOR3(2.0f, -0.3f, 0);
+		UI[5]->scale = D3DXVECTOR3(1.0f, 1.0f, 0);
+		UI[5]->rotation.z = 0;
+		UI[5]->Draw(TEXTURE_INDEX_ICON_DOG, D3DXCOLOR(1, 1, 1, 1));
+
+	} else if (settingPlayer.weight[1] == 55) {
+		UI[5]->position = D3DXVECTOR3(2.0f, -0.3f, 0);
+		UI[5]->scale = D3DXVECTOR3(1.0f, 1.0f, 0);
+		UI[5]->rotation.z = 0;
+		UI[5]->Draw(TEXTURE_INDEX_ICON_RABBIT, D3DXCOLOR(1, 1, 1, 1));
+
+	} else if (settingPlayer.weight[1] == 45) {
+		UI[5]->position = D3DXVECTOR3(2.0f, -0.3f, 0);
+		UI[5]->scale = D3DXVECTOR3(1.0f, 1.0f, 0);
+		UI[5]->rotation.z = 0;
+		UI[5]->Draw(TEXTURE_INDEX_ICON_HAMSTER, D3DXCOLOR(1, 1, 1, 1));
 	}
 }
