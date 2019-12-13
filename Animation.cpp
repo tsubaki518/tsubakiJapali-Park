@@ -53,3 +53,28 @@ bool GoalAnimation::Draw() {
 	}
 	return false;
 }
+
+void TezukaLine::Init(int n) {
+	drawCount = n;
+}
+void TezukaLine::Draw() {
+	if (drawCount > 0) {
+		const int TEXTURE_CUT_SIZE_X = SCREEN_WIDTH;
+		const int TEXTURE_ANIMATION_INTERVAL = 3;
+		const int TEXTURE_LAPSE_NUM = 2;
+
+		Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
+		Sprite_Draw(TEXTURE_INDEX_TEZUKA_LINE, 0, 0, TEXTURE_CUT_SIZE_X*count, 0, TEXTURE_CUT_SIZE_X, SCREEN_HEIGHT);
+
+		interval++;
+		if (interval == TEXTURE_ANIMATION_INTERVAL) {
+			interval = 0;
+			count++;
+			if (count == TEXTURE_LAPSE_NUM) {
+				count = 0;
+			}
+		}
+	}
+
+	drawCount--;
+}

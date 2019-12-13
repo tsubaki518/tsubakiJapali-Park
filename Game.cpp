@@ -28,15 +28,18 @@ GoalAnimation goalAnimation;
 Camera camera;
 Sori sori;
 NPC npc;
+TezukaLine *tezukaLine;
 static bool isAnimatioin = false;
 static bool isChangeScene = false;
 
 //UIの描画
 void UIDraw();
 
+
 //初期化
 //プレイヤーの初期位置はSoriクラスのInit()関数で行う
 void GameInit() {
+	tezukaLine = new TezukaLine();
 	//フラグの初期化
 	isChangeScene = false;
 	isAnimatioin = false;
@@ -101,6 +104,7 @@ void GameDraw() {
 void GameUnInit() {
 	sori.UnInit();
 	npc.UnInit();
+	delete tezukaLine;
 }
 
 //当たり判定
@@ -334,7 +338,10 @@ void GameCollision() {
 
 //UIの描画
 void UIDraw() {
-	
+	if (camera.isStop == true) {
+		tezukaLine->Init(75);
+	}
+	tezukaLine->Draw();
 	//Speed表示
 	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
 	Sprite_Draw(TEXTURE_INDEX_METER, 1170, 680, 0, 0,sori.speed * (316/sori.maxSpeed), 56);

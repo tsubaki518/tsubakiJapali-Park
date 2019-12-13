@@ -62,6 +62,8 @@ static const TextureFile g_TextureFiles[] = {
 {"asset/texture/2Dウサギ.png",400,400},
 {"asset/texture/2Dクマ.png",400,400},
 {"asset/texture/2Dハムスター02.png",400,400},
+
+{"asset/texture/集中線.png",SCREEN_WIDTH*3,SCREEN_HEIGHT},
 };
 // 読み込みテクスチャ数
 static const int TEXTURE_FILE_COUNT = sizeof(g_TextureFiles) / sizeof(g_TextureFiles[0]);

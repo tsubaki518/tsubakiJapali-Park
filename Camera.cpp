@@ -81,7 +81,7 @@ void Camera::SetCamera(Sori sori) {
 		addPos -= sori.GetForward()*sori.speed*0.2f;
 		addPos.y += 0.015f;
 		stopCount++;
-		
+
 		//15フレーム経過で終了
 		if (stopCount == 15) {
 			isStop = false;

@@ -1,5 +1,6 @@
 #pragma once
 #include"Sori.h"
+#include"Animation.h"
 //プロジェクション用パラメータ
 #define VIEW_ANGLE (D3DXToRadian(45.0f))                             //ビュー平面の視野角
 #define VIEW_ASPECT ((float)SCREEN_WIDTH/ (float)SCREEN_HEIGHT)      //ビュー平面のアスペクト値
@@ -19,13 +20,14 @@ private:
 	D3DXMATRIX g_mtxProjectioin;     //プロジェクションマトリクス
 	D3DXMATRIX g_mtxView;             //ビューマトリクス
 
+
 	//加速演出用
-	bool isStop;
 	int stopCount;
 
 	//スタート時のアニメーション用
 	bool isStartOnece;
 public:
+	bool isStop;
 	void Init(Sori sori);
 	void SetCamera(Sori sori);
 };
@@ -39,6 +41,7 @@ private:
 	//プロジェクション＆カメラ行列
 	D3DXMATRIX g_mtxProjectioin;     //プロジェクションマトリクス
 	D3DXMATRIX g_mtxView;             //ビューマトリクス
+
 
 public:
 	void SetCamera();

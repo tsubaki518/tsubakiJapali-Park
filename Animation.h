@@ -24,3 +24,12 @@ public:
 	void Init();
 	bool Draw();
 };
+
+class TezukaLine :public Animation {
+private:
+	int interval;
+	int drawCount = 0;
+public:
+	void Init(int n);
+	void Draw();
+};
