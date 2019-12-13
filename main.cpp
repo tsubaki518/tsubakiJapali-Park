@@ -203,7 +203,7 @@ bool Initialize(void)
 	light.Use(true);
 
 	srand((unsigned int)time(NULL));
-
+	LoadSave();
 	SetScene(TITLE);
 
     return true;
@@ -295,6 +295,7 @@ void Finalize(void){
 
     // Direct3Dラッパーモジュールの終了処理
     MyDirect3D_Finalize();
+	WriteSave();
 
 }
 
