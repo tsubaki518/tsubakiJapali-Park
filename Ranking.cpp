@@ -8,11 +8,17 @@
 #include"input.h"
 #include"main.h"
 
-SCORE Score[31];
+SCORE Score[32];
+SCORE pScore[32];
 static float timescore;
 
 
 void RankingInit() {
+	if (Score[0].Scoretime == 0.00f) {
+		for (int i = 0; i < 31; i++) {
+			Score[i].Scoretime = 10000.00f;
+		}
+	}
 	//WriteSave();
 	SetRank(GetTime());
 }
@@ -65,19 +71,12 @@ void LoadSave(void) {
 
 void SetRank(float score) {
 	Score[31].Scoretime = score;
-	float work[31];
 	int rank;
-	int cnt2;
 	bool isSetRank = false;
-	bool isSetRank1 = false;
 
 	//順位を判定する
 	for (int i = 0; i < 31; i++) {
-		if (Score[i].Scoretime == 0.00f) {
-			isSetRank1 = true;
-			break;
-		}
-		if (Score[31].Scoretime <= Score[i].Scoretime) {
+		if (Score[31].Scoretime < Score[i].Scoretime) {
 			rank = i;
 			isSetRank = true;
 			break;
@@ -86,21 +85,15 @@ void SetRank(float score) {
 	}
 
 	//workに前の順位を入れる
-	for (int i = 0; i < 31; i++) {
-		work[i] = Score[i].Scoretime;
+	for (int i = 0; i < 32; i++) {
+		pScore[i].Scoretime = Score[i].Scoretime;
 	}
 
 	//スコアが30位以内に入っていたら順位をずらす
 	if (isSetRank == true) {
-		Score[rank] = Score[31];
+		Score[rank].Scoretime = Score[31].Scoretime;
 		for (int i = rank; i < 31; i++) {
-			Score[i + 1].Scoretime = work[i];
-		}
-	}
-	else if (isSetRank1 == true) {
-		Score[0] = Score[31];
-		for (int i = 0; i < 31; i++) {
-			Score[i + 1].Scoretime = work[i];
+			Score[i + 1].Scoretime = pScore[i].Scoretime;
 		}
 	}
 	Score[31].Scoretime = score;
