@@ -17,6 +17,9 @@ public:
 	Collider3D collider;
 
 	Cube(){}
+	Cube(D3DXVECTOR3 pos) {
+		position = pos;
+	}
 	void Draw(TextureIndex textureIndex, D3DXCOLOR color={1,1,1,1});
 
 	D3DXVECTOR3 GetForward(); //³–Ê‚ğæ“¾
