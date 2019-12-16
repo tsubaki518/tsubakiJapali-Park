@@ -10,7 +10,6 @@
 
 SCORE Score[32];
 SCORE pScore[32];
-static float timescore;
 
 
 void RankingInit() {
@@ -20,24 +19,22 @@ void RankingInit() {
 		}
 	}
 	//WriteSave();
-	SetRank(GetTime());
+	SetRank(GetTime(), GetRating());
 }
 void RankingUpdate() {
 	if (Keyboard_IsTrigger(DIK_RETURN)) {
 		SetScene(TITLE);
 	}
 
-	DebugFont_Draw(SCREEN_WIDTH / 5, 50 +   40, "%d位:%lf",  1, Score[0].Scoretime);
-	DebugFont_Draw(SCREEN_WIDTH / 5, 50 + 40, "%d位:%lf", 1, Score[1].Scoretime);
+	//DebugFont_Draw(SCREEN_WIDTH / 5, 50 +   40, "%d位:%lf",  1, Score[0].Scoretime);
+	//DebugFont_Draw(SCREEN_WIDTH / 5, 50 + 40, "%d位:%lf", 1, Score[1].Scoretime);
 	//LoadSave();
 }
 void RankingDraw() {
 
-	for (int i = 0; i < 15; i++) {
+	for (int i = 0; i < 31; i++) {
 		DebugFont_Draw(SCREEN_WIDTH / 5, 50 + i * 40, "%d位:%0.2lf", i + 1, Score[i].Scoretime);
-	}
-	for (int i = 15; i < 30; i++) {
-		DebugFont_Draw(SCREEN_WIDTH - 250, 50 + (i-15) * 40, "%d位:%0.2lf", i + 1, Score[i].Scoretime);
+		DebugFont_Draw(SCREEN_WIDTH / 5 + 200, 50 + i * 40, "視聴率:%0.1lf％", Score[i].Scorerating/10);
 	}
 }
 void RankingUnInit() {
@@ -52,7 +49,7 @@ void WriteSave(void) {
 	fp = fopen("SaveData.txt", "wb");
 
 	for (int i = 0; i < 31; i++) {
-		fwrite(&Score[i].Scoretime, sizeof(float), 1, fp);
+		fwrite(&Score[i], sizeof(float), 1, fp);
 	}
 
 	fclose(fp);
@@ -63,14 +60,15 @@ void LoadSave(void) {
 	fp = fopen("SaveData.txt", "rb");
 
 	for (int i = 0; i < 31; i++) {
-		fread(&Score[i].Scoretime, sizeof(float), 1, fp);
+		fread(&Score[i], sizeof(float), 1, fp);
 	}
 
 	fclose(fp);
 }
 
-void SetRank(float score) {
-	Score[31].Scoretime = score;
+void SetRank(float time, float rating) {
+	Score[31].Scoretime = time;
+	Score[31].Scorerating = rating;
 	int rank;
 	bool isSetRank = false;
 
@@ -86,17 +84,18 @@ void SetRank(float score) {
 
 	//workに前の順位を入れる
 	for (int i = 0; i < 32; i++) {
-		pScore[i].Scoretime = Score[i].Scoretime;
+		pScore[i] = Score[i];
 	}
 
 	//スコアが30位以内に入っていたら順位をずらす
 	if (isSetRank == true) {
-		Score[rank].Scoretime = Score[31].Scoretime;
+		Score[rank] = Score[31];
 		for (int i = rank; i < 31; i++) {
-			Score[i + 1].Scoretime = pScore[i].Scoretime;
+			Score[i + 1] = pScore[i];
 		}
 	}
-	Score[31].Scoretime = score;
+	Score[31].Scoretime = time;
+	Score[31].Scorerating = rating;
 }
 
 int GetScore(int n) {

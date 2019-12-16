@@ -2,7 +2,7 @@
 
 typedef struct {
 	float Scoretime;
-	int Scorerating;
+	float Scorerating;
 	bool isClear;
 }SCORE;
 
@@ -13,6 +13,6 @@ void RankingUnInit();
 
 void LoadSave(void);
 void WriteSave(void);
-void SetRank(float score);
+void SetRank(float time, float rating);
 int GetScore(int n);
 bool GetClear(void);

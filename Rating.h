@@ -9,3 +9,5 @@ void RatingUpdate(Sori sori);
 
 //ˆø”‚Åw’è‚µ‚½À•W‚É‹’®—¦‚ğ•\¦‚·‚é
 void RatingDraw();
+
+float GetRating();
