@@ -9,3 +9,4 @@ void TimerUpdate();
 void TimerDraw(float x, float y);
 
 float GetTime();
+float Getsyousuu();

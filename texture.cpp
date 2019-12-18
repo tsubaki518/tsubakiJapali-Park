@@ -58,10 +58,10 @@ static const TextureFile g_TextureFiles[] = {
 {"asset/texture/ジャンプ！.png",177,175},
 {"asset/texture/リング.png",163,162},
 
-{"asset/texture/2Dイヌ02.png",400,400},
-{"asset/texture/2Dウサギ.png",400,400},
-{"asset/texture/2Dクマ.png",400,400},
-{"asset/texture/2Dハムスター02.png",400,400},
+{"asset/texture/2Dイヌ02.png",150,150},
+{"asset/texture/2Dウサギ.png",150,150},
+{"asset/texture/2Dクマ.png",150,150},
+{"asset/texture/2Dハムスター02.png",150,150},
 
 {"asset/texture/集中線.png",SCREEN_WIDTH*3,SCREEN_HEIGHT},
 
