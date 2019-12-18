@@ -225,7 +225,7 @@ bool Initialize(void)
 	g_StaticFrameTime = SystemTimer_GetTime();
 	srand((unsigned int)time(NULL));
 	LoadSave();
-	SetScene(GAME);
+	SetScene(TITLE);
 
     return true;
 }
