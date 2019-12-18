@@ -11,11 +11,13 @@
 SCORE Score[32];
 SCORE pScore[32];
 
+static int cnt = sizeof(Score) / sizeof(SCORE);
 
 void RankingInit() {
 	if (Score[0].Scoretime == 0.00f) {
 		for (int i = 0; i < 31; i++) {
 			Score[i].Scoretime = 10000.00f;
+			Score[i].Scorerating = 9999.00f;
 		}
 	}
 	//WriteSave();
@@ -46,10 +48,10 @@ void RankingUnInit() {
 void WriteSave(void) {
 	FILE *fp;
 
-	fp = fopen("SaveData.txt", "wb");
+	fp = fopen("SaveData.Score.dat", "wb");
 
 	for (int i = 0; i < 31; i++) {
-		fwrite(&Score[i], sizeof(float), 1, fp);
+		fwrite(&Score[i], sizeof(SCORE), cnt, fp);
 	}
 
 	fclose(fp);
@@ -57,10 +59,10 @@ void WriteSave(void) {
 void LoadSave(void) {
 	FILE *fp;
 
-	fp = fopen("SaveData.txt", "rb");
+	fp = fopen("SaveData.Score.dat", "rb");
 
 	for (int i = 0; i < 31; i++) {
-		fread(&Score[i], sizeof(float), 1, fp);
+		fread(&Score[i], sizeof(SCORE), cnt, fp);
 	}
 
 	fclose(fp);

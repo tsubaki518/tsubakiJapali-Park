@@ -10,7 +10,7 @@ const int LEFT_WALL_NUM = 150;
 
 
 //rotationのx,zは1.4ｆまで
-Cube cube[CUBE_NUM];				//床
+Plane cube[CUBE_NUM];				//床
 Cube accelSpeed[ACCEL_SPEED_NUM];	//加速床
 Cube rightWall[RIGHT_WALL_NUM];		//右側の壁
 Cube leftWall[LEFT_WALL_NUM];		//左側の壁
@@ -2693,6 +2693,10 @@ void StageInit() {			//座標とサイズと角度を入れる
 	goalCube.rotation = D3DXVECTOR3(0.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	goalCube.scale = D3DXVECTOR3(20,0,20);
 
+
+	for (int i = 0; i < CUBE_NUM; i++) {
+		cube[i].scale *= 1.1f;
+	}
 }
 
 
@@ -2741,7 +2745,7 @@ void StageDraw() {
 }
 
 
-Cube GetCube(int n) {
+Plane GetCube(int n) {
 	return cube[n];
 }
 Cube GetAccelSpeedCube(int n) {

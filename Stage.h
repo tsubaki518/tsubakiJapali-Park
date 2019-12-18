@@ -4,7 +4,7 @@ void StageDraw();
 
 
 //---ˆø”‚Åw’è‚µ‚½cube‚ğ“¾‚é
-Cube GetCube(int n);
+Plane GetCube(int n);
 Cube GetAccelSpeedCube(int n);
 Cube GetRightWall(int n);
 Cube GetLeftWall(int n);
