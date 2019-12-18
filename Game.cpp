@@ -352,7 +352,7 @@ void UIDraw() {
 	tezukaLine->Draw();
 	//Speed表示
 	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
-	Sprite_Draw(TEXTURE_INDEX_METER, 1170, 680, 0, 0,sori.speed * (316/sori.maxSpeed), 56);
+	Sprite_Draw(TEXTURE_INDEX_METER, 1170, 678, 0, 0,(sori.speed + sori.speedAccel) * (316/sori.maxSpeed), 56);
 	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH/2 * 5 / 12 * 19, SCREEN_HEIGHT /2 *9 ), D3DXVECTOR2(0.2, 0.2), 0);
 	
 
@@ -376,12 +376,31 @@ void UIDraw() {
 
 	//時速の表示
 	float syousuu;
-	float seisuu=sori.speed*330;
+	float hitoketa;
+	float hutaketa;
+	float sanketa;
+	float seisuu = (sori.speed + sori.speedAccel) * 330;
+	hitoketa = (int)seisuu % 10;
+	hutaketa = (int)seisuu/10 % 100;
+	sanketa = (int)seisuu/100 % 1000;
 	syousuu = seisuu - (int)seisuu;
 	syousuu  *= 10;
+	if (hutaketa > 9) {
+		hutaketa = (int)hutaketa%10;
+	}
+	
+
 	//DebugFont_Draw(1, 1, "%lf",sori.speed*150);
-	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH / 3 * 12.7 + 200, SCREEN_HEIGHT /5 * 22.5), D3DXVECTOR2(0.2,0.2), (int)syousuu);
-	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH / 3*6.2, SCREEN_HEIGHT / 5*10.8), D3DXVECTOR2(0.4, 0.4),(int)seisuu);
+	// 少数の表示
+		ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH / 3 * 10.57, SCREEN_HEIGHT / 5 * 17.8), D3DXVECTOR2(0.25, 0.25),(int)syousuu);
+	//　一桁の表示
+		ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH / 3 * 7.17, SCREEN_HEIGHT / 5 * 12.5), D3DXVECTOR2(0.35, 0.35),(int)hitoketa);
+	//　二桁の表示	
+		ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH / 3 * 6.92, SCREEN_HEIGHT / 5 * 12.5), D3DXVECTOR2(0.35, 0.35),(int)hutaketa);
+	// 三桁の表示	
+		ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH / 3 * 6.67, SCREEN_HEIGHT / 5 * 12.5), D3DXVECTOR2(0.35, 0.35),(int)sanketa);
+
+
 	//経過時間表示
 	TimerDraw(1, 1);
 
