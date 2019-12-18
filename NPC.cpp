@@ -70,7 +70,7 @@ void NPC::Update() {
 	Friction();
 
 	//斜面に乗っていたら滑る
-	//SlideDown();
+	SlideDown();
 
 	//壁に当たったら跳ね返る
 	Bound();
@@ -85,8 +85,8 @@ void NPC::Update() {
 	ReceiveSpinMove();
 
 	//氷が削れるパーティクル
-	shaveIce[0].Update(GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 100);
-	shaveIce[1].Update(-GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 100, -1);
+	shaveIce[0].Update(GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 50);
+	shaveIce[1].Update(-GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 50, -1);
 }
 void NPC::Draw() {
 	//ソリ用の行列を作成

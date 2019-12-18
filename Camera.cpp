@@ -5,7 +5,7 @@
 #include "sprite.h"
 #include <d3dx9.h>
 #include"Camera.h"
-
+#include<math.h>
 
 
 
@@ -22,6 +22,9 @@ void Camera::Init(Sori sori) {
 	isStartOnece = true;
 }
 void Camera::SetCamera(Sori sori) {
+	//0.007f
+	float addRad = fabsf(sori.rotation.y) - fabsf(rad.y);
+	float unti = 10;
 	//スタートアニメーション用の移動
 	if (isStartOnece == true) {
 		if (rad.x < sori.rotation.x - 0.02f) {
@@ -52,21 +55,21 @@ void Camera::SetCamera(Sori sori) {
 	//通常の移動
 	if (isStartOnece == false) {
 		if (rad.x < sori.rotation.x - 0.02f) {
-			rad.x += 0.007f;
+			rad.x += addRad/ unti;
 		} else if (rad.x > sori.rotation.x + 0.02f) {
-			rad.x -= 0.007f;
+			rad.x -= addRad/ unti;
 		}
 
 		if (rad.z < sori.rotation.z - 0.02f) {
-			rad.z += 0.01f;
+			rad.z += addRad/ unti;
 		} else if (rad.z > sori.rotation.z + 0.02f) {
-			rad.z -= 0.01f;
+			rad.z -= addRad/ unti;
 		}
 
 		if (rad.y < sori.rotation.y - 0.02f) {
-			rad.y += 0.05f;
+			rad.y += addRad / unti;
 		} else if (rad.y > sori.rotation.y + 0.02f) {
-			rad.y -= 0.05f;
+			rad.y -= addRad/ unti;
 		}
 	}
 

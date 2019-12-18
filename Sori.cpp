@@ -61,7 +61,7 @@ void Sori::Update() {
 	Friction();
 
 	//Î–Ê‚Éæ‚Á‚Ä‚¢‚½‚çŠŠ‚é
-	//SlideDown();
+	SlideDown();
 
 	//•Ç‚É“–‚½‚Á‚½‚ç’µ‚Ë•Ô‚é
 	Bound();
@@ -76,8 +76,8 @@ void Sori::Update() {
 	ReceiveSpinMove();
 
 
-	shaveIce[0].Update(GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed*100);
-	shaveIce[1].Update(-GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 100 ,-1);
+	shaveIce[0].Update(GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed*50);
+	shaveIce[1].Update(-GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 50 ,-1);
 }
 void Sori::Draw() {
 	//ƒ\ƒŠ—p‚Ìs—ñ‚ğì¬
