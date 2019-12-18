@@ -2693,6 +2693,10 @@ void StageInit() {			//座標とサイズと角度を入れる
 	goalCube.rotation = D3DXVECTOR3(0.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	goalCube.scale = D3DXVECTOR3(20,0,20);
 
+
+	for (int i = 0; i < CUBE_NUM; i++) {
+		cube[i].scale *= 1.1f;
+	}
 }
 
 
