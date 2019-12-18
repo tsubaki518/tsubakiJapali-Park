@@ -19,7 +19,9 @@ typedef struct {
 //3Dポリゴンフォーマット
 #define FVF_VERTEX_3D (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 static LPDIRECT3DVERTEXBUFFER9 g_pD3DVtxBuff;    //頂点バッファ	
+static LPDIRECT3DVERTEXBUFFER9 g_pD3DVtxBuffPlane;    //頂点バッファ	
 static bool isOnece = false;
+static bool isOnecePlane = false;
 
 void Cube::Draw(TextureIndex textureIndex, D3DXCOLOR color) {
 	const float sizeX = 0.5f;
@@ -285,6 +287,180 @@ D3DXVECTOR3 Cube::GetRight() {
 	return direction;
 }
 D3DXVECTOR3 Cube::GetUp() {
+	D3DXMATRIX matrixWorld;    //頂点の行列
+	D3DXMATRIX mtxRot;		   //回転行列
+	D3DXVECTOR3 direction;
+	direction.x = 0;
+	direction.y = 1;
+	direction.z = 0;
+
+	{
+		//行列を初期化
+		D3DXMatrixIdentity(&matrixWorld);
+		D3DXMatrixIdentity(&mtxRot);
+
+		//回転行列を作成
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y, rotation.x, rotation.z);
+		D3DXMatrixMultiply(&matrixWorld, &matrixWorld, &mtxRot);
+
+		//行列から回転させたベクトルを取り出す
+		direction = D3DXVECTOR3(matrixWorld._21, matrixWorld._22, matrixWorld._23);
+	}
+	return direction;
+}
+
+
+void Plane::Draw(TextureIndex textureIndex, D3DXCOLOR color) {
+	const float sizeX = 0.5f;
+	const float sizeY = 0.5f;
+	const float sizeZ = 0.5f;
+	collider.position = position;
+	collider.size = scale;
+	collider.rotation = rotation;
+	//3Dポリゴン用頂点の準備
+	LPDIRECT3DDEVICE9 pDevice = MyDirect3D_GetDevice();
+	if (isOnecePlane == false) {
+
+
+		//オブジェクトの頂点バッファを生成
+		pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * 6,
+			D3DUSAGE_WRITEONLY,
+			FVF_VERTEX_3D,
+			D3DPOOL_MANAGED,
+			&g_pD3DVtxBuffPlane,
+			NULL);
+
+		//頂点バッファの中身を埋める
+		VERTEX_3D *pVtx;
+
+		//頂点バッファの範囲をロックし、頂点バッファへのポインタを取得
+		g_pD3DVtxBuffPlane->Lock(0, 0, (void**)&pVtx, 0);
+
+		//3Dポリゴン用頂点の準備
+		{
+			//頂点座標の設定
+			{
+				pVtx[0].vtx = D3DXVECTOR3(-sizeX, sizeY, 0);  //1
+				pVtx[1].vtx = D3DXVECTOR3(sizeX, sizeY, 0);   //2
+				pVtx[2].vtx = D3DXVECTOR3(-sizeX, -sizeY, 0);  //3
+
+				pVtx[3].vtx = D3DXVECTOR3(sizeX, sizeY, 0);
+				pVtx[4].vtx = D3DXVECTOR3(sizeX, -sizeY, 0);
+				pVtx[5].vtx = D3DXVECTOR3(-sizeX, -sizeY, 0);
+
+			}
+			//法線ベクトルの設定
+			{
+				for (int i = 0; i < 6; i++) {
+					pVtx[i].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
+				}
+			}
+			//反射光の設定
+			{
+				for (int i = 0; i < 6; i++) {
+					pVtx[i].diffuse = color;
+				}
+			}
+			////テクスチャの設定
+			{
+				pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
+				pVtx[1].tex = D3DXVECTOR2(1.0f, 0.0f);
+				pVtx[2].tex = D3DXVECTOR2(0.0f, 1.0f);
+
+				pVtx[3].tex = D3DXVECTOR2(1.0f, 0.0f);
+				pVtx[4].tex = D3DXVECTOR2(1.0f, 1.0f);
+				pVtx[5].tex = D3DXVECTOR2(0.0f, 1.0f);
+
+			}
+		}
+
+		g_pD3DVtxBuffPlane->Unlock();
+		isOnecePlane = true;
+	}
+
+	//ポリゴンのワールド行列の作成
+	D3DXMATRIX mtxScl;
+	D3DXMATRIX mtxRot;
+	D3DXMATRIX mtxTrs;
+
+	g_pos = position;
+	g_rot = rotation;
+	g_scl = scale;
+
+	//ワールド行列を単位行列へ初期化
+	D3DXMatrixIdentity(&g_mtxWorld);
+
+	//スケール行列を作成＆ワールド行列へ合成
+	D3DXMatrixScaling(&mtxScl, g_scl.x, g_scl.y, g_scl.z);
+	D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxScl);
+
+	//回転行列を作成＆ワールド行列へ合成
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, g_rot.y, g_rot.x, g_rot.z);
+	D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxRot);
+
+	//平行行列
+	D3DXMatrixTranslation(&mtxTrs, g_pos.x, g_pos.y, g_pos.z);
+	D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxTrs);
+
+	//ワールドマトリクスを設定
+	pDevice->SetTransform(D3DTS_WORLD, &g_mtxWorld);
+
+	//描画したいポリゴン頂点バッファをデータストリームにセット
+	pDevice->SetStreamSource(0, g_pD3DVtxBuffPlane, 0, sizeof(VERTEX_3D));
+	//ポリゴンの描画
+	pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+	pDevice->SetTexture(0, Texture_GetTexture(textureIndex));
+	//ポリゴンの描画
+	pDevice->SetFVF(FVF_VERTEX_3D);
+
+	pDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 12);
+
+}
+D3DXVECTOR3 Plane::GetForward() {
+	D3DXMATRIX matrixWorld;    //ワールド行列
+	D3DXMATRIX mtxRot;		   //回転行列
+	D3DXVECTOR3 direction;
+	direction.x = 0;
+	direction.y = 0;
+	direction.z = 1;
+
+	{
+		//行列を初期化
+		D3DXMatrixIdentity(&matrixWorld);
+		D3DXMatrixIdentity(&mtxRot);
+
+		//回転行列を作成
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y, rotation.x, rotation.z);
+		D3DXMatrixMultiply(&matrixWorld, &matrixWorld, &mtxRot);
+
+		//行列から回転させたベクトルを取り出す
+		direction = D3DXVECTOR3(matrixWorld._31, matrixWorld._32, matrixWorld._33);
+	}
+	return direction;
+}
+D3DXVECTOR3 Plane::GetRight() {
+	D3DXMATRIX matrixWorld;    //頂点の行列
+	D3DXMATRIX mtxRot;
+	D3DXVECTOR3 direction;
+	direction.x = 1;
+	direction.y = 0;
+	direction.z = 0;
+
+	{
+		//行列を初期化
+		D3DXMatrixIdentity(&matrixWorld);
+		D3DXMatrixIdentity(&mtxRot);
+
+		//回転行列を作成
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y, rotation.x, rotation.z);
+		D3DXMatrixMultiply(&matrixWorld, &matrixWorld, &mtxRot);
+
+		//行列から回転させたベクトルを取り出す
+		direction = D3DXVECTOR3(matrixWorld._11, matrixWorld._12, matrixWorld._13);
+	}
+	return direction;
+}
+D3DXVECTOR3 Plane::GetUp() {
 	D3DXMATRIX matrixWorld;    //頂点の行列
 	D3DXMATRIX mtxRot;		   //回転行列
 	D3DXVECTOR3 direction;

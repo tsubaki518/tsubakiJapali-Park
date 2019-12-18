@@ -16,7 +16,6 @@ Sori::Sori() {
 }
 
 void Sori::Init(float weight1, float weight2) {
-	
 	//キャラクターをセットする
 	SetCharacter(weight1, weight2);
 	character[1]->Init();
@@ -75,6 +74,10 @@ void Sori::Update() {
 
 	//敵のスピンが当たった時吹っ飛ぶ
 	ReceiveSpinMove();
+
+
+	shaveIce[0].Update(GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed*100);
+	shaveIce[1].Update(-GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 100 ,-1);
 }
 void Sori::Draw() {
 	//ソリ用の行列を作成
@@ -119,6 +122,10 @@ void Sori::Draw() {
 	//キャラクターの描画
 	character[0]->Draw();
 	character[1]->Draw();
+
+
+	shaveIce[0].Draw();
+	shaveIce[1].Draw();
 }
 void Sori::UnInit() {
 	for (int i = 0; i < 2; i++) {
@@ -126,6 +133,10 @@ void Sori::UnInit() {
 		delete character[i];
 	}
 	bobsled.UnInit();
+
+	//パーティクル
+	shaveIce[0].UnInit();
+	shaveIce[1].UnInit();
 }
 
 Sori::~Sori() {

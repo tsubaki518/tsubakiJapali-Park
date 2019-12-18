@@ -31,7 +31,7 @@ NPC npc;
 TezukaLine *tezukaLine;
 static bool isAnimatioin = false;
 static bool isChangeScene = false;
-
+static bool isTimerInit = true;
 //UIの描画
 void UIDraw();
 
@@ -58,8 +58,7 @@ void GameInit() {
 	startAnimation.Init();
 	goalAnimation.Init();
 
-	//タイム初期化
-	TimerInit();
+	
 
 	camera.Init(sori);
 
@@ -68,6 +67,12 @@ void GameInit() {
 void GameUpdate() {
 	//スタートアニメーション中はUpdate処理を止める
 	if (isAnimatioin == false) {
+		if (isTimerInit == true) {
+			//タイム初期化
+			TimerInit();
+			isTimerInit = false;
+		}
+
 		sori.Update();
 		npc.Update();
 		RatingUpdate(sori);
@@ -366,3 +371,6 @@ void UIDraw() {
 }
 
 
+D3DXVECTOR3 GetPlayerPos() {
+	return sori.position;
+}

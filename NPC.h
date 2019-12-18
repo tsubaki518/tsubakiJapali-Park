@@ -2,6 +2,7 @@
 #include"character.h"
 #include"Figure.h"
 #include"XFile.h"
+#include"Particle.h"
 
 class Sori;
 
@@ -13,6 +14,9 @@ private:
 	bool isMoveRight = false;
 	bool isMoveLeft = false;
 	int moveHorizonCount = 0;
+
+	//氷が削れるパーティクル
+	ShaveIce shaveIce[2];
 
 
 	void MoveForward();		//移動処理

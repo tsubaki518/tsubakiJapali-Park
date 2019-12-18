@@ -2,6 +2,7 @@
 #include"character.h"
 #include"Figure.h"
 #include"XFile.h"
+#include"Particle.h"
 
 class NPC;
 
@@ -11,6 +12,8 @@ private:
 	bool isBoundLeft = false;   //左に跳ね返る判定
 	int boundCount = 0;
 
+	//氷が削れるパーティクル
+	ShaveIce shaveIce[2];
 
 	void Move();		//移動処理
 	void Friction();	//摩擦
