@@ -23,6 +23,7 @@
 #include"Setting.h"
 #include"ImageNumber.h"
 
+
 StartAnimation startAnimation;
 GoalAnimation goalAnimation;
 Camera camera;
@@ -32,6 +33,7 @@ TezukaLine *tezukaLine;
 static bool isAnimatioin = false;
 static bool isChangeScene = false;
 static bool isTimerInit = true;
+
 //UIの描画
 void UIDraw();
 
@@ -59,8 +61,9 @@ void GameInit() {
 	goalAnimation.Init();
 
 	
-
 	camera.Init(sori);
+
+	
 
 }
 
@@ -362,7 +365,7 @@ void UIDraw() {
 	Sprite_Draw(TEXTURE_INDEX_UI, 0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	
-	// ゴールの表示＋時速表示
+	// ゴールの表示
 	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
 	if (sori.isGoalGround == true) {
 		isChangeScene = goalAnimation.Draw();
@@ -371,9 +374,14 @@ void UIDraw() {
 
 	Sprite_Draw(TEXTURE_INDEX_UI, 0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-//時速の表示
-	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH / 3*12.7 , SCREEN_HEIGHT / 5*22.5 ), D3DXVECTOR2(0.2, 0.2), sori.speed*150);
-
+	//時速の表示
+	float syousuu;
+	float seisuu=sori.speed*330;
+	syousuu = seisuu - (int)seisuu;
+	syousuu  *= 10;
+	//DebugFont_Draw(1, 1, "%lf",sori.speed*150);
+	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH / 3 * 12.7 + 200, SCREEN_HEIGHT /5 * 22.5), D3DXVECTOR2(0.2,0.2), (int)syousuu);
+	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH / 3*6.2, SCREEN_HEIGHT / 5*10.8), D3DXVECTOR2(0.4, 0.4),(int)seisuu);
 	//経過時間表示
 	TimerDraw(1, 1);
 
