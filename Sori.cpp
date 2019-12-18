@@ -43,6 +43,9 @@ void Sori::Init(float weight1, float weight2) {
 
 	//キャラクターの情報を入れる
 	CharacterTouch();
+
+	slidSpeed = 0;
+	slidCount = 0;
 }
 void Sori::Update() {
 	//当たり判定の情報を入れる
@@ -221,7 +224,7 @@ void Sori::Move() {
 	bool canMoveLeft = isHitLeftWall == false && isBoundRight == false && isBoundLeft == false && isSpin == false;
 
 	//正面に移動
-	position += GetForward() * (speed/2+speedAccel)+ (centrifugalDirection*speed/2);
+	position += GetForward() * (speed/2+speedAccel+ slidSpeed)+ (centrifugalDirection*speed/2);
 	position += rightSpeed;
 	position += leftSpeed;
 	leftSpeed = D3DXVECTOR3(0, 0, 0);
@@ -333,9 +336,22 @@ void Sori::SlideDown() {
 	}
 	if (GetRight().y < 0) {
 		position += GetRight()*-GetRight().y*0.03f;
+		if (slidCount < 0.1) {
+			slidCount += 0.0005f;
+		}
 	}
 	if (-GetRight().y < 0) {
 		position -= GetRight()*GetRight().y*0.03f;
+		if (slidCount < 0.1) {
+			slidCount += 0.001f;
+		}
+	}
+
+	if (GetRight().y == 0 && -GetRight().y == 0) {
+		slidSpeed = slidCount;
+		if (slidCount > 0) {
+			slidCount -= 0.001f;
+		}
 	}
 }
 void Sori::Bound() {
@@ -355,7 +371,7 @@ void Sori::Bound() {
 		spinMoveDirectionRight = GetRight();
 	}
 	
-	if (isBoundRight == true && boundCount <= 100) {
+	if (isBoundRight == true && boundCount <= 50) {
 		if (isSpin == false) {
 			rightSpeed += GetRight() * ((character[0]->handling + character[1]->handling));  //GetRight()*移動量
 			rightSpeed.y -= GetRight().y * ((character[0]->handling + character[1]->handling));//跳ね返ってる間にスピンするとステージ外に行くバグの対策

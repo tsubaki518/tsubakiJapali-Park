@@ -33,6 +33,8 @@ public:
 	D3DXVECTOR3 position;
 	D3DXVECTOR3 scale = { 50,50,50 };
 	D3DXVECTOR3 spinRot;
+	float slidCount = 0;
+	float slidSpeed = 0;
 	bool isReceiveMoveForward = false; //‚Á”ò‚Ô•ûŒü‚ğ”»’è
 	bool isReceiveMoveLeft = false;		//‚Á”ò‚Ô•ûŒü‚ğ”»’è
 	bool isReceiveMoveRight = false;	//‚Á”ò‚Ô•ûŒü‚ğ”»’è
