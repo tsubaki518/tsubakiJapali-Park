@@ -83,6 +83,10 @@ void NPC::Update() {
 
 	//敵のスピンに当たったら吹っ飛ぶ
 	ReceiveSpinMove();
+
+	//氷が削れるパーティクル
+	shaveIce[0].Update(GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 100);
+	shaveIce[1].Update(-GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 100, -1);
 }
 void NPC::Draw() {
 	//ソリ用の行列を作成
@@ -128,6 +132,10 @@ void NPC::Draw() {
 	character[0]->Draw();
 	character[1]->Draw();
 
+	//氷が削れるパーティクル
+	shaveIce[0].Draw();
+	shaveIce[1].Draw();
+
 }
 void NPC::UnInit() {
 	for (int i = 0; i < 2; i++) {
@@ -135,6 +143,11 @@ void NPC::UnInit() {
 		delete character[i];
 	}
 	bobsled.UnInit();
+
+
+	//パーティクル
+	shaveIce[0].UnInit();
+	shaveIce[1].UnInit();
 }
 
 NPC::~NPC() {

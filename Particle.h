@@ -26,4 +26,26 @@ public:
 	void Init(D3DXVECTOR3 pos,int range=10, int Amount =2, float drapDistance=10);
 	void Update();
 	void Draw();
+	void UnInit();
+};
+
+class ShaveIce {
+private:
+	std::vector<Plane> plane;
+	std::vector<float> speed;
+	std::vector<float> upSpeed;
+	std::vector<int> lifeCount;
+	std::vector<Plane> plane2;
+	std::vector<float> speed2;
+	std::vector<float> upSpeed2;
+	std::vector<int> lifeCount2;
+	 float GRAVITY = 0.05f;
+	D3DXVECTOR3 position;
+	D3DXVECTOR3 rotation;
+
+public:
+	void Init();
+	void Update(D3DXVECTOR3 pos,D3DXVECTOR3 rot, D3DXVECTOR3 direction, int amout, float Speed=1);
+	void Draw();
+	void UnInit();
 };

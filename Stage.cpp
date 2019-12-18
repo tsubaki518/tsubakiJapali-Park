@@ -1,6 +1,6 @@
 #include"figure.h"
 #include"Stage.h"
-
+#include"Game.h"
 
 //最大設置数
 const int CUBE_NUM = 600;
@@ -2697,15 +2697,41 @@ void StageInit() {			//座標とサイズと角度を入れる
 
 
 void StageDraw() {
+	D3DXVECTOR3 distance;
+	const float DRAW_RANGE = 150;
 	//Cubeの描画
 	for (int i = 0; i < CUBE_NUM; i++) {
-		cube[i].Draw(TEXTURE_INDEX_ICE);
+		distance = cube[i].position - GetPlayerPos();//ソリとオブジェクトとの距離を計算
+		const bool isCollisoinRangeX = distance.x > -DRAW_RANGE && distance.x < DRAW_RANGE;
+		const bool isCollisoinRangeY = distance.y > -DRAW_RANGE && distance.y < DRAW_RANGE;
+		const bool isCollisoinRangeZ = distance.z > -DRAW_RANGE && distance.z < DRAW_RANGE;
+
+		//一定範囲内にCubeが存在する描画する
+		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
+			cube[i].Draw(TEXTURE_INDEX_ICE);
+		}
 	}
 	for (int i = 0; i < RIGHT_WALL_NUM; i++) {
-		rightWall[i].Draw(TEXTURE_INDEX_ICE);
+		distance = rightWall[i].position - GetPlayerPos();//ソリとオブジェクトとの距離を計算
+		const bool isCollisoinRangeX = distance.x > -DRAW_RANGE && distance.x < DRAW_RANGE;
+		const bool isCollisoinRangeY = distance.y > -DRAW_RANGE && distance.y < DRAW_RANGE;
+		const bool isCollisoinRangeZ = distance.z > -DRAW_RANGE && distance.z < DRAW_RANGE;
+
+		//一定範囲内にCubeが存在する描画する
+		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
+			rightWall[i].Draw(TEXTURE_INDEX_ICE);
+		}
 	}
 	for (int i = 0; i < LEFT_WALL_NUM; i++) {
-		leftWall[i].Draw(TEXTURE_INDEX_ICE);
+		distance = leftWall[i].position - GetPlayerPos();//ソリとオブジェクトとの距離を計算
+		const bool isCollisoinRangeX = distance.x > -DRAW_RANGE && distance.x < DRAW_RANGE;
+		const bool isCollisoinRangeY = distance.y > -DRAW_RANGE && distance.y < DRAW_RANGE;
+		const bool isCollisoinRangeZ = distance.z > -DRAW_RANGE && distance.z < DRAW_RANGE;
+
+		//一定範囲内にCubeが存在する描画する
+		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
+			leftWall[i].Draw(TEXTURE_INDEX_ICE);
+		}
 	}
 	goalCube.Draw(TEXTURE_INDEX_ICE);
 

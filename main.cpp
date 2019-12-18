@@ -21,6 +21,7 @@
 #include"debug_font.h"
 #include"Light.h"
 #include<time.h>
+#include"system_timer.h"
 #include"Setting.h"
 
 //ここまで3D用追加コード
@@ -56,6 +57,8 @@ static void Finalize(void);
 ------------------------------------------------------------------------------*/
 static HWND g_hWnd;             // ウィンドウハンドル
 int nowScene;
+static int g_FrameCount = 0;            // フレームカウンター
+static double g_StaticFrameTime = 0.0f; // フレーム固定用計測時間
 /*------------------------------------------------------------------------------
    関数定義
 ------------------------------------------------------------------------------*/
@@ -143,10 +146,21 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
             DispatchMessage(&msg);
         }
         else {
-			// ゲームの描画
-			Draw();
-            // ゲームの更新
-			Update();
+			// 現在のシステム時間を取得
+			double time = SystemTimer_GetTime();
+
+			if (time - g_StaticFrameTime < 1.0 / 70.0) {
+				// 1 / 60 秒経っていなかったら空回り
+				Sleep(0);
+			} else {
+				// フレーム固定用の計測時間を更新する
+				g_StaticFrameTime = time;//ゲーム処理を行った時間を記録
+
+				// ゲームの更新
+				Update();
+				// ゲームの描画
+				Draw();
+			}
 			
         }
     }
@@ -201,7 +215,14 @@ bool Initialize(void)
 
 	light.Init(D3DLIGHT_DIRECTIONAL);
 	light.Use(true);
+	// システムタイマーの初期化
+	SystemTimer_Initialize();
 
+	// システムタイマーの起動
+	SystemTimer_Start();
+
+	// フレーム固定用計測時間
+	g_StaticFrameTime = SystemTimer_GetTime();
 	srand((unsigned int)time(NULL));
 	LoadSave();
 	SetScene(TITLE);

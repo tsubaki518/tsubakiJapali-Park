@@ -39,7 +39,7 @@ static float alphaAdd = 0.04f;
 static bool isNext[2];
 static int nextIntervalCount = 0;
 static D3DXVECTOR3 rotation;
-Confetti c;
+
 
 void SettingInit() {
 	settingState = SETTING_SEARCH;
@@ -54,7 +54,6 @@ void SettingInit() {
 	settingPlayer.soriModel.Init("asset/model/Bobsled/bobuv2.x", "asset/model/Bobsled/bobuv022.jpg");
 	rotation = D3DXVECTOR3(0.5f, 3.61f, 0);
 
-	c.Init(D3DXVECTOR3(0, 3, 0), 10, 1, 6);
 }
 void SettingUpdate() {
 	switch (settingState) {
@@ -69,16 +68,13 @@ void SettingUpdate() {
 		case SETTING_SET_WEIGHT_END:
 			SettingSetWeightEndUpdate();
 			break;
-
 	}
-	c.Update();
 }
 void SettingDraw() {
 	SettingCamera camera;
 	Cube backGround;
 
 	camera.SetCamera();
-	c.Draw();
 	//”wŒi‚Ì•`‰æ
 	backGround.position = D3DXVECTOR3(0, 0.4f, 7);
 	backGround.scale = D3DXVECTOR3(17.9f, 9.85f, 0);
