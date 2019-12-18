@@ -23,8 +23,9 @@ void Camera::Init(Sori sori) {
 }
 void Camera::SetCamera(Sori sori) {
 	//0.007f
-	float addRad = fabsf(sori.rotation.y) - fabsf(rad.y);
+	//float addRad = (sori.rotation.y) - (rad.y);
 	float unti = 10;
+	D3DXVECTOR3 addRad = sori.rotation - rad;
 	//スタートアニメーション用の移動
 	if (isStartOnece == true) {
 		if (rad.x < sori.rotation.x - 0.02f) {
@@ -55,21 +56,21 @@ void Camera::SetCamera(Sori sori) {
 	//通常の移動
 	if (isStartOnece == false) {
 		if (rad.x < sori.rotation.x - 0.02f) {
-			rad.x += addRad/ unti;
+			rad.x += addRad.x/ unti;
 		} else if (rad.x > sori.rotation.x + 0.02f) {
-			rad.x -= addRad/ unti;
+			rad.x += addRad.x / unti;
 		}
 
 		if (rad.z < sori.rotation.z - 0.02f) {
-			rad.z += addRad/ unti;
+			rad.z += addRad.z / unti;
 		} else if (rad.z > sori.rotation.z + 0.02f) {
-			rad.z -= addRad/ unti;
+			rad.z += addRad.z / unti;
 		}
 
 		if (rad.y < sori.rotation.y - 0.02f) {
-			rad.y += addRad / unti;
+			rad.y += addRad.y / unti;
 		} else if (rad.y > sori.rotation.y + 0.02f) {
-			rad.y -= addRad/ unti;
+			rad.y += addRad.y / unti;
 		}
 	}
 
