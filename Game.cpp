@@ -361,6 +361,19 @@ void UIDraw() {
 
 	Sprite_Draw(TEXTURE_INDEX_UI, 0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+	
+	// ゴールの表示＋時速表示
+	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
+	if (sori.isGoalGround == true) {
+		isChangeScene = goalAnimation.Draw();
+	}
+	isAnimatioin = startAnimation.Draw();
+
+	Sprite_Draw(TEXTURE_INDEX_UI, 0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+//時速の表示
+	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH / 3*12.7 , SCREEN_HEIGHT / 5*22.5 ), D3DXVECTOR2(0.2, 0.2), sori.speed*150);
+
 	//経過時間表示
 	TimerDraw(1, 1);
 
