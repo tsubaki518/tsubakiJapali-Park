@@ -340,13 +340,13 @@ void Plane::Draw(TextureIndex textureIndex, D3DXCOLOR color) {
 		{
 			//頂点座標の設定
 			{
-				pVtx[0].vtx = D3DXVECTOR3(-sizeX, sizeY, 0);  //1
-				pVtx[1].vtx = D3DXVECTOR3(sizeX, sizeY, 0);   //2
-				pVtx[2].vtx = D3DXVECTOR3(-sizeX, -sizeY, 0);  //3
+				pVtx[0].vtx = D3DXVECTOR3(-sizeX, 0, sizeY);  //1
+				pVtx[1].vtx = D3DXVECTOR3(sizeX, 0, sizeY);   //2
+				pVtx[2].vtx = D3DXVECTOR3(-sizeX, 0, -sizeY);  //3
 
-				pVtx[3].vtx = D3DXVECTOR3(sizeX, sizeY, 0);
-				pVtx[4].vtx = D3DXVECTOR3(sizeX, -sizeY, 0);
-				pVtx[5].vtx = D3DXVECTOR3(-sizeX, -sizeY, 0);
+				pVtx[3].vtx = D3DXVECTOR3(sizeX, 0, sizeY);
+				pVtx[4].vtx = D3DXVECTOR3(sizeX, 0, -sizeY);
+				pVtx[5].vtx = D3DXVECTOR3(-sizeX, 0, -sizeY);
 
 			}
 			//法線ベクトルの設定

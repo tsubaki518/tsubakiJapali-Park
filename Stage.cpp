@@ -10,7 +10,7 @@ const int LEFT_WALL_NUM = 150;
 
 
 //rotationÇÃx,zÇÕ1.4ÇÜÇ‹Ç≈
-Cube cube[CUBE_NUM];				//è∞
+Plane cube[CUBE_NUM];				//è∞
 Cube accelSpeed[ACCEL_SPEED_NUM];	//â¡ë¨è∞
 Cube rightWall[RIGHT_WALL_NUM];		//âEë§ÇÃï«
 Cube leftWall[LEFT_WALL_NUM];		//ç∂ë§ÇÃï«
@@ -2741,7 +2741,7 @@ void StageDraw() {
 }
 
 
-Cube GetCube(int n) {
+Plane GetCube(int n) {
 	return cube[n];
 }
 Cube GetAccelSpeedCube(int n) {

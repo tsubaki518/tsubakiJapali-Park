@@ -85,6 +85,7 @@ void ShaveIce::Update(D3DXVECTOR3 pos, D3DXVECTOR3 rot,D3DXVECTOR3 direction, in
 
 	for (int i = 0; i < (int)plane.size(); i++) {
 		plane[i].rotation = rot;
+		plane[i].rotation.x -= 1.5f;
 		plane[i].position += plane[i].GetRight()*speed[i]* Speed;
 		plane[i].position.y += upSpeed[i];
 		upSpeed[i] -= GRAVITY;
@@ -101,6 +102,7 @@ void ShaveIce::Update(D3DXVECTOR3 pos, D3DXVECTOR3 rot,D3DXVECTOR3 direction, in
 
 	for (int i = 0; i < (int)plane2.size(); i++) {
 		plane2[i].rotation = rot;
+		plane2[i].rotation.x -= 1.5f;
 		plane2[i].position += (plane2[i].GetRight()*speed2[i] * -Speed)/2;
 		plane2[i].position.y += upSpeed2[i];
 		upSpeed2[i] -= GRAVITY;
