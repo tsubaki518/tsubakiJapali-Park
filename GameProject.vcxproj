@@ -160,27 +160,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="character.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="debug_font.cpp" />
     <ClCompile Include="Figure.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="ImageNumber.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mydirect3d.cpp" />
+    <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="Rating.cpp" />
     <ClCompile Include="Result.cpp" />
+    <ClCompile Include="Setting.cpp" />
     <ClCompile Include="Sori.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="system_timer.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="title.cpp" />
+    <ClCompile Include="XFile.cpp" />
     <ClCompile Include="XInput.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="character.h" />
     <ClInclude Include="Collision.h" />
@@ -189,18 +198,25 @@
     <ClInclude Include="debug_printf.h" />
     <ClInclude Include="Figure.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="ImageNumber.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="mydirect3d.h" />
+    <ClInclude Include="NPC.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="Ranking.h" />
     <ClInclude Include="Rating.h" />
     <ClInclude Include="Result.h" />
+    <ClInclude Include="Setting.h" />
     <ClInclude Include="Sori.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="system_timer.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="title.h" />
+    <ClInclude Include="XFile.h" />
     <ClInclude Include="XInput.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
