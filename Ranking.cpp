@@ -34,9 +34,13 @@ void RankingUpdate() {
 }
 void RankingDraw() {
 
-	for (int i = 0; i < 31; i++) {
+	for (int i = 0; i < 15; i++) {
 		DebugFont_Draw(SCREEN_WIDTH / 5, 50 + i * 40, "%dˆÊ:%0.2lf", i + 1, Score[i].Scoretime);
 		DebugFont_Draw(SCREEN_WIDTH / 5 + 200, 50 + i * 40, "Ž‹’®—¦:%0.1lf“", Score[i].Scorerating/10);
+	}
+	for (int i = 15; i < 30; i++) {
+		DebugFont_Draw(SCREEN_WIDTH / 2, 50 + (i - 15) * 40, "%dˆÊ:%0.2lf", i + 1, Score[i].Scoretime);
+		DebugFont_Draw(SCREEN_WIDTH / 2 + 200, 50 + (i - 15) * 40, "Ž‹’®—¦:%0.1lf“", Score[i].Scorerating / 10);
 	}
 }
 void RankingUnInit() {
@@ -100,7 +104,7 @@ void SetRank(float time, float rating) {
 	Score[31].Scorerating = rating;
 }
 
-int GetScore(int n) {
+float GetScore(int n) {
 	return Score[n].Scoretime;
 }
 bool GetClear(void) {

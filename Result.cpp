@@ -9,26 +9,45 @@
 #include"ImageNumber.h"
 #include"Setting.h"
 #include"Camera.h"
+#include"Ranking.h"
 
 //ボブスレーのモデルの行列
 void SetMatrix2();
 
-static float score1;
-static float score2;
-static float score3;
-static float zero = 0;
+static float score1;//タイム(整数)
+static float score2;//視聴率
+static float score3;//タイム(少数)
+static float score4;//ランキングタイム30位
+static float ResultposX1;//カットイン(上)の移動
+static float ResultposX2;//カットイン(下)の移動
 
 SettingPlayer SP;
 static D3DXVECTOR3 rotation;
+
 static D3DXVECTOR3 GetUp2();
 static D3DXVECTOR3 GetForward2();
 static D3DXVECTOR3 GetRight2();
 
-void ResultInit() {
-	score1 = GetTime();
-	score2 = GetRating();
-	score3 = Getsyousuu();
+static bool isRankin;//ランクイン判定
 
+void ResultInit() {
+	//タイム(整数)を収納
+	score1 = GetTime();
+	//視聴率を収納
+	score2 = GetRating();
+	//タイム(少数)を収納
+	score3 = Getsyousuu();
+	//ランキングタイム30位を取得
+	score4 = GetScore(29);
+
+	//ランクイン判定初期化
+	isRankin = false;
+
+	//ランクインカットイン初期位置
+	ResultposX1 = SCREEN_WIDTH * 2 * -1;
+	ResultposX2 = SCREEN_WIDTH * 2;
+
+	//ソリモデルの取得
 	SP.soriModel.Init("asset/model/Bobsled/bobuv2.x", "asset/model/Bobsled/bobuv022.jpg");
 	rotation = D3DXVECTOR3(0.5f, 3.33f, 0);
 	SP.weight[0] = GetSettingPlayer().weight[0];
@@ -69,7 +88,28 @@ void ResultInit() {
 		SP.character[i]->scale *= 0.5f;
 	}
 }
+
 void ResultUpdate() {
+	if (score1 < score4) {
+		isRankin = true;
+	}
+
+	//ランクインカットインアニメーション
+	if (isRankin == true) {
+		if (ResultposX1 >= 0) {
+			ResultposX1 = 0;
+		}
+		else {
+			ResultposX1 += 60;
+		}
+		if (ResultposX2 <= 0) {
+			ResultposX2 = 0;
+		}
+		else {
+			ResultposX2 -= 60;
+		}
+	}
+
 	if (Keyboard_IsPress(DIK_RETURN)) {
 		SetScene(RANKING);
 	}
@@ -80,12 +120,11 @@ void ResultDraw() {
 	Cube backGround;
 
 	camera.SetCamera();
+
 	//背景の描画
 	//backGround.position = D3DXVECTOR3(0, 0.4f, -10);
 	//backGround.scale = D3DXVECTOR3(100.9f, 100.85f, 0);
 	//backGround.Draw(TEXTURE_INDEX_ICE);
-
-
 
 
 	//ボブスレーを表示
@@ -101,7 +140,7 @@ void ResultDraw() {
 		SP.character[i]->Draw();
 	}
 
-
+	//スコアの下地
 	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
 	Sprite_Draw(TEXTURE_INDEX_RESULTSCORE, 0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -120,6 +159,11 @@ void ResultDraw() {
 		ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2.5 / 100 * 75, SCREEN_HEIGHT*1.25 / 50 * 39), D3DXVECTOR2(0.4f, 0.4f), 0);
 	}
 	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2.5 / 100 * 78, SCREEN_HEIGHT*1.25 / 50 * 39), D3DXVECTOR2(0.4f, 0.4f), (int)score3 % 100);
+
+	//ランクインカットイン
+	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
+	Sprite_Draw(TEXTURE_INDEX_RESULT_CUTIN_UP, ResultposX1, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	Sprite_Draw(TEXTURE_INDEX_RESULT_CUTIN_DOWN, ResultposX2, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 
 	//プレイヤーキャラクター表示
@@ -248,3 +292,4 @@ D3DXVECTOR3 GetRight2() {
 	}
 	return direction;
 }
+

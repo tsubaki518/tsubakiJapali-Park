@@ -14,5 +14,5 @@ void RankingUnInit();
 void LoadSave(void);
 void WriteSave(void);
 void SetRank(float time, float rating);
-int GetScore(int n);
+float GetScore(int n);
 bool GetClear(void);
