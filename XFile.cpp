@@ -82,6 +82,9 @@ void XFile::UnInit()
 			if (model.Tex[i])	model.Tex[i]->Release();
 		}
 	}
+	if (model.lpMesh != NULL) {
+		model.lpMesh->Release();
+	}
 
 }
 
