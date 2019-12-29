@@ -1,10 +1,18 @@
 #include"figure.h"
 #include"Stage.h"
 #include"Game.h"
+#include<stdlib.h>
+#include<time.h>
+
+struct Transform {
+	D3DXVECTOR3 position;
+	D3DXVECTOR3 rotation;
+	D3DXVECTOR3 scale;
+};
 
 //最大設置数
 const int CUBE_NUM = 1291;
-const int ACCEL_SPEED_NUM = 7;
+const int ACCEL_SPEED_NUM = 5;
 const int RIGHT_WALL_NUM = 191;
 const int LEFT_WALL_NUM = 191;
 
@@ -6711,34 +6719,59 @@ void StageInit() {			//座標とサイズと角度を入れる
 	leftWall[190].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[190].scale = D3DXVECTOR3(5, 1, 10);
 
-	//加速床座標
-	accelSpeed[0].position = D3DXVECTOR3(-0.27f, -15.78f, 28.86f);
-	accelSpeed[0].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	accelSpeed[0].scale = D3DXVECTOR3(2, 1.5, 1);
 
-	accelSpeed[1].position = D3DXVECTOR3(63.65f, -122.04f, 286.07f);
-	accelSpeed[1].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	accelSpeed[1].scale = D3DXVECTOR3(2, 1.5, 1);
+	Transform accelSpeedPattern[7];
+	int pattern[ACCEL_SPEED_NUM];
 
-	accelSpeed[2].position = D3DXVECTOR3(115.83f, -178.25f, 535.79f);
-	accelSpeed[2].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	accelSpeed[2].scale = D3DXVECTOR3(2, 1.5, 1);
+	//加速床をこの中からランダムで決定する
+	accelSpeedPattern[0].position = D3DXVECTOR3(-0.27f, -15.78f, 28.86f);
+	accelSpeedPattern[0].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	accelSpeedPattern[0].scale = D3DXVECTOR3(2, 1.5, 1);
 
-	accelSpeed[3].position = D3DXVECTOR3(367.88f, -262.40f, 614.72f);
-	accelSpeed[3].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	accelSpeed[3].scale = D3DXVECTOR3(2, 1.5, 1);
+	accelSpeedPattern[1].position = D3DXVECTOR3(63.65f, -122.04f, 286.07f);
+	accelSpeedPattern[1].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	accelSpeedPattern[1].scale = D3DXVECTOR3(2, 1.5, 1);
 
-	accelSpeed[4].position = D3DXVECTOR3(361.37f, -261.39f, 614.55f);
-	accelSpeed[4].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	accelSpeed[4].scale = D3DXVECTOR3(2, 1.5, 1);
+	accelSpeedPattern[2].position = D3DXVECTOR3(115.83f, -178.25f, 535.79f);
+	accelSpeedPattern[2].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	accelSpeedPattern[2].scale = D3DXVECTOR3(2, 1.5, 1);
 
-	accelSpeed[5].position = D3DXVECTOR3(374.47f, -261.28f, 614.53f);
-	accelSpeed[5].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, -45.00f*3.141592f / 180);
-	accelSpeed[5].scale = D3DXVECTOR3(2, 1.5, 1);
+	accelSpeedPattern[3].position = D3DXVECTOR3(367.88f, -262.40f, 614.72f);
+	accelSpeedPattern[3].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	accelSpeedPattern[3].scale = D3DXVECTOR3(2, 1.5, 1);
 
-	accelSpeed[6].position = D3DXVECTOR3(444.89f, -312.22f, 445.74f);
-	accelSpeed[6].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	accelSpeed[6].scale = D3DXVECTOR3(2, 1.5, 1);
+	accelSpeedPattern[4].position = D3DXVECTOR3(361.37f, -261.39f, 614.55f);
+	accelSpeedPattern[4].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	accelSpeedPattern[4].scale = D3DXVECTOR3(2, 1.5, 1);
+
+	accelSpeedPattern[5].position = D3DXVECTOR3(374.47f, -261.28f, 614.53f);
+	accelSpeedPattern[5].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, -45.00f*3.141592f / 180);
+	accelSpeedPattern[5].scale = D3DXVECTOR3(2, 1.5, 1);
+
+	accelSpeedPattern[6].position = D3DXVECTOR3(444.89f, -312.22f, 445.74f);
+	accelSpeedPattern[6].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	accelSpeedPattern[6].scale = D3DXVECTOR3(2, 1.5, 1);
+
+	//ランダムで被らないように決定する
+	int n;
+	for (int i = 0; i < ACCEL_SPEED_NUM; i++) {
+		n =  (int)(rand() % 7);
+		pattern[i]=n;
+		for (int j = i; j >= 0; j--) {
+			if (pattern[i] == pattern[j]) {
+				n = (int)(rand() % 7);
+				pattern[i]=n;
+				j = i;
+			}
+		}
+	}
+	//決定したパターンを入れる
+	for (int i = 0; i < ACCEL_SPEED_NUM; i++) {
+		accelSpeed[i].position = accelSpeedPattern[pattern[i]].position;
+		accelSpeed[i].rotation = accelSpeedPattern[pattern[i]].rotation;
+		accelSpeed[i].scale = accelSpeedPattern[pattern[i]].scale;
+	}
+	
 
 	//ゴール床座標
 	goalCube.position = D3DXVECTOR3(523.82f, -325.23f, 459.65f);
