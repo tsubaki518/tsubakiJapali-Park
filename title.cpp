@@ -16,9 +16,9 @@ static int add = 7;
 static float titleposX = SCREEN_WIDTH - SCREEN_HEIGHT;
 static float titleposY = 0;
 static float titleposX1 = SCREEN_WIDTH - (SCREEN_HEIGHT * 2);
-static float titleposY1 = SCREEN_HEIGHT / -4;
+static float titleposY1 = 0;
 static float titleposX2 = SCREEN_WIDTH - (SCREEN_HEIGHT * 3);
-static float titleposY2 = SCREEN_HEIGHT / -2;
+static float titleposY2 = 0;
 
 
 void TitleInit() {
@@ -37,23 +37,23 @@ void TitleUpdate() {
 		add *= -1;
 	}
 
-	titleposX += 3;
-	titleposY -= 1;
-	titleposX1 += 3;
-	titleposY1 -= 1;
-	titleposX2 += 3;
-	titleposY2 -= 1;
+	titleposX += 4;
+	titleposY -= 2;
+	titleposX1 += 4;
+	titleposY1 -= 2;
+	titleposX2 += 4;
+	titleposY2 -= 2;
 	if (titleposX >= SCREEN_WIDTH) {
 		titleposX = SCREEN_WIDTH - (SCREEN_HEIGHT * 3);
-		titleposY = SCREEN_HEIGHT / -5;
+		titleposY = 0;
 	}
 	if (titleposX1 >= SCREEN_WIDTH) {
 		titleposX1 = SCREEN_WIDTH - (SCREEN_HEIGHT * 3);
-		titleposY1 = SCREEN_HEIGHT / -5;
+		titleposY1 = 0;
 	}
 	if (titleposX2 >= SCREEN_WIDTH) {
 		titleposX2 = SCREEN_WIDTH - (SCREEN_HEIGHT * 3);
-		titleposY2 = SCREEN_HEIGHT / -5;
+		titleposY2 = 0;
 	}
 
 
