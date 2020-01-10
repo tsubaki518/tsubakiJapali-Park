@@ -19,6 +19,7 @@ void TimerInit()
 	 hun = 0;
 	 byou = 0;
 	 syousuu = 0;
+	 seisuu = 0;
 }
 
 //ŽžŠÔ‚ÌŒv‘ª

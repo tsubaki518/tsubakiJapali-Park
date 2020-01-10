@@ -63,7 +63,7 @@ void GameInit() {
 	
 	camera.Init(sori);
 
-	
+	TimerInit();
 
 }
 
