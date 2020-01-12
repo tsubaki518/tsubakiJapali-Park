@@ -22,8 +22,7 @@
 #include"NPC.h"
 #include"Setting.h"
 #include"ImageNumber.h"
-
-
+#include"Sky.h"
 StartAnimation startAnimation;
 GoalAnimation goalAnimation;
 Camera camera;
@@ -90,14 +89,13 @@ void GameUpdate() {
 }
 
 void GameDraw() {
-
+	Sky sky;
+	sky.Draw();
 	//そりの描画
 	sori.Draw();
 	npc.Draw();
-
 	//カメラ追従
 	camera.SetCamera(sori);
-
 	//ステージの描画
 	StageDraw();
 

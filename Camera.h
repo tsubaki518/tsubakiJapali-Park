@@ -5,7 +5,7 @@
 #define VIEW_ANGLE (D3DXToRadian(45.0f))                             //ビュー平面の視野角
 #define VIEW_ASPECT ((float)SCREEN_WIDTH/ (float)SCREEN_HEIGHT)      //ビュー平面のアスペクト値
 #define VIEW_NEAR_Z (1.0f)                                          //ビュー平面のNearZ
-#define VIEW_FAR_Z (1000.0f)                                       //ビュー平面のFarZ
+#define VIEW_FAR_Z (10000000.0f)                                       //ビュー平面のFarZ
 
 
 
