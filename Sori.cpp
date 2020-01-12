@@ -8,7 +8,8 @@
 #define SPIN_NUM 4
 #define SPIN_SPEED 1.0f
 #define ACCEL_FLOOR_ACCEL_SPEED 0.3f
-#define CENTRIFUGAL_FORCE 0.035f
+#define CENTRIFUGAL_FORCE 0.035f //âìêSóÕ
+#define YOKONOSYAMENNNINOTTAATOKASOKUSURUYATU 0.3f //â°ÇÃéŒñ Ç…èÊÇ¡ÇΩå„â¡ë¨Ç∑ÇÈÇ‚Ç¬
 
 
 Sori::Sori() {
@@ -334,24 +335,25 @@ void Sori::SlideDown() {
 	if (GetForward().y < 0) {
 		position -= GetForward()*GetForward().y*0.03f;
 	}
-	if (GetRight().y < 0) {
+	if (GetRight().y > 0) {
 		position += GetRight()*-GetRight().y*0.03f;
-		if (slidCount < 0.1) {
-			slidCount += 0.0005f;
+		if (slidCount < YOKONOSYAMENNNINOTTAATOKASOKUSURUYATU) {
+			slidCount += 0.015f;
 		}
 	}
-	if (-GetRight().y < 0) {
+	if (-GetRight().y > 0) {
 		position -= GetRight()*GetRight().y*0.03f;
-		if (slidCount < 0.1) {
-			slidCount += 0.001f;
+		if (slidCount < YOKONOSYAMENNNINOTTAATOKASOKUSURUYATU) {
+			slidCount += 0.015f;
 		}
 	}
 
 	if (GetRight().y == 0 && -GetRight().y == 0) {
 		slidSpeed = slidCount;
-		if (slidCount > 0) {
-			slidCount -= 0.001f;
-		}
+	
+	}
+	if (slidCount > 0) {
+		slidCount -= 0.001f;
 	}
 }
 void Sori::Bound() {
