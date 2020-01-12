@@ -6787,7 +6787,7 @@ void StageInit() {			//座標とサイズと角度を入れる
 
 void StageDraw() {
 	D3DXVECTOR3 distance;
-	const float DRAW_RANGE = 150;
+	const float DRAW_RANGE = 200;
 	//Cubeの描画
 	for (int i = 0; i < CUBE_NUM; i++) {
 		distance = cube[i].position - GetPlayerPos();//ソリとオブジェクトとの距離を計算
