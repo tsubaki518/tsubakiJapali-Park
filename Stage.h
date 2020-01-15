@@ -8,7 +8,7 @@ Plane GetCube(int n);
 Cube GetAccelSpeedCube(int n);
 Cube GetRightWall(int n);
 Cube GetLeftWall(int n);
-Cube GetGoalCube();
+Plane GetGoalCube();
 
 
 //---g‚Á‚Ä‚¢‚écube‚Ì”‚ğ“¾‚é

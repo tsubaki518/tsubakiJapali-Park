@@ -1,20 +1,12 @@
 #include"figure.h"
 #include"Stage.h"
 #include"Game.h"
-#include<stdlib.h>
-#include<time.h>
-
-struct Transform {
-	D3DXVECTOR3 position;
-	D3DXVECTOR3 rotation;
-	D3DXVECTOR3 scale;
-};
 
 //最大設置数
-const int CUBE_NUM = 1291;
-const int ACCEL_SPEED_NUM = 5;
-const int RIGHT_WALL_NUM = 191;
-const int LEFT_WALL_NUM = 191;
+const int CUBE_NUM = 1521;
+const int ACCEL_SPEED_NUM = 7;
+const int RIGHT_WALL_NUM = 237;
+const int LEFT_WALL_NUM = 237;
 
 
 //rotationのx,zは1.4ｆまで
@@ -22,7 +14,7 @@ Plane cube[CUBE_NUM];				//床
 Cube accelSpeed[ACCEL_SPEED_NUM];	//加速床
 Cube rightWall[RIGHT_WALL_NUM];		//右側の壁
 Cube leftWall[LEFT_WALL_NUM];		//左側の壁
-Cube goalCube;						//ゴール_床
+Plane goalCube;						//ゴール_床
 
 
 void StageInit() {			//座標とサイズと角度を入れる
@@ -63,5133 +55,6053 @@ void StageInit() {			//座標とサイズと角度を入れる
 	cube[8].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[8].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[9].position = D3DXVECTOR3(-0.50f, -25.51f, 80.94f);
-	cube[9].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[9].scale = D3DXVECTOR3(11, 1, 5);
+	cube[9].position = D3DXVECTOR3(-0.27f, -25.70f, 83.16f);
+	cube[9].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[9].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[10].position = D3DXVECTOR3(-0.85f, -25.69f, 81.72f);
-	cube[10].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[10].position = D3DXVECTOR3(-0.27f, -27.36f, 92.16f);
+	cube[10].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[10].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[11].position = D3DXVECTOR3(-2.25f, -27.17f, 88.59f);
-	cube[11].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[11].scale = D3DXVECTOR3(11, 1, 5);
+	cube[11].position = D3DXVECTOR3(-0.27f, -28.95f, 100.86f);
+	cube[11].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[11].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[12].position = D3DXVECTOR3(-2.71f, -27.35f, 89.30f);
-	cube[12].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[12].position = D3DXVECTOR3(-0.27f, -30.63f, 109.96f);
+	cube[12].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[12].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[13].position = D3DXVECTOR3(-5.34f, -28.80f, 95.69f);
-	cube[13].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[13].scale = D3DXVECTOR3(11, 1, 5);
+	cube[13].position = D3DXVECTOR3(-0.27f, -32.42f, 119.36f);
+	cube[13].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[13].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[14].position = D3DXVECTOR3(-5.68f, -28.95f, 96.03f);
-	cube[14].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[14].position = D3DXVECTOR3(-0.27f, -34.10f, 128.66f);
+	cube[14].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[14].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[15].position = D3DXVECTOR3(-9.35f, -30.37f, 101.82f);
-	cube[15].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[15].scale = D3DXVECTOR3(11, 1, 5);
+	cube[15].position = D3DXVECTOR3(-0.27f, -35.89f, 138.36f);
+	cube[15].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[15].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[16].position = D3DXVECTOR3(-9.99f, -30.60f, 102.51f);
-	cube[16].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[16].position = D3DXVECTOR3(-0.27f, -37.48f, 147.16f);
+	cube[16].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[16].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[17].position = D3DXVECTOR3(-14.77f, -32.12f, 107.78f);
-	cube[17].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[17].scale = D3DXVECTOR3(11, 1, 5);
+	cube[17].position = D3DXVECTOR3(-0.27f, -38.86f, 154.77f);
+	cube[17].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[17].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[18].position = D3DXVECTOR3(-15.54f, -32.31f, 108.21f);
-	cube[18].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[18].scale = D3DXVECTOR3(10, 1, 10);
+	cube[18].position = D3DXVECTOR3(-0.37f, -40.36f, 161.78f);
+	cube[18].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[18].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[19].position = D3DXVECTOR3(-20.60f, -33.67f, 112.31f);
-	cube[19].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[19].scale = D3DXVECTOR3(11, 1, 5);
+	cube[19].position = D3DXVECTOR3(-0.72f, -40.54f, 162.55f);
+	cube[19].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[19].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[20].position = D3DXVECTOR3(-21.70f, -33.94f, 112.73f);
-	cube[20].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[20].scale = D3DXVECTOR3(10, 1, 10);
+	cube[20].position = D3DXVECTOR3(-2.12f, -42.02f, 169.43f);
+	cube[20].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[20].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[21].position = D3DXVECTOR3(-29.79f, -35.66f, 117.40f);
-	cube[21].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[21].position = D3DXVECTOR3(-2.58f, -42.20f, 170.13f);
+	cube[21].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[21].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[22].position = D3DXVECTOR3(-37.75f, -37.39f, 122.01f);
-	cube[22].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[22].scale = D3DXVECTOR3(10, 1, 10);
+	cube[22].position = D3DXVECTOR3(-5.21f, -43.65f, 176.53f);
+	cube[22].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[22].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[23].position = D3DXVECTOR3(-45.05f, -38.94f, 126.21f);
-	cube[23].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[23].position = D3DXVECTOR3(-5.55f, -43.80f, 176.86f);
+	cube[23].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[23].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[24].position = D3DXVECTOR3(-52.35f, -40.46f, 130.41f);
-	cube[24].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[24].scale = D3DXVECTOR3(10, 1, 10);
+	cube[24].position = D3DXVECTOR3(-9.22f, -45.22f, 182.66f);
+	cube[24].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[24].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[25].position = D3DXVECTOR3(-60.25f, -42.19f, 135.01f);
-	cube[25].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[25].position = D3DXVECTOR3(-9.86f, -45.45f, 183.34f);
+	cube[25].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[25].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[26].position = D3DXVECTOR3(-68.11f, -43.83f, 139.48f);
-	cube[26].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[26].scale = D3DXVECTOR3(10, 1, 10);
+	cube[26].position = D3DXVECTOR3(-14.64f, -46.97f, 188.62f);
+	cube[26].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[26].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[27].position = D3DXVECTOR3(-74.52f, -45.34f, 142.89f);
-	cube[27].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[27].scale = D3DXVECTOR3(11, 1, 5);
+	cube[27].position = D3DXVECTOR3(-15.41f, -47.16f, 189.04f);
+	cube[27].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[27].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[28].position = D3DXVECTOR3(-75.36f, -45.52f, 142.99f);
-	cube[28].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[28].scale = D3DXVECTOR3(10, 1, 10);
+	cube[28].position = D3DXVECTOR3(-20.47f, -48.52f, 193.15f);
+	cube[28].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[28].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[29].position = D3DXVECTOR3(-82.05f, -47.00f, 145.14f);
-	cube[29].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[29].scale = D3DXVECTOR3(11, 1, 5);
+	cube[29].position = D3DXVECTOR3(-21.57f, -48.79f, 193.56f);
+	cube[29].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[29].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[30].position = D3DXVECTOR3(-82.85f, -47.18f, 145.18f);
-	cube[30].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[30].position = D3DXVECTOR3(-29.05f, -50.38f, 197.94f);
+	cube[30].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[30].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[31].position = D3DXVECTOR3(-89.71f, -48.63f, 146.08f);
-	cube[31].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[31].scale = D3DXVECTOR3(11, 1, 5);
+	cube[31].position = D3DXVECTOR3(-37.01f, -52.11f, 202.55f);
+	cube[31].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[31].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[32].position = D3DXVECTOR3(-90.16f, -48.78f, 145.97f);
-	cube[32].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[32].position = D3DXVECTOR3(-44.31f, -53.66f, 206.75f);
+	cube[32].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[32].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[33].position = D3DXVECTOR3(-97.02f, -50.16f, 145.52f);
-	cube[33].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[33].scale = D3DXVECTOR3(11, 1, 5);
+	cube[33].position = D3DXVECTOR3(-51.61f, -55.18f, 210.95f);
+	cube[33].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[33].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[34].position = D3DXVECTOR3(-97.93f, -50.43f, 145.48f);
-	cube[34].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[34].position = D3DXVECTOR3(-59.51f, -56.91f, 215.55f);
+	cube[34].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[34].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[35].position = D3DXVECTOR3(-104.59f, -51.74f, 144.29f);
-	cube[35].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[35].position = D3DXVECTOR3(-67.37f, -58.55f, 220.01f);
+	cube[35].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[35].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[36].position = D3DXVECTOR3(-111.68f, -53.21f, 143.07f);
-	cube[36].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[36].position = D3DXVECTOR3(-119.51f, -69.81f, 249.82f);
+	cube[36].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[36].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[37].position = D3DXVECTOR3(-112.34f, -53.35f, 143.45f);
-	cube[37].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[37].position = D3DXVECTOR3(-120.34f, -69.99f, 249.92f);
+	cube[37].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[37].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[38].position = D3DXVECTOR3(-119.47f, -54.79f, 143.71f);
-	cube[38].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[38].position = D3DXVECTOR3(-127.03f, -71.47f, 252.07f);
+	cube[38].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[38].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[39].position = D3DXVECTOR3(-119.78f, -54.94f, 143.94f);
+	cube[39].position = D3DXVECTOR3(-127.84f, -71.65f, 252.11f);
 	cube[39].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[39].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[40].position = D3DXVECTOR3(-126.67f, -56.35f, 145.21f);
-	cube[40].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[40].position = D3DXVECTOR3(-134.70f, -73.10f, 253.01f);
+	cube[40].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[40].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[41].position = D3DXVECTOR3(-127.31f, -56.57f, 145.80f);
-	cube[41].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[41].position = D3DXVECTOR3(-135.15f, -73.25f, 252.90f);
+	cube[41].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[41].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[42].position = D3DXVECTOR3(-133.93f, -58.02f, 148.35f);
-	cube[42].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[42].position = D3DXVECTOR3(-142.01f, -74.63f, 252.45f);
+	cube[42].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[42].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[43].position = D3DXVECTOR3(-134.37f, -58.20f, 148.90f);
-	cube[43].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[43].position = D3DXVECTOR3(-142.91f, -74.90f, 252.41f);
+	cube[43].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[43].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[44].position = D3DXVECTOR3(-140.32f, -59.61f, 152.53f);
-	cube[44].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[44].scale = D3DXVECTOR3(11, 1, 5);
+	cube[44].position = D3DXVECTOR3(-149.57f, -76.20f, 251.22f);
+	cube[44].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[44].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[45].position = D3DXVECTOR3(-140.74f, -59.80f, 153.15f);
-	cube[45].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[45].scale = D3DXVECTOR3(10, 1, 10);
+	cube[45].position = D3DXVECTOR3(-156.66f, -77.68f, 250.00f);
+	cube[45].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[45].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[46].position = D3DXVECTOR3(-146.15f, -61.24f, 158.07f);
-	cube[46].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[46].scale = D3DXVECTOR3(11, 1, 5);
+	cube[46].position = D3DXVECTOR3(-157.33f, -77.81f, 250.38f);
+	cube[46].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[46].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[47].position = D3DXVECTOR3(-146.32f, -61.44f, 158.51f);
-	cube[47].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[47].scale = D3DXVECTOR3(10, 1, 10);
+	cube[47].position = D3DXVECTOR3(-164.45f, -79.26f, 250.64f);
+	cube[47].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[47].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[48].position = D3DXVECTOR3(-150.66f, -62.90f, 164.05f);
-	cube[48].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[48].scale = D3DXVECTOR3(11, 1, 5);
+	cube[48].position = D3DXVECTOR3(-164.77f, -79.40f, 250.87f);
+	cube[48].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[48].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[49].position = D3DXVECTOR3(-150.71f, -63.10f, 164.61f);
-	cube[49].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[49].scale = D3DXVECTOR3(10, 1, 10);
+	cube[49].position = D3DXVECTOR3(-171.65f, -80.82f, 252.14f);
+	cube[49].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[49].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[50].position = D3DXVECTOR3(-154.20f, -64.57f, 170.83f);
-	cube[50].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[50].scale = D3DXVECTOR3(11, 1, 5);
+	cube[50].position = D3DXVECTOR3(-172.29f, -81.03f, 252.72f);
+	cube[50].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[50].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[51].position = D3DXVECTOR3(-153.92f, -64.64f, 171.11f);
-	cube[51].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[51].scale = D3DXVECTOR3(10, 1, 10);
+	cube[51].position = D3DXVECTOR3(-178.92f, -82.49f, 255.28f);
+	cube[51].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[51].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[52].position = D3DXVECTOR3(-156.40f, -66.00f, 177.81f);
-	cube[52].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[52].position = D3DXVECTOR3(-179.35f, -82.66f, 255.83f);
+	cube[52].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[52].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[53].position = D3DXVECTOR3(-158.83f, -67.47f, 184.58f);
-	cube[53].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[53].position = D3DXVECTOR3(-185.31f, -84.08f, 259.46f);
+	cube[53].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[53].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[54].position = D3DXVECTOR3(-158.57f, -67.61f, 185.30f);
-	cube[54].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[54].position = D3DXVECTOR3(-185.72f, -84.26f, 260.08f);
+	cube[54].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[54].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[55].position = D3DXVECTOR3(-159.55f, -69.05f, 192.36f);
-	cube[55].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[55].position = D3DXVECTOR3(-191.13f, -85.71f, 265.00f);
+	cube[55].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[55].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[56].position = D3DXVECTOR3(-159.38f, -69.20f, 192.71f);
-	cube[56].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[56].position = D3DXVECTOR3(-191.31f, -85.90f, 265.44f);
+	cube[56].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[56].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[57].position = D3DXVECTOR3(-159.32f, -70.61f, 199.71f);
-	cube[57].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[57].position = D3DXVECTOR3(-195.65f, -87.37f, 270.98f);
+	cube[57].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[57].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[58].position = D3DXVECTOR3(-158.86f, -70.83f, 200.44f);
-	cube[58].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[58].position = D3DXVECTOR3(-195.69f, -87.56f, 271.54f);
+	cube[58].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[58].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[59].position = D3DXVECTOR3(-157.49f, -72.28f, 207.41f);
-	cube[59].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[59].position = D3DXVECTOR3(-199.19f, -89.04f, 277.76f);
+	cube[59].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[59].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[60].position = D3DXVECTOR3(-157.03f, -72.46f, 207.93f);
-	cube[60].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[60].position = D3DXVECTOR3(-198.90f, -89.10f, 278.04f);
+	cube[60].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[60].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[61].position = D3DXVECTOR3(-154.49f, -73.87f, 214.43f);
-	cube[61].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[61].scale = D3DXVECTOR3(11, 1, 5);
+	cube[61].position = D3DXVECTOR3(-201.38f, -90.46f, 284.74f);
+	cube[61].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[61].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[62].position = D3DXVECTOR3(-153.94f, -74.06f, 214.94f);
-	cube[62].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[62].scale = D3DXVECTOR3(10, 1, 10);
+	cube[62].position = D3DXVECTOR3(-203.81f, -91.94f, 291.51f);
+	cube[62].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[62].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[63].position = D3DXVECTOR3(-150.04f, -75.50f, 221.13f);
-	cube[63].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[63].scale = D3DXVECTOR3(11, 1, 5);
+	cube[63].position = D3DXVECTOR3(-203.55f, -92.07f, 292.23f);
+	cube[63].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[63].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[64].position = D3DXVECTOR3(-149.64f, -75.70f, 221.37f);
-	cube[64].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[64].scale = D3DXVECTOR3(10, 1, 10);
+	cube[64].position = D3DXVECTOR3(-204.54f, -93.52f, 299.29f);
+	cube[64].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[64].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[65].position = D3DXVECTOR3(-144.94f, -77.16f, 226.61f);
-	cube[65].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[65].scale = D3DXVECTOR3(11, 1, 5);
+	cube[65].position = D3DXVECTOR3(-204.36f, -93.66f, 299.64f);
+	cube[65].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[65].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[66].position = D3DXVECTOR3(-144.40f, -77.36f, 226.75f);
-	cube[66].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[66].scale = D3DXVECTOR3(10, 1, 10);
+	cube[66].position = D3DXVECTOR3(-204.31f, -95.08f, 306.64f);
+	cube[66].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[66].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[67].position = D3DXVECTOR3(-138.88f, -78.83f, 231.28f);
-	cube[67].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[67].scale = D3DXVECTOR3(11, 1, 5);
+	cube[67].position = D3DXVECTOR3(-203.84f, -95.29f, 307.37f);
+	cube[67].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[67].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[68].position = D3DXVECTOR3(-138.55f, -78.90f, 231.05f);
-	cube[68].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[68].scale = D3DXVECTOR3(10, 1, 10);
+	cube[68].position = D3DXVECTOR3(-202.47f, -96.75f, 314.34f);
+	cube[68].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[68].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[69].position = D3DXVECTOR3(-130.82f, -80.57f, 235.52f);
-	cube[69].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[69].position = D3DXVECTOR3(-202.01f, -96.92f, 314.86f);
+	cube[69].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[69].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[70].position = D3DXVECTOR3(-122.74f, -82.27f, 240.19f);
-	cube[70].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[70].scale = D3DXVECTOR3(10, 1, 10);
+	cube[70].position = D3DXVECTOR3(-199.47f, -98.34f, 321.36f);
+	cube[70].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[70].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[71].position = D3DXVECTOR3(-114.24f, -84.02f, 245.12f);
-	cube[71].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[71].position = D3DXVECTOR3(-198.93f, -98.52f, 321.87f);
+	cube[71].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[71].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[72].position = D3DXVECTOR3(-106.18f, -85.69f, 249.84f);
-	cube[72].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[72].scale = D3DXVECTOR3(10, 1, 10);
+	cube[72].position = D3DXVECTOR3(-195.02f, -99.97f, 328.06f);
+	cube[72].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[72].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[73].position = D3DXVECTOR3(-99.95f, -87.16f, 253.42f);
-	cube[73].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[73].scale = D3DXVECTOR3(11, 1, 5);
+	cube[73].position = D3DXVECTOR3(-194.63f, -100.16f, 328.30f);
+	cube[73].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[73].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[74].position = D3DXVECTOR3(-99.18f, -87.30f, 253.29f);
-	cube[74].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[74].scale = D3DXVECTOR3(10, 1, 10);
+	cube[74].position = D3DXVECTOR3(-189.92f, -101.63f, 333.54f);
+	cube[74].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[74].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[75].position = D3DXVECTOR3(-92.43f, -88.74f, 255.55f);
-	cube[75].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[75].scale = D3DXVECTOR3(11, 1, 5);
+	cube[75].position = D3DXVECTOR3(-189.38f, -101.82f, 333.68f);
+	cube[75].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[75].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[76].position = D3DXVECTOR3(-92.03f, -88.89f, 255.37f);
-	cube[76].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[76].scale = D3DXVECTOR3(10, 1, 10);
+	cube[76].position = D3DXVECTOR3(-183.86f, -103.30f, 338.21f);
+	cube[76].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[76].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[77].position = D3DXVECTOR3(-85.12f, -90.30f, 256.48f);
-	cube[77].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[77].scale = D3DXVECTOR3(11, 1, 5);
+	cube[77].position = D3DXVECTOR3(-183.53f, -103.36f, 337.97f);
+	cube[77].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[77].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[78].position = D3DXVECTOR3(-84.32f, -90.52f, 256.20f);
-	cube[78].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[78].position = D3DXVECTOR3(-175.80f, -105.04f, 342.45f);
+	cube[78].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[78].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[79].position = D3DXVECTOR3(-77.22f, -91.97f, 256.10f);
-	cube[79].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[79].scale = D3DXVECTOR3(11, 1, 5);
+	cube[79].position = D3DXVECTOR3(-167.72f, -106.74f, 347.12f);
+	cube[79].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[79].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[80].position = D3DXVECTOR3(-76.63f, -92.15f, 255.70f);
-	cube[80].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[80].position = D3DXVECTOR3(-159.22f, -108.49f, 352.05f);
+	cube[80].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[80].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[81].position = D3DXVECTOR3(-67.35f, -93.84f, 254.06f);
-	cube[81].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[81].position = D3DXVECTOR3(-151.17f, -110.15f, 356.77f);
+	cube[81].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[81].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[82].position = D3DXVECTOR3(-60.15f, -95.35f, 253.05f);
-	cube[82].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[82].position = D3DXVECTOR3(-144.93f, -111.63f, 360.35f);
+	cube[82].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[82].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[83].position = D3DXVECTOR3(-59.33f, -95.53f, 253.24f);
-	cube[83].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[83].position = D3DXVECTOR3(-144.17f, -111.76f, 360.21f);
+	cube[83].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[83].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[84].position = D3DXVECTOR3(-52.31f, -97.01f, 253.50f);
-	cube[84].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[84].position = D3DXVECTOR3(-137.41f, -113.21f, 362.48f);
+	cube[84].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[84].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[85].position = D3DXVECTOR3(-51.55f, -97.19f, 253.75f);
+	cube[85].position = D3DXVECTOR3(-137.01f, -113.35f, 362.30f);
 	cube[85].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[85].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[86].position = D3DXVECTOR3(-44.79f, -98.64f, 255.24f);
-	cube[86].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[86].position = D3DXVECTOR3(-130.10f, -114.77f, 363.41f);
+	cube[86].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[86].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[87].position = D3DXVECTOR3(-44.40f, -98.79f, 255.50f);
-	cube[87].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[87].position = D3DXVECTOR3(-129.30f, -114.98f, 363.13f);
+	cube[87].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[87].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[88].position = D3DXVECTOR3(-38.11f, -100.17f, 258.27f);
-	cube[88].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[88].position = D3DXVECTOR3(-122.20f, -116.44f, 363.03f);
+	cube[88].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[88].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[89].position = D3DXVECTOR3(-37.27f, -100.44f, 258.62f);
-	cube[89].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[89].position = D3DXVECTOR3(-121.61f, -116.61f, 362.63f);
+	cube[89].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[89].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[90].position = D3DXVECTOR3(-29.35f, -102.12f, 263.22f);
-	cube[90].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[90].position = D3DXVECTOR3(-112.33f, -118.31f, 360.99f);
+	cube[90].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[90].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[91].position = D3DXVECTOR3(-23.12f, -103.59f, 266.80f);
-	cube[91].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[91].position = D3DXVECTOR3(-105.14f, -119.82f, 359.98f);
+	cube[91].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[91].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[92].position = D3DXVECTOR3(-22.35f, -103.73f, 266.67f);
-	cube[92].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[92].position = D3DXVECTOR3(-104.32f, -120.00f, 360.17f);
+	cube[92].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[92].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[93].position = D3DXVECTOR3(-15.60f, -105.17f, 268.93f);
-	cube[93].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[93].position = D3DXVECTOR3(-97.30f, -121.48f, 360.43f);
+	cube[93].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[93].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[94].position = D3DXVECTOR3(-15.20f, -105.32f, 268.75f);
+	cube[94].position = D3DXVECTOR3(-96.53f, -121.66f, 360.68f);
 	cube[94].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[94].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[95].position = D3DXVECTOR3(-8.29f, -106.73f, 269.86f);
-	cube[95].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[95].position = D3DXVECTOR3(-89.77f, -123.11f, 362.17f);
+	cube[95].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[95].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[96].position = D3DXVECTOR3(-7.49f, -106.95f, 269.58f);
-	cube[96].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[96].position = D3DXVECTOR3(-89.39f, -123.26f, 362.43f);
+	cube[96].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[96].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[97].position = D3DXVECTOR3(-0.39f, -108.40f, 269.48f);
-	cube[97].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[97].position = D3DXVECTOR3(-83.10f, -124.64f, 365.20f);
+	cube[97].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[97].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[98].position = D3DXVECTOR3(0.20f, -108.58f, 269.08f);
-	cube[98].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[98].position = D3DXVECTOR3(-82.26f, -124.91f, 365.55f);
+	cube[98].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[98].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[99].position = D3DXVECTOR3(9.33f, -110.29f, 267.51f);
-	cube[99].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[99].position = D3DXVECTOR3(-74.34f, -126.58f, 370.15f);
+	cube[99].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[99].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[100].position = D3DXVECTOR3(16.53f, -111.80f, 266.50f);
-	cube[100].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[100].position = D3DXVECTOR3(-68.10f, -128.06f, 373.73f);
+	cube[100].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[100].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[101].position = D3DXVECTOR3(17.35f, -111.98f, 266.69f);
-	cube[101].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[101].position = D3DXVECTOR3(-67.34f, -128.19f, 373.59f);
+	cube[101].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[101].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[102].position = D3DXVECTOR3(24.37f, -113.46f, 266.95f);
-	cube[102].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[102].position = D3DXVECTOR3(-60.58f, -129.64f, 375.86f);
+	cube[102].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[102].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[103].position = D3DXVECTOR3(25.13f, -113.64f, 267.20f);
+	cube[103].position = D3DXVECTOR3(-60.18f, -129.78f, 375.68f);
 	cube[103].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[103].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[104].position = D3DXVECTOR3(31.89f, -115.09f, 268.69f);
-	cube[104].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[104].position = D3DXVECTOR3(-53.27f, -131.20f, 376.79f);
+	cube[104].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[104].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[105].position = D3DXVECTOR3(32.28f, -115.24f, 268.95f);
-	cube[105].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[105].position = D3DXVECTOR3(-52.47f, -131.41f, 376.51f);
+	cube[105].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[105].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[106].position = D3DXVECTOR3(38.57f, -116.62f, 271.72f);
-	cube[106].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[106].position = D3DXVECTOR3(-45.37f, -132.87f, 376.41f);
+	cube[106].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[106].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[107].position = D3DXVECTOR3(39.41f, -116.89f, 272.07f);
-	cube[107].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[107].position = D3DXVECTOR3(-44.78f, -133.04f, 376.01f);
+	cube[107].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[107].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[108].position = D3DXVECTOR3(47.36f, -118.63f, 276.66f);
-	cube[108].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[108].position = D3DXVECTOR3(-35.65f, -134.76f, 374.44f);
+	cube[108].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[108].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[109].position = D3DXVECTOR3(55.39f, -120.32f, 281.31f);
-	cube[109].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[109].scale = D3DXVECTOR3(10, 1, 10);
+	cube[109].position = D3DXVECTOR3(-28.46f, -136.27f, 373.43f);
+	cube[109].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[109].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[110].position = D3DXVECTOR3(63.65f, -122.04f, 286.07f);
-	cube[110].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[110].position = D3DXVECTOR3(-27.64f, -136.45f, 373.62f);
+	cube[110].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[110].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[111].position = D3DXVECTOR3(71.77f, -123.74f, 290.74f);
-	cube[111].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[111].scale = D3DXVECTOR3(10, 1, 10);
+	cube[111].position = D3DXVECTOR3(-20.62f, -137.93f, 373.88f);
+	cube[111].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[111].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[112].position = D3DXVECTOR3(79.87f, -125.41f, 295.40f);
-	cube[112].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[112].position = D3DXVECTOR3(-19.85f, -138.11f, 374.13f);
+	cube[112].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[112].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[113].position = D3DXVECTOR3(88.17f, -127.11f, 300.18f);
-	cube[113].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[113].scale = D3DXVECTOR3(10, 1, 10);
+	cube[113].position = D3DXVECTOR3(-13.09f, -139.56f, 375.62f);
+	cube[113].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[113].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[114].position = D3DXVECTOR3(95.75f, -128.68f, 304.50f);
-	cube[114].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[114].position = D3DXVECTOR3(-12.71f, -139.71f, 375.88f);
+	cube[114].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[114].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[115].position = D3DXVECTOR3(101.91f, -130.19f, 308.35f);
-	cube[115].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[115].position = D3DXVECTOR3(-6.42f, -141.09f, 378.65f);
+	cube[115].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[115].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[116].position = D3DXVECTOR3(102.42f, -130.37f, 309.02f);
-	cube[116].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[116].position = D3DXVECTOR3(-5.58f, -141.36f, 379.00f);
+	cube[116].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[116].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[117].position = D3DXVECTOR3(107.62f, -131.85f, 313.74f);
-	cube[117].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[117].scale = D3DXVECTOR3(11, 1, 5);
+	cube[117].position = D3DXVECTOR3(59.45f, -154.91f, 416.42f);
+	cube[117].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[117].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[118].position = D3DXVECTOR3(108.05f, -132.03f, 314.42f);
-	cube[118].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[118].position = D3DXVECTOR3(67.48f, -156.60f, 421.07f);
+	cube[118].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[118].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[119].position = D3DXVECTOR3(112.27f, -133.48f, 319.91f);
-	cube[119].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[119].scale = D3DXVECTOR3(11, 1, 5);
+	cube[119].position = D3DXVECTOR3(75.74f, -158.32f, 425.83f);
+	cube[119].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[119].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[120].position = D3DXVECTOR3(112.40f, -133.63f, 320.36f);
-	cube[120].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[120].position = D3DXVECTOR3(83.86f, -160.02f, 430.50f);
+	cube[120].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[120].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[121].position = D3DXVECTOR3(115.44f, -135.01f, 326.52f);
-	cube[121].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[121].scale = D3DXVECTOR3(11, 1, 5);
+	cube[121].position = D3DXVECTOR3(91.96f, -161.69f, 435.16f);
+	cube[121].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[121].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[122].position = D3DXVECTOR3(115.85f, -135.28f, 327.33f);
-	cube[122].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[122].position = D3DXVECTOR3(100.26f, -163.39f, 439.94f);
+	cube[122].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[122].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[123].position = D3DXVECTOR3(119.08f, -136.97f, 336.18f);
-	cube[123].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[123].position = D3DXVECTOR3(107.84f, -164.96f, 444.26f);
+	cube[123].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[123].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[124].position = D3DXVECTOR3(122.16f, -138.63f, 344.65f);
-	cube[124].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[124].scale = D3DXVECTOR3(10, 1, 10);
+	cube[124].position = D3DXVECTOR3(113.37f, -166.36f, 447.66f);
+	cube[124].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[124].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[125].position = D3DXVECTOR3(125.28f, -140.28f, 353.10f);
-	cube[125].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[125].position = D3DXVECTOR3(113.88f, -166.54f, 448.34f);
+	cube[125].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[125].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[126].position = D3DXVECTOR3(127.53f, -141.79f, 360.01f);
-	cube[126].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[126].position = D3DXVECTOR3(119.08f, -168.02f, 453.05f);
+	cube[126].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[126].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[127].position = D3DXVECTOR3(127.49f, -141.97f, 360.85f);
-	cube[127].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[127].position = D3DXVECTOR3(119.51f, -168.20f, 453.73f);
+	cube[127].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[127].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[128].position = D3DXVECTOR3(128.44f, -143.45f, 367.81f);
-	cube[128].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[128].position = D3DXVECTOR3(123.73f, -169.65f, 459.22f);
+	cube[128].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[128].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[129].position = D3DXVECTOR3(128.33f, -143.63f, 368.61f);
-	cube[129].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[129].position = D3DXVECTOR3(123.86f, -169.80f, 459.67f);
+	cube[129].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[129].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[130].position = D3DXVECTOR3(128.04f, -145.08f, 375.52f);
-	cube[130].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[130].position = D3DXVECTOR3(126.90f, -171.18f, 465.83f);
+	cube[130].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[130].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[131].position = D3DXVECTOR3(127.85f, -145.23f, 375.95f);
-	cube[131].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[131].position = D3DXVECTOR3(127.31f, -171.45f, 466.64f);
+	cube[131].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[131].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[132].position = D3DXVECTOR3(126.22f, -146.61f, 382.62f);
-	cube[132].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[132].scale = D3DXVECTOR3(11, 1, 5);
+	cube[132].position = D3DXVECTOR3(130.54f, -173.14f, 475.49f);
+	cube[132].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[132].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[133].position = D3DXVECTOR3(126.01f, -146.88f, 383.51f);
-	cube[133].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[133].position = D3DXVECTOR3(133.62f, -174.80f, 483.96f);
+	cube[133].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[133].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[134].position = D3DXVECTOR3(122.70f, -148.61f, 392.58f);
-	cube[134].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[134].position = D3DXVECTOR3(136.74f, -176.45f, 492.41f);
+	cube[134].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[134].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[135].position = D3DXVECTOR3(119.56f, -150.28f, 401.10f);
-	cube[135].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[135].scale = D3DXVECTOR3(10, 1, 10);
+	cube[135].position = D3DXVECTOR3(138.99f, -177.96f, 499.32f);
+	cube[135].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[135].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[136].position = D3DXVECTOR3(117.12f, -151.75f, 407.86f);
-	cube[136].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[136].scale = D3DXVECTOR3(11, 1, 5);
+	cube[136].position = D3DXVECTOR3(138.95f, -178.14f, 500.16f);
+	cube[136].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[136].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[137].position = D3DXVECTOR3(117.39f, -151.89f, 408.59f);
-	cube[137].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[137].scale = D3DXVECTOR3(10, 1, 10);
+	cube[137].position = D3DXVECTOR3(139.90f, -179.62f, 507.12f);
+	cube[137].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[137].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[138].position = D3DXVECTOR3(116.34f, -153.33f, 415.63f);
-	cube[138].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[138].scale = D3DXVECTOR3(11, 1, 5);
+	cube[138].position = D3DXVECTOR3(139.79f, -179.80f, 507.92f);
+	cube[138].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[138].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[139].position = D3DXVECTOR3(116.58f, -153.48f, 416.00f);
-	cube[139].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[139].scale = D3DXVECTOR3(10, 1, 10);
+	cube[139].position = D3DXVECTOR3(139.50f, -181.25f, 514.83f);
+	cube[139].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[139].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[140].position = D3DXVECTOR3(116.69f, -154.89f, 423.00f);
-	cube[140].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[140].scale = D3DXVECTOR3(11, 1, 5);
+	cube[140].position = D3DXVECTOR3(139.31f, -181.40f, 515.26f);
+	cube[140].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[140].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[141].position = D3DXVECTOR3(117.10f, -155.11f, 423.73f);
-	cube[141].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[141].scale = D3DXVECTOR3(10, 1, 10);
+	cube[141].position = D3DXVECTOR3(137.67f, -182.78f, 521.93f);
+	cube[141].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[141].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[142].position = D3DXVECTOR3(118.44f, -156.56f, 430.71f);
-	cube[142].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[142].scale = D3DXVECTOR3(11, 1, 5);
+	cube[142].position = D3DXVECTOR3(137.47f, -183.05f, 522.82f);
+	cube[142].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[142].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[143].position = D3DXVECTOR3(118.93f, -156.74f, 431.22f);
-	cube[143].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[143].position = D3DXVECTOR3(134.15f, -184.78f, 531.89f);
+	cube[143].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[143].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[144].position = D3DXVECTOR3(122.06f, -158.40f, 439.86f);
-	cube[144].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[144].position = D3DXVECTOR3(131.02f, -186.44f, 540.41f);
+	cube[144].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[144].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[145].position = D3DXVECTOR3(124.31f, -159.91f, 446.77f);
-	cube[145].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[145].position = D3DXVECTOR3(128.58f, -187.92f, 547.17f);
+	cube[145].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[145].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[146].position = D3DXVECTOR3(124.27f, -160.09f, 447.61f);
-	cube[146].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[146].position = D3DXVECTOR3(128.85f, -188.05f, 547.90f);
+	cube[146].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[146].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[147].position = D3DXVECTOR3(125.22f, -161.57f, 454.57f);
-	cube[147].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[147].position = D3DXVECTOR3(127.80f, -189.50f, 554.94f);
+	cube[147].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[147].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[148].position = D3DXVECTOR3(125.11f, -161.75f, 455.37f);
+	cube[148].position = D3DXVECTOR3(128.04f, -189.64f, 555.31f);
 	cube[148].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[148].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[149].position = D3DXVECTOR3(124.82f, -163.20f, 462.28f);
-	cube[149].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[149].position = D3DXVECTOR3(128.15f, -191.06f, 562.31f);
+	cube[149].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[149].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[150].position = D3DXVECTOR3(124.63f, -163.35f, 462.71f);
-	cube[150].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[150].position = D3DXVECTOR3(128.56f, -191.27f, 563.05f);
+	cube[150].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[150].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[151].position = D3DXVECTOR3(123.00f, -164.73f, 469.38f);
-	cube[151].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[151].position = D3DXVECTOR3(129.90f, -192.73f, 570.02f);
+	cube[151].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[151].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[152].position = D3DXVECTOR3(122.79f, -165.00f, 470.27f);
-	cube[152].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[152].position = D3DXVECTOR3(130.39f, -192.90f, 570.53f);
+	cube[152].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[152].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[153].position = D3DXVECTOR3(119.57f, -166.70f, 479.16f);
-	cube[153].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[153].position = D3DXVECTOR3(133.52f, -194.57f, 579.17f);
+	cube[153].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[153].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[154].position = D3DXVECTOR3(116.32f, -168.42f, 488.11f);
-	cube[154].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[154].scale = D3DXVECTOR3(10, 1, 10);
+	cube[154].position = D3DXVECTOR3(135.77f, -196.08f, 586.08f);
+	cube[154].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[154].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[155].position = D3DXVECTOR3(113.18f, -170.08f, 496.67f);
-	cube[155].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[155].position = D3DXVECTOR3(135.73f, -196.26f, 586.92f);
+	cube[155].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[155].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[156].position = D3DXVECTOR3(110.74f, -171.55f, 503.43f);
-	cube[156].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[156].position = D3DXVECTOR3(136.68f, -197.74f, 593.88f);
+	cube[156].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[156].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[157].position = D3DXVECTOR3(111.01f, -171.69f, 504.16f);
-	cube[157].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[157].position = D3DXVECTOR3(136.57f, -197.92f, 594.68f);
+	cube[157].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[157].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[158].position = D3DXVECTOR3(109.96f, -173.13f, 511.20f);
-	cube[158].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[158].position = D3DXVECTOR3(136.28f, -199.37f, 601.59f);
+	cube[158].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[158].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[159].position = D3DXVECTOR3(110.20f, -173.28f, 511.57f);
-	cube[159].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[159].position = D3DXVECTOR3(136.09f, -199.52f, 602.02f);
+	cube[159].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[159].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[160].position = D3DXVECTOR3(110.31f, -174.69f, 518.57f);
-	cube[160].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[160].position = D3DXVECTOR3(134.45f, -200.90f, 608.69f);
+	cube[160].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[160].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[161].position = D3DXVECTOR3(110.72f, -174.91f, 519.30f);
-	cube[161].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[161].position = D3DXVECTOR3(134.25f, -201.17f, 609.58f);
+	cube[161].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[161].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[162].position = D3DXVECTOR3(112.06f, -176.36f, 526.28f);
-	cube[162].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[162].scale = D3DXVECTOR3(11, 1, 5);
+	cube[162].position = D3DXVECTOR3(131.02f, -202.87f, 618.47f);
+	cube[162].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[162].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[163].position = D3DXVECTOR3(112.55f, -176.54f, 526.79f);
-	cube[163].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[163].position = D3DXVECTOR3(127.77f, -204.59f, 627.42f);
+	cube[163].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[163].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[164].position = D3DXVECTOR3(115.83f, -178.25f, 535.79f);
-	cube[164].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[164].position = D3DXVECTOR3(124.64f, -206.24f, 635.98f);
+	cube[164].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[164].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[165].position = D3DXVECTOR3(119.11f, -179.98f, 544.79f);
-	cube[165].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[165].scale = D3DXVECTOR3(10, 1, 10);
+	cube[165].position = D3DXVECTOR3(122.20f, -207.72f, 642.74f);
+	cube[165].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[165].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[166].position = D3DXVECTOR3(122.33f, -181.67f, 553.63f);
-	cube[166].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[166].position = D3DXVECTOR3(122.47f, -207.85f, 643.47f);
+	cube[166].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[166].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[167].position = D3DXVECTOR3(125.50f, -183.35f, 562.36f);
-	cube[167].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[167].scale = D3DXVECTOR3(10, 1, 10);
+	cube[167].position = D3DXVECTOR3(121.42f, -209.30f, 650.51f);
+	cube[167].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[167].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[168].position = D3DXVECTOR3(128.66f, -185.03f, 571.03f);
-	cube[168].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[168].position = D3DXVECTOR3(121.66f, -209.44f, 650.88f);
+	cube[168].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[168].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[169].position = D3DXVECTOR3(131.90f, -186.77f, 579.96f);
-	cube[169].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[169].scale = D3DXVECTOR3(10, 1, 10);
+	cube[169].position = D3DXVECTOR3(121.77f, -210.86f, 657.88f);
+	cube[169].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[169].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[170].position = D3DXVECTOR3(135.13f, -188.47f, 588.84f);
-	cube[170].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[170].position = D3DXVECTOR3(122.18f, -211.07f, 658.62f);
+	cube[170].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[170].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[171].position = D3DXVECTOR3(138.30f, -190.18f, 597.63f);
-	cube[171].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[171].scale = D3DXVECTOR3(10, 1, 10);
+	cube[171].position = D3DXVECTOR3(123.52f, -212.53f, 665.59f);
+	cube[171].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 10.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[171].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[172].position = D3DXVECTOR3(140.78f, -191.65f, 604.38f);
-	cube[172].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[172].scale = D3DXVECTOR3(11, 1, 5);
+	cube[172].position = D3DXVECTOR3(124.01f, -212.70f, 666.10f);
+	cube[172].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[172].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[173].position = D3DXVECTOR3(141.45f, -191.79f, 604.77f);
-	cube[173].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[173].position = D3DXVECTOR3(152.66f, -227.88f, 744.98f);
+	cube[173].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[173].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[174].position = D3DXVECTOR3(145.23f, -193.23f, 610.81f);
-	cube[174].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[174].scale = D3DXVECTOR3(11, 1, 5);
+	cube[174].position = D3DXVECTOR3(155.94f, -229.61f, 753.98f);
+	cube[174].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[174].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[175].position = D3DXVECTOR3(145.59f, -193.38f, 610.97f);
-	cube[175].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[175].position = D3DXVECTOR3(159.16f, -231.30f, 762.82f);
+	cube[175].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[175].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[176].position = D3DXVECTOR3(150.13f, -194.79f, 616.30f);
-	cube[176].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[176].scale = D3DXVECTOR3(11, 1, 5);
+	cube[176].position = D3DXVECTOR3(162.33f, -232.98f, 771.55f);
+	cube[176].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[176].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[177].position = D3DXVECTOR3(150.96f, -195.01f, 616.56f);
-	cube[177].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[177].position = D3DXVECTOR3(165.49f, -234.66f, 780.22f);
+	cube[177].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[177].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[178].position = D3DXVECTOR3(156.49f, -196.46f, 621.02f);
-	cube[178].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[178].scale = D3DXVECTOR3(11, 1, 5);
+	cube[178].position = D3DXVECTOR3(168.73f, -236.40f, 789.15f);
+	cube[178].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[178].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[179].position = D3DXVECTOR3(157.18f, -196.64f, 621.12f);
-	cube[179].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[179].position = D3DXVECTOR3(171.96f, -238.10f, 798.03f);
+	cube[179].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[179].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[180].position = D3DXVECTOR3(163.30f, -198.05f, 624.46f);
-	cube[180].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[180].scale = D3DXVECTOR3(11, 1, 5);
+	cube[180].position = D3DXVECTOR3(175.13f, -239.81f, 806.82f);
+	cube[180].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[180].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[181].position = D3DXVECTOR3(164.05f, -198.24f, 624.51f);
-	cube[181].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[181].scale = D3DXVECTOR3(10, 1, 10);
+	cube[181].position = D3DXVECTOR3(177.56f, -241.26f, 813.33f);
+	cube[181].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[181].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[182].position = D3DXVECTOR3(171.01f, -199.68f, 626.73f);
-	cube[182].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[182].scale = D3DXVECTOR3(11, 1, 5);
+	cube[182].position = D3DXVECTOR3(178.22f, -241.39f, 813.72f);
+	cube[182].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[182].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[183].position = D3DXVECTOR3(171.48f, -199.88f, 626.67f);
-	cube[183].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[183].scale = D3DXVECTOR3(10, 1, 10);
+	cube[183].position = D3DXVECTOR3(182.00f, -242.84f, 819.76f);
+	cube[183].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[183].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[184].position = D3DXVECTOR3(178.45f, -201.34f, 627.66f);
-	cube[184].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[184].scale = D3DXVECTOR3(11, 1, 5);
+	cube[184].position = D3DXVECTOR3(182.37f, -242.98f, 819.91f);
+	cube[184].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[184].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[185].position = D3DXVECTOR3(178.95f, -201.54f, 627.42f);
-	cube[185].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[185].scale = D3DXVECTOR3(10, 1, 10);
+	cube[185].position = D3DXVECTOR3(186.91f, -244.40f, 825.24f);
+	cube[185].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[185].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[186].position = D3DXVECTOR3(186.09f, -203.01f, 627.33f);
-	cube[186].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[186].scale = D3DXVECTOR3(11, 1, 5);
+	cube[186].position = D3DXVECTOR3(187.74f, -244.61f, 825.51f);
+	cube[186].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[186].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[187].position = D3DXVECTOR3(186.19f, -203.08f, 626.95f);
-	cube[187].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[187].scale = D3DXVECTOR3(10, 1, 10);
+	cube[187].position = D3DXVECTOR3(193.26f, -246.07f, 829.96f);
+	cube[187].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[187].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[188].position = D3DXVECTOR3(195.39f, -204.74f, 625.33f);
-	cube[188].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[188].position = D3DXVECTOR3(193.95f, -246.24f, 830.06f);
+	cube[188].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[188].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[189].position = D3DXVECTOR3(204.72f, -206.43f, 623.69f);
-	cube[189].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[189].scale = D3DXVECTOR3(10, 1, 10);
+	cube[189].position = D3DXVECTOR3(200.07f, -247.66f, 833.41f);
+	cube[189].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[189].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[190].position = D3DXVECTOR3(213.62f, -208.05f, 622.14f);
-	cube[190].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[190].position = D3DXVECTOR3(200.82f, -247.84f, 833.45f);
+	cube[190].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[190].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[191].position = D3DXVECTOR3(220.81f, -209.56f, 621.08f);
-	cube[191].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[191].position = D3DXVECTOR3(207.79f, -249.29f, 835.68f);
+	cube[191].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[191].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[192].position = D3DXVECTOR3(221.64f, -209.74f, 621.32f);
-	cube[192].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[192].position = D3DXVECTOR3(208.25f, -249.48f, 835.61f);
+	cube[192].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[192].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[193].position = D3DXVECTOR3(228.65f, -211.22f, 621.50f);
-	cube[193].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[193].position = D3DXVECTOR3(215.22f, -250.95f, 836.60f);
+	cube[193].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[193].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[194].position = D3DXVECTOR3(229.42f, -211.40f, 621.83f);
-	cube[194].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[194].position = D3DXVECTOR3(215.73f, -251.14f, 836.36f);
+	cube[194].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[194].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[195].position = D3DXVECTOR3(236.19f, -212.85f, 623.29f);
-	cube[195].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[195].position = D3DXVECTOR3(222.86f, -252.62f, 836.28f);
+	cube[195].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[195].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[196].position = D3DXVECTOR3(236.57f, -213.00f, 623.58f);
-	cube[196].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[196].position = D3DXVECTOR3(222.96f, -252.68f, 835.89f);
+	cube[196].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[196].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[197].position = D3DXVECTOR3(242.93f, -214.42f, 626.16f);
-	cube[197].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[197].scale = D3DXVECTOR3(11, 1, 5);
+	cube[197].position = D3DXVECTOR3(232.16f, -254.35f, 834.27f);
+	cube[197].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[197].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[198].position = D3DXVECTOR3(243.70f, -214.65f, 626.70f);
-	cube[198].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[198].position = D3DXVECTOR3(241.49f, -256.04f, 832.63f);
+	cube[198].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[198].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[199].position = D3DXVECTOR3(249.76f, -216.17f, 630.43f);
-	cube[199].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[199].scale = D3DXVECTOR3(11, 1, 5);
+	cube[199].position = D3DXVECTOR3(250.39f, -257.66f, 831.09f);
+	cube[199].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[199].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[200].position = D3DXVECTOR3(250.28f, -216.36f, 631.18f);
-	cube[200].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[200].scale = D3DXVECTOR3(10, 1, 10);
+	cube[200].position = D3DXVECTOR3(257.58f, -259.17f, 830.02f);
+	cube[200].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[200].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[201].position = D3DXVECTOR3(255.12f, -217.72f, 635.54f);
-	cube[201].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[201].scale = D3DXVECTOR3(11, 1, 5);
+	cube[201].position = D3DXVECTOR3(258.41f, -259.35f, 830.26f);
+	cube[201].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[201].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[202].position = D3DXVECTOR3(255.80f, -217.99f, 636.47f);
-	cube[202].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[202].scale = D3DXVECTOR3(10, 1, 10);
+	cube[202].position = D3DXVECTOR3(265.43f, -260.83f, 830.45f);
+	cube[202].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[202].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[203].position = D3DXVECTOR3(259.78f, -219.27f, 641.38f);
-	cube[203].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[203].scale = D3DXVECTOR3(11, 1, 5);
+	cube[203].position = D3DXVECTOR3(266.20f, -261.01f, 830.78f);
+	cube[203].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[203].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[204].position = D3DXVECTOR3(260.42f, -219.62f, 642.81f);
-	cube[204].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[204].scale = D3DXVECTOR3(10, 1, 10);
+	cube[204].position = D3DXVECTOR3(272.96f, -262.46f, 832.24f);
+	cube[204].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[204].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[205].position = D3DXVECTOR3(263.59f, -221.00f, 648.82f);
-	cube[205].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[205].scale = D3DXVECTOR3(11, 1, 5);
+	cube[205].position = D3DXVECTOR3(273.34f, -262.61f, 832.53f);
+	cube[205].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[205].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[206].position = D3DXVECTOR3(263.75f, -221.18f, 649.53f);
-	cube[206].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[206].scale = D3DXVECTOR3(10, 1, 10);
+	cube[206].position = D3DXVECTOR3(279.70f, -264.03f, 835.11f);
+	cube[206].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[206].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[207].position = D3DXVECTOR3(266.93f, -222.85f, 658.24f);
-	cube[207].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[207].position = D3DXVECTOR3(280.47f, -264.26f, 835.65f);
+	cube[207].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[207].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[208].position = D3DXVECTOR3(270.19f, -224.55f, 667.21f);
-	cube[208].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[208].scale = D3DXVECTOR3(10, 1, 10);
+	cube[208].position = D3DXVECTOR3(286.54f, -265.78f, 839.38f);
+	cube[208].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[208].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[209].position = D3DXVECTOR3(273.45f, -226.33f, 676.14f);
-	cube[209].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[209].position = D3DXVECTOR3(287.05f, -265.97f, 840.13f);
+	cube[209].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[209].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[210].position = D3DXVECTOR3(275.93f, -227.80f, 682.89f);
-	cube[210].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[210].position = D3DXVECTOR3(291.90f, -267.33f, 844.49f);
+	cube[210].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[210].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[211].position = D3DXVECTOR3(276.60f, -227.94f, 683.28f);
-	cube[211].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[211].position = D3DXVECTOR3(292.57f, -267.60f, 845.41f);
+	cube[211].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[211].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[212].position = D3DXVECTOR3(280.38f, -229.38f, 689.32f);
-	cube[212].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[212].position = D3DXVECTOR3(296.55f, -268.88f, 850.33f);
+	cube[212].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[212].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[213].position = D3DXVECTOR3(280.74f, -229.53f, 689.48f);
-	cube[213].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[213].position = D3DXVECTOR3(297.19f, -269.23f, 851.76f);
+	cube[213].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[213].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[214].position = D3DXVECTOR3(285.28f, -230.94f, 694.81f);
-	cube[214].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[214].position = D3DXVECTOR3(300.36f, -270.61f, 857.77f);
+	cube[214].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[214].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[215].position = D3DXVECTOR3(286.11f, -231.16f, 695.07f);
-	cube[215].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[215].position = D3DXVECTOR3(300.52f, -270.79f, 858.48f);
+	cube[215].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[215].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[216].position = D3DXVECTOR3(291.64f, -232.61f, 699.53f);
-	cube[216].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[216].scale = D3DXVECTOR3(11, 1, 5);
+	cube[216].position = D3DXVECTOR3(303.70f, -272.46f, 867.18f);
+	cube[216].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[216].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[217].position = D3DXVECTOR3(292.33f, -232.79f, 699.63f);
-	cube[217].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[217].position = D3DXVECTOR3(306.96f, -274.16f, 876.15f);
+	cube[217].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[217].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[218].position = D3DXVECTOR3(298.45f, -234.20f, 702.97f);
-	cube[218].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[218].scale = D3DXVECTOR3(11, 1, 5);
+	cube[218].position = D3DXVECTOR3(310.22f, -275.93f, 885.09f);
+	cube[218].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[218].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[219].position = D3DXVECTOR3(299.20f, -234.39f, 703.02f);
-	cube[219].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[219].scale = D3DXVECTOR3(10, 1, 10);
+	cube[219].position = D3DXVECTOR3(312.71f, -277.41f, 891.84f);
+	cube[219].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[219].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[220].position = D3DXVECTOR3(306.16f, -235.83f, 705.24f);
-	cube[220].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[220].scale = D3DXVECTOR3(11, 1, 5);
+	cube[220].position = D3DXVECTOR3(313.37f, -277.54f, 892.23f);
+	cube[220].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[220].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[221].position = D3DXVECTOR3(306.63f, -236.03f, 705.18f);
-	cube[221].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[221].scale = D3DXVECTOR3(10, 1, 10);
+	cube[221].position = D3DXVECTOR3(317.15f, -278.99f, 898.27f);
+	cube[221].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 30.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[221].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[222].position = D3DXVECTOR3(313.60f, -237.49f, 706.17f);
-	cube[222].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[222].scale = D3DXVECTOR3(11, 1, 5);
+	cube[222].position = D3DXVECTOR3(317.52f, -279.13f, 898.42f);
+	cube[222].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[222].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[223].position = D3DXVECTOR3(314.10f, -237.69f, 705.93f);
-	cube[223].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[223].scale = D3DXVECTOR3(10, 1, 10);
+	cube[223].position = D3DXVECTOR3(322.06f, -280.55f, 903.75f);
+	cube[223].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 40.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[223].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[224].position = D3DXVECTOR3(321.24f, -239.16f, 705.84f);
-	cube[224].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[224].scale = D3DXVECTOR3(11, 1, 5);
+	cube[224].position = D3DXVECTOR3(322.89f, -280.76f, 904.02f);
+	cube[224].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[224].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[225].position = D3DXVECTOR3(321.34f, -239.23f, 705.46f);
-	cube[225].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[225].scale = D3DXVECTOR3(10, 1, 10);
+	cube[225].position = D3DXVECTOR3(328.41f, -282.22f, 908.47f);
+	cube[225].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 50.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[225].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[226].position = D3DXVECTOR3(330.70f, -240.99f, 703.82f);
-	cube[226].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[226].position = D3DXVECTOR3(329.10f, -282.39f, 908.57f);
+	cube[226].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[226].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[227].position = D3DXVECTOR3(337.78f, -242.46f, 702.55f);
-	cube[227].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[227].position = D3DXVECTOR3(335.22f, -283.81f, 911.92f);
+	cube[227].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[227].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[228].position = D3DXVECTOR3(338.28f, -242.60f, 701.96f);
-	cube[228].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[228].position = D3DXVECTOR3(335.97f, -283.99f, 911.96f);
+	cube[228].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[228].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[229].position = D3DXVECTOR3(344.88f, -244.04f, 699.28f);
-	cube[229].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 110.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[229].position = D3DXVECTOR3(342.94f, -285.44f, 914.19f);
+	cube[229].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 70.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[229].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[230].position = D3DXVECTOR3(345.10f, -244.19f, 698.95f);
-	cube[230].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[230].position = D3DXVECTOR3(343.40f, -285.63f, 914.12f);
+	cube[230].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[230].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[231].position = D3DXVECTOR3(351.13f, -245.60f, 695.41f);
-	cube[231].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 120.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[231].position = D3DXVECTOR3(350.37f, -287.10f, 915.11f);
+	cube[231].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[231].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[232].position = D3DXVECTOR3(351.54f, -245.82f, 694.64f);
-	cube[232].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[232].position = D3DXVECTOR3(350.88f, -287.29f, 914.87f);
+	cube[232].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[232].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[233].position = D3DXVECTOR3(356.88f, -247.27f, 689.97f);
-	cube[233].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 130.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[233].position = D3DXVECTOR3(358.01f, -288.77f, 914.79f);
+	cube[233].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[233].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[234].position = D3DXVECTOR3(357.10f, -247.45f, 689.31f);
-	cube[234].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[234].position = D3DXVECTOR3(358.11f, -288.83f, 914.40f);
+	cube[234].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[234].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[235].position = D3DXVECTOR3(361.46f, -248.86f, 683.86f);
-	cube[235].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 140.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[235].scale = D3DXVECTOR3(11, 1, 5);
+	cube[235].position = D3DXVECTOR3(367.50f, -290.56f, 912.75f);
+	cube[235].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[235].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[236].position = D3DXVECTOR3(361.64f, -249.05f, 683.13f);
-	cube[236].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[236].scale = D3DXVECTOR3(10, 1, 10);
+	cube[236].position = D3DXVECTOR3(374.58f, -292.04f, 911.47f);
+	cube[236].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[236].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[237].position = D3DXVECTOR3(365.04f, -250.49f, 676.66f);
-	cube[237].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 150.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[237].scale = D3DXVECTOR3(11, 1, 5);
+	cube[237].position = D3DXVECTOR3(375.08f, -292.17f, 910.88f);
+	cube[237].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[237].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[238].position = D3DXVECTOR3(365.05f, -250.69f, 676.19f);
-	cube[238].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[238].scale = D3DXVECTOR3(10.00001, 1, 10.00001);
+	cube[238].position = D3DXVECTOR3(381.69f, -293.62f, 908.21f);
+	cube[238].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 110.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[238].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[239].position = D3DXVECTOR3(367.24f, -252.15f, 669.50f);
-	cube[239].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 160.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[239].scale = D3DXVECTOR3(11, 1, 5);
+	cube[239].position = D3DXVECTOR3(381.90f, -293.76f, 907.88f);
+	cube[239].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[239].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[240].position = D3DXVECTOR3(367.09f, -252.35f, 668.96f);
-	cube[240].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[240].scale = D3DXVECTOR3(10.00001, 1, 10.00001);
+	cube[240].position = D3DXVECTOR3(387.94f, -295.18f, 904.33f);
+	cube[240].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 120.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[240].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[241].position = D3DXVECTOR3(368.25f, -253.82f, 661.92f);
-	cube[241].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 170.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[241].scale = D3DXVECTOR3(11, 1, 5);
+	cube[241].position = D3DXVECTOR3(388.34f, -295.39f, 903.56f);
+	cube[241].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[241].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[242].position = D3DXVECTOR3(367.88f, -253.89f, 661.75f);
-	cube[242].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[242].scale = D3DXVECTOR3(10, 1, 10);
+	cube[242].position = D3DXVECTOR3(393.69f, -296.85f, 898.89f);
+	cube[242].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 130.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[242].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[243].position = D3DXVECTOR3(367.88f, -255.56f, 652.39f);
-	cube[243].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[243].position = D3DXVECTOR3(393.91f, -297.02f, 898.23f);
+	cube[243].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[243].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[244].position = D3DXVECTOR3(367.88f, -257.31f, 642.85f);
-	cube[244].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[244].scale = D3DXVECTOR3(10, 1, 10);
+	cube[244].position = D3DXVECTOR3(398.27f, -298.44f, 892.78f);
+	cube[244].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 140.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[244].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[245].position = D3DXVECTOR3(367.88f, -259.01f, 633.46f);
-	cube[245].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[245].position = D3DXVECTOR3(398.44f, -298.62f, 892.05f);
+	cube[245].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[245].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[246].position = D3DXVECTOR3(367.88f, -260.66f, 624.30f);
-	cube[246].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[246].scale = D3DXVECTOR3(10, 1, 10);
+	cube[246].position = D3DXVECTOR3(401.84f, -300.07f, 885.58f);
+	cube[246].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 150.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[246].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[247].position = D3DXVECTOR3(367.88f, -262.40f, 614.72f);
-	cube[247].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[247].scale = D3DXVECTOR3(10, 1, 10);
+	cube[247].position = D3DXVECTOR3(401.86f, -300.26f, 885.11f);
+	cube[247].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[247].scale = D3DXVECTOR3(10.00001, 1, 10.00001);
 
-	cube[248].position = D3DXVECTOR3(367.87f, -263.99f, 605.99f);
-	cube[248].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[248].scale = D3DXVECTOR3(10, 1, 10);
+	cube[248].position = D3DXVECTOR3(404.04f, -301.73f, 878.42f);
+	cube[248].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 160.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[248].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[249].position = D3DXVECTOR3(367.86f, -265.46f, 598.80f);
-	cube[249].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[249].scale = D3DXVECTOR3(11, 1, 5);
+	cube[249].position = D3DXVECTOR3(403.90f, -301.92f, 877.88f);
+	cube[249].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[249].scale = D3DXVECTOR3(10.00001, 1, 10.00001);
 
-	cube[250].position = D3DXVECTOR3(367.35f, -265.60f, 598.21f);
-	cube[250].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[250].scale = D3DXVECTOR3(10, 1, 10);
+	cube[250].position = D3DXVECTOR3(405.05f, -303.40f, 870.84f);
+	cube[250].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 170.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[250].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[251].position = D3DXVECTOR3(365.94f, -267.04f, 591.23f);
-	cube[251].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 190.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[251].scale = D3DXVECTOR3(11, 1, 5);
+	cube[251].position = D3DXVECTOR3(404.69f, -303.46f, 870.67f);
+	cube[251].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[251].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[252].position = D3DXVECTOR3(365.58f, -267.19f, 590.97f);
-	cube[252].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[252].position = D3DXVECTOR3(404.61f, -315.22f, 805.90f);
+	cube[252].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[252].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[253].position = D3DXVECTOR3(363.09f, -268.60f, 584.43f);
-	cube[253].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 200.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[253].scale = D3DXVECTOR3(11, 1, 5);
+	cube[253].position = D3DXVECTOR3(404.61f, -316.97f, 796.36f);
+	cube[253].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[253].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[254].position = D3DXVECTOR3(362.45f, -268.82f, 583.87f);
-	cube[254].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[254].position = D3DXVECTOR3(404.61f, -318.67f, 786.97f);
+	cube[254].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[254].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[255].position = D3DXVECTOR3(358.81f, -270.27f, 577.78f);
-	cube[255].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 210.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[255].scale = D3DXVECTOR3(11, 1, 5);
+	cube[255].position = D3DXVECTOR3(404.61f, -320.32f, 777.81f);
+	cube[255].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[255].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[256].position = D3DXVECTOR3(358.16f, -270.45f, 577.46f);
-	cube[256].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[256].position = D3DXVECTOR3(404.61f, -322.06f, 768.23f);
+	cube[256].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[256].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[257].position = D3DXVECTOR3(352.21f, -272.12f, 570.36f);
-	cube[257].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[257].position = D3DXVECTOR3(404.61f, -323.64f, 759.50f);
+	cube[257].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[257].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[258].position = D3DXVECTOR3(347.73f, -273.63f, 564.64f);
-	cube[258].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 220.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[258].position = D3DXVECTOR3(404.61f, -325.19f, 752.47f);
+	cube[258].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[258].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[259].position = D3DXVECTOR3(347.48f, -273.81f, 563.83f);
-	cube[259].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[259].position = D3DXVECTOR3(404.11f, -325.32f, 751.88f);
+	cube[259].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[259].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[260].position = D3DXVECTOR3(344.21f, -275.29f, 557.62f);
-	cube[260].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 210.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[260].position = D3DXVECTOR3(402.69f, -326.77f, 744.90f);
+	cube[260].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 190.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[260].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[261].position = D3DXVECTOR3(344.03f, -275.47f, 556.83f);
+	cube[261].position = D3DXVECTOR3(402.33f, -326.91f, 744.64f);
 	cube[261].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[261].scale = D3DXVECTOR3(10, 1, 10.00001);
+	cube[261].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[262].position = D3DXVECTOR3(341.95f, -276.92f, 550.23f);
-	cube[262].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 200.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[262].position = D3DXVECTOR3(399.84f, -328.33f, 738.10f);
+	cube[262].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 200.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[262].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[263].position = D3DXVECTOR3(341.98f, -277.07f, 549.77f);
-	cube[263].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[263].position = D3DXVECTOR3(399.20f, -328.54f, 737.55f);
+	cube[263].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[263].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[264].position = D3DXVECTOR3(341.23f, -278.45f, 542.94f);
-	cube[264].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 190.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[264].position = D3DXVECTOR3(395.56f, -330.00f, 731.45f);
+	cube[264].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 210.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[264].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[265].position = D3DXVECTOR3(341.12f, -278.72f, 542.04f);
-	cube[265].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[265].position = D3DXVECTOR3(394.92f, -330.17f, 731.14f);
+	cube[265].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[265].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[266].position = D3DXVECTOR3(341.12f, -280.38f, 532.71f);
-	cube[266].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[266].position = D3DXVECTOR3(388.96f, -331.85f, 724.04f);
+	cube[266].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[266].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[267].position = D3DXVECTOR3(341.12f, -282.07f, 523.26f);
-	cube[267].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[267].scale = D3DXVECTOR3(10, 1, 10);
+	cube[267].position = D3DXVECTOR3(384.48f, -333.36f, 718.31f);
+	cube[267].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 220.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[267].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[268].position = D3DXVECTOR3(341.12f, -283.62f, 514.82f);
-	cube[268].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[268].position = D3DXVECTOR3(384.24f, -333.54f, 717.51f);
+	cube[268].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[268].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[269].position = D3DXVECTOR3(341.37f, -285.13f, 507.56f);
-	cube[269].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[269].position = D3DXVECTOR3(380.96f, -335.02f, 711.29f);
+	cube[269].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 210.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[269].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[270].position = D3DXVECTOR3(341.70f, -285.31f, 506.78f);
-	cube[270].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[270].scale = D3DXVECTOR3(10, 1, 10);
+	cube[270].position = D3DXVECTOR3(380.79f, -335.20f, 710.51f);
+	cube[270].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[270].scale = D3DXVECTOR3(10, 1, 10.00001);
 
-	cube[271].position = D3DXVECTOR3(343.18f, -286.79f, 499.92f);
-	cube[271].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 170.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[271].position = D3DXVECTOR3(378.70f, -336.65f, 703.91f);
+	cube[271].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 200.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[271].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[272].position = D3DXVECTOR3(343.56f, -286.97f, 499.20f);
-	cube[272].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[272].scale = D3DXVECTOR3(10, 1, 10.00001);
+	cube[272].position = D3DXVECTOR3(378.74f, -336.80f, 703.44f);
+	cube[272].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[272].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[273].position = D3DXVECTOR3(346.20f, -288.42f, 492.81f);
-	cube[273].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 160.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[273].position = D3DXVECTOR3(377.99f, -338.18f, 696.61f);
+	cube[273].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 190.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[273].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[274].position = D3DXVECTOR3(346.53f, -288.57f, 492.47f);
-	cube[274].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[274].position = D3DXVECTOR3(377.87f, -338.45f, 695.71f);
+	cube[274].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[274].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[275].position = D3DXVECTOR3(350.34f, -289.95f, 486.76f);
-	cube[275].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 150.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[275].scale = D3DXVECTOR3(11, 1, 5);
+	cube[275].position = D3DXVECTOR3(377.87f, -340.11f, 686.38f);
+	cube[275].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[275].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[276].position = D3DXVECTOR3(350.84f, -290.22f, 485.99f);
-	cube[276].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[276].position = D3DXVECTOR3(377.87f, -341.80f, 676.93f);
+	cube[276].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[276].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[277].position = D3DXVECTOR3(356.98f, -291.94f, 478.65f);
-	cube[277].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[277].scale = D3DXVECTOR3(10.00001, 1, 10.00001);
+	cube[277].position = D3DXVECTOR3(377.88f, -343.35f, 668.49f);
+	cube[277].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[277].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[278].position = D3DXVECTOR3(363.03f, -293.64f, 471.44f);
-	cube[278].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[278].scale = D3DXVECTOR3(10.00001, 1, 10.00001);
+	cube[278].position = D3DXVECTOR3(378.13f, -344.86f, 661.23f);
+	cube[278].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[278].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[279].position = D3DXVECTOR3(369.15f, -295.37f, 464.14f);
-	cube[279].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[279].scale = D3DXVECTOR3(10.00001, 1, 10.00001);
+	cube[279].position = D3DXVECTOR3(378.46f, -345.04f, 660.46f);
+	cube[279].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[279].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[280].position = D3DXVECTOR3(375.26f, -297.12f, 456.91f);
-	cube[280].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[280].scale = D3DXVECTOR3(10.00001, 1, 10.00001);
+	cube[280].position = D3DXVECTOR3(379.94f, -346.52f, 653.59f);
+	cube[280].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 170.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[280].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[281].position = D3DXVECTOR3(380.11f, -298.63f, 451.50f);
-	cube[281].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 140.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[281].scale = D3DXVECTOR3(11.00001, 1, 5);
+	cube[281].position = D3DXVECTOR3(380.31f, -346.70f, 652.88f);
+	cube[281].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[281].scale = D3DXVECTOR3(10, 1, 10.00001);
 
-	cube[282].position = D3DXVECTOR3(380.88f, -298.81f, 451.13f);
-	cube[282].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[282].scale = D3DXVECTOR3(10, 1, 10);
+	cube[282].position = D3DXVECTOR3(382.96f, -348.15f, 646.48f);
+	cube[282].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 160.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[282].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[283].position = D3DXVECTOR3(386.37f, -300.29f, 446.76f);
-	cube[283].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 130.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[283].scale = D3DXVECTOR3(11.00001, 1, 5);
+	cube[283].position = D3DXVECTOR3(383.28f, -348.30f, 646.15f);
+	cube[283].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[283].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[284].position = D3DXVECTOR3(387.17f, -300.47f, 446.51f);
-	cube[284].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[284].scale = D3DXVECTOR3(10.00001, 1, 10.00001);
+	cube[284].position = D3DXVECTOR3(387.10f, -349.68f, 640.43f);
+	cube[284].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 150.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[284].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[285].position = D3DXVECTOR3(393.30f, -301.92f, 443.31f);
-	cube[285].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 120.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[285].scale = D3DXVECTOR3(11, 1, 5);
+	cube[285].position = D3DXVECTOR3(387.59f, -349.95f, 639.67f);
+	cube[285].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[285].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[286].position = D3DXVECTOR3(393.77f, -302.07f, 443.27f);
-	cube[286].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[286].scale = D3DXVECTOR3(10, 1, 10);
+	cube[286].position = D3DXVECTOR3(393.74f, -351.67f, 632.32f);
+	cube[286].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[286].scale = D3DXVECTOR3(10.00001, 1, 10.00001);
 
-	cube[287].position = D3DXVECTOR3(400.31f, -303.49f, 441.19f);
-	cube[287].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 110.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[287].scale = D3DXVECTOR3(11, 1, 5);
+	cube[287].position = D3DXVECTOR3(399.79f, -353.37f, 625.11f);
+	cube[287].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[287].scale = D3DXVECTOR3(10.00001, 1, 10.00001);
 
-	cube[288].position = D3DXVECTOR3(401.24f, -303.72f, 441.07f);
-	cube[288].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[288].scale = D3DXVECTOR3(10, 1, 10);
+	cube[288].position = D3DXVECTOR3(405.91f, -355.10f, 617.81f);
+	cube[288].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[288].scale = D3DXVECTOR3(10.00001, 1, 10.00001);
 
-	cube[289].position = D3DXVECTOR3(408.30f, -305.24f, 440.11f);
-	cube[289].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[289].scale = D3DXVECTOR3(11, 1, 5);
+	cube[289].position = D3DXVECTOR3(412.02f, -356.85f, 610.58f);
+	cube[289].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[289].scale = D3DXVECTOR3(10.00001, 1, 10.00001);
 
-	cube[290].position = D3DXVECTOR3(409.16f, -305.43f, 440.27f);
-	cube[290].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[290].scale = D3DXVECTOR3(10, 1, 10);
+	cube[290].position = D3DXVECTOR3(416.87f, -358.36f, 605.17f);
+	cube[290].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 140.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[290].scale = D3DXVECTOR3(11.00001, 1, 5);
 
-	cube[291].position = D3DXVECTOR3(415.67f, -306.79f, 440.38f);
-	cube[291].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[291].scale = D3DXVECTOR3(11, 1, 5);
+	cube[291].position = D3DXVECTOR3(417.63f, -358.54f, 604.80f);
+	cube[291].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[291].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[292].position = D3DXVECTOR3(416.78f, -307.06f, 440.77f);
-	cube[292].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[292].scale = D3DXVECTOR3(10, 1, 10);
+	cube[292].position = D3DXVECTOR3(423.12f, -360.02f, 600.43f);
+	cube[292].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 130.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[292].scale = D3DXVECTOR3(11.00001, 1, 5);
 
-	cube[293].position = D3DXVECTOR3(425.96f, -308.74f, 442.40f);
-	cube[293].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[293].scale = D3DXVECTOR3(10, 1, 10);
+	cube[293].position = D3DXVECTOR3(423.92f, -360.20f, 600.19f);
+	cube[293].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[293].scale = D3DXVECTOR3(10.00001, 1, 10.00001);
 
-	cube[294].position = D3DXVECTOR3(435.51f, -310.50f, 444.08f);
-	cube[294].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[294].scale = D3DXVECTOR3(10, 1, 10);
+	cube[294].position = D3DXVECTOR3(430.05f, -361.65f, 596.98f);
+	cube[294].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 120.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[294].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[295].position = D3DXVECTOR3(444.89f, -312.22f, 445.74f);
-	cube[295].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[295].position = D3DXVECTOR3(430.52f, -361.80f, 596.94f);
+	cube[295].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[295].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[296].position = D3DXVECTOR3(454.33f, -313.95f, 447.40f);
-	cube[296].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[296].scale = D3DXVECTOR3(10, 1, 10);
+	cube[296].position = D3DXVECTOR3(437.07f, -363.22f, 594.86f);
+	cube[296].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 110.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[296].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[297].position = D3DXVECTOR3(463.73f, -315.66f, 449.07f);
-	cube[297].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[297].position = D3DXVECTOR3(437.99f, -363.45f, 594.75f);
+	cube[297].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[297].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[298].position = D3DXVECTOR3(473.28f, -317.40f, 450.74f);
-	cube[298].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[298].scale = D3DXVECTOR3(10, 1, 10);
+	cube[298].position = D3DXVECTOR3(445.05f, -364.97f, 593.78f);
+	cube[298].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[298].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[299].position = D3DXVECTOR3(482.57f, -319.08f, 452.38f);
-	cube[299].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[299].position = D3DXVECTOR3(445.91f, -365.16f, 593.95f);
+	cube[299].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[299].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[300].position = D3DXVECTOR3(491.98f, -320.79f, 454.04f);
-	cube[300].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	cube[300].scale = D3DXVECTOR3(10, 1, 10);
+	cube[300].position = D3DXVECTOR3(452.43f, -366.52f, 594.06f);
+	cube[300].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[300].scale = D3DXVECTOR3(11, 1, 5);
 
-	cube[301].position = D3DXVECTOR3(501.37f, -322.50f, 455.70f);
+	cube[301].position = D3DXVECTOR3(453.54f, -366.79f, 594.45f);
 	cube[301].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[301].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[302].position = D3DXVECTOR3(510.73f, -324.20f, 457.35f);
+	cube[302].position = D3DXVECTOR3(462.66f, -368.50f, 596.03f);
 	cube[302].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[302].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[303].position = D3DXVECTOR3(5.70f, -10.22f, 2.16f);
-	cube[303].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[303].scale = D3DXVECTOR3(3, 1, 10);
+	cube[303].position = D3DXVECTOR3(472.21f, -370.26f, 597.71f);
+	cube[303].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[303].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[304].position = D3DXVECTOR3(7.02f, -9.07f, 2.37f);
-	cube[304].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[304].scale = D3DXVECTOR3(3, 1, 10);
+	cube[304].position = D3DXVECTOR3(481.59f, -371.98f, 599.37f);
+	cube[304].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[304].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[305].position = D3DXVECTOR3(5.70f, -11.88f, 11.16f);
-	cube[305].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[305].scale = D3DXVECTOR3(3, 1, 10);
+	cube[305].position = D3DXVECTOR3(491.03f, -373.71f, 601.03f);
+	cube[305].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[305].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[306].position = D3DXVECTOR3(7.02f, -10.73f, 11.37f);
-	cube[306].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[306].scale = D3DXVECTOR3(3, 1, 10);
+	cube[306].position = D3DXVECTOR3(498.72f, -375.09f, 602.42f);
+	cube[306].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[306].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[307].position = D3DXVECTOR3(5.70f, -13.47f, 19.86f);
-	cube[307].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[307].scale = D3DXVECTOR3(3, 1, 10);
+	cube[307].position = D3DXVECTOR3(508.27f, -376.83f, 604.09f);
+	cube[307].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[307].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[308].position = D3DXVECTOR3(7.02f, -12.32f, 20.07f);
-	cube[308].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[308].scale = D3DXVECTOR3(3, 1, 10);
+	cube[308].position = D3DXVECTOR3(517.56f, -378.51f, 605.73f);
+	cube[308].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[308].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[309].position = D3DXVECTOR3(5.70f, -15.15f, 28.96f);
-	cube[309].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[309].scale = D3DXVECTOR3(3, 1, 10);
+	cube[309].position = D3DXVECTOR3(526.97f, -380.22f, 607.39f);
+	cube[309].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[309].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[310].position = D3DXVECTOR3(7.02f, -14.00f, 29.17f);
-	cube[310].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[310].scale = D3DXVECTOR3(3, 1, 10);
+	cube[310].position = D3DXVECTOR3(536.36f, -381.93f, 609.05f);
+	cube[310].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[310].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[311].position = D3DXVECTOR3(5.70f, -16.94f, 38.36f);
-	cube[311].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[311].scale = D3DXVECTOR3(3, 1, 10);
+	cube[311].position = D3DXVECTOR3(545.72f, -383.63f, 610.70f);
+	cube[311].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[311].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[312].position = D3DXVECTOR3(7.02f, -15.79f, 38.57f);
-	cube[312].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[312].scale = D3DXVECTOR3(3, 1, 10);
+	cube[312].position = D3DXVECTOR3(-74.94f, -60.12f, 224.37f);
+	cube[312].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[312].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[313].position = D3DXVECTOR3(5.70f, -18.62f, 47.66f);
-	cube[313].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[313].scale = D3DXVECTOR3(3, 1, 10);
+	cube[313].position = D3DXVECTOR3(-82.90f, -61.85f, 228.98f);
+	cube[313].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[313].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[314].position = D3DXVECTOR3(7.02f, -17.47f, 47.87f);
-	cube[314].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[314].scale = D3DXVECTOR3(3, 1, 10);
+	cube[314].position = D3DXVECTOR3(-90.20f, -63.40f, 233.18f);
+	cube[314].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[314].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[315].position = D3DXVECTOR3(5.70f, -20.41f, 57.36f);
-	cube[315].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[315].scale = D3DXVECTOR3(3, 1, 10);
+	cube[315].position = D3DXVECTOR3(-97.50f, -64.92f, 237.38f);
+	cube[315].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[315].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[316].position = D3DXVECTOR3(7.02f, -19.26f, 57.57f);
-	cube[316].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[316].scale = D3DXVECTOR3(3, 1, 10);
+	cube[316].position = D3DXVECTOR3(-105.40f, -66.65f, 241.98f);
+	cube[316].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[316].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[317].position = D3DXVECTOR3(5.70f, -22.00f, 66.16f);
-	cube[317].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[317].scale = D3DXVECTOR3(3, 1, 10);
+	cube[317].position = D3DXVECTOR3(-113.26f, -68.29f, 246.45f);
+	cube[317].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[317].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[318].position = D3DXVECTOR3(7.02f, -20.85f, 66.37f);
-	cube[318].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[318].scale = D3DXVECTOR3(3, 1, 10);
+	cube[318].position = D3DXVECTOR3(2.74f, -143.10f, 383.79f);
+	cube[318].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[318].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[319].position = D3DXVECTOR3(5.70f, -23.37f, 73.77f);
-	cube[319].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[319].scale = D3DXVECTOR3(3, 1, 10);
+	cube[319].position = D3DXVECTOR3(10.77f, -144.79f, 388.44f);
+	cube[319].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[319].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[320].position = D3DXVECTOR3(7.02f, -22.22f, 73.98f);
-	cube[320].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[320].scale = D3DXVECTOR3(3, 1, 10);
+	cube[320].position = D3DXVECTOR3(19.03f, -146.51f, 393.20f);
+	cube[320].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[320].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[321].position = D3DXVECTOR3(5.01f, -25.06f, 82.85f);
-	cube[321].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[321].scale = D3DXVECTOR3(3, 1, 10);
+	cube[321].position = D3DXVECTOR3(27.15f, -148.21f, 397.87f);
+	cube[321].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[321].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[322].position = D3DXVECTOR3(6.27f, -23.91f, 83.28f);
-	cube[322].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[322].scale = D3DXVECTOR3(3, 1, 10);
+	cube[322].position = D3DXVECTOR3(35.25f, -149.88f, 402.53f);
+	cube[322].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[322].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[323].position = D3DXVECTOR3(2.87f, -26.72f, 91.43f);
-	cube[323].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[323].scale = D3DXVECTOR3(3, 1, 10);
+	cube[323].position = D3DXVECTOR3(43.55f, -151.58f, 407.31f);
+	cube[323].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[323].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[324].position = D3DXVECTOR3(4.04f, -25.57f, 92.07f);
-	cube[324].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[324].scale = D3DXVECTOR3(3, 1, 10);
+	cube[324].position = D3DXVECTOR3(51.13f, -153.15f, 411.63f);
+	cube[324].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[324].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[325].position = D3DXVECTOR3(-0.56f, -28.32f, 99.09f);
-	cube[325].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[325].scale = D3DXVECTOR3(3, 1, 10);
+	cube[325].position = D3DXVECTOR3(127.25f, -214.44f, 675.10f);
+	cube[325].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[325].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[326].position = D3DXVECTOR3(0.48f, -27.17f, 99.93f);
-	cube[326].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[326].scale = D3DXVECTOR3(3, 1, 10);
+	cube[326].position = D3DXVECTOR3(130.53f, -216.17f, 684.10f);
+	cube[326].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[326].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[327].position = D3DXVECTOR3(-5.48f, -29.97f, 106.41f);
-	cube[327].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[327].scale = D3DXVECTOR3(3, 1, 10);
+	cube[327].position = D3DXVECTOR3(133.75f, -217.86f, 692.94f);
+	cube[327].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[327].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[328].position = D3DXVECTOR3(-4.60f, -28.82f, 107.42f);
-	cube[328].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[328].scale = D3DXVECTOR3(3, 1, 10);
+	cube[328].position = D3DXVECTOR3(136.92f, -219.54f, 701.67f);
+	cube[328].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[328].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[329].position = D3DXVECTOR3(-11.78f, -31.68f, 112.84f);
-	cube[329].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[329].scale = D3DXVECTOR3(3, 1, 10);
+	cube[329].position = D3DXVECTOR3(140.08f, -221.22f, 710.34f);
+	cube[329].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[329].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[330].position = D3DXVECTOR3(-11.09f, -30.53f, 113.99f);
-	cube[330].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[330].scale = D3DXVECTOR3(3, 1, 10);
+	cube[330].position = D3DXVECTOR3(143.32f, -222.96f, 719.27f);
+	cube[330].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[330].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[331].position = D3DXVECTOR3(-18.80f, -33.31f, 117.94f);
-	cube[331].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[331].scale = D3DXVECTOR3(3, 1, 10);
+	cube[331].position = D3DXVECTOR3(146.55f, -224.66f, 728.15f);
+	cube[331].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[331].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[332].position = D3DXVECTOR3(-18.32f, -32.16f, 119.19f);
-	cube[332].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[332].scale = D3DXVECTOR3(3, 1, 10);
+	cube[332].position = D3DXVECTOR3(149.72f, -226.36f, 736.95f);
+	cube[332].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[332].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[333].position = D3DXVECTOR3(-26.89f, -35.03f, 122.62f);
-	cube[333].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[333].scale = D3DXVECTOR3(3, 1, 10);
+	cube[333].position = D3DXVECTOR3(404.66f, -305.18f, 861.25f);
+	cube[333].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[333].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[334].position = D3DXVECTOR3(-26.41f, -33.88f, 123.86f);
-	cube[334].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[334].scale = D3DXVECTOR3(3, 1, 10);
+	cube[334].position = D3DXVECTOR3(404.66f, -306.93f, 851.71f);
+	cube[334].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[334].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[335].position = D3DXVECTOR3(-34.85f, -36.76f, 127.23f);
-	cube[335].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[335].scale = D3DXVECTOR3(3, 1, 10);
+	cube[335].position = D3DXVECTOR3(404.66f, -308.63f, 842.32f);
+	cube[335].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[335].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[336].position = D3DXVECTOR3(-34.37f, -35.61f, 128.47f);
-	cube[336].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[336].scale = D3DXVECTOR3(3, 1, 10);
+	cube[336].position = D3DXVECTOR3(404.66f, -310.28f, 833.16f);
+	cube[336].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[336].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[337].position = D3DXVECTOR3(-42.15f, -38.31f, 131.43f);
-	cube[337].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[337].scale = D3DXVECTOR3(3, 1, 10);
+	cube[337].position = D3DXVECTOR3(404.66f, -312.02f, 823.58f);
+	cube[337].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[337].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[338].position = D3DXVECTOR3(-41.67f, -37.16f, 132.67f);
-	cube[338].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[338].scale = D3DXVECTOR3(3, 1, 10);
+	cube[338].position = D3DXVECTOR3(404.66f, -313.61f, 814.85f);
+	cube[338].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[338].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[339].position = D3DXVECTOR3(-49.45f, -39.83f, 135.63f);
-	cube[339].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[339].scale = D3DXVECTOR3(3, 1, 10);
+	cube[339].position = D3DXVECTOR3(554.83f, -385.34f, 612.32f);
+	cube[339].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[339].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[340].position = D3DXVECTOR3(-48.97f, -38.68f, 136.87f);
-	cube[340].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[340].scale = D3DXVECTOR3(3, 1, 10);
+	cube[340].position = D3DXVECTOR3(564.38f, -387.10f, 614.00f);
+	cube[340].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[340].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[341].position = D3DXVECTOR3(-57.35f, -41.56f, 140.23f);
-	cube[341].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[341].scale = D3DXVECTOR3(3, 1, 10);
+	cube[341].position = D3DXVECTOR3(573.76f, -388.82f, 615.66f);
+	cube[341].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[341].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[342].position = D3DXVECTOR3(-56.87f, -40.41f, 141.47f);
-	cube[342].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[342].scale = D3DXVECTOR3(3, 1, 10);
+	cube[342].position = D3DXVECTOR3(583.20f, -390.55f, 617.32f);
+	cube[342].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[342].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[343].position = D3DXVECTOR3(-65.20f, -43.20f, 144.69f);
-	cube[343].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[343].scale = D3DXVECTOR3(3, 1, 10);
+	cube[343].position = D3DXVECTOR3(590.89f, -391.93f, 618.71f);
+	cube[343].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[343].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[344].position = D3DXVECTOR3(-64.73f, -42.05f, 145.94f);
-	cube[344].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[344].scale = D3DXVECTOR3(3, 1, 10);
+	cube[344].position = D3DXVECTOR3(600.44f, -393.67f, 620.38f);
+	cube[344].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[344].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[345].position = D3DXVECTOR3(-73.41f, -44.89f, 148.63f);
-	cube[345].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[345].scale = D3DXVECTOR3(3, 1, 10);
+	cube[345].position = D3DXVECTOR3(609.73f, -395.35f, 622.02f);
+	cube[345].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[345].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[346].position = D3DXVECTOR3(-73.15f, -43.74f, 149.95f);
-	cube[346].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[346].scale = D3DXVECTOR3(3, 1, 10);
+	cube[346].position = D3DXVECTOR3(619.14f, -397.06f, 623.68f);
+	cube[346].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[346].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[347].position = D3DXVECTOR3(-81.91f, -46.55f, 151.07f);
-	cube[347].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[347].scale = D3DXVECTOR3(3, 1, 10);
+	cube[347].position = D3DXVECTOR3(628.53f, -398.77f, 625.34f);
+	cube[347].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[347].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[348].position = D3DXVECTOR3(-81.88f, -45.40f, 152.41f);
-	cube[348].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[348].scale = D3DXVECTOR3(3, 1, 10);
+	cube[348].position = D3DXVECTOR3(637.89f, -400.47f, 626.99f);
+	cube[348].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	cube[348].scale = D3DXVECTOR3(10, 1, 10);
 
-	cube[349].position = D3DXVECTOR3(-90.26f, -48.15f, 151.94f);
-	cube[349].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[349].position = D3DXVECTOR3(5.70f, -10.22f, 2.16f);
+	cube[349].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[349].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[350].position = D3DXVECTOR3(-90.47f, -47.00f, 153.26f);
-	cube[350].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[350].position = D3DXVECTOR3(7.02f, -9.07f, 2.37f);
+	cube[350].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[350].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[351].position = D3DXVECTOR3(-99.06f, -49.80f, 151.34f);
-	cube[351].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[351].position = D3DXVECTOR3(5.70f, -11.88f, 11.16f);
+	cube[351].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[351].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[352].position = D3DXVECTOR3(-99.49f, -48.65f, 152.60f);
-	cube[352].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[352].position = D3DXVECTOR3(7.02f, -10.73f, 11.37f);
+	cube[352].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[352].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[353].position = D3DXVECTOR3(-105.72f, -51.10f, 150.15f);
-	cube[353].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[353].position = D3DXVECTOR3(5.70f, -13.47f, 19.86f);
+	cube[353].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[353].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[354].position = D3DXVECTOR3(-106.15f, -49.95f, 151.42f);
-	cube[354].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[354].position = D3DXVECTOR3(7.02f, -12.32f, 20.07f);
+	cube[354].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[354].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[355].position = D3DXVECTOR3(-112.44f, -52.71f, 149.42f);
-	cube[355].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[355].position = D3DXVECTOR3(5.70f, -15.15f, 28.96f);
+	cube[355].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[355].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[356].position = D3DXVECTOR3(-113.31f, -52.81f, 149.12f);
-	cube[356].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[356].scale = D3DXVECTOR3(3, 1, 7);
+	cube[356].position = D3DXVECTOR3(7.02f, -14.00f, 29.17f);
+	cube[356].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[356].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[357].position = D3DXVECTOR3(-112.65f, -51.56f, 150.74f);
-	cube[357].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[357].position = D3DXVECTOR3(5.70f, -16.94f, 38.36f);
+	cube[357].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[357].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[358].position = D3DXVECTOR3(-113.82f, -51.57f, 150.65f);
-	cube[358].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[358].scale = D3DXVECTOR3(5, 1, 6.500002);
+	cube[358].position = D3DXVECTOR3(7.02f, -15.79f, 38.57f);
+	cube[358].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[358].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[359].position = D3DXVECTOR3(-118.84f, -54.30f, 149.84f);
-	cube[359].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[359].position = D3DXVECTOR3(5.70f, -18.62f, 47.66f);
+	cube[359].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[359].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[360].position = D3DXVECTOR3(-120.16f, -54.39f, 149.88f);
-	cube[360].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[360].scale = D3DXVECTOR3(3, 1, 7);
+	cube[360].position = D3DXVECTOR3(7.02f, -17.47f, 47.87f);
+	cube[360].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[360].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[361].position = D3DXVECTOR3(-118.82f, -53.15f, 151.17f);
-	cube[361].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[361].position = D3DXVECTOR3(5.70f, -20.41f, 57.36f);
+	cube[361].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[361].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[362].position = D3DXVECTOR3(-120.44f, -53.30f, 151.23f);
-	cube[362].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[362].scale = D3DXVECTOR3(5, 1, 6.500002);
+	cube[362].position = D3DXVECTOR3(7.02f, -19.26f, 57.57f);
+	cube[362].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[362].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[363].position = D3DXVECTOR3(-125.36f, -55.93f, 151.44f);
-	cube[363].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[363].position = D3DXVECTOR3(5.70f, -22.00f, 66.16f);
+	cube[363].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[363].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[364].position = D3DXVECTOR3(-126.61f, -55.98f, 151.76f);
-	cube[364].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[364].scale = D3DXVECTOR3(3, 1, 7);
+	cube[364].position = D3DXVECTOR3(7.02f, -20.85f, 66.37f);
+	cube[364].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[364].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[365].position = D3DXVECTOR3(-125.10f, -54.78f, 152.75f);
-	cube[365].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[365].position = D3DXVECTOR3(5.70f, -23.37f, 73.77f);
+	cube[365].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[365].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[366].position = D3DXVECTOR3(-126.41f, -54.89f, 153.02f);
-	cube[366].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[366].scale = D3DXVECTOR3(5, 1, 7);
+	cube[366].position = D3DXVECTOR3(7.02f, -22.22f, 73.98f);
+	cube[366].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[366].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[367].position = D3DXVECTOR3(-131.46f, -57.56f, 154.11f);
-	cube[367].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[367].position = D3DXVECTOR3(5.14f, -39.91f, 163.68f);
+	cube[367].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[367].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[368].position = D3DXVECTOR3(-132.62f, -57.62f, 154.64f);
-	cube[368].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[368].scale = D3DXVECTOR3(3, 1, 7);
+	cube[368].position = D3DXVECTOR3(6.40f, -38.76f, 164.12f);
+	cube[368].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[368].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[369].position = D3DXVECTOR3(-130.98f, -56.41f, 155.36f);
-	cube[369].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[369].position = D3DXVECTOR3(3.00f, -41.57f, 172.26f);
+	cube[369].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[369].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[370].position = D3DXVECTOR3(-132.22f, -56.53f, 155.86f);
-	cube[370].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[370].scale = D3DXVECTOR3(5, 1, 7);
+	cube[370].position = D3DXVECTOR3(4.16f, -40.42f, 172.91f);
+	cube[370].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[370].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[371].position = D3DXVECTOR3(-136.97f, -59.16f, 157.79f);
-	cube[371].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[371].position = D3DXVECTOR3(-0.43f, -43.17f, 179.93f);
+	cube[371].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[371].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[372].position = D3DXVECTOR3(-137.93f, -59.21f, 158.43f);
-	cube[372].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[372].scale = D3DXVECTOR3(3, 1, 7);
+	cube[372].position = D3DXVECTOR3(0.61f, -42.02f, 180.77f);
+	cube[372].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[372].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[373].position = D3DXVECTOR3(-136.28f, -58.01f, 158.93f);
-	cube[373].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[373].position = D3DXVECTOR3(-5.35f, -44.82f, 187.25f);
+	cube[373].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[373].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[374].position = D3DXVECTOR3(-137.34f, -58.11f, 159.56f);
-	cube[374].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[374].scale = D3DXVECTOR3(5, 1, 7);
+	cube[374].position = D3DXVECTOR3(-4.47f, -43.67f, 188.26f);
+	cube[374].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[374].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[375].position = D3DXVECTOR3(-141.81f, -60.80f, 162.42f);
-	cube[375].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[375].position = D3DXVECTOR3(-11.65f, -46.53f, 193.68f);
+	cube[375].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[375].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[376].position = D3DXVECTOR3(-142.55f, -60.81f, 163.10f);
-	cube[376].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[376].scale = D3DXVECTOR3(3, 1, 7);
+	cube[376].position = D3DXVECTOR3(-10.96f, -45.38f, 194.82f);
+	cube[376].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[376].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[377].position = D3DXVECTOR3(-140.93f, -59.65f, 163.42f);
-	cube[377].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[377].position = D3DXVECTOR3(-18.67f, -48.16f, 198.78f);
+	cube[377].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[377].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[378].position = D3DXVECTOR3(-141.91f, -59.74f, 164.29f);
-	cube[378].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[378].scale = D3DXVECTOR3(5, 1, 6.500003);
+	cube[378].position = D3DXVECTOR3(-18.19f, -47.01f, 200.03f);
+	cube[378].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[378].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[379].position = D3DXVECTOR3(-145.59f, -62.46f, 167.67f);
-	cube[379].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[379].position = D3DXVECTOR3(-26.15f, -49.75f, 203.15f);
+	cube[379].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[379].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[380].position = D3DXVECTOR3(-146.35f, -62.47f, 168.68f);
-	cube[380].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[380].scale = D3DXVECTOR3(3, 1, 7);
+	cube[380].position = D3DXVECTOR3(-25.67f, -48.60f, 204.40f);
+	cube[380].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[380].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[381].position = D3DXVECTOR3(-144.55f, -61.31f, 168.51f);
-	cube[381].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[381].position = D3DXVECTOR3(-34.11f, -51.48f, 207.76f);
+	cube[381].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[381].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[382].position = D3DXVECTOR3(-145.51f, -61.44f, 169.74f);
-	cube[382].rotation = D3DXVECTOR3(16.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[382].scale = D3DXVECTOR3(5, 1, 6.500002);
+	cube[382].position = D3DXVECTOR3(-33.63f, -50.33f, 209.01f);
+	cube[382].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[382].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[383].position = D3DXVECTOR3(-148.34f, -64.00f, 173.24f);
-	cube[383].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[383].position = D3DXVECTOR3(-41.41f, -53.03f, 211.96f);
+	cube[383].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[383].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[384].position = D3DXVECTOR3(-148.90f, -64.04f, 174.35f);
-	cube[384].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[384].scale = D3DXVECTOR3(3, 1, 7);
+	cube[384].position = D3DXVECTOR3(-40.93f, -51.88f, 213.21f);
+	cube[384].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[384].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[385].position = D3DXVECTOR3(-147.17f, -62.85f, 173.89f);
-	cube[385].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[385].position = D3DXVECTOR3(-48.71f, -54.55f, 216.16f);
+	cube[385].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[385].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[386].position = D3DXVECTOR3(-147.88f, -62.99f, 175.24f);
-	cube[386].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[386].scale = D3DXVECTOR3(5, 1, 6.500001);
+	cube[386].position = D3DXVECTOR3(-48.23f, -53.40f, 217.41f);
+	cube[386].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[386].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[387].position = D3DXVECTOR3(-150.82f, -65.36f, 179.94f);
-	cube[387].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[387].position = D3DXVECTOR3(-56.61f, -56.28f, 220.76f);
+	cube[387].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[387].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[388].position = D3DXVECTOR3(-149.65f, -64.21f, 180.58f);
-	cube[388].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[388].position = D3DXVECTOR3(-56.13f, -55.13f, 222.01f);
+	cube[388].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[388].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[389].position = D3DXVECTOR3(-152.71f, -66.97f, 186.43f);
-	cube[389].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[389].position = D3DXVECTOR3(-64.47f, -57.92f, 225.23f);
+	cube[389].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[389].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[390].position = D3DXVECTOR3(-153.16f, -67.07f, 187.24f);
-	cube[390].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[390].scale = D3DXVECTOR3(3, 1, 7);
+	cube[390].position = D3DXVECTOR3(-63.99f, -56.77f, 226.48f);
+	cube[390].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[390].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[391].position = D3DXVECTOR3(-151.44f, -65.82f, 186.86f);
-	cube[391].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[391].position = D3DXVECTOR3(-118.39f, -69.36f, 255.56f);
+	cube[391].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[391].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[392].position = D3DXVECTOR3(-151.73f, -65.83f, 188.00f);
-	cube[392].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[392].scale = D3DXVECTOR3(5, 1, 6.5);
+	cube[392].position = D3DXVECTOR3(-118.14f, -68.21f, 256.88f);
+	cube[392].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[392].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[393].position = D3DXVECTOR3(-153.41f, -68.56f, 192.80f);
-	cube[393].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[393].position = D3DXVECTOR3(-126.89f, -71.02f, 258.00f);
+	cube[393].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[393].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[394].position = D3DXVECTOR3(-153.59f, -68.65f, 194.11f);
-	cube[394].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[394].scale = D3DXVECTOR3(3, 1, 7);
+	cube[394].position = D3DXVECTOR3(-126.87f, -69.87f, 259.34f);
+	cube[394].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[394].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[395].position = D3DXVECTOR3(-152.09f, -67.41f, 193.01f);
-	cube[395].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[395].position = D3DXVECTOR3(-135.24f, -72.62f, 258.87f);
+	cube[395].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[395].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[396].position = D3DXVECTOR3(-152.31f, -67.56f, 194.62f);
-	cube[396].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[396].scale = D3DXVECTOR3(5, 1, 6.5);
+	cube[396].position = D3DXVECTOR3(-135.45f, -71.47f, 260.19f);
+	cube[396].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[396].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[397].position = D3DXVECTOR3(-152.97f, -70.19f, 199.50f);
-	cube[397].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[397].position = D3DXVECTOR3(-144.04f, -74.27f, 258.27f);
+	cube[397].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[397].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[398].position = D3DXVECTOR3(-152.87f, -70.24f, 200.79f);
-	cube[398].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 10.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[398].scale = D3DXVECTOR3(3, 1, 7);
+	cube[398].position = D3DXVECTOR3(-144.48f, -73.12f, 259.53f);
+	cube[398].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[398].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[399].position = D3DXVECTOR3(-151.63f, -69.04f, 199.48f);
-	cube[399].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[399].position = D3DXVECTOR3(-150.70f, -75.57f, 257.08f);
+	cube[399].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[399].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[400].position = D3DXVECTOR3(-151.59f, -69.15f, 200.81f);
-	cube[400].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 10.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[400].scale = D3DXVECTOR3(5, 1, 7);
+	cube[400].position = D3DXVECTOR3(-151.14f, -74.42f, 258.34f);
+	cube[400].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[400].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[401].position = D3DXVECTOR3(-151.39f, -71.82f, 205.98f);
-	cube[401].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[401].position = D3DXVECTOR3(-157.42f, -77.18f, 256.35f);
+	cube[401].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[401].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[402].position = D3DXVECTOR3(-151.07f, -71.88f, 207.21f);
-	cube[402].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[402].position = D3DXVECTOR3(-158.30f, -77.28f, 256.05f);
+	cube[402].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[402].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[403].position = D3DXVECTOR3(-150.08f, -70.67f, 205.72f);
-	cube[403].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[403].position = D3DXVECTOR3(-157.63f, -76.03f, 257.67f);
+	cube[403].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[403].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[404].position = D3DXVECTOR3(-149.80f, -70.79f, 207.03f);
-	cube[404].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[404].scale = D3DXVECTOR3(5, 1, 7);
+	cube[404].position = D3DXVECTOR3(-158.80f, -76.04f, 257.58f);
+	cube[404].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[404].scale = D3DXVECTOR3(5, 1, 6.500002);
 
-	cube[405].position = D3DXVECTOR3(-148.73f, -73.42f, 212.04f);
-	cube[405].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[405].position = D3DXVECTOR3(-163.82f, -78.77f, 256.77f);
+	cube[405].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[405].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[406].position = D3DXVECTOR3(-148.26f, -73.47f, 213.10f);
-	cube[406].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 30.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[406].position = D3DXVECTOR3(-165.14f, -78.86f, 256.81f);
+	cube[406].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[406].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[407].position = D3DXVECTOR3(-147.48f, -72.27f, 211.56f);
-	cube[407].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[407].position = D3DXVECTOR3(-163.80f, -77.62f, 258.10f);
+	cube[407].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[407].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[408].position = D3DXVECTOR3(-147.04f, -72.37f, 212.71f);
-	cube[408].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 30.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[408].scale = D3DXVECTOR3(5, 1, 7);
+	cube[408].position = D3DXVECTOR3(-165.42f, -77.77f, 258.16f);
+	cube[408].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[408].scale = D3DXVECTOR3(5, 1, 6.500002);
 
-	cube[409].position = D3DXVECTOR3(-145.01f, -75.06f, 217.61f);
-	cube[409].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[409].position = D3DXVECTOR3(-170.34f, -80.40f, 258.37f);
+	cube[409].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[409].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[410].position = D3DXVECTOR3(-144.46f, -75.07f, 218.46f);
-	cube[410].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 40.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[410].position = D3DXVECTOR3(-171.60f, -80.45f, 258.69f);
+	cube[410].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[410].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[411].position = D3DXVECTOR3(-143.86f, -73.91f, 216.92f);
-	cube[411].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[411].position = D3DXVECTOR3(-170.09f, -79.25f, 259.68f);
+	cube[411].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[411].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[412].position = D3DXVECTOR3(-143.18f, -74.00f, 218.04f);
-	cube[412].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 40.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[412].scale = D3DXVECTOR3(5, 1, 6.500001);
+	cube[412].position = D3DXVECTOR3(-171.39f, -79.36f, 259.95f);
+	cube[412].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[412].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[413].position = D3DXVECTOR3(-140.49f, -76.72f, 222.24f);
-	cube[413].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[413].position = D3DXVECTOR3(-176.45f, -82.03f, 261.04f);
+	cube[413].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[413].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[414].position = D3DXVECTOR3(-139.63f, -76.73f, 223.17f);
-	cube[414].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 50.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[414].position = D3DXVECTOR3(-177.61f, -82.09f, 261.57f);
+	cube[414].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[414].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[415].position = D3DXVECTOR3(-139.48f, -75.57f, 221.37f);
-	cube[415].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[415].position = D3DXVECTOR3(-175.97f, -80.88f, 262.29f);
+	cube[415].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[415].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[416].position = D3DXVECTOR3(-138.44f, -75.70f, 222.53f);
-	cube[416].rotation = D3DXVECTOR3(16.00f*3.141592f / 180, 50.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[416].scale = D3DXVECTOR3(5, 1, 6.500002);
+	cube[416].position = D3DXVECTOR3(-177.20f, -81.00f, 262.79f);
+	cube[416].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[416].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[417].position = D3DXVECTOR3(-135.48f, -78.26f, 225.92f);
-	cube[417].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[417].position = D3DXVECTOR3(-181.96f, -83.63f, 264.72f);
+	cube[417].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[417].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[418].position = D3DXVECTOR3(-134.49f, -78.30f, 226.67f);
-	cube[418].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[418].position = D3DXVECTOR3(-182.92f, -83.68f, 265.36f);
+	cube[418].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[418].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[419].position = D3DXVECTOR3(-134.64f, -77.11f, 224.89f);
-	cube[419].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[419].position = D3DXVECTOR3(-181.27f, -82.48f, 265.86f);
+	cube[419].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[419].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[420].position = D3DXVECTOR3(-133.43f, -77.25f, 225.82f);
-	cube[420].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[420].scale = D3DXVECTOR3(5, 1, 6.500001);
+	cube[420].position = D3DXVECTOR3(-182.33f, -82.58f, 266.49f);
+	cube[420].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[420].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[421].position = D3DXVECTOR3(-127.75f, -79.94f, 230.40f);
-	cube[421].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[421].position = D3DXVECTOR3(-186.79f, -85.27f, 269.35f);
+	cube[421].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[421].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[422].position = D3DXVECTOR3(-126.91f, -78.79f, 229.36f);
-	cube[422].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[422].scale = D3DXVECTOR3(3, 1, 10);
+	cube[422].position = D3DXVECTOR3(-187.54f, -85.28f, 270.03f);
+	cube[422].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[422].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[423].position = D3DXVECTOR3(-119.67f, -81.64f, 235.07f);
-	cube[423].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[423].position = D3DXVECTOR3(-185.92f, -84.12f, 270.35f);
+	cube[423].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[423].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[424].position = D3DXVECTOR3(-118.83f, -80.49f, 234.03f);
-	cube[424].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[424].scale = D3DXVECTOR3(3, 1, 10);
+	cube[424].position = D3DXVECTOR3(-186.90f, -84.21f, 271.22f);
+	cube[424].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[424].scale = D3DXVECTOR3(5, 1, 6.500003);
 
-	cube[425].position = D3DXVECTOR3(-111.17f, -83.39f, 240.00f);
-	cube[425].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[425].position = D3DXVECTOR3(-190.57f, -86.93f, 274.60f);
+	cube[425].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[425].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[426].position = D3DXVECTOR3(-110.33f, -82.24f, 238.96f);
-	cube[426].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[426].scale = D3DXVECTOR3(3, 1, 10);
+	cube[426].position = D3DXVECTOR3(-191.34f, -86.94f, 275.61f);
+	cube[426].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[426].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[427].position = D3DXVECTOR3(-103.12f, -85.05f, 244.72f);
-	cube[427].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[427].position = D3DXVECTOR3(-189.53f, -85.78f, 275.44f);
+	cube[427].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[427].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[428].position = D3DXVECTOR3(-102.28f, -83.90f, 243.68f);
-	cube[428].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[428].scale = D3DXVECTOR3(3, 1, 10);
+	cube[428].position = D3DXVECTOR3(-190.50f, -85.91f, 276.67f);
+	cube[428].rotation = D3DXVECTOR3(16.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[428].scale = D3DXVECTOR3(5, 1, 6.500002);
 
-	cube[429].position = D3DXVECTOR3(-97.05f, -86.66f, 247.71f);
-	cube[429].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[429].position = D3DXVECTOR3(-193.33f, -88.47f, 280.17f);
+	cube[429].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[429].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[430].position = D3DXVECTOR3(-96.34f, -86.76f, 248.29f);
-	cube[430].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[430].position = D3DXVECTOR3(-193.89f, -88.51f, 281.28f);
+	cube[430].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[430].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[431].position = D3DXVECTOR3(-96.40f, -85.51f, 246.54f);
-	cube[431].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[431].position = D3DXVECTOR3(-192.16f, -87.32f, 280.82f);
+	cube[431].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[431].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[432].position = D3DXVECTOR3(-95.34f, -85.52f, 247.02f);
-	cube[432].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[432].scale = D3DXVECTOR3(5, 1, 6.5);
+	cube[432].position = D3DXVECTOR3(-192.87f, -87.46f, 282.17f);
+	cube[432].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[432].scale = D3DXVECTOR3(5, 1, 6.500001);
 
-	cube[433].position = D3DXVECTOR3(-90.90f, -88.25f, 249.51f);
-	cube[433].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[433].position = D3DXVECTOR3(-195.80f, -89.83f, 286.86f);
+	cube[433].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[433].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[434].position = D3DXVECTOR3(-89.64f, -88.34f, 249.92f);
-	cube[434].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[434].scale = D3DXVECTOR3(3, 1, 7);
+	cube[434].position = D3DXVECTOR3(-194.64f, -88.68f, 287.51f);
+	cube[434].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[434].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[435].position = D3DXVECTOR3(-90.46f, -87.10f, 248.24f);
-	cube[435].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[435].position = D3DXVECTOR3(-197.69f, -91.44f, 293.36f);
+	cube[435].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[435].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[436].position = D3DXVECTOR3(-88.92f, -87.25f, 248.74f);
-	cube[436].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[436].scale = D3DXVECTOR3(5, 1, 6.5);
+	cube[436].position = D3DXVECTOR3(-198.14f, -91.54f, 294.17f);
+	cube[436].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[436].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[437].position = D3DXVECTOR3(-84.22f, -89.88f, 250.23f);
-	cube[437].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[437].position = D3DXVECTOR3(-196.43f, -90.29f, 293.79f);
+	cube[437].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[437].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[438].position = D3DXVECTOR3(-82.93f, -89.93f, 250.36f);
-	cube[438].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[438].scale = D3DXVECTOR3(3, 1, 7);
+	cube[438].position = D3DXVECTOR3(-196.72f, -90.30f, 294.93f);
+	cube[438].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[438].scale = D3DXVECTOR3(5, 1, 6.5);
 
-	cube[439].position = D3DXVECTOR3(-84.01f, -88.73f, 248.91f);
-	cube[439].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[439].position = D3DXVECTOR3(-198.39f, -93.03f, 299.73f);
+	cube[439].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[439].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[440].position = D3DXVECTOR3(-82.69f, -88.84f, 249.10f);
-	cube[440].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[440].scale = D3DXVECTOR3(5, 1, 7);
+	cube[440].position = D3DXVECTOR3(-198.58f, -93.12f, 301.04f);
+	cube[440].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[440].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[441].position = D3DXVECTOR3(-77.57f, -91.51f, 249.80f);
-	cube[441].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[441].position = D3DXVECTOR3(-197.07f, -91.88f, 299.94f);
+	cube[441].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[441].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[442].position = D3DXVECTOR3(-76.30f, -91.57f, 249.71f);
-	cube[442].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[442].scale = D3DXVECTOR3(3, 1, 7);
+	cube[442].position = D3DXVECTOR3(-197.30f, -92.03f, 301.55f);
+	cube[442].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[442].scale = D3DXVECTOR3(5, 1, 6.5);
 
-	cube[443].position = D3DXVECTOR3(-77.59f, -90.36f, 248.47f);
-	cube[443].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[443].position = D3DXVECTOR3(-197.95f, -94.66f, 306.43f);
+	cube[443].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[443].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[444].position = D3DXVECTOR3(-76.26f, -90.48f, 248.43f);
-	cube[444].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[444].scale = D3DXVECTOR3(5, 1, 7);
+	cube[444].position = D3DXVECTOR3(-197.85f, -94.71f, 307.72f);
+	cube[444].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 10.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[444].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[445].position = D3DXVECTOR3(-68.29f, -93.21f, 248.17f);
-	cube[445].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[445].position = D3DXVECTOR3(-196.61f, -93.51f, 306.41f);
+	cube[445].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[445].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[446].position = D3DXVECTOR3(-68.32f, -92.06f, 246.83f);
-	cube[446].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[446].scale = D3DXVECTOR3(3, 1, 10);
+	cube[446].position = D3DXVECTOR3(-196.57f, -93.62f, 307.74f);
+	cube[446].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 10.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[446].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[447].position = D3DXVECTOR3(-59.24f, -94.90f, 247.27f);
-	cube[447].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[447].position = D3DXVECTOR3(-196.37f, -96.29f, 312.91f);
+	cube[447].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[447].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[448].position = D3DXVECTOR3(-59.03f, -93.75f, 245.95f);
-	cube[448].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[448].scale = D3DXVECTOR3(3, 1, 10);
+	cube[448].position = D3DXVECTOR3(-196.06f, -96.35f, 314.14f);
+	cube[448].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[448].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[449].position = D3DXVECTOR3(-50.42f, -96.56f, 247.89f);
-	cube[449].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[449].position = D3DXVECTOR3(-195.06f, -95.14f, 312.65f);
+	cube[449].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[449].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[450].position = D3DXVECTOR3(-49.98f, -95.41f, 246.63f);
-	cube[450].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[450].scale = D3DXVECTOR3(3, 1, 10);
+	cube[450].position = D3DXVECTOR3(-194.79f, -95.26f, 313.96f);
+	cube[450].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[450].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[451].position = D3DXVECTOR3(-42.27f, -98.16f, 249.93f);
-	cube[451].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[451].position = D3DXVECTOR3(-193.71f, -97.89f, 318.97f);
+	cube[451].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[451].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[452].position = D3DXVECTOR3(-41.62f, -97.01f, 248.76f);
-	cube[452].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[452].scale = D3DXVECTOR3(3, 1, 10);
+	cube[452].position = D3DXVECTOR3(-193.24f, -97.94f, 320.03f);
+	cube[452].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 30.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[452].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[453].position = D3DXVECTOR3(-34.21f, -99.81f, 253.50f);
-	cube[453].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[453].position = D3DXVECTOR3(-192.46f, -96.74f, 318.49f);
+	cube[453].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[453].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[454].position = D3DXVECTOR3(-33.37f, -98.66f, 252.46f);
-	cube[454].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[454].scale = D3DXVECTOR3(3, 1, 10);
+	cube[454].position = D3DXVECTOR3(-192.03f, -96.84f, 319.64f);
+	cube[454].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 30.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[454].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[455].position = D3DXVECTOR3(-26.29f, -101.48f, 258.10f);
-	cube[455].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[455].position = D3DXVECTOR3(-189.99f, -99.53f, 324.54f);
+	cube[455].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[455].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[456].position = D3DXVECTOR3(-25.45f, -100.33f, 257.06f);
-	cube[456].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[456].scale = D3DXVECTOR3(3, 1, 10);
+	cube[456].position = D3DXVECTOR3(-189.45f, -99.54f, 325.39f);
+	cube[456].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 40.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[456].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[457].position = D3DXVECTOR3(-20.22f, -103.09f, 261.09f);
-	cube[457].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[457].position = D3DXVECTOR3(-188.85f, -98.38f, 323.85f);
+	cube[457].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[457].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[458].position = D3DXVECTOR3(-19.51f, -103.19f, 261.67f);
-	cube[458].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[458].scale = D3DXVECTOR3(3, 1, 7);
+	cube[458].position = D3DXVECTOR3(-188.16f, -98.47f, 324.97f);
+	cube[458].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 40.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[458].scale = D3DXVECTOR3(5, 1, 6.500001);
 
-	cube[459].position = D3DXVECTOR3(-19.57f, -101.94f, 259.92f);
-	cube[459].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[459].position = D3DXVECTOR3(-185.47f, -101.19f, 329.17f);
+	cube[459].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[459].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[460].position = D3DXVECTOR3(-18.51f, -101.95f, 260.40f);
-	cube[460].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[460].scale = D3DXVECTOR3(5, 1, 6.5);
+	cube[460].position = D3DXVECTOR3(-184.62f, -101.20f, 330.10f);
+	cube[460].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 50.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[460].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[461].position = D3DXVECTOR3(-14.07f, -104.68f, 262.89f);
-	cube[461].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[461].position = D3DXVECTOR3(-184.46f, -100.04f, 328.30f);
+	cube[461].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[461].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[462].position = D3DXVECTOR3(-12.81f, -104.77f, 263.30f);
-	cube[462].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[462].scale = D3DXVECTOR3(3, 1, 7);
+	cube[462].position = D3DXVECTOR3(-183.42f, -100.17f, 329.46f);
+	cube[462].rotation = D3DXVECTOR3(16.00f*3.141592f / 180, 50.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[462].scale = D3DXVECTOR3(5, 1, 6.500002);
 
-	cube[463].position = D3DXVECTOR3(-13.63f, -103.53f, 261.62f);
-	cube[463].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[463].position = D3DXVECTOR3(-180.47f, -102.73f, 332.85f);
+	cube[463].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[463].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[464].position = D3DXVECTOR3(-12.09f, -103.68f, 262.12f);
-	cube[464].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[464].scale = D3DXVECTOR3(5, 1, 6.5);
+	cube[464].position = D3DXVECTOR3(-179.47f, -102.77f, 333.60f);
+	cube[464].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[464].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[465].position = D3DXVECTOR3(-7.39f, -106.31f, 263.61f);
-	cube[465].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[465].position = D3DXVECTOR3(-179.63f, -101.58f, 331.82f);
+	cube[465].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[465].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[466].position = D3DXVECTOR3(-6.10f, -106.36f, 263.74f);
-	cube[466].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[466].scale = D3DXVECTOR3(3, 1, 7);
+	cube[466].position = D3DXVECTOR3(-178.42f, -101.72f, 332.75f);
+	cube[466].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[466].scale = D3DXVECTOR3(5, 1, 6.500001);
 
-	cube[467].position = D3DXVECTOR3(-7.18f, -105.16f, 262.29f);
-	cube[467].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[467].position = D3DXVECTOR3(-172.74f, -104.40f, 337.33f);
+	cube[467].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[467].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[468].position = D3DXVECTOR3(-5.86f, -105.27f, 262.48f);
-	cube[468].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[468].scale = D3DXVECTOR3(5, 1, 7);
+	cube[468].position = D3DXVECTOR3(-171.90f, -103.25f, 336.29f);
+	cube[468].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[468].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[469].position = D3DXVECTOR3(-0.74f, -107.94f, 263.18f);
-	cube[469].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[469].position = D3DXVECTOR3(-164.66f, -106.10f, 342.00f);
+	cube[469].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[469].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[470].position = D3DXVECTOR3(0.53f, -108.00f, 263.09f);
-	cube[470].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[470].scale = D3DXVECTOR3(3, 1, 7);
+	cube[470].position = D3DXVECTOR3(-163.82f, -104.95f, 340.96f);
+	cube[470].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[470].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[471].position = D3DXVECTOR3(-0.76f, -106.79f, 261.85f);
-	cube[471].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[471].position = D3DXVECTOR3(-156.16f, -107.85f, 346.93f);
+	cube[471].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[471].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[472].position = D3DXVECTOR3(0.57f, -106.91f, 261.81f);
-	cube[472].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[472].scale = D3DXVECTOR3(5, 1, 7);
+	cube[472].position = D3DXVECTOR3(-155.32f, -106.70f, 345.89f);
+	cube[472].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[472].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[473].position = D3DXVECTOR3(8.39f, -109.66f, 261.62f);
-	cube[473].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[473].position = D3DXVECTOR3(-148.10f, -109.52f, 351.65f);
+	cube[473].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[473].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[474].position = D3DXVECTOR3(8.36f, -108.51f, 260.28f);
-	cube[474].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[474].position = D3DXVECTOR3(-147.26f, -108.37f, 350.61f);
+	cube[474].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[474].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[475].position = D3DXVECTOR3(17.44f, -111.35f, 260.72f);
-	cube[475].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[475].position = D3DXVECTOR3(-142.04f, -111.13f, 354.64f);
+	cube[475].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[475].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[476].position = D3DXVECTOR3(17.65f, -110.20f, 259.40f);
-	cube[476].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[476].scale = D3DXVECTOR3(3, 1, 10);
+	cube[476].position = D3DXVECTOR3(-141.32f, -111.23f, 355.22f);
+	cube[476].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[476].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[477].position = D3DXVECTOR3(26.26f, -113.01f, 261.34f);
-	cube[477].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[477].position = D3DXVECTOR3(-141.39f, -109.98f, 353.47f);
+	cube[477].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[477].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[478].position = D3DXVECTOR3(26.70f, -111.86f, 260.08f);
-	cube[478].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[478].scale = D3DXVECTOR3(3, 1, 10);
+	cube[478].position = D3DXVECTOR3(-140.32f, -109.99f, 353.95f);
+	cube[478].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[478].scale = D3DXVECTOR3(5, 1, 6.5);
 
-	cube[479].position = D3DXVECTOR3(34.41f, -114.61f, 263.38f);
-	cube[479].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[479].position = D3DXVECTOR3(-135.88f, -112.72f, 356.44f);
+	cube[479].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[479].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[480].position = D3DXVECTOR3(35.06f, -113.46f, 262.21f);
-	cube[480].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[480].scale = D3DXVECTOR3(3, 1, 10);
+	cube[480].position = D3DXVECTOR3(-134.63f, -112.81f, 356.85f);
+	cube[480].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[480].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[481].position = D3DXVECTOR3(42.47f, -116.26f, 266.95f);
-	cube[481].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[481].position = D3DXVECTOR3(-135.45f, -111.57f, 355.17f);
+	cube[481].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[481].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[482].position = D3DXVECTOR3(43.31f, -115.11f, 265.91f);
-	cube[482].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[482].scale = D3DXVECTOR3(3, 1, 10);
+	cube[482].position = D3DXVECTOR3(-133.90f, -111.72f, 355.67f);
+	cube[482].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[482].scale = D3DXVECTOR3(5, 1, 6.5);
 
-	cube[483].position = D3DXVECTOR3(50.43f, -118.00f, 271.54f);
-	cube[483].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[483].position = D3DXVECTOR3(-129.21f, -114.35f, 357.16f);
+	cube[483].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[483].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[484].position = D3DXVECTOR3(51.27f, -116.85f, 270.50f);
-	cube[484].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[484].scale = D3DXVECTOR3(3, 1, 10);
+	cube[484].position = D3DXVECTOR3(-127.92f, -114.40f, 357.29f);
+	cube[484].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[484].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[485].position = D3DXVECTOR3(58.46f, -119.69f, 276.19f);
-	cube[485].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[485].position = D3DXVECTOR3(-129.00f, -113.20f, 355.84f);
+	cube[485].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[485].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[486].position = D3DXVECTOR3(59.30f, -118.54f, 275.15f);
-	cube[486].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[486].scale = D3DXVECTOR3(3, 1, 10);
+	cube[486].position = D3DXVECTOR3(-127.68f, -113.31f, 356.03f);
+	cube[486].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[486].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[487].position = D3DXVECTOR3(66.72f, -121.41f, 280.95f);
-	cube[487].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[487].position = D3DXVECTOR3(-122.56f, -115.98f, 356.73f);
+	cube[487].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[487].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[488].position = D3DXVECTOR3(67.56f, -120.26f, 279.91f);
-	cube[488].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[488].scale = D3DXVECTOR3(3, 1, 10);
+	cube[488].position = D3DXVECTOR3(-121.28f, -116.04f, 356.64f);
+	cube[488].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[488].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[489].position = D3DXVECTOR3(74.84f, -123.11f, 285.62f);
-	cube[489].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[489].position = D3DXVECTOR3(-122.58f, -114.83f, 355.40f);
+	cube[489].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[489].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[490].position = D3DXVECTOR3(75.68f, -121.96f, 284.58f);
-	cube[490].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[490].scale = D3DXVECTOR3(3, 1, 10);
+	cube[490].position = D3DXVECTOR3(-121.25f, -114.95f, 355.35f);
+	cube[490].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[490].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[491].position = D3DXVECTOR3(82.94f, -124.78f, 290.28f);
-	cube[491].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[491].position = D3DXVECTOR3(-113.28f, -117.68f, 355.10f);
+	cube[491].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[491].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[492].position = D3DXVECTOR3(83.78f, -123.63f, 289.24f);
-	cube[492].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[492].position = D3DXVECTOR3(-113.30f, -116.53f, 353.76f);
+	cube[492].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[492].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[493].position = D3DXVECTOR3(91.24f, -126.48f, 295.06f);
-	cube[493].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[493].position = D3DXVECTOR3(-104.22f, -119.37f, 354.20f);
+	cube[493].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[493].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[494].position = D3DXVECTOR3(92.08f, -125.33f, 294.02f);
-	cube[494].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[494].position = D3DXVECTOR3(-104.01f, -118.22f, 352.88f);
+	cube[494].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[494].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[495].position = D3DXVECTOR3(98.81f, -128.05f, 299.38f);
-	cube[495].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[495].position = D3DXVECTOR3(-95.40f, -121.03f, 354.82f);
+	cube[495].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[495].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[496].position = D3DXVECTOR3(99.65f, -126.90f, 298.34f);
-	cube[496].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[496].position = D3DXVECTOR3(-94.97f, -119.88f, 353.56f);
+	cube[496].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[496].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[497].position = D3DXVECTOR3(106.33f, -129.74f, 304.51f);
-	cube[497].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[497].position = D3DXVECTOR3(-87.26f, -122.63f, 356.86f);
+	cube[497].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[497].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[498].position = D3DXVECTOR3(107.33f, -128.59f, 303.64f);
-	cube[498].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[498].position = D3DXVECTOR3(-86.61f, -121.48f, 355.69f);
+	cube[498].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[498].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[499].position = D3DXVECTOR3(112.68f, -131.40f, 310.66f);
-	cube[499].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[499].position = D3DXVECTOR3(-79.19f, -124.28f, 360.43f);
+	cube[499].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[499].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[500].position = D3DXVECTOR3(113.83f, -130.25f, 309.97f);
-	cube[500].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[500].position = D3DXVECTOR3(-78.35f, -123.13f, 359.39f);
+	cube[500].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[500].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[501].position = D3DXVECTOR3(117.61f, -133.00f, 317.45f);
-	cube[501].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[501].position = D3DXVECTOR3(-71.27f, -125.95f, 365.03f);
+	cube[501].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[501].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[502].position = D3DXVECTOR3(118.86f, -131.85f, 316.98f);
-	cube[502].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[502].position = D3DXVECTOR3(-70.43f, -124.80f, 363.99f);
+	cube[502].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[502].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[503].position = D3DXVECTOR3(121.49f, -134.65f, 325.38f);
-	cube[503].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[503].position = D3DXVECTOR3(-65.21f, -127.56f, 368.02f);
+	cube[503].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[503].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[504].position = D3DXVECTOR3(122.81f, -133.50f, 325.12f);
-	cube[504].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[504].scale = D3DXVECTOR3(3, 1, 10);
+	cube[504].position = D3DXVECTOR3(-64.49f, -127.66f, 368.60f);
+	cube[504].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[504].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[505].position = D3DXVECTOR3(124.72f, -136.34f, 334.22f);
-	cube[505].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[505].position = D3DXVECTOR3(-64.56f, -126.41f, 366.85f);
+	cube[505].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[505].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[506].position = D3DXVECTOR3(126.03f, -135.19f, 333.97f);
-	cube[506].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[506].scale = D3DXVECTOR3(3, 1, 10);
+	cube[506].position = D3DXVECTOR3(-63.49f, -126.42f, 367.33f);
+	cube[506].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[506].scale = D3DXVECTOR3(5, 1, 6.5);
 
-	cube[507].position = D3DXVECTOR3(127.80f, -138.00f, 342.69f);
-	cube[507].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[507].position = D3DXVECTOR3(-59.05f, -129.15f, 369.82f);
+	cube[507].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[507].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[508].position = D3DXVECTOR3(129.11f, -136.85f, 342.44f);
-	cube[508].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[508].scale = D3DXVECTOR3(3, 1, 10);
+	cube[508].position = D3DXVECTOR3(-57.80f, -129.24f, 370.23f);
+	cube[508].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[508].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[509].position = D3DXVECTOR3(130.92f, -139.65f, 351.14f);
-	cube[509].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[509].position = D3DXVECTOR3(-58.62f, -128.00f, 368.55f);
+	cube[509].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[509].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[510].position = D3DXVECTOR3(132.24f, -138.50f, 350.89f);
-	cube[510].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[510].scale = D3DXVECTOR3(3, 1, 10);
+	cube[510].position = D3DXVECTOR3(-57.07f, -128.15f, 369.05f);
+	cube[510].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[510].scale = D3DXVECTOR3(5, 1, 6.5);
 
-	cube[511].position = D3DXVECTOR3(133.38f, -141.34f, 359.90f);
-	cube[511].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[511].position = D3DXVECTOR3(-52.38f, -130.78f, 370.54f);
+	cube[511].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[511].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[512].position = D3DXVECTOR3(134.72f, -140.19f, 359.88f);
-	cube[512].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[512].scale = D3DXVECTOR3(3, 1, 10);
+	cube[512].position = D3DXVECTOR3(-51.09f, -130.83f, 370.67f);
+	cube[512].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[512].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[513].position = D3DXVECTOR3(134.30f, -143.00f, 368.70f);
-	cube[513].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[513].position = D3DXVECTOR3(-52.17f, -129.63f, 369.22f);
+	cube[513].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[513].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[514].position = D3DXVECTOR3(135.62f, -141.85f, 368.91f);
-	cube[514].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[514].scale = D3DXVECTOR3(3, 1, 10);
+	cube[514].position = D3DXVECTOR3(-50.85f, -129.74f, 369.41f);
+	cube[514].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[514].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[515].position = D3DXVECTOR3(133.71f, -144.60f, 377.07f);
-	cube[515].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[515].position = D3DXVECTOR3(-45.73f, -132.41f, 370.11f);
+	cube[515].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[515].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[516].position = D3DXVECTOR3(134.97f, -143.45f, 377.51f);
-	cube[516].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[516].scale = D3DXVECTOR3(3, 1, 10);
+	cube[516].position = D3DXVECTOR3(-44.45f, -132.47f, 370.02f);
+	cube[516].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[516].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[517].position = D3DXVECTOR3(131.59f, -146.25f, 385.64f);
-	cube[517].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[517].position = D3DXVECTOR3(-45.75f, -131.26f, 368.78f);
+	cube[517].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[517].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[518].position = D3DXVECTOR3(132.76f, -145.10f, 386.29f);
-	cube[518].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[518].scale = D3DXVECTOR3(3, 1, 10);
+	cube[518].position = D3DXVECTOR3(-44.42f, -131.38f, 368.73f);
+	cube[518].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[518].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[519].position = D3DXVECTOR3(128.27f, -147.98f, 394.71f);
-	cube[519].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[519].position = D3DXVECTOR3(-36.60f, -134.13f, 368.55f);
+	cube[519].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[519].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[520].position = D3DXVECTOR3(129.44f, -146.83f, 395.36f);
-	cube[520].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[520].position = D3DXVECTOR3(-36.62f, -132.98f, 367.21f);
+	cube[520].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[520].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[521].position = D3DXVECTOR3(125.14f, -149.64f, 403.23f);
-	cube[521].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[521].position = D3DXVECTOR3(-27.54f, -135.82f, 367.65f);
+	cube[521].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[521].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[522].position = D3DXVECTOR3(126.31f, -148.49f, 403.87f);
-	cube[522].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[522].position = D3DXVECTOR3(-27.33f, -134.67f, 366.33f);
+	cube[522].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[522].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[523].position = D3DXVECTOR3(123.25f, -151.25f, 409.72f);
-	cube[523].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[523].position = D3DXVECTOR3(-18.72f, -137.48f, 368.27f);
+	cube[523].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[523].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[524].position = D3DXVECTOR3(122.80f, -151.35f, 410.53f);
-	cube[524].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[524].scale = D3DXVECTOR3(3, 1, 7);
+	cube[524].position = D3DXVECTOR3(-18.29f, -136.33f, 367.00f);
+	cube[524].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[524].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[525].position = D3DXVECTOR3(124.52f, -150.10f, 410.15f);
-	cube[525].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[525].position = D3DXVECTOR3(-10.58f, -139.08f, 370.31f);
+	cube[525].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[525].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[526].position = D3DXVECTOR3(124.23f, -150.11f, 411.29f);
-	cube[526].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[526].scale = D3DXVECTOR3(5, 1, 6.5);
+	cube[526].position = D3DXVECTOR3(-9.93f, -137.93f, 369.14f);
+	cube[526].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[526].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[527].position = D3DXVECTOR3(122.55f, -152.84f, 416.09f);
-	cube[527].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[527].position = D3DXVECTOR3(-2.51f, -140.73f, 373.88f);
+	cube[527].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[527].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[528].position = D3DXVECTOR3(122.37f, -152.93f, 417.40f);
-	cube[528].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[528].scale = D3DXVECTOR3(3, 1, 7);
+	cube[528].position = D3DXVECTOR3(-1.67f, -139.58f, 372.84f);
+	cube[528].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[528].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[529].position = D3DXVECTOR3(123.87f, -151.69f, 416.30f);
-	cube[529].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[529].position = D3DXVECTOR3(62.52f, -154.28f, 411.30f);
+	cube[529].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[529].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[530].position = D3DXVECTOR3(123.65f, -151.84f, 417.91f);
-	cube[530].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[530].scale = D3DXVECTOR3(5, 1, 6.5);
+	cube[530].position = D3DXVECTOR3(63.36f, -153.13f, 410.26f);
+	cube[530].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[530].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[531].position = D3DXVECTOR3(122.99f, -154.47f, 422.79f);
-	cube[531].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[531].position = D3DXVECTOR3(70.55f, -155.97f, 415.95f);
+	cube[531].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[531].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[532].position = D3DXVECTOR3(123.09f, -154.52f, 424.08f);
-	cube[532].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 10.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[532].scale = D3DXVECTOR3(3, 1, 7);
+	cube[532].position = D3DXVECTOR3(71.39f, -154.82f, 414.91f);
+	cube[532].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[532].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[533].position = D3DXVECTOR3(124.33f, -153.32f, 422.77f);
-	cube[533].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[533].position = D3DXVECTOR3(78.81f, -157.69f, 420.71f);
+	cube[533].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[533].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[534].position = D3DXVECTOR3(124.37f, -153.43f, 424.10f);
-	cube[534].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 10.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[534].scale = D3DXVECTOR3(5, 1, 7);
+	cube[534].position = D3DXVECTOR3(79.65f, -156.54f, 419.67f);
+	cube[534].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[534].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[535].position = D3DXVECTOR3(124.57f, -156.10f, 429.27f);
-	cube[535].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[535].position = D3DXVECTOR3(86.93f, -159.39f, 425.38f);
+	cube[535].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[535].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[536].position = D3DXVECTOR3(124.89f, -156.16f, 430.50f);
-	cube[536].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[536].scale = D3DXVECTOR3(3, 1, 7);
+	cube[536].position = D3DXVECTOR3(87.77f, -158.24f, 424.34f);
+	cube[536].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[536].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[537].position = D3DXVECTOR3(125.88f, -154.95f, 429.01f);
-	cube[537].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[537].position = D3DXVECTOR3(95.03f, -161.06f, 430.04f);
+	cube[537].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[537].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[538].position = D3DXVECTOR3(126.16f, -155.07f, 430.32f);
-	cube[538].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[538].scale = D3DXVECTOR3(5, 1, 7);
+	cube[538].position = D3DXVECTOR3(95.87f, -159.91f, 429.00f);
+	cube[538].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[538].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[539].position = D3DXVECTOR3(127.70f, -157.77f, 437.90f);
-	cube[539].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[539].position = D3DXVECTOR3(103.33f, -162.76f, 434.82f);
+	cube[539].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[539].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[540].position = D3DXVECTOR3(129.02f, -156.62f, 437.65f);
-	cube[540].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[540].position = D3DXVECTOR3(104.17f, -161.61f, 433.78f);
+	cube[540].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[540].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[541].position = D3DXVECTOR3(130.16f, -159.46f, 446.66f);
-	cube[541].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[541].position = D3DXVECTOR3(110.90f, -164.33f, 439.14f);
+	cube[541].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[541].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[542].position = D3DXVECTOR3(131.50f, -158.31f, 446.64f);
-	cube[542].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[542].position = D3DXVECTOR3(111.75f, -163.18f, 438.10f);
+	cube[542].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[542].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[543].position = D3DXVECTOR3(131.08f, -161.12f, 455.46f);
-	cube[543].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[543].position = D3DXVECTOR3(117.78f, -165.91f, 443.82f);
+	cube[543].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[543].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[544].position = D3DXVECTOR3(132.40f, -159.97f, 455.67f);
-	cube[544].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[544].position = D3DXVECTOR3(118.79f, -164.76f, 442.95f);
+	cube[544].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[544].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[545].position = D3DXVECTOR3(130.49f, -162.72f, 463.83f);
-	cube[545].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[545].position = D3DXVECTOR3(124.14f, -167.57f, 449.97f);
+	cube[545].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[545].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[546].position = D3DXVECTOR3(131.75f, -161.57f, 464.27f);
-	cube[546].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[546].position = D3DXVECTOR3(125.29f, -166.42f, 449.28f);
+	cube[546].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[546].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[547].position = D3DXVECTOR3(128.37f, -164.37f, 472.40f);
-	cube[547].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[547].position = D3DXVECTOR3(129.07f, -169.17f, 456.77f);
+	cube[547].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[547].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[548].position = D3DXVECTOR3(129.54f, -163.22f, 473.05f);
-	cube[548].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[548].position = D3DXVECTOR3(130.32f, -168.02f, 456.29f);
+	cube[548].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[548].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[549].position = D3DXVECTOR3(125.14f, -166.07f, 481.29f);
-	cube[549].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[549].position = D3DXVECTOR3(132.95f, -170.82f, 464.69f);
+	cube[549].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[549].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[550].position = D3DXVECTOR3(126.31f, -164.92f, 481.94f);
-	cube[550].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[550].position = D3DXVECTOR3(134.26f, -169.67f, 464.43f);
+	cube[550].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[550].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[551].position = D3DXVECTOR3(121.89f, -167.79f, 490.24f);
-	cube[551].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[551].position = D3DXVECTOR3(136.18f, -172.51f, 473.54f);
+	cube[551].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[551].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[552].position = D3DXVECTOR3(123.06f, -166.64f, 490.89f);
-	cube[552].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[552].position = D3DXVECTOR3(137.49f, -171.36f, 473.28f);
+	cube[552].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[552].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[553].position = D3DXVECTOR3(118.76f, -169.44f, 498.80f);
-	cube[553].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[553].position = D3DXVECTOR3(139.26f, -174.17f, 482.01f);
+	cube[553].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[553].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[554].position = D3DXVECTOR3(119.93f, -168.29f, 499.44f);
-	cube[554].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[554].position = D3DXVECTOR3(140.57f, -173.02f, 481.75f);
+	cube[554].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[554].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[555].position = D3DXVECTOR3(116.87f, -171.05f, 505.29f);
-	cube[555].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[555].position = D3DXVECTOR3(142.38f, -175.82f, 490.46f);
+	cube[555].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[555].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[556].position = D3DXVECTOR3(116.42f, -171.15f, 506.10f);
-	cube[556].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[556].scale = D3DXVECTOR3(3, 1, 7);
+	cube[556].position = D3DXVECTOR3(143.69f, -174.67f, 490.20f);
+	cube[556].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[556].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[557].position = D3DXVECTOR3(118.14f, -169.90f, 505.72f);
-	cube[557].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[557].position = D3DXVECTOR3(144.84f, -177.51f, 499.22f);
+	cube[557].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[557].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[558].position = D3DXVECTOR3(117.85f, -169.91f, 506.86f);
-	cube[558].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[558].scale = D3DXVECTOR3(5, 1, 6.5);
+	cube[558].position = D3DXVECTOR3(146.18f, -176.36f, 499.19f);
+	cube[558].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[558].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[559].position = D3DXVECTOR3(116.17f, -172.64f, 511.66f);
+	cube[559].position = D3DXVECTOR3(145.76f, -179.17f, 508.01f);
 	cube[559].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[559].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[560].position = D3DXVECTOR3(115.99f, -172.73f, 512.97f);
-	cube[560].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[560].scale = D3DXVECTOR3(3, 1, 7);
+	cube[560].position = D3DXVECTOR3(147.08f, -178.02f, 508.22f);
+	cube[560].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[560].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[561].position = D3DXVECTOR3(117.49f, -171.49f, 511.87f);
-	cube[561].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[561].position = D3DXVECTOR3(145.17f, -180.77f, 516.39f);
+	cube[561].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[561].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[562].position = D3DXVECTOR3(117.27f, -171.64f, 513.48f);
-	cube[562].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[562].scale = D3DXVECTOR3(5, 1, 6.5);
+	cube[562].position = D3DXVECTOR3(146.43f, -179.62f, 516.82f);
+	cube[562].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[562].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[563].position = D3DXVECTOR3(116.61f, -174.27f, 518.36f);
-	cube[563].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[563].position = D3DXVECTOR3(143.05f, -182.42f, 524.95f);
+	cube[563].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[563].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[564].position = D3DXVECTOR3(116.71f, -174.32f, 519.65f);
-	cube[564].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 10.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[564].scale = D3DXVECTOR3(3, 1, 7);
+	cube[564].position = D3DXVECTOR3(144.22f, -181.27f, 525.60f);
+	cube[564].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[564].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[565].position = D3DXVECTOR3(117.95f, -173.12f, 518.34f);
-	cube[565].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[565].position = D3DXVECTOR3(139.73f, -184.15f, 534.02f);
+	cube[565].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[565].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[566].position = D3DXVECTOR3(117.99f, -173.23f, 519.67f);
-	cube[566].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 10.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[566].scale = D3DXVECTOR3(5, 1, 7);
+	cube[566].position = D3DXVECTOR3(140.90f, -183.00f, 534.67f);
+	cube[566].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[566].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[567].position = D3DXVECTOR3(118.19f, -175.90f, 524.84f);
-	cube[567].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[567].position = D3DXVECTOR3(136.60f, -185.81f, 542.54f);
+	cube[567].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[567].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[568].position = D3DXVECTOR3(118.51f, -175.96f, 526.07f);
-	cube[568].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[568].scale = D3DXVECTOR3(3, 1, 7);
+	cube[568].position = D3DXVECTOR3(137.77f, -184.66f, 543.19f);
+	cube[568].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[568].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[569].position = D3DXVECTOR3(119.51f, -174.75f, 524.58f);
-	cube[569].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[569].position = D3DXVECTOR3(134.71f, -187.42f, 549.03f);
+	cube[569].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[569].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[570].position = D3DXVECTOR3(119.78f, -174.87f, 525.89f);
-	cube[570].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[570].scale = D3DXVECTOR3(5, 1, 7);
+	cube[570].position = D3DXVECTOR3(134.26f, -187.52f, 549.84f);
+	cube[570].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[570].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[571].position = D3DXVECTOR3(121.47f, -177.62f, 533.83f);
-	cube[571].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[571].position = D3DXVECTOR3(135.97f, -186.27f, 549.47f);
+	cube[571].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[571].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[572].position = D3DXVECTOR3(122.78f, -176.47f, 533.58f);
-	cube[572].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[572].scale = D3DXVECTOR3(3, 1, 10);
+	cube[572].position = D3DXVECTOR3(135.69f, -186.28f, 550.60f);
+	cube[572].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[572].scale = D3DXVECTOR3(5, 1, 6.5);
 
-	cube[573].position = D3DXVECTOR3(124.75f, -179.35f, 542.83f);
-	cube[573].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[573].position = D3DXVECTOR3(134.01f, -189.01f, 555.40f);
+	cube[573].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[573].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[574].position = D3DXVECTOR3(126.06f, -178.20f, 542.58f);
-	cube[574].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[574].scale = D3DXVECTOR3(3, 1, 10);
+	cube[574].position = D3DXVECTOR3(133.82f, -189.10f, 556.71f);
+	cube[574].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[574].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[575].position = D3DXVECTOR3(127.97f, -181.04f, 551.67f);
-	cube[575].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[575].position = D3DXVECTOR3(135.33f, -187.86f, 555.61f);
+	cube[575].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[575].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[576].position = D3DXVECTOR3(129.28f, -179.89f, 551.42f);
-	cube[576].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[576].scale = D3DXVECTOR3(3, 1, 10);
+	cube[576].position = D3DXVECTOR3(135.11f, -188.01f, 557.22f);
+	cube[576].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[576].scale = D3DXVECTOR3(5, 1, 6.5);
 
-	cube[577].position = D3DXVECTOR3(131.14f, -182.72f, 560.40f);
-	cube[577].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[577].position = D3DXVECTOR3(134.45f, -190.64f, 562.10f);
+	cube[577].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[577].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[578].position = D3DXVECTOR3(132.45f, -181.57f, 560.15f);
-	cube[578].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[578].scale = D3DXVECTOR3(3, 1, 10);
+	cube[578].position = D3DXVECTOR3(134.55f, -190.69f, 563.39f);
+	cube[578].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 10.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[578].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[579].position = D3DXVECTOR3(134.30f, -184.40f, 569.07f);
-	cube[579].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[579].position = D3DXVECTOR3(135.79f, -189.49f, 562.08f);
+	cube[579].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[579].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[580].position = D3DXVECTOR3(135.61f, -183.25f, 568.82f);
-	cube[580].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[580].scale = D3DXVECTOR3(3, 1, 10);
+	cube[580].position = D3DXVECTOR3(135.83f, -189.60f, 563.41f);
+	cube[580].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 10.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[580].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[581].position = D3DXVECTOR3(137.54f, -186.14f, 578.00f);
+	cube[581].position = D3DXVECTOR3(136.03f, -192.27f, 568.58f);
 	cube[581].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[581].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[582].position = D3DXVECTOR3(138.85f, -184.99f, 577.75f);
-	cube[582].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[582].scale = D3DXVECTOR3(3, 1, 10);
+	cube[582].position = D3DXVECTOR3(136.35f, -192.33f, 569.82f);
+	cube[582].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[582].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[583].position = D3DXVECTOR3(140.77f, -187.84f, 586.88f);
-	cube[583].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[583].position = D3DXVECTOR3(137.34f, -191.12f, 568.33f);
+	cube[583].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[583].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[584].position = D3DXVECTOR3(142.08f, -186.69f, 586.63f);
-	cube[584].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[584].scale = D3DXVECTOR3(3, 1, 10);
+	cube[584].position = D3DXVECTOR3(137.62f, -191.24f, 569.63f);
+	cube[584].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[584].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[585].position = D3DXVECTOR3(143.94f, -189.54f, 595.68f);
+	cube[585].position = D3DXVECTOR3(139.16f, -193.94f, 577.22f);
 	cube[585].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[585].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[586].position = D3DXVECTOR3(145.25f, -188.39f, 595.43f);
+	cube[586].position = D3DXVECTOR3(140.47f, -192.79f, 576.96f);
 	cube[586].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[586].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[587].position = D3DXVECTOR3(146.66f, -191.15f, 601.87f);
-	cube[587].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[587].position = D3DXVECTOR3(141.62f, -195.63f, 585.98f);
+	cube[587].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[587].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[588].position = D3DXVECTOR3(146.84f, -191.25f, 602.78f);
-	cube[588].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 30.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[588].scale = D3DXVECTOR3(3, 1, 7);
+	cube[588].position = D3DXVECTOR3(142.96f, -194.48f, 585.95f);
+	cube[588].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[588].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[589].position = D3DXVECTOR3(147.91f, -190.00f, 601.39f);
-	cube[589].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[589].position = D3DXVECTOR3(142.54f, -197.29f, 594.77f);
+	cube[589].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[589].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[590].position = D3DXVECTOR3(148.42f, -190.01f, 602.44f);
-	cube[590].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 30.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[590].scale = D3DXVECTOR3(5, 1, 6.5);
+	cube[590].position = D3DXVECTOR3(143.86f, -196.14f, 594.98f);
+	cube[590].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[590].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[591].position = D3DXVECTOR3(150.22f, -192.74f, 607.20f);
-	cube[591].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[591].position = D3DXVECTOR3(141.95f, -198.89f, 603.15f);
+	cube[591].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[591].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[592].position = D3DXVECTOR3(150.92f, -192.83f, 608.32f);
-	cube[592].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 40.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[592].scale = D3DXVECTOR3(3, 1, 7);
+	cube[592].position = D3DXVECTOR3(143.21f, -197.74f, 603.58f);
+	cube[592].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[592].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[593].position = D3DXVECTOR3(151.37f, -191.59f, 606.51f);
-	cube[593].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[593].position = D3DXVECTOR3(139.83f, -200.54f, 611.71f);
+	cube[593].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[593].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[594].position = D3DXVECTOR3(152.23f, -191.74f, 607.89f);
-	cube[594].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 40.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[594].scale = D3DXVECTOR3(5, 1, 6.5);
+	cube[594].position = D3DXVECTOR3(141.00f, -199.39f, 612.36f);
+	cube[594].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[594].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[595].position = D3DXVECTOR3(154.87f, -194.37f, 612.05f);
-	cube[595].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[595].position = D3DXVECTOR3(136.60f, -202.24f, 620.60f);
+	cube[595].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[595].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[596].position = D3DXVECTOR3(155.78f, -194.42f, 612.97f);
-	cube[596].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 50.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[596].scale = D3DXVECTOR3(3, 1, 7);
+	cube[596].position = D3DXVECTOR3(137.77f, -201.09f, 621.25f);
+	cube[596].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[596].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[597].position = D3DXVECTOR3(155.88f, -193.22f, 611.17f);
-	cube[597].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[597].position = D3DXVECTOR3(133.35f, -203.96f, 629.55f);
+	cube[597].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[597].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[598].position = D3DXVECTOR3(156.77f, -193.33f, 612.17f);
-	cube[598].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 50.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[598].scale = D3DXVECTOR3(5, 1, 7);
+	cube[598].position = D3DXVECTOR3(134.52f, -202.81f, 630.20f);
+	cube[598].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[598].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[599].position = D3DXVECTOR3(160.24f, -196.00f, 616.00f);
-	cube[599].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[599].position = D3DXVECTOR3(130.22f, -205.61f, 638.11f);
+	cube[599].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[599].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[600].position = D3DXVECTOR3(161.28f, -196.06f, 616.74f);
-	cube[600].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[600].scale = D3DXVECTOR3(3, 1, 7);
+	cube[600].position = D3DXVECTOR3(131.39f, -204.46f, 638.76f);
+	cube[600].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[600].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[601].position = D3DXVECTOR3(161.08f, -194.85f, 614.96f);
-	cube[601].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[601].position = D3DXVECTOR3(128.33f, -207.22f, 644.60f);
+	cube[601].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[601].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[602].position = D3DXVECTOR3(162.13f, -194.97f, 615.78f);
-	cube[602].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[602].scale = D3DXVECTOR3(5, 1, 7);
+	cube[602].position = D3DXVECTOR3(127.88f, -207.32f, 645.41f);
+	cube[602].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[602].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[603].position = D3DXVECTOR3(166.18f, -197.60f, 618.93f);
-	cube[603].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[603].position = D3DXVECTOR3(129.59f, -206.07f, 645.04f);
+	cube[603].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[603].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[604].position = D3DXVECTOR3(167.22f, -197.65f, 619.44f);
-	cube[604].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[604].scale = D3DXVECTOR3(3, 1, 7);
+	cube[604].position = D3DXVECTOR3(129.31f, -206.08f, 646.17f);
+	cube[604].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[604].scale = D3DXVECTOR3(5, 1, 6.5);
 
-	cube[605].position = D3DXVECTOR3(166.83f, -196.45f, 617.76f);
-	cube[605].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[605].position = D3DXVECTOR3(127.63f, -208.81f, 650.97f);
+	cube[605].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[605].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[606].position = D3DXVECTOR3(167.90f, -196.55f, 618.36f);
-	cube[606].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[606].scale = D3DXVECTOR3(5, 1, 7);
+	cube[606].position = D3DXVECTOR3(127.44f, -208.90f, 652.28f);
+	cube[606].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[606].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[607].position = D3DXVECTOR3(172.60f, -199.24f, 620.81f);
-	cube[607].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[607].position = D3DXVECTOR3(128.95f, -207.66f, 651.18f);
+	cube[607].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[607].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[608].position = D3DXVECTOR3(173.57f, -199.25f, 621.11f);
-	cube[608].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[608].scale = D3DXVECTOR3(3, 1, 7);
+	cube[608].position = D3DXVECTOR3(128.73f, -207.81f, 652.79f);
+	cube[608].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[608].scale = D3DXVECTOR3(5, 1, 6.5);
 
-	cube[609].position = D3DXVECTOR3(173.04f, -198.09f, 619.54f);
-	cube[609].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[609].position = D3DXVECTOR3(128.07f, -210.44f, 657.67f);
+	cube[609].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[609].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[610].position = D3DXVECTOR3(174.28f, -198.18f, 619.96f);
-	cube[610].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[610].scale = D3DXVECTOR3(5, 1, 6.500002);
+	cube[610].position = D3DXVECTOR3(128.17f, -210.49f, 658.96f);
+	cube[610].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 10.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[610].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[611].position = D3DXVECTOR3(179.05f, -200.90f, 621.45f);
-	cube[611].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[611].position = D3DXVECTOR3(129.41f, -209.29f, 657.65f);
+	cube[611].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[611].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[612].position = D3DXVECTOR3(180.30f, -200.91f, 621.61f);
-	cube[612].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[612].scale = D3DXVECTOR3(3, 1, 7);
+	cube[612].position = D3DXVECTOR3(129.45f, -209.40f, 658.98f);
+	cube[612].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 10.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[612].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[613].position = D3DXVECTOR3(179.26f, -199.75f, 620.13f);
-	cube[613].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[613].position = D3DXVECTOR3(129.65f, -212.07f, 664.15f);
+	cube[613].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[613].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[614].position = D3DXVECTOR3(180.80f, -199.88f, 620.35f);
-	cube[614].rotation = D3DXVECTOR3(16.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[614].scale = D3DXVECTOR3(5, 1, 6.500004);
+	cube[614].position = D3DXVECTOR3(129.97f, -212.13f, 665.39f);
+	cube[614].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[614].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[615].position = D3DXVECTOR3(185.25f, -202.44f, 621.05f);
-	cube[615].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[615].position = D3DXVECTOR3(130.96f, -210.92f, 663.90f);
+	cube[615].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[615].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[616].position = D3DXVECTOR3(186.49f, -202.48f, 620.98f);
-	cube[616].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[616].scale = D3DXVECTOR3(3, 1, 7);
+	cube[616].position = D3DXVECTOR3(131.24f, -211.04f, 665.20f);
+	cube[616].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[616].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[617].position = D3DXVECTOR3(185.22f, -201.29f, 619.72f);
-	cube[617].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[617].position = D3DXVECTOR3(158.30f, -227.25f, 743.02f);
+	cube[617].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[617].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[618].position = D3DXVECTOR3(186.75f, -201.43f, 619.65f);
-	cube[618].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[618].scale = D3DXVECTOR3(5, 1, 6.500002);
+	cube[618].position = D3DXVECTOR3(159.61f, -226.10f, 742.77f);
+	cube[618].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[618].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[619].position = D3DXVECTOR3(194.44f, -204.11f, 619.43f);
-	cube[619].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[619].position = D3DXVECTOR3(161.58f, -228.98f, 752.02f);
+	cube[619].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[619].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[620].position = D3DXVECTOR3(194.42f, -202.96f, 618.10f);
-	cube[620].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[620].position = D3DXVECTOR3(162.89f, -227.83f, 751.77f);
+	cube[620].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[620].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[621].position = D3DXVECTOR3(203.77f, -205.80f, 617.79f);
-	cube[621].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[621].position = D3DXVECTOR3(164.80f, -230.67f, 760.86f);
+	cube[621].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[621].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[622].position = D3DXVECTOR3(203.75f, -204.65f, 616.46f);
-	cube[622].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[622].position = D3DXVECTOR3(166.11f, -229.52f, 760.61f);
+	cube[622].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[622].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[623].position = D3DXVECTOR3(212.68f, -207.42f, 616.25f);
-	cube[623].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[623].position = D3DXVECTOR3(167.97f, -232.35f, 769.59f);
+	cube[623].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[623].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[624].position = D3DXVECTOR3(212.65f, -206.27f, 614.91f);
-	cube[624].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[624].position = D3DXVECTOR3(169.28f, -231.20f, 769.34f);
+	cube[624].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[624].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[625].position = D3DXVECTOR3(221.73f, -209.11f, 615.35f);
-	cube[625].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[625].position = D3DXVECTOR3(171.13f, -234.03f, 778.26f);
+	cube[625].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[625].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[626].position = D3DXVECTOR3(221.94f, -207.96f, 614.03f);
-	cube[626].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[626].position = D3DXVECTOR3(172.44f, -232.88f, 778.01f);
+	cube[626].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[626].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[627].position = D3DXVECTOR3(230.55f, -210.77f, 615.97f);
-	cube[627].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[627].position = D3DXVECTOR3(174.37f, -235.77f, 787.19f);
+	cube[627].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[627].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[628].position = D3DXVECTOR3(230.99f, -209.62f, 614.71f);
-	cube[628].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[628].position = D3DXVECTOR3(175.68f, -234.62f, 786.94f);
+	cube[628].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[628].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[629].position = D3DXVECTOR3(238.70f, -212.37f, 618.01f);
-	cube[629].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[629].position = D3DXVECTOR3(177.60f, -237.47f, 796.07f);
+	cube[629].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[629].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[630].position = D3DXVECTOR3(239.35f, -211.22f, 616.84f);
-	cube[630].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[630].position = D3DXVECTOR3(178.91f, -236.32f, 795.82f);
+	cube[630].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[630].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[631].position = D3DXVECTOR3(246.76f, -214.02f, 621.58f);
-	cube[631].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[631].position = D3DXVECTOR3(180.77f, -239.17f, 804.87f);
+	cube[631].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[631].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[632].position = D3DXVECTOR3(247.60f, -212.87f, 620.54f);
-	cube[632].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[632].position = D3DXVECTOR3(182.08f, -238.02f, 804.62f);
+	cube[632].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[632].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[633].position = D3DXVECTOR3(254.19f, -215.73f, 626.67f);
-	cube[633].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[633].position = D3DXVECTOR3(183.44f, -240.76f, 810.81f);
+	cube[633].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[633].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[634].position = D3DXVECTOR3(255.19f, -214.58f, 625.80f);
-	cube[634].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[634].scale = D3DXVECTOR3(3, 1, 10);
+	cube[634].position = D3DXVECTOR3(183.61f, -240.86f, 811.72f);
+	cube[634].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 30.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[634].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[635].position = D3DXVECTOR3(260.43f, -217.36f, 632.70f);
-	cube[635].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[635].position = D3DXVECTOR3(184.69f, -239.61f, 810.34f);
+	cube[635].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[635].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[636].position = D3DXVECTOR3(261.58f, -216.21f, 632.01f);
-	cube[636].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[636].scale = D3DXVECTOR3(3, 1, 10);
+	cube[636].position = D3DXVECTOR3(185.20f, -239.62f, 811.39f);
+	cube[636].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 30.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[636].scale = D3DXVECTOR3(5, 1, 6.5);
 
-	cube[637].position = D3DXVECTOR3(265.63f, -218.99f, 639.91f);
-	cube[637].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[637].position = D3DXVECTOR3(187.00f, -242.35f, 816.15f);
+	cube[637].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[637].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[638].position = D3DXVECTOR3(266.88f, -217.84f, 639.43f);
-	cube[638].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[638].scale = D3DXVECTOR3(3, 1, 10);
+	cube[638].position = D3DXVECTOR3(187.70f, -242.44f, 817.27f);
+	cube[638].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 40.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[638].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[639].position = D3DXVECTOR3(269.39f, -220.55f, 647.58f);
-	cube[639].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[639].position = D3DXVECTOR3(188.14f, -241.20f, 815.46f);
+	cube[639].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[639].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[640].position = D3DXVECTOR3(270.70f, -219.40f, 647.33f);
-	cube[640].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[640].scale = D3DXVECTOR3(3, 1, 10);
+	cube[640].position = D3DXVECTOR3(189.01f, -241.35f, 816.84f);
+	cube[640].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 40.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[640].scale = D3DXVECTOR3(5, 1, 6.5);
 
-	cube[641].position = D3DXVECTOR3(272.57f, -222.22f, 656.28f);
-	cube[641].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[641].position = D3DXVECTOR3(191.64f, -243.98f, 820.99f);
+	cube[641].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[641].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[642].position = D3DXVECTOR3(273.88f, -221.07f, 656.03f);
-	cube[642].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[642].scale = D3DXVECTOR3(3, 1, 10);
+	cube[642].position = D3DXVECTOR3(192.55f, -244.03f, 821.92f);
+	cube[642].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 50.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[642].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[643].position = D3DXVECTOR3(275.83f, -223.92f, 665.25f);
-	cube[643].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[643].position = D3DXVECTOR3(192.65f, -242.83f, 820.12f);
+	cube[643].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[643].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[644].position = D3DXVECTOR3(277.14f, -222.77f, 665.00f);
-	cube[644].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[644].scale = D3DXVECTOR3(3, 1, 10);
+	cube[644].position = D3DXVECTOR3(193.54f, -242.94f, 821.11f);
+	cube[644].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 50.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[644].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[645].position = D3DXVECTOR3(279.09f, -225.69f, 674.19f);
-	cube[645].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[645].position = D3DXVECTOR3(197.02f, -245.61f, 824.94f);
+	cube[645].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[645].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[646].position = D3DXVECTOR3(280.40f, -224.54f, 673.94f);
-	cube[646].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[646].scale = D3DXVECTOR3(3, 1, 10);
+	cube[646].position = D3DXVECTOR3(198.05f, -245.67f, 825.69f);
+	cube[646].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[646].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[647].position = D3DXVECTOR3(281.81f, -227.30f, 680.38f);
-	cube[647].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[647].position = D3DXVECTOR3(197.86f, -244.46f, 823.90f);
+	cube[647].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[647].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[648].position = D3DXVECTOR3(281.99f, -227.40f, 681.29f);
-	cube[648].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 30.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[648].scale = D3DXVECTOR3(3, 1, 7);
+	cube[648].position = D3DXVECTOR3(198.90f, -244.58f, 824.73f);
+	cube[648].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[648].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[649].position = D3DXVECTOR3(283.06f, -226.15f, 679.90f);
-	cube[649].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[649].position = D3DXVECTOR3(202.95f, -247.21f, 827.88f);
+	cube[649].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[649].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[650].position = D3DXVECTOR3(283.57f, -226.16f, 680.95f);
-	cube[650].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 30.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[650].scale = D3DXVECTOR3(5, 1, 6.5);
+	cube[650].position = D3DXVECTOR3(203.99f, -247.26f, 828.39f);
+	cube[650].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[650].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[651].position = D3DXVECTOR3(285.37f, -228.89f, 685.71f);
-	cube[651].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[651].position = D3DXVECTOR3(203.60f, -246.06f, 826.71f);
+	cube[651].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[651].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[652].position = D3DXVECTOR3(286.07f, -228.98f, 686.83f);
-	cube[652].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 40.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[652].scale = D3DXVECTOR3(3, 1, 7);
+	cube[652].position = D3DXVECTOR3(204.67f, -246.16f, 827.31f);
+	cube[652].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[652].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[653].position = D3DXVECTOR3(286.52f, -227.74f, 685.02f);
-	cube[653].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[653].position = D3DXVECTOR3(209.38f, -248.85f, 829.75f);
+	cube[653].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[653].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[654].position = D3DXVECTOR3(287.38f, -227.89f, 686.40f);
-	cube[654].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 40.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[654].scale = D3DXVECTOR3(5, 1, 6.5);
+	cube[654].position = D3DXVECTOR3(210.35f, -248.86f, 830.05f);
+	cube[654].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[654].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[655].position = D3DXVECTOR3(290.02f, -230.52f, 690.56f);
-	cube[655].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[655].position = D3DXVECTOR3(209.81f, -247.70f, 828.49f);
+	cube[655].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[655].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[656].position = D3DXVECTOR3(290.93f, -230.57f, 691.48f);
-	cube[656].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 50.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[656].scale = D3DXVECTOR3(3, 1, 7);
+	cube[656].position = D3DXVECTOR3(211.05f, -247.79f, 828.90f);
+	cube[656].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[656].scale = D3DXVECTOR3(5, 1, 6.500002);
 
-	cube[657].position = D3DXVECTOR3(291.03f, -229.37f, 689.68f);
-	cube[657].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[657].position = D3DXVECTOR3(215.82f, -250.51f, 830.40f);
+	cube[657].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[657].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[658].position = D3DXVECTOR3(291.92f, -229.48f, 690.68f);
-	cube[658].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 50.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[658].scale = D3DXVECTOR3(5, 1, 7);
+	cube[658].position = D3DXVECTOR3(217.07f, -250.52f, 830.55f);
+	cube[658].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[658].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[659].position = D3DXVECTOR3(295.39f, -232.15f, 694.51f);
-	cube[659].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[659].position = D3DXVECTOR3(216.03f, -249.36f, 829.08f);
+	cube[659].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[659].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[660].position = D3DXVECTOR3(296.43f, -232.21f, 695.25f);
-	cube[660].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[660].scale = D3DXVECTOR3(3, 1, 7);
+	cube[660].position = D3DXVECTOR3(217.57f, -249.49f, 829.30f);
+	cube[660].rotation = D3DXVECTOR3(16.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[660].scale = D3DXVECTOR3(5, 1, 6.500004);
 
-	cube[661].position = D3DXVECTOR3(296.23f, -231.00f, 693.47f);
-	cube[661].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[661].position = D3DXVECTOR3(222.02f, -252.05f, 830.00f);
+	cube[661].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[661].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[662].position = D3DXVECTOR3(297.28f, -231.12f, 694.29f);
-	cube[662].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[662].scale = D3DXVECTOR3(5, 1, 7);
+	cube[662].position = D3DXVECTOR3(223.26f, -252.09f, 829.93f);
+	cube[662].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[662].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[663].position = D3DXVECTOR3(301.33f, -233.75f, 697.44f);
-	cube[663].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[663].position = D3DXVECTOR3(222.00f, -250.90f, 828.66f);
+	cube[663].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[663].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[664].position = D3DXVECTOR3(302.37f, -233.80f, 697.95f);
-	cube[664].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[664].scale = D3DXVECTOR3(3, 1, 7);
+	cube[664].position = D3DXVECTOR3(223.52f, -251.04f, 828.60f);
+	cube[664].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[664].scale = D3DXVECTOR3(5, 1, 6.500002);
 
-	cube[665].position = D3DXVECTOR3(301.98f, -232.60f, 696.27f);
-	cube[665].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[665].position = D3DXVECTOR3(231.22f, -253.71f, 828.38f);
+	cube[665].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[665].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[666].position = D3DXVECTOR3(303.05f, -232.70f, 696.87f);
-	cube[666].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[666].scale = D3DXVECTOR3(5, 1, 7);
+	cube[666].position = D3DXVECTOR3(231.19f, -252.56f, 827.04f);
+	cube[666].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[666].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[667].position = D3DXVECTOR3(307.75f, -235.39f, 699.32f);
-	cube[667].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[667].position = D3DXVECTOR3(240.55f, -255.40f, 826.74f);
+	cube[667].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[667].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[668].position = D3DXVECTOR3(308.72f, -235.40f, 699.62f);
-	cube[668].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[668].scale = D3DXVECTOR3(3, 1, 7);
+	cube[668].position = D3DXVECTOR3(240.52f, -254.25f, 825.40f);
+	cube[668].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[668].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[669].position = D3DXVECTOR3(308.19f, -234.24f, 698.05f);
-	cube[669].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[669].position = D3DXVECTOR3(249.45f, -257.03f, 825.19f);
+	cube[669].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[669].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[670].position = D3DXVECTOR3(309.43f, -234.33f, 698.47f);
-	cube[670].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[670].scale = D3DXVECTOR3(5, 1, 6.500002);
+	cube[670].position = D3DXVECTOR3(249.43f, -255.88f, 823.86f);
+	cube[670].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[670].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[671].position = D3DXVECTOR3(314.20f, -237.05f, 699.96f);
+	cube[671].position = D3DXVECTOR3(258.51f, -258.72f, 824.30f);
 	cube[671].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[671].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[672].position = D3DXVECTOR3(315.45f, -237.06f, 700.12f);
-	cube[672].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[672].scale = D3DXVECTOR3(3, 1, 7);
+	cube[672].position = D3DXVECTOR3(258.72f, -257.57f, 822.98f);
+	cube[672].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[672].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[673].position = D3DXVECTOR3(314.41f, -235.90f, 698.64f);
-	cube[673].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[673].position = D3DXVECTOR3(267.33f, -260.38f, 824.92f);
+	cube[673].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[673].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[674].position = D3DXVECTOR3(315.95f, -236.03f, 698.86f);
-	cube[674].rotation = D3DXVECTOR3(16.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[674].scale = D3DXVECTOR3(5, 1, 6.500004);
+	cube[674].position = D3DXVECTOR3(267.76f, -259.23f, 823.65f);
+	cube[674].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[674].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[675].position = D3DXVECTOR3(320.40f, -238.59f, 699.56f);
-	cube[675].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[675].position = D3DXVECTOR3(275.47f, -261.98f, 826.95f);
+	cube[675].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[675].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[676].position = D3DXVECTOR3(321.64f, -238.63f, 699.49f);
-	cube[676].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[676].scale = D3DXVECTOR3(3, 1, 7);
+	cube[676].position = D3DXVECTOR3(276.12f, -260.83f, 825.79f);
+	cube[676].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[676].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[677].position = D3DXVECTOR3(320.37f, -237.44f, 698.23f);
-	cube[677].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[677].position = D3DXVECTOR3(283.54f, -263.63f, 830.53f);
+	cube[677].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[677].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[678].position = D3DXVECTOR3(321.90f, -237.58f, 698.16f);
-	cube[678].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[678].scale = D3DXVECTOR3(5, 1, 6.500002);
+	cube[678].position = D3DXVECTOR3(284.38f, -262.48f, 829.49f);
+	cube[678].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[678].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[679].position = D3DXVECTOR3(329.76f, -240.35f, 697.93f);
-	cube[679].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[679].position = D3DXVECTOR3(290.96f, -265.34f, 835.62f);
+	cube[679].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[679].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[680].position = D3DXVECTOR3(329.73f, -239.20f, 696.59f);
-	cube[680].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[680].position = D3DXVECTOR3(291.97f, -264.19f, 834.74f);
+	cube[680].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[680].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[681].position = D3DXVECTOR3(336.32f, -241.96f, 696.32f);
-	cube[681].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[681].position = D3DXVECTOR3(297.20f, -266.97f, 841.65f);
+	cube[681].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[681].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[682].position = D3DXVECTOR3(337.25f, -242.06f, 696.30f);
-	cube[682].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 110.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[682].scale = D3DXVECTOR3(3, 1, 7);
+	cube[682].position = D3DXVECTOR3(298.35f, -265.82f, 840.96f);
+	cube[682].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[682].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[683].position = D3DXVECTOR3(336.07f, -240.81f, 695.01f);
-	cube[683].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[683].position = D3DXVECTOR3(302.41f, -268.60f, 848.85f);
+	cube[683].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[683].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[684].position = D3DXVECTOR3(337.20f, -240.82f, 694.69f);
-	cube[684].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 110.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[684].scale = D3DXVECTOR3(5, 1, 6.500001);
+	cube[684].position = D3DXVECTOR3(303.65f, -267.45f, 848.37f);
+	cube[684].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[684].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[685].position = D3DXVECTOR3(342.19f, -243.55f, 693.74f);
-	cube[685].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[685].position = D3DXVECTOR3(306.16f, -270.16f, 856.53f);
+	cube[685].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[685].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[686].position = D3DXVECTOR3(343.42f, -243.64f, 693.25f);
-	cube[686].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 120.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[686].scale = D3DXVECTOR3(3, 1, 7);
+	cube[686].position = D3DXVECTOR3(307.47f, -269.01f, 856.27f);
+	cube[686].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[686].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[687].position = D3DXVECTOR3(341.72f, -242.40f, 692.49f);
-	cube[687].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[687].position = D3DXVECTOR3(309.34f, -271.82f, 865.23f);
+	cube[687].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[687].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[688].position = D3DXVECTOR3(343.22f, -242.55f, 691.88f);
-	cube[688].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 120.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[688].scale = D3DXVECTOR3(5, 1, 6.5);
+	cube[688].position = D3DXVECTOR3(310.65f, -270.67f, 864.98f);
+	cube[688].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[688].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[689].position = D3DXVECTOR3(347.77f, -245.18f, 690.01f);
-	cube[689].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[689].position = D3DXVECTOR3(312.60f, -273.52f, 874.20f);
+	cube[689].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[689].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[690].position = D3DXVECTOR3(348.84f, -245.23f, 689.27f);
-	cube[690].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 130.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[690].scale = D3DXVECTOR3(3, 1, 7);
+	cube[690].position = D3DXVECTOR3(313.91f, -272.37f, 873.95f);
+	cube[690].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[690].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[691].position = D3DXVECTOR3(347.08f, -244.03f, 688.86f);
-	cube[691].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[691].position = D3DXVECTOR3(315.86f, -275.30f, 883.14f);
+	cube[691].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[691].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[692].position = D3DXVECTOR3(348.22f, -244.14f, 688.15f);
-	cube[692].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 130.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[692].scale = D3DXVECTOR3(5, 1, 7);
+	cube[692].position = D3DXVECTOR3(317.17f, -274.15f, 882.88f);
+	cube[692].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[692].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[693].position = D3DXVECTOR3(352.59f, -246.81f, 685.40f);
-	cube[693].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[693].position = D3DXVECTOR3(318.59f, -276.91f, 889.32f);
+	cube[693].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[693].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[694].position = D3DXVECTOR3(353.51f, -246.87f, 684.51f);
-	cube[694].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 140.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[694].position = D3DXVECTOR3(318.76f, -277.01f, 890.23f);
+	cube[694].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 30.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[694].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[695].position = D3DXVECTOR3(351.72f, -245.66f, 684.39f);
-	cube[695].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[695].position = D3DXVECTOR3(319.84f, -275.76f, 888.85f);
+	cube[695].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[695].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[696].position = D3DXVECTOR3(352.71f, -245.78f, 683.50f);
-	cube[696].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 140.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[696].scale = D3DXVECTOR3(5, 1, 7);
+	cube[696].position = D3DXVECTOR3(320.35f, -275.77f, 889.90f);
+	cube[696].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 30.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[696].scale = D3DXVECTOR3(5, 1, 6.5);
 
-	cube[697].position = D3DXVECTOR3(356.51f, -248.41f, 680.06f);
-	cube[697].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[697].position = D3DXVECTOR3(322.15f, -278.50f, 894.66f);
+	cube[697].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[697].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[698].position = D3DXVECTOR3(357.20f, -248.46f, 679.13f);
-	cube[698].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 150.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[698].position = D3DXVECTOR3(322.85f, -278.59f, 895.78f);
+	cube[698].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 40.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[698].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[699].position = D3DXVECTOR3(355.48f, -247.26f, 679.22f);
-	cube[699].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[699].position = D3DXVECTOR3(323.29f, -277.35f, 893.97f);
+	cube[699].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[699].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[700].position = D3DXVECTOR3(356.25f, -247.36f, 678.27f);
-	cube[700].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 150.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[700].scale = D3DXVECTOR3(5, 1, 7);
+	cube[700].position = D3DXVECTOR3(324.16f, -277.50f, 895.35f);
+	cube[700].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 40.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[700].scale = D3DXVECTOR3(5, 1, 6.5);
 
-	cube[701].position = D3DXVECTOR3(359.48f, -250.05f, 674.06f);
-	cube[701].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[701].position = D3DXVECTOR3(326.79f, -280.13f, 899.50f);
+	cube[701].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[701].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[702].position = D3DXVECTOR3(359.94f, -250.06f, 673.16f);
-	cube[702].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 160.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[702].position = D3DXVECTOR3(327.70f, -280.18f, 900.43f);
+	cube[702].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 50.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[702].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[703].position = D3DXVECTOR3(358.31f, -248.90f, 673.41f);
-	cube[703].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[703].position = D3DXVECTOR3(327.80f, -278.98f, 898.63f);
+	cube[703].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[703].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[704].position = D3DXVECTOR3(358.93f, -248.99f, 672.26f);
-	cube[704].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 160.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[704].scale = D3DXVECTOR3(5, 1, 6.500005);
+	cube[704].position = D3DXVECTOR3(328.69f, -279.09f, 899.62f);
+	cube[704].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 50.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[704].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[705].position = D3DXVECTOR3(361.23f, -251.71f, 667.83f);
-	cube[705].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[705].scale = D3DXVECTOR3(3, 1, 9.99999);
+	cube[705].position = D3DXVECTOR3(332.17f, -281.76f, 903.45f);
+	cube[705].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[705].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[706].position = D3DXVECTOR3(361.60f, -251.72f, 666.62f);
-	cube[706].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 170.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[706].position = D3DXVECTOR3(333.20f, -281.82f, 904.20f);
+	cube[706].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[706].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[707].position = D3DXVECTOR3(359.97f, -250.56f, 667.39f);
-	cube[707].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[707].position = D3DXVECTOR3(333.01f, -280.61f, 902.41f);
+	cube[707].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[707].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[708].position = D3DXVECTOR3(360.45f, -250.69f, 665.91f);
-	cube[708].rotation = D3DXVECTOR3(16.00f*3.141592f / 180, 170.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[708].scale = D3DXVECTOR3(5, 1, 6.500006);
+	cube[708].position = D3DXVECTOR3(334.05f, -280.73f, 903.24f);
+	cube[708].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[708].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[709].position = D3DXVECTOR3(361.92f, -253.25f, 661.66f);
-	cube[709].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[709].position = D3DXVECTOR3(338.10f, -283.36f, 906.39f);
+	cube[709].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[709].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[710].position = D3DXVECTOR3(362.06f, -253.29f, 660.42f);
-	cube[710].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[710].position = D3DXVECTOR3(339.14f, -283.41f, 906.90f);
+	cube[710].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 70.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[710].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[711].position = D3DXVECTOR3(360.60f, -252.10f, 661.45f);
-	cube[711].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[711].position = D3DXVECTOR3(338.75f, -282.21f, 905.22f);
+	cube[711].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[711].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[712].position = D3DXVECTOR3(360.80f, -252.24f, 659.93f);
-	cube[712].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[712].scale = D3DXVECTOR3(5, 1, 6.500001);
+	cube[712].position = D3DXVECTOR3(339.82f, -282.31f, 905.82f);
+	cube[712].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 70.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[712].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[713].position = D3DXVECTOR3(361.91f, -254.93f, 652.29f);
-	cube[713].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[713].position = D3DXVECTOR3(344.53f, -285.00f, 908.26f);
+	cube[713].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[713].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[714].position = D3DXVECTOR3(360.59f, -253.78f, 652.08f);
-	cube[714].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[714].scale = D3DXVECTOR3(3, 1, 10);
+	cube[714].position = D3DXVECTOR3(345.50f, -285.01f, 908.56f);
+	cube[714].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[714].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[715].position = D3DXVECTOR3(361.91f, -256.68f, 642.75f);
-	cube[715].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[715].position = D3DXVECTOR3(344.96f, -283.85f, 907.00f);
+	cube[715].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[715].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[716].position = D3DXVECTOR3(360.59f, -255.53f, 642.54f);
-	cube[716].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[716].scale = D3DXVECTOR3(3, 1, 10);
+	cube[716].position = D3DXVECTOR3(346.20f, -283.94f, 907.41f);
+	cube[716].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[716].scale = D3DXVECTOR3(5, 1, 6.500002);
 
-	cube[717].position = D3DXVECTOR3(361.91f, -258.38f, 633.36f);
-	cube[717].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[717].position = D3DXVECTOR3(350.97f, -286.66f, 908.91f);
+	cube[717].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[717].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[718].position = D3DXVECTOR3(360.59f, -257.23f, 633.15f);
-	cube[718].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[718].scale = D3DXVECTOR3(3, 1, 10);
+	cube[718].position = D3DXVECTOR3(352.22f, -286.67f, 909.06f);
+	cube[718].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[718].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[719].position = D3DXVECTOR3(361.91f, -260.03f, 624.20f);
-	cube[719].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[719].position = D3DXVECTOR3(351.18f, -285.51f, 907.59f);
+	cube[719].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[719].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[720].position = D3DXVECTOR3(360.59f, -258.88f, 623.99f);
-	cube[720].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[720].scale = D3DXVECTOR3(3, 1, 10);
+	cube[720].position = D3DXVECTOR3(352.72f, -285.64f, 907.81f);
+	cube[720].rotation = D3DXVECTOR3(16.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[720].scale = D3DXVECTOR3(5, 1, 6.500004);
 
-	cube[721].position = D3DXVECTOR3(361.91f, -261.77f, 614.62f);
-	cube[721].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[721].position = D3DXVECTOR3(357.17f, -288.20f, 908.51f);
+	cube[721].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[721].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[722].position = D3DXVECTOR3(360.59f, -260.62f, 614.41f);
-	cube[722].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[722].scale = D3DXVECTOR3(3, 1, 10);
+	cube[722].position = D3DXVECTOR3(358.41f, -288.24f, 908.44f);
+	cube[722].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[722].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[723].position = D3DXVECTOR3(361.91f, -263.35f, 605.90f);
-	cube[723].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[723].position = D3DXVECTOR3(357.15f, -287.05f, 907.17f);
+	cube[723].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[723].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[724].position = D3DXVECTOR3(360.59f, -262.20f, 605.69f);
-	cube[724].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[724].scale = D3DXVECTOR3(3, 1, 10);
+	cube[724].position = D3DXVECTOR3(358.67f, -287.19f, 907.11f);
+	cube[724].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[724].scale = D3DXVECTOR3(5, 1, 6.500002);
 
-	cube[725].position = D3DXVECTOR3(361.46f, -264.96f, 599.15f);
-	cube[725].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[725].position = D3DXVECTOR3(366.56f, -289.93f, 906.85f);
+	cube[725].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[725].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[726].position = D3DXVECTOR3(361.61f, -265.06f, 598.24f);
-	cube[726].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 190.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[726].scale = D3DXVECTOR3(3, 1, 7);
+	cube[726].position = D3DXVECTOR3(366.54f, -288.78f, 905.52f);
+	cube[726].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[726].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[727].position = D3DXVECTOR3(360.12f, -263.81f, 599.17f);
-	cube[727].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[727].position = D3DXVECTOR3(373.13f, -291.54f, 905.24f);
+	cube[727].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[727].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[728].position = D3DXVECTOR3(360.01f, -263.82f, 598.01f);
-	cube[728].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 190.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[728].scale = D3DXVECTOR3(5, 1, 6.499998);
+	cube[728].position = D3DXVECTOR3(374.05f, -291.64f, 905.23f);
+	cube[728].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 110.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[728].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[729].position = D3DXVECTOR3(359.94f, -266.55f, 592.92f);
-	cube[729].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[729].position = D3DXVECTOR3(372.87f, -290.39f, 903.93f);
+	cube[729].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[729].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[730].position = D3DXVECTOR3(359.67f, -266.64f, 591.63f);
-	cube[730].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 200.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[730].scale = D3DXVECTOR3(3, 1, 7);
+	cube[730].position = D3DXVECTOR3(374.00f, -290.40f, 903.61f);
+	cube[730].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 110.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[730].scale = D3DXVECTOR3(5, 1, 6.500001);
 
-	cube[731].position = D3DXVECTOR3(358.63f, -265.40f, 593.17f);
-	cube[731].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[731].position = D3DXVECTOR3(379.00f, -293.13f, 902.66f);
+	cube[731].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[731].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[732].position = D3DXVECTOR3(358.29f, -265.55f, 591.59f);
-	cube[732].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 200.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[732].scale = D3DXVECTOR3(5, 1, 6.499999);
+	cube[732].position = D3DXVECTOR3(380.22f, -293.22f, 902.17f);
+	cube[732].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 120.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[732].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[733].position = D3DXVECTOR3(357.23f, -268.18f, 586.78f);
-	cube[733].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[733].position = D3DXVECTOR3(378.52f, -291.98f, 901.41f);
+	cube[733].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[733].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[734].position = D3DXVECTOR3(356.70f, -268.23f, 585.60f);
-	cube[734].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 210.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[734].scale = D3DXVECTOR3(3, 1, 7);
+	cube[734].position = D3DXVECTOR3(380.02f, -292.13f, 900.80f);
+	cube[734].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 120.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[734].scale = D3DXVECTOR3(5, 1, 6.5);
 
-	cube[735].position = D3DXVECTOR3(355.98f, -267.03f, 587.26f);
-	cube[735].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[735].position = D3DXVECTOR3(384.58f, -294.76f, 898.93f);
+	cube[735].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[735].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[736].position = D3DXVECTOR3(355.49f, -267.14f, 586.02f);
-	cube[736].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 210.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[736].scale = D3DXVECTOR3(5, 1, 7);
+	cube[736].position = D3DXVECTOR3(385.65f, -294.81f, 898.20f);
+	cube[736].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 130.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[736].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[737].position = D3DXVECTOR3(353.53f, -269.81f, 581.23f);
-	cube[737].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[737].position = D3DXVECTOR3(383.89f, -293.61f, 897.78f);
+	cube[737].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[737].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[738].position = D3DXVECTOR3(352.82f, -269.87f, 580.18f);
-	cube[738].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 220.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[738].scale = D3DXVECTOR3(3, 1, 7);
+	cube[738].position = D3DXVECTOR3(385.02f, -293.72f, 897.08f);
+	cube[738].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 130.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[738].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[739].position = D3DXVECTOR3(352.39f, -268.66f, 581.92f);
-	cube[739].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[739].position = D3DXVECTOR3(389.40f, -296.39f, 894.32f);
+	cube[739].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[739].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[740].position = D3DXVECTOR3(351.69f, -268.78f, 580.79f);
-	cube[740].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 220.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[740].scale = D3DXVECTOR3(5, 1, 7);
+	cube[740].position = D3DXVECTOR3(390.31f, -296.45f, 893.43f);
+	cube[740].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 140.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[740].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[741].position = D3DXVECTOR3(347.57f, -271.49f, 574.13f);
-	cube[741].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[741].position = D3DXVECTOR3(388.52f, -295.24f, 893.31f);
+	cube[741].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[741].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[742].position = D3DXVECTOR3(346.43f, -270.34f, 574.81f);
-	cube[742].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[742].scale = D3DXVECTOR3(3, 1, 10);
+	cube[742].position = D3DXVECTOR3(389.51f, -295.36f, 892.43f);
+	cube[742].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 140.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[742].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[743].position = D3DXVECTOR3(342.27f, -273.18f, 566.73f);
-	cube[743].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[743].position = D3DXVECTOR3(393.32f, -297.99f, 888.99f);
+	cube[743].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[743].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[744].position = D3DXVECTOR3(341.02f, -272.03f, 567.21f);
-	cube[744].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[744].scale = D3DXVECTOR3(3, 1, 10);
+	cube[744].position = D3DXVECTOR3(394.00f, -298.04f, 888.05f);
+	cube[744].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 150.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[744].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[745].position = D3DXVECTOR3(338.39f, -274.84f, 558.79f);
-	cube[745].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[745].position = D3DXVECTOR3(392.28f, -296.84f, 888.15f);
+	cube[745].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[745].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[746].position = D3DXVECTOR3(337.08f, -273.69f, 559.04f);
-	cube[746].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[746].scale = D3DXVECTOR3(3, 1, 10);
+	cube[746].position = D3DXVECTOR3(393.06f, -296.94f, 887.19f);
+	cube[746].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 150.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[746].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[747].position = D3DXVECTOR3(336.09f, -276.44f, 550.71f);
-	cube[747].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[747].position = D3DXVECTOR3(396.28f, -299.63f, 882.98f);
+	cube[747].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[747].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[748].position = D3DXVECTOR3(334.75f, -275.29f, 550.73f);
-	cube[748].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[748].scale = D3DXVECTOR3(3, 1, 10);
+	cube[748].position = D3DXVECTOR3(396.75f, -299.64f, 882.08f);
+	cube[748].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 160.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[748].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[749].position = D3DXVECTOR3(335.15f, -278.09f, 541.94f);
-	cube[749].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[749].position = D3DXVECTOR3(395.11f, -298.48f, 882.34f);
+	cube[749].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[749].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[750].position = D3DXVECTOR3(333.83f, -276.94f, 541.73f);
-	cube[750].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[750].scale = D3DXVECTOR3(3, 1, 10);
+	cube[750].position = D3DXVECTOR3(395.74f, -298.57f, 881.19f);
+	cube[750].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 160.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[750].scale = D3DXVECTOR3(5, 1, 6.500005);
 
-	cube[751].position = D3DXVECTOR3(335.15f, -279.75f, 532.61f);
-	cube[751].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[751].scale = D3DXVECTOR3(3, 1, 10);
+	cube[751].position = D3DXVECTOR3(398.03f, -301.29f, 876.75f);
+	cube[751].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[751].scale = D3DXVECTOR3(3, 1, 9.99999);
 
-	cube[752].position = D3DXVECTOR3(333.83f, -278.60f, 532.40f);
-	cube[752].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[752].scale = D3DXVECTOR3(3, 1, 10);
+	cube[752].position = D3DXVECTOR3(398.41f, -301.30f, 875.55f);
+	cube[752].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 170.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[752].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[753].position = D3DXVECTOR3(335.15f, -281.44f, 523.16f);
-	cube[753].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[753].position = D3DXVECTOR3(396.77f, -300.14f, 876.32f);
+	cube[753].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[753].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[754].position = D3DXVECTOR3(333.83f, -280.29f, 522.95f);
-	cube[754].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[754].scale = D3DXVECTOR3(3, 1, 10);
+	cube[754].position = D3DXVECTOR3(397.26f, -300.27f, 874.84f);
+	cube[754].rotation = D3DXVECTOR3(16.00f*3.141592f / 180, 170.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[754].scale = D3DXVECTOR3(5, 1, 6.500006);
 
-	cube[755].position = D3DXVECTOR3(335.15f, -282.99f, 514.73f);
+	cube[755].position = D3DXVECTOR3(398.72f, -302.83f, 870.58f);
 	cube[755].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[755].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[756].position = D3DXVECTOR3(333.83f, -281.84f, 514.52f);
-	cube[756].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[756].scale = D3DXVECTOR3(3, 1, 10);
+	cube[756].position = D3DXVECTOR3(398.87f, -302.87f, 869.34f);
+	cube[756].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[756].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[757].position = D3DXVECTOR3(335.84f, -284.68f, 505.65f);
-	cube[757].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[757].position = D3DXVECTOR3(397.40f, -301.68f, 870.37f);
+	cube[757].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[757].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[758].position = D3DXVECTOR3(334.58f, -283.53f, 505.22f);
-	cube[758].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[758].scale = D3DXVECTOR3(3, 1, 10);
+	cube[758].position = D3DXVECTOR3(397.60f, -301.82f, 868.86f);
+	cube[758].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[758].scale = D3DXVECTOR3(5, 1, 6.500001);
 
-	cube[759].position = D3DXVECTOR3(337.98f, -286.34f, 497.07f);
-	cube[759].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[759].position = D3DXVECTOR3(398.64f, -314.58f, 805.80f);
+	cube[759].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[759].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[760].position = D3DXVECTOR3(336.81f, -285.19f, 496.43f);
-	cube[760].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[760].position = D3DXVECTOR3(397.32f, -313.43f, 805.59f);
+	cube[760].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[760].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[761].position = D3DXVECTOR3(341.41f, -287.94f, 489.41f);
-	cube[761].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[761].position = D3DXVECTOR3(398.64f, -316.33f, 796.26f);
+	cube[761].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[761].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[762].position = D3DXVECTOR3(340.37f, -286.79f, 488.57f);
-	cube[762].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[762].position = D3DXVECTOR3(397.32f, -315.18f, 796.05f);
+	cube[762].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[762].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[763].position = D3DXVECTOR3(346.33f, -289.59f, 482.09f);
-	cube[763].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[763].position = D3DXVECTOR3(398.64f, -318.03f, 786.87f);
+	cube[763].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[763].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[764].position = D3DXVECTOR3(345.45f, -288.44f, 481.08f);
-	cube[764].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[764].position = D3DXVECTOR3(397.32f, -316.88f, 786.66f);
+	cube[764].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[764].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[765].position = D3DXVECTOR3(352.47f, -291.31f, 474.74f);
-	cube[765].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[765].scale = D3DXVECTOR3(3, 1, 10.00001);
+	cube[765].position = D3DXVECTOR3(398.64f, -319.68f, 777.71f);
+	cube[765].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[765].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[766].position = D3DXVECTOR3(351.59f, -290.16f, 473.73f);
-	cube[766].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[766].scale = D3DXVECTOR3(3, 1, 10.00001);
+	cube[766].position = D3DXVECTOR3(397.32f, -318.53f, 777.50f);
+	cube[766].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[766].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[767].position = D3DXVECTOR3(358.52f, -293.01f, 467.53f);
-	cube[767].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[767].scale = D3DXVECTOR3(3, 1, 10.00001);
+	cube[767].position = D3DXVECTOR3(398.64f, -321.42f, 768.13f);
+	cube[767].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[767].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[768].position = D3DXVECTOR3(357.64f, -291.86f, 466.52f);
-	cube[768].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[768].scale = D3DXVECTOR3(3, 1, 10.00001);
+	cube[768].position = D3DXVECTOR3(397.32f, -320.27f, 767.92f);
+	cube[768].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[768].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[769].position = D3DXVECTOR3(364.64f, -294.74f, 460.23f);
-	cube[769].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[769].scale = D3DXVECTOR3(3, 1, 10.00001);
+	cube[769].position = D3DXVECTOR3(398.64f, -323.01f, 759.41f);
+	cube[769].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[769].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[770].position = D3DXVECTOR3(363.76f, -293.59f, 459.22f);
-	cube[770].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[770].scale = D3DXVECTOR3(3, 1, 10.00001);
+	cube[770].position = D3DXVECTOR3(397.32f, -321.86f, 759.19f);
+	cube[770].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[770].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[771].position = D3DXVECTOR3(370.75f, -296.49f, 453.00f);
-	cube[771].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 30.00f*3.141592f / 180);
-	cube[771].scale = D3DXVECTOR3(3, 1, 10.00001);
+	cube[771].position = D3DXVECTOR3(398.21f, -324.69f, 752.82f);
+	cube[771].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[771].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[772].position = D3DXVECTOR3(369.88f, -295.34f, 451.99f);
-	cube[772].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[772].scale = D3DXVECTOR3(3, 1, 10.00001);
+	cube[772].position = D3DXVECTOR3(398.36f, -324.79f, 751.91f);
+	cube[772].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 190.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[772].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[773].position = D3DXVECTOR3(377.11f, -298.18f, 446.49f);
-	cube[773].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[773].position = D3DXVECTOR3(396.88f, -323.54f, 752.85f);
+	cube[773].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[773].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[774].position = D3DXVECTOR3(376.42f, -297.03f, 445.35f);
-	cube[774].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[774].scale = D3DXVECTOR3(3, 1, 10);
+	cube[774].position = D3DXVECTOR3(396.76f, -323.55f, 751.68f);
+	cube[774].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 190.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[774].scale = D3DXVECTOR3(5, 1, 6.499998);
 
-	cube[775].position = D3DXVECTOR3(384.27f, -299.84f, 441.30f);
-	cube[775].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[775].position = D3DXVECTOR3(396.69f, -326.28f, 746.59f);
+	cube[775].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[775].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[776].position = D3DXVECTOR3(383.79f, -298.69f, 440.05f);
-	cube[776].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[776].scale = D3DXVECTOR3(3, 1, 10);
+	cube[776].position = D3DXVECTOR3(396.42f, -326.37f, 745.30f);
+	cube[776].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 200.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[776].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[777].position = D3DXVECTOR3(391.82f, -301.44f, 437.63f);
-	cube[777].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[777].position = D3DXVECTOR3(395.38f, -325.13f, 746.85f);
+	cube[777].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[777].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[778].position = D3DXVECTOR3(391.56f, -300.29f, 436.31f);
-	cube[778].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[778].scale = D3DXVECTOR3(3, 1, 10);
+	cube[778].position = D3DXVECTOR3(395.04f, -325.28f, 745.26f);
+	cube[778].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 200.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[778].scale = D3DXVECTOR3(5, 1, 6.499999);
 
-	cube[779].position = D3DXVECTOR3(400.29f, -303.09f, 435.18f);
-	cube[779].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[779].position = D3DXVECTOR3(393.99f, -327.91f, 740.45f);
+	cube[779].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[779].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[780].position = D3DXVECTOR3(400.27f, -301.94f, 433.84f);
-	cube[780].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[780].scale = D3DXVECTOR3(3, 1, 10);
+	cube[780].position = D3DXVECTOR3(393.45f, -327.96f, 739.27f);
+	cube[780].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 210.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[780].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[781].position = D3DXVECTOR3(409.25f, -304.80f, 434.31f);
-	cube[781].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[781].position = D3DXVECTOR3(392.74f, -326.76f, 740.93f);
+	cube[781].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[781].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[782].position = D3DXVECTOR3(409.46f, -303.65f, 432.99f);
-	cube[782].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[782].scale = D3DXVECTOR3(3, 1, 10);
+	cube[782].position = D3DXVECTOR3(392.24f, -326.87f, 739.69f);
+	cube[782].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 210.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[782].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[783].position = D3DXVECTOR3(417.91f, -306.43f, 434.91f);
-	cube[783].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[783].position = D3DXVECTOR3(390.29f, -329.54f, 734.90f);
+	cube[783].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[783].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[784].position = D3DXVECTOR3(418.35f, -305.28f, 433.65f);
-	cube[784].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[784].scale = D3DXVECTOR3(3, 1, 10);
+	cube[784].position = D3DXVECTOR3(389.57f, -329.60f, 733.85f);
+	cube[784].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 220.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[784].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[785].position = D3DXVECTOR3(427.09f, -308.11f, 436.54f);
-	cube[785].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[785].position = D3DXVECTOR3(389.14f, -328.39f, 735.59f);
+	cube[785].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[785].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[786].position = D3DXVECTOR3(427.53f, -306.96f, 435.27f);
-	cube[786].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	cube[786].scale = D3DXVECTOR3(3, 1, 10);
+	cube[786].position = D3DXVECTOR3(388.44f, -328.51f, 734.46f);
+	cube[786].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 220.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[786].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[787].position = D3DXVECTOR3(436.64f, -309.87f, 438.22f);
-	cube[787].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[787].position = D3DXVECTOR3(384.33f, -331.22f, 727.80f);
+	cube[787].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[787].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[788].position = D3DXVECTOR3(437.08f, -308.72f, 436.95f);
-	cube[788].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[788].position = D3DXVECTOR3(383.18f, -330.07f, 728.49f);
+	cube[788].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[788].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[789].position = D3DXVECTOR3(446.02f, -311.59f, 439.88f);
-	cube[789].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[789].position = D3DXVECTOR3(379.02f, -332.91f, 720.41f);
+	cube[789].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[789].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[790].position = D3DXVECTOR3(446.46f, -310.44f, 438.61f);
-	cube[790].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[790].position = D3DXVECTOR3(377.77f, -331.76f, 720.89f);
+	cube[790].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[790].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[791].position = D3DXVECTOR3(455.46f, -313.32f, 441.54f);
-	cube[791].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[791].position = D3DXVECTOR3(375.15f, -334.57f, 712.46f);
+	cube[791].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[791].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[792].position = D3DXVECTOR3(455.90f, -312.17f, 440.27f);
-	cube[792].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[792].position = D3DXVECTOR3(373.84f, -333.42f, 712.71f);
+	cube[792].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[792].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[793].position = D3DXVECTOR3(464.86f, -315.03f, 443.21f);
-	cube[793].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[793].position = D3DXVECTOR3(372.84f, -336.17f, 704.39f);
+	cube[793].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[793].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[794].position = D3DXVECTOR3(465.30f, -313.88f, 441.94f);
-	cube[794].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[794].position = D3DXVECTOR3(371.51f, -335.02f, 704.41f);
+	cube[794].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[794].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[795].position = D3DXVECTOR3(474.41f, -316.77f, 444.88f);
-	cube[795].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[795].position = D3DXVECTOR3(371.91f, -337.82f, 695.62f);
+	cube[795].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[795].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[796].position = D3DXVECTOR3(474.85f, -315.62f, 443.61f);
-	cube[796].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[796].position = D3DXVECTOR3(370.59f, -336.67f, 695.41f);
+	cube[796].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[796].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[797].position = D3DXVECTOR3(483.70f, -318.45f, 446.52f);
-	cube[797].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[797].position = D3DXVECTOR3(371.90f, -339.48f, 686.29f);
+	cube[797].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[797].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[798].position = D3DXVECTOR3(484.14f, -317.30f, 445.25f);
-	cube[798].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[798].position = D3DXVECTOR3(370.58f, -338.33f, 686.08f);
+	cube[798].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[798].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[799].position = D3DXVECTOR3(493.11f, -320.16f, 448.18f);
-	cube[799].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[799].position = D3DXVECTOR3(371.90f, -341.17f, 676.84f);
+	cube[799].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[799].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[800].position = D3DXVECTOR3(493.55f, -319.01f, 446.91f);
-	cube[800].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[800].position = D3DXVECTOR3(370.58f, -340.02f, 676.63f);
+	cube[800].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[800].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[801].position = D3DXVECTOR3(502.50f, -321.87f, 449.84f);
-	cube[801].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[801].position = D3DXVECTOR3(371.91f, -342.72f, 668.40f);
+	cube[801].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[801].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[802].position = D3DXVECTOR3(502.94f, -320.72f, 448.57f);
-	cube[802].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[802].position = D3DXVECTOR3(370.59f, -341.57f, 668.19f);
+	cube[802].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[802].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[803].position = D3DXVECTOR3(511.86f, -323.57f, 451.49f);
-	cube[803].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[803].position = D3DXVECTOR3(372.60f, -344.41f, 659.33f);
+	cube[803].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[803].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[804].position = D3DXVECTOR3(512.30f, -322.42f, 450.22f);
-	cube[804].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[804].position = D3DXVECTOR3(371.33f, -343.26f, 658.89f);
+	cube[804].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[804].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[805].position = D3DXVECTOR3(-6.27f, -10.24f, 2.16f);
-	cube[805].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[805].position = D3DXVECTOR3(374.74f, -346.07f, 650.75f);
+	cube[805].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[805].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[806].position = D3DXVECTOR3(-7.52f, -9.08f, 2.37f);
-	cube[806].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[806].position = D3DXVECTOR3(373.57f, -344.92f, 650.10f);
+	cube[806].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[806].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[807].position = D3DXVECTOR3(-6.27f, -11.90f, 11.16f);
-	cube[807].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[807].position = D3DXVECTOR3(378.16f, -347.67f, 643.08f);
+	cube[807].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[807].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[808].position = D3DXVECTOR3(-7.52f, -10.74f, 11.37f);
-	cube[808].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[808].position = D3DXVECTOR3(377.12f, -346.52f, 642.24f);
+	cube[808].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[808].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[809].position = D3DXVECTOR3(-6.27f, -13.49f, 19.86f);
-	cube[809].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[809].position = D3DXVECTOR3(383.08f, -349.32f, 635.76f);
+	cube[809].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[809].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[810].position = D3DXVECTOR3(-7.52f, -12.33f, 20.07f);
-	cube[810].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[810].position = D3DXVECTOR3(382.20f, -348.17f, 634.75f);
+	cube[810].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[810].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[811].position = D3DXVECTOR3(-6.27f, -15.17f, 28.96f);
-	cube[811].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[811].scale = D3DXVECTOR3(3, 1, 10);
+	cube[811].position = D3DXVECTOR3(389.23f, -351.04f, 628.42f);
+	cube[811].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[811].scale = D3DXVECTOR3(3, 1, 10.00001);
 
-	cube[812].position = D3DXVECTOR3(-7.52f, -14.01f, 29.17f);
-	cube[812].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[812].scale = D3DXVECTOR3(3, 1, 10);
+	cube[812].position = D3DXVECTOR3(388.35f, -349.89f, 627.41f);
+	cube[812].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[812].scale = D3DXVECTOR3(3, 1, 10.00001);
 
-	cube[813].position = D3DXVECTOR3(-6.27f, -16.96f, 38.36f);
-	cube[813].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[813].scale = D3DXVECTOR3(3, 1, 10);
+	cube[813].position = D3DXVECTOR3(395.28f, -352.74f, 621.21f);
+	cube[813].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[813].scale = D3DXVECTOR3(3, 1, 10.00001);
 
-	cube[814].position = D3DXVECTOR3(-7.52f, -15.80f, 38.57f);
-	cube[814].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[814].scale = D3DXVECTOR3(3, 1, 10);
+	cube[814].position = D3DXVECTOR3(394.40f, -351.59f, 620.20f);
+	cube[814].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[814].scale = D3DXVECTOR3(3, 1, 10.00001);
 
-	cube[815].position = D3DXVECTOR3(-6.27f, -18.64f, 47.66f);
-	cube[815].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[815].scale = D3DXVECTOR3(3, 1, 10);
+	cube[815].position = D3DXVECTOR3(401.40f, -354.47f, 613.91f);
+	cube[815].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[815].scale = D3DXVECTOR3(3, 1, 10.00001);
 
-	cube[816].position = D3DXVECTOR3(-7.52f, -17.48f, 47.87f);
-	cube[816].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[816].scale = D3DXVECTOR3(3, 1, 10);
+	cube[816].position = D3DXVECTOR3(400.52f, -353.32f, 612.90f);
+	cube[816].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[816].scale = D3DXVECTOR3(3, 1, 10.00001);
 
-	cube[817].position = D3DXVECTOR3(-6.27f, -20.43f, 57.36f);
-	cube[817].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[817].scale = D3DXVECTOR3(3, 1, 10);
+	cube[817].position = D3DXVECTOR3(407.51f, -356.22f, 606.68f);
+	cube[817].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	cube[817].scale = D3DXVECTOR3(3, 1, 10.00001);
 
-	cube[818].position = D3DXVECTOR3(-7.52f, -19.27f, 57.57f);
-	cube[818].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[818].scale = D3DXVECTOR3(3, 1, 10);
+	cube[818].position = D3DXVECTOR3(406.63f, -355.07f, 605.67f);
+	cube[818].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[818].scale = D3DXVECTOR3(3, 1, 10.00001);
 
-	cube[819].position = D3DXVECTOR3(-6.27f, -22.02f, 66.16f);
-	cube[819].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[819].position = D3DXVECTOR3(413.87f, -357.91f, 600.17f);
+	cube[819].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[819].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[820].position = D3DXVECTOR3(-7.52f, -20.86f, 66.37f);
-	cube[820].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[820].position = D3DXVECTOR3(413.18f, -356.76f, 599.02f);
+	cube[820].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[820].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[821].position = D3DXVECTOR3(-6.27f, -23.39f, 73.77f);
-	cube[821].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[821].position = D3DXVECTOR3(421.02f, -359.57f, 594.97f);
+	cube[821].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[821].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[822].position = D3DXVECTOR3(-7.52f, -22.23f, 73.98f);
-	cube[822].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[822].position = D3DXVECTOR3(420.54f, -358.42f, 593.72f);
+	cube[822].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[822].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[823].position = D3DXVECTOR3(-6.78f, -25.08f, 80.77f);
-	cube[823].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[823].position = D3DXVECTOR3(428.57f, -361.17f, 591.30f);
+	cube[823].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[823].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[824].position = D3DXVECTOR3(-6.53f, -25.26f, 81.75f);
-	cube[824].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[824].scale = D3DXVECTOR3(3, 1, 7);
+	cube[824].position = D3DXVECTOR3(428.32f, -360.02f, 589.99f);
+	cube[824].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[824].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[825].position = D3DXVECTOR3(-8.05f, -23.92f, 80.76f);
-	cube[825].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[825].position = D3DXVECTOR3(437.05f, -362.82f, 588.85f);
+	cube[825].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[825].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[826].position = D3DXVECTOR3(-8.07f, -23.95f, 81.78f);
-	cube[826].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[826].scale = D3DXVECTOR3(5, 1, 7);
+	cube[826].position = D3DXVECTOR3(437.02f, -361.67f, 587.52f);
+	cube[826].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[826].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[827].position = D3DXVECTOR3(-8.38f, -26.74f, 87.33f);
-	cube[827].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[827].position = D3DXVECTOR3(446.01f, -364.53f, 587.98f);
+	cube[827].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[827].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[828].position = D3DXVECTOR3(-8.24f, -27.10f, 88.72f);
-	cube[828].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[828].scale = D3DXVECTOR3(3, 1, 7);
+	cube[828].position = D3DXVECTOR3(446.22f, -363.38f, 586.66f);
+	cube[828].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[828].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[829].position = D3DXVECTOR3(-9.63f, -25.58f, 87.10f);
-	cube[829].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[829].position = D3DXVECTOR3(454.66f, -366.16f, 588.59f);
+	cube[829].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[829].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[830].position = D3DXVECTOR3(-10.12f, -25.50f, 88.41f);
-	cube[830].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[830].scale = D3DXVECTOR3(5, 1, 7);
+	cube[830].position = D3DXVECTOR3(455.10f, -365.01f, 587.32f);
+	cube[830].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[830].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[831].position = D3DXVECTOR3(-10.92f, -28.34f, 93.11f);
-	cube[831].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[831].position = D3DXVECTOR3(463.78f, -367.86f, 590.17f);
+	cube[831].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[831].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[832].position = D3DXVECTOR3(-11.07f, -28.60f, 94.51f);
-	cube[832].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[832].scale = D3DXVECTOR3(3, 1, 7);
+	cube[832].position = D3DXVECTOR3(464.22f, -366.71f, 588.90f);
+	cube[832].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[832].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[833].position = D3DXVECTOR3(-12.11f, -27.18f, 92.66f);
-	cube[833].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[833].position = D3DXVECTOR3(473.33f, -369.62f, 591.85f);
+	cube[833].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[833].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[834].position = D3DXVECTOR3(-12.62f, -27.28f, 93.98f);
-	cube[834].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[834].scale = D3DXVECTOR3(5, 1, 7);
+	cube[834].position = D3DXVECTOR3(473.77f, -368.47f, 590.58f);
+	cube[834].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[834].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[835].position = D3DXVECTOR3(-14.64f, -29.99f, 98.72f);
-	cube[835].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[835].position = D3DXVECTOR3(482.71f, -371.34f, 593.51f);
+	cube[835].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[835].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[836].position = D3DXVECTOR3(-14.92f, -30.32f, 100.02f);
-	cube[836].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[836].scale = D3DXVECTOR3(3, 1, 7);
+	cube[836].position = D3DXVECTOR3(483.15f, -370.19f, 592.24f);
+	cube[836].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[836].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[837].position = D3DXVECTOR3(-15.74f, -28.83f, 98.08f);
-	cube[837].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[837].position = D3DXVECTOR3(490.45f, -372.75f, 594.89f);
+	cube[837].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[837].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[838].position = D3DXVECTOR3(-16.42f, -28.94f, 99.22f);
-	cube[838].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[838].scale = D3DXVECTOR3(5, 1, 7);
+	cube[838].position = D3DXVECTOR3(490.89f, -371.60f, 593.62f);
+	cube[838].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[838].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[839].position = D3DXVECTOR3(-19.47f, -31.70f, 103.67f);
-	cube[839].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[839].position = D3DXVECTOR3(499.85f, -374.46f, 596.56f);
+	cube[839].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[839].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[840].position = D3DXVECTOR3(-20.01f, -31.93f, 104.79f);
-	cube[840].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[840].scale = D3DXVECTOR3(3, 1, 7);
+	cube[840].position = D3DXVECTOR3(500.29f, -373.31f, 595.29f);
+	cube[840].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[840].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[841].position = D3DXVECTOR3(-20.44f, -30.54f, 102.85f);
-	cube[841].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[841].position = D3DXVECTOR3(509.40f, -376.20f, 598.23f);
+	cube[841].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[841].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[842].position = D3DXVECTOR3(-21.24f, -30.63f, 103.81f);
-	cube[842].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[842].scale = D3DXVECTOR3(5, 1, 7);
+	cube[842].position = D3DXVECTOR3(509.84f, -375.05f, 596.96f);
+	cube[842].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[842].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[843].position = D3DXVECTOR3(-24.78f, -33.33f, 107.58f);
-	cube[843].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[843].position = D3DXVECTOR3(518.69f, -377.88f, 599.87f);
+	cube[843].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[843].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[844].position = D3DXVECTOR3(-25.50f, -33.66f, 108.72f);
-	cube[844].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[844].scale = D3DXVECTOR3(3, 1, 7);
+	cube[844].position = D3DXVECTOR3(519.13f, -376.73f, 598.60f);
+	cube[844].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[844].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[845].position = D3DXVECTOR3(-25.59f, -32.17f, 106.60f);
-	cube[845].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[845].position = D3DXVECTOR3(528.10f, -379.59f, 601.53f);
+	cube[845].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[845].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[846].position = D3DXVECTOR3(-26.62f, -32.28f, 107.42f);
-	cube[846].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[846].scale = D3DXVECTOR3(5, 1, 7);
+	cube[846].position = D3DXVECTOR3(528.54f, -378.44f, 600.26f);
+	cube[846].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[846].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[847].position = D3DXVECTOR3(-32.87f, -35.05f, 112.25f);
-	cube[847].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[847].position = D3DXVECTOR3(537.49f, -381.30f, 603.19f);
+	cube[847].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[847].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[848].position = D3DXVECTOR3(-33.68f, -33.89f, 111.27f);
-	cube[848].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[848].position = D3DXVECTOR3(537.93f, -380.15f, 601.92f);
+	cube[848].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[848].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[849].position = D3DXVECTOR3(-40.83f, -36.78f, 116.86f);
-	cube[849].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[849].position = D3DXVECTOR3(546.85f, -383.00f, 604.84f);
+	cube[849].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[849].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[850].position = D3DXVECTOR3(-41.64f, -35.62f, 115.88f);
-	cube[850].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[850].position = D3DXVECTOR3(547.29f, -381.85f, 603.57f);
+	cube[850].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[850].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[851].position = D3DXVECTOR3(-48.13f, -38.33f, 121.06f);
-	cube[851].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[851].position = D3DXVECTOR3(5.70f, -25.07f, 83.25f);
+	cube[851].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[851].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[852].position = D3DXVECTOR3(-48.94f, -37.17f, 120.08f);
-	cube[852].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[852].position = D3DXVECTOR3(7.02f, -23.92f, 83.46f);
+	cube[852].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[852].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[853].position = D3DXVECTOR3(-55.43f, -39.85f, 125.26f);
-	cube[853].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[853].position = D3DXVECTOR3(5.70f, -26.73f, 92.25f);
+	cube[853].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[853].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[854].position = D3DXVECTOR3(-56.24f, -38.69f, 124.28f);
-	cube[854].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[854].position = D3DXVECTOR3(7.02f, -25.58f, 92.46f);
+	cube[854].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[854].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[855].position = D3DXVECTOR3(-63.33f, -41.58f, 129.86f);
-	cube[855].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[855].position = D3DXVECTOR3(5.70f, -28.32f, 100.95f);
+	cube[855].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[855].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[856].position = D3DXVECTOR3(-64.14f, -40.42f, 128.88f);
-	cube[856].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[856].position = D3DXVECTOR3(7.02f, -27.17f, 101.16f);
+	cube[856].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[856].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[857].position = D3DXVECTOR3(-71.19f, -43.22f, 134.33f);
-	cube[857].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[857].position = D3DXVECTOR3(5.70f, -30.00f, 110.05f);
+	cube[857].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[857].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[858].position = D3DXVECTOR3(-72.00f, -42.06f, 133.35f);
-	cube[858].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[858].position = D3DXVECTOR3(7.02f, -28.85f, 110.26f);
+	cube[858].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[858].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[859].position = D3DXVECTOR3(-77.50f, -44.91f, 137.39f);
-	cube[859].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[859].position = D3DXVECTOR3(5.70f, -31.79f, 119.45f);
+	cube[859].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[859].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[860].position = D3DXVECTOR3(-78.23f, -45.09f, 138.09f);
-	cube[860].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[860].scale = D3DXVECTOR3(3, 1, 7);
+	cube[860].position = D3DXVECTOR3(7.02f, -30.64f, 119.66f);
+	cube[860].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[860].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[861].position = D3DXVECTOR3(-78.12f, -43.75f, 136.28f);
-	cube[861].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[861].position = D3DXVECTOR3(5.70f, -33.47f, 128.75f);
+	cube[861].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[861].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[862].position = D3DXVECTOR3(-79.03f, -43.78f, 136.77f);
-	cube[862].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[862].scale = D3DXVECTOR3(5, 1, 7);
+	cube[862].position = D3DXVECTOR3(7.02f, -32.32f, 128.96f);
+	cube[862].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[862].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[863].position = D3DXVECTOR3(-83.99f, -46.57f, 139.28f);
-	cube[863].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[863].position = D3DXVECTOR3(5.70f, -35.26f, 138.45f);
+	cube[863].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[863].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[864].position = D3DXVECTOR3(-85.12f, -46.93f, 140.10f);
-	cube[864].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[864].scale = D3DXVECTOR3(3, 1, 7);
+	cube[864].position = D3DXVECTOR3(7.02f, -34.11f, 138.66f);
+	cube[864].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[864].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[865].position = D3DXVECTOR3(-84.41f, -45.41f, 138.09f);
-	cube[865].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[865].position = D3DXVECTOR3(5.70f, -36.85f, 147.25f);
+	cube[865].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[865].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[866].position = D3DXVECTOR3(-85.79f, -45.33f, 138.31f);
-	cube[866].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[866].scale = D3DXVECTOR3(5, 1, 7);
+	cube[866].position = D3DXVECTOR3(7.02f, -35.70f, 147.46f);
+	cube[866].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[866].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[867].position = D3DXVECTOR3(-90.26f, -48.17f, 139.97f);
-	cube[867].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[867].position = D3DXVECTOR3(5.70f, -38.22f, 154.87f);
+	cube[867].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[867].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[868].position = D3DXVECTOR3(-91.55f, -48.43f, 140.54f);
-	cube[868].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[868].scale = D3DXVECTOR3(3, 1, 7);
+	cube[868].position = D3DXVECTOR3(7.02f, -37.07f, 155.08f);
+	cube[868].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[868].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[869].position = D3DXVECTOR3(-90.47f, -47.01f, 138.72f);
-	cube[869].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[869].position = D3DXVECTOR3(-72.04f, -59.49f, 229.58f);
+	cube[869].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[869].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[870].position = D3DXVECTOR3(-91.87f, -47.11f, 138.93f);
-	cube[870].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[870].scale = D3DXVECTOR3(5, 1, 7);
+	cube[870].position = D3DXVECTOR3(-71.56f, -58.34f, 230.83f);
+	cube[870].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[870].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[871].position = D3DXVECTOR3(-96.98f, -49.82f, 139.55f);
-	cube[871].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[871].position = D3DXVECTOR3(-80.00f, -61.22f, 234.19f);
+	cube[871].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[871].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[872].position = D3DXVECTOR3(-98.25f, -50.15f, 139.96f);
-	cube[872].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[872].scale = D3DXVECTOR3(3, 1, 7);
+	cube[872].position = D3DXVECTOR3(-79.52f, -60.07f, 235.44f);
+	cube[872].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[872].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[873].position = D3DXVECTOR3(-96.97f, -48.66f, 138.28f);
-	cube[873].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[873].position = D3DXVECTOR3(-87.30f, -62.77f, 238.39f);
+	cube[873].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[873].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[874].position = D3DXVECTOR3(-98.31f, -48.77f, 138.26f);
-	cube[874].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[874].scale = D3DXVECTOR3(5, 1, 7);
+	cube[874].position = D3DXVECTOR3(-86.82f, -61.62f, 239.64f);
+	cube[874].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[874].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[875].position = D3DXVECTOR3(-103.64f, -51.12f, 138.36f);
-	cube[875].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[875].position = D3DXVECTOR3(-94.60f, -64.29f, 242.59f);
+	cube[875].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[875].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[876].position = D3DXVECTOR3(-103.63f, -49.96f, 137.10f);
-	cube[876].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[876].position = D3DXVECTOR3(-94.12f, -63.14f, 243.84f);
+	cube[876].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[876].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[877].position = D3DXVECTOR3(-112.44f, -52.73f, 137.45f);
-	cube[877].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[877].position = D3DXVECTOR3(-102.50f, -66.02f, 247.19f);
+	cube[877].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[877].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[878].position = D3DXVECTOR3(-112.65f, -51.57f, 136.20f);
-	cube[878].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[878].position = D3DXVECTOR3(-102.02f, -64.87f, 248.44f);
+	cube[878].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[878].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[879].position = D3DXVECTOR3(-120.92f, -54.32f, 138.05f);
-	cube[879].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[879].position = D3DXVECTOR3(-110.36f, -67.66f, 251.66f);
+	cube[879].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[879].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[880].position = D3DXVECTOR3(-121.34f, -53.16f, 136.85f);
-	cube[880].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[880].position = D3DXVECTOR3(-109.88f, -66.51f, 252.91f);
+	cube[880].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[880].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[881].position = D3DXVECTOR3(-129.45f, -55.95f, 140.19f);
-	cube[881].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[881].position = D3DXVECTOR3(5.81f, -142.47f, 378.67f);
+	cube[881].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[881].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[882].position = D3DXVECTOR3(-130.08f, -54.79f, 139.08f);
-	cube[882].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[882].position = D3DXVECTOR3(6.65f, -141.32f, 377.63f);
+	cube[882].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[882].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[883].position = D3DXVECTOR3(-137.45f, -57.58f, 143.75f);
-	cube[883].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[883].position = D3DXVECTOR3(13.84f, -144.16f, 383.32f);
+	cube[883].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[883].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[884].position = D3DXVECTOR3(-138.25f, -56.42f, 142.77f);
-	cube[884].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[884].position = D3DXVECTOR3(14.68f, -143.01f, 382.28f);
+	cube[884].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[884].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[885].position = D3DXVECTOR3(-144.67f, -59.18f, 148.62f);
-	cube[885].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[885].position = D3DXVECTOR3(22.10f, -145.88f, 388.08f);
+	cube[885].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[885].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[886].position = D3DXVECTOR3(-145.63f, -58.02f, 147.79f);
-	cube[886].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[886].position = D3DXVECTOR3(22.94f, -144.73f, 387.04f);
+	cube[886].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[886].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[887].position = D3DXVECTOR3(-150.98f, -60.82f, 154.72f);
-	cube[887].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[887].position = D3DXVECTOR3(30.22f, -147.58f, 392.75f);
+	cube[887].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[887].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[888].position = D3DXVECTOR3(-152.07f, -59.66f, 154.08f);
-	cube[888].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[888].position = D3DXVECTOR3(31.06f, -146.43f, 391.71f);
+	cube[888].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[888].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[889].position = D3DXVECTOR3(-155.95f, -62.48f, 161.69f);
-	cube[889].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[889].position = D3DXVECTOR3(38.32f, -149.25f, 397.41f);
+	cube[889].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[889].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[890].position = D3DXVECTOR3(-157.14f, -61.32f, 161.24f);
-	cube[890].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[890].position = D3DXVECTOR3(39.16f, -148.10f, 396.37f);
+	cube[890].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[890].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[891].position = D3DXVECTOR3(-159.59f, -64.02f, 169.14f);
-	cube[891].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[891].position = D3DXVECTOR3(46.62f, -150.95f, 402.19f);
+	cube[891].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[891].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[892].position = D3DXVECTOR3(-160.84f, -62.86f, 168.91f);
-	cube[892].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[892].position = D3DXVECTOR3(47.46f, -149.80f, 401.15f);
+	cube[892].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[892].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[893].position = D3DXVECTOR3(-162.07f, -65.38f, 175.84f);
-	cube[893].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[893].position = D3DXVECTOR3(54.19f, -152.52f, 406.50f);
+	cube[893].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[893].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[894].position = D3DXVECTOR3(-163.31f, -64.22f, 175.61f);
-	cube[894].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[894].position = D3DXVECTOR3(55.03f, -151.37f, 405.47f);
+	cube[894].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[894].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[895].position = D3DXVECTOR3(-164.50f, -66.99f, 184.35f);
-	cube[895].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[895].position = D3DXVECTOR3(132.89f, -213.81f, 673.15f);
+	cube[895].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[895].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[896].position = D3DXVECTOR3(-165.76f, -65.83f, 184.34f);
-	cube[896].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[896].position = D3DXVECTOR3(134.20f, -212.66f, 672.89f);
+	cube[896].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[896].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[897].position = D3DXVECTOR3(-165.38f, -68.58f, 192.80f);
-	cube[897].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[897].position = D3DXVECTOR3(136.17f, -215.54f, 682.15f);
+	cube[897].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[897].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[898].position = D3DXVECTOR3(-166.63f, -67.42f, 193.01f);
-	cube[898].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[898].position = D3DXVECTOR3(137.48f, -214.39f, 681.89f);
+	cube[898].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[898].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[899].position = D3DXVECTOR3(-164.75f, -70.21f, 201.58f);
-	cube[899].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[899].position = D3DXVECTOR3(139.39f, -217.23f, 690.99f);
+	cube[899].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[899].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[900].position = D3DXVECTOR3(-165.95f, -69.05f, 202.00f);
-	cube[900].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[900].position = D3DXVECTOR3(140.70f, -216.08f, 690.73f);
+	cube[900].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[900].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[901].position = D3DXVECTOR3(-162.64f, -71.84f, 210.07f);
-	cube[901].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[901].position = D3DXVECTOR3(142.56f, -218.91f, 699.72f);
+	cube[901].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[901].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[902].position = D3DXVECTOR3(-163.74f, -70.68f, 210.70f);
-	cube[902].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[902].position = D3DXVECTOR3(143.87f, -217.76f, 699.46f);
+	cube[902].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[902].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[903].position = D3DXVECTOR3(-159.09f, -73.44f, 218.03f);
-	cube[903].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[903].position = D3DXVECTOR3(145.72f, -220.59f, 708.39f);
+	cube[903].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[903].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[904].position = D3DXVECTOR3(-160.07f, -72.28f, 218.83f);
-	cube[904].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[904].position = D3DXVECTOR3(147.03f, -219.44f, 708.13f);
+	cube[904].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[904].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[905].position = D3DXVECTOR3(-154.18f, -75.08f, 225.30f);
-	cube[905].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[905].position = D3DXVECTOR3(148.96f, -222.33f, 717.32f);
+	cube[905].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[905].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[906].position = D3DXVECTOR3(-155.00f, -73.92f, 226.27f);
-	cube[906].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[906].position = D3DXVECTOR3(150.27f, -221.18f, 717.06f);
+	cube[906].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[906].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[907].position = D3DXVECTOR3(-148.18f, -76.74f, 231.41f);
-	cube[907].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[907].position = D3DXVECTOR3(152.19f, -224.03f, 726.20f);
+	cube[907].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[907].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[908].position = D3DXVECTOR3(-148.82f, -75.58f, 232.50f);
-	cube[908].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[908].position = D3DXVECTOR3(153.50f, -222.88f, 725.94f);
+	cube[908].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[908].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[909].position = D3DXVECTOR3(-141.47f, -78.28f, 236.29f);
-	cube[909].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[909].position = D3DXVECTOR3(155.36f, -225.73f, 734.99f);
+	cube[909].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[909].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[910].position = D3DXVECTOR3(-141.91f, -77.12f, 237.48f);
-	cube[910].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[910].position = D3DXVECTOR3(156.67f, -224.58f, 734.74f);
+	cube[910].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[910].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[911].position = D3DXVECTOR3(-133.74f, -79.96f, 240.77f);
-	cube[911].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[911].position = D3DXVECTOR3(398.69f, -304.55f, 861.16f);
+	cube[911].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[911].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[912].position = D3DXVECTOR3(-134.18f, -78.80f, 241.95f);
-	cube[912].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[912].position = D3DXVECTOR3(397.37f, -303.40f, 860.95f);
+	cube[912].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[912].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[913].position = D3DXVECTOR3(-125.66f, -81.66f, 245.44f);
-	cube[913].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[913].position = D3DXVECTOR3(398.69f, -306.30f, 851.62f);
+	cube[913].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[913].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[914].position = D3DXVECTOR3(-126.10f, -80.50f, 246.62f);
-	cube[914].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[914].position = D3DXVECTOR3(397.37f, -305.15f, 851.41f);
+	cube[914].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[914].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[915].position = D3DXVECTOR3(-117.16f, -83.41f, 250.37f);
-	cube[915].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[915].position = D3DXVECTOR3(398.69f, -308.00f, 842.23f);
+	cube[915].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[915].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[916].position = D3DXVECTOR3(-117.60f, -82.25f, 251.55f);
-	cube[916].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[916].position = D3DXVECTOR3(397.37f, -306.85f, 842.02f);
+	cube[916].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[916].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[917].position = D3DXVECTOR3(-109.10f, -85.07f, 255.09f);
-	cube[917].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[917].position = D3DXVECTOR3(398.69f, -309.65f, 833.07f);
+	cube[917].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[917].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[918].position = D3DXVECTOR3(-109.55f, -83.91f, 256.28f);
-	cube[918].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[918].position = D3DXVECTOR3(397.37f, -308.50f, 832.86f);
+	cube[918].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[918].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[919].position = D3DXVECTOR3(-101.15f, -86.68f, 258.96f);
-	cube[919].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[919].position = D3DXVECTOR3(398.69f, -311.39f, 823.49f);
+	cube[919].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[919].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[920].position = D3DXVECTOR3(-101.38f, -85.52f, 260.20f);
-	cube[920].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[920].position = D3DXVECTOR3(397.37f, -310.24f, 823.28f);
+	cube[920].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[920].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[921].position = D3DXVECTOR3(-92.98f, -88.27f, 261.29f);
-	cube[921].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[921].position = D3DXVECTOR3(398.69f, -312.97f, 814.76f);
+	cube[921].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[921].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[922].position = D3DXVECTOR3(-92.99f, -87.11f, 262.56f);
-	cube[922].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[922].position = D3DXVECTOR3(397.37f, -311.82f, 814.55f);
+	cube[922].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[922].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[923].position = D3DXVECTOR3(-84.22f, -89.90f, 262.20f);
-	cube[923].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[923].position = D3DXVECTOR3(555.95f, -384.71f, 606.46f);
+	cube[923].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[923].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[924].position = D3DXVECTOR3(-84.01f, -88.74f, 263.45f);
-	cube[924].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[924].position = D3DXVECTOR3(556.39f, -383.56f, 605.19f);
+	cube[924].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[924].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[925].position = D3DXVECTOR3(-75.49f, -91.53f, 261.59f);
-	cube[925].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[925].position = D3DXVECTOR3(565.50f, -386.47f, 608.14f);
+	cube[925].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[925].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[926].position = D3DXVECTOR3(-75.07f, -90.37f, 262.79f);
-	cube[926].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[926].position = D3DXVECTOR3(565.94f, -385.32f, 606.87f);
+	cube[926].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[926].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[927].position = D3DXVECTOR3(-66.21f, -93.23f, 259.96f);
-	cube[927].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[927].position = D3DXVECTOR3(574.88f, -388.19f, 609.80f);
+	cube[927].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[927].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[928].position = D3DXVECTOR3(-65.79f, -92.07f, 261.15f);
-	cube[928].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[928].position = D3DXVECTOR3(575.32f, -387.04f, 608.53f);
+	cube[928].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[928].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[929].position = D3DXVECTOR3(-59.24f, -94.92f, 259.24f);
-	cube[929].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[929].position = D3DXVECTOR3(582.62f, -389.59f, 611.18f);
+	cube[929].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[929].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[930].position = D3DXVECTOR3(-58.31f, -95.10f, 258.83f);
-	cube[930].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[930].scale = D3DXVECTOR3(3, 1, 7);
+	cube[930].position = D3DXVECTOR3(583.06f, -388.44f, 609.92f);
+	cube[930].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[930].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[931].position = D3DXVECTOR3(-59.03f, -93.76f, 260.49f);
-	cube[931].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[931].position = D3DXVECTOR3(592.02f, -391.30f, 612.85f);
+	cube[931].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[931].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[932].position = D3DXVECTOR3(-58.01f, -93.79f, 260.34f);
-	cube[932].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[932].scale = D3DXVECTOR3(5, 1, 7);
+	cube[932].position = D3DXVECTOR3(592.46f, -390.15f, 611.59f);
+	cube[932].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[932].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[933].position = D3DXVECTOR3(-52.50f, -96.58f, 259.68f);
-	cube[933].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[933].position = D3DXVECTOR3(601.57f, -393.04f, 614.52f);
+	cube[933].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[933].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[934].position = D3DXVECTOR3(-51.15f, -96.94f, 259.30f);
-	cube[934].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[934].scale = D3DXVECTOR3(3, 1, 7);
+	cube[934].position = D3DXVECTOR3(602.01f, -391.89f, 613.26f);
+	cube[934].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[934].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[935].position = D3DXVECTOR3(-52.51f, -95.42f, 260.94f);
-	cube[935].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[935].position = D3DXVECTOR3(610.86f, -394.72f, 616.16f);
+	cube[935].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[935].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[936].position = D3DXVECTOR3(-51.13f, -95.34f, 261.20f);
-	cube[936].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[936].scale = D3DXVECTOR3(5, 1, 7);
+	cube[936].position = D3DXVECTOR3(611.30f, -393.57f, 614.90f);
+	cube[936].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[936].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[937].position = D3DXVECTOR3(-46.37f, -98.18f, 261.18f);
-	cube[937].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[937].position = D3DXVECTOR3(620.27f, -396.43f, 617.82f);
+	cube[937].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[937].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[938].position = D3DXVECTOR3(-44.96f, -98.44f, 261.08f);
-	cube[938].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[938].scale = D3DXVECTOR3(3, 1, 7);
+	cube[938].position = D3DXVECTOR3(620.71f, -395.28f, 616.56f);
+	cube[938].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[938].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[939].position = D3DXVECTOR3(-46.60f, -97.02f, 262.42f);
-	cube[939].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[939].position = D3DXVECTOR3(629.66f, -398.14f, 619.48f);
+	cube[939].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[939].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[940].position = D3DXVECTOR3(-45.21f, -97.12f, 262.70f);
-	cube[940].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[940].scale = D3DXVECTOR3(5, 1, 7);
+	cube[940].position = D3DXVECTOR3(630.10f, -396.99f, 618.22f);
+	cube[940].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[940].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[941].position = D3DXVECTOR3(-40.19f, -99.83f, 263.87f);
-	cube[941].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[941].position = D3DXVECTOR3(639.02f, -399.84f, 621.13f);
+	cube[941].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[941].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[942].position = D3DXVECTOR3(-38.86f, -100.16f, 263.92f);
-	cube[942].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[942].scale = D3DXVECTOR3(3, 1, 7);
+	cube[942].position = D3DXVECTOR3(639.46f, -398.69f, 619.87f);
+	cube[942].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	cube[942].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[943].position = D3DXVECTOR3(-40.64f, -98.67f, 265.06f);
-	cube[943].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[943].position = D3DXVECTOR3(-6.27f, -10.24f, 2.16f);
+	cube[943].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[943].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[944].position = D3DXVECTOR3(-39.39f, -98.78f, 265.53f);
-	cube[944].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[944].scale = D3DXVECTOR3(5, 1, 7);
+	cube[944].position = D3DXVECTOR3(-7.52f, -9.08f, 2.37f);
+	cube[944].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[944].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[945].position = D3DXVECTOR3(-32.27f, -101.50f, 268.47f);
-	cube[945].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[945].position = D3DXVECTOR3(-6.27f, -11.90f, 11.16f);
+	cube[945].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[945].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[946].position = D3DXVECTOR3(-32.72f, -100.34f, 269.66f);
-	cube[946].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[946].position = D3DXVECTOR3(-7.52f, -10.74f, 11.37f);
+	cube[946].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[946].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[947].position = D3DXVECTOR3(-24.32f, -103.11f, 272.34f);
-	cube[947].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[947].position = D3DXVECTOR3(-6.27f, -13.49f, 19.86f);
+	cube[947].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[947].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[948].position = D3DXVECTOR3(-24.55f, -101.95f, 273.58f);
-	cube[948].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[948].position = D3DXVECTOR3(-7.52f, -12.33f, 20.07f);
+	cube[948].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[948].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[949].position = D3DXVECTOR3(-16.15f, -104.70f, 274.67f);
-	cube[949].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[949].position = D3DXVECTOR3(-6.27f, -15.17f, 28.96f);
+	cube[949].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[949].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[950].position = D3DXVECTOR3(-16.16f, -103.54f, 275.94f);
-	cube[950].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[950].position = D3DXVECTOR3(-7.52f, -14.01f, 29.17f);
+	cube[950].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[950].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[951].position = D3DXVECTOR3(-7.39f, -106.33f, 275.58f);
-	cube[951].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[951].position = D3DXVECTOR3(-6.27f, -16.96f, 38.36f);
+	cube[951].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[951].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[952].position = D3DXVECTOR3(-7.18f, -105.17f, 276.83f);
-	cube[952].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[952].position = D3DXVECTOR3(-7.52f, -15.80f, 38.57f);
+	cube[952].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[952].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[953].position = D3DXVECTOR3(1.34f, -107.96f, 274.97f);
-	cube[953].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[953].position = D3DXVECTOR3(-6.27f, -18.64f, 47.66f);
+	cube[953].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[953].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[954].position = D3DXVECTOR3(1.76f, -106.80f, 276.17f);
-	cube[954].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[954].position = D3DXVECTOR3(-7.52f, -17.48f, 47.87f);
+	cube[954].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[954].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[955].position = D3DXVECTOR3(10.47f, -109.68f, 273.41f);
-	cube[955].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[955].position = D3DXVECTOR3(-6.27f, -20.43f, 57.36f);
+	cube[955].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[955].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[956].position = D3DXVECTOR3(10.89f, -108.52f, 274.60f);
-	cube[956].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[956].position = D3DXVECTOR3(-7.52f, -19.27f, 57.57f);
+	cube[956].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[956].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[957].position = D3DXVECTOR3(17.44f, -111.37f, 272.69f);
-	cube[957].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[957].position = D3DXVECTOR3(-6.27f, -22.02f, 66.16f);
+	cube[957].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[957].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[958].position = D3DXVECTOR3(18.37f, -111.55f, 272.28f);
-	cube[958].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[958].scale = D3DXVECTOR3(3, 1, 7);
+	cube[958].position = D3DXVECTOR3(-7.52f, -20.86f, 66.37f);
+	cube[958].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[958].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[959].position = D3DXVECTOR3(17.65f, -110.21f, 273.94f);
-	cube[959].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[959].position = D3DXVECTOR3(-6.27f, -23.39f, 73.77f);
+	cube[959].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[959].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[960].position = D3DXVECTOR3(18.67f, -110.24f, 273.79f);
-	cube[960].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[960].scale = D3DXVECTOR3(5, 1, 7);
+	cube[960].position = D3DXVECTOR3(-7.52f, -22.23f, 73.98f);
+	cube[960].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[960].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[961].position = D3DXVECTOR3(24.18f, -113.03f, 273.13f);
-	cube[961].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[961].position = D3DXVECTOR3(-6.65f, -39.93f, 161.60f);
+	cube[961].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[961].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[962].position = D3DXVECTOR3(25.53f, -113.39f, 272.75f);
-	cube[962].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[962].position = D3DXVECTOR3(-6.40f, -40.11f, 162.59f);
+	cube[962].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[962].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[963].position = D3DXVECTOR3(24.17f, -111.87f, 274.39f);
-	cube[963].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[963].position = D3DXVECTOR3(-7.92f, -38.77f, 161.59f);
+	cube[963].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[963].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[964].position = D3DXVECTOR3(25.55f, -111.79f, 274.65f);
-	cube[964].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[964].position = D3DXVECTOR3(-7.94f, -38.80f, 162.62f);
+	cube[964].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[964].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[965].position = D3DXVECTOR3(30.31f, -114.63f, 274.63f);
-	cube[965].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[965].position = D3DXVECTOR3(-8.25f, -41.59f, 168.17f);
+	cube[965].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[965].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[966].position = D3DXVECTOR3(31.72f, -114.89f, 274.53f);
-	cube[966].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[966].position = D3DXVECTOR3(-8.11f, -41.95f, 169.56f);
+	cube[966].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[966].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[967].position = D3DXVECTOR3(30.08f, -113.47f, 275.87f);
-	cube[967].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[967].position = D3DXVECTOR3(-9.50f, -40.43f, 167.94f);
+	cube[967].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[967].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[968].position = D3DXVECTOR3(31.47f, -113.57f, 276.15f);
-	cube[968].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[968].position = D3DXVECTOR3(-9.99f, -40.35f, 169.25f);
+	cube[968].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[968].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[969].position = D3DXVECTOR3(36.49f, -116.28f, 277.32f);
-	cube[969].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[969].position = D3DXVECTOR3(-10.79f, -43.19f, 173.94f);
+	cube[969].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[969].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[970].position = D3DXVECTOR3(37.82f, -116.61f, 277.37f);
-	cube[970].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[970].position = D3DXVECTOR3(-10.94f, -43.45f, 175.35f);
+	cube[970].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[970].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[971].position = D3DXVECTOR3(36.04f, -115.12f, 278.51f);
-	cube[971].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[971].position = D3DXVECTOR3(-11.98f, -42.03f, 173.50f);
+	cube[971].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[971].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[972].position = D3DXVECTOR3(37.29f, -115.23f, 278.98f);
-	cube[972].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[972].position = D3DXVECTOR3(-12.49f, -42.13f, 174.82f);
+	cube[972].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[972].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[973].position = D3DXVECTOR3(44.44f, -118.02f, 281.91f);
-	cube[973].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[973].position = D3DXVECTOR3(-14.52f, -44.84f, 179.55f);
+	cube[973].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[973].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[974].position = D3DXVECTOR3(44.00f, -116.86f, 283.09f);
-	cube[974].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[974].scale = D3DXVECTOR3(3, 1, 10);
+	cube[974].position = D3DXVECTOR3(-14.79f, -45.17f, 180.86f);
+	cube[974].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[974].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[975].position = D3DXVECTOR3(52.47f, -119.71f, 286.56f);
-	cube[975].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[975].position = D3DXVECTOR3(-15.61f, -43.68f, 178.91f);
+	cube[975].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[975].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[976].position = D3DXVECTOR3(52.03f, -118.55f, 287.74f);
-	cube[976].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[976].scale = D3DXVECTOR3(3, 1, 10);
+	cube[976].position = D3DXVECTOR3(-16.29f, -43.79f, 180.06f);
+	cube[976].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[976].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[977].position = D3DXVECTOR3(60.73f, -121.43f, 291.32f);
-	cube[977].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[977].position = D3DXVECTOR3(-19.34f, -46.55f, 184.51f);
+	cube[977].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[977].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[978].position = D3DXVECTOR3(60.29f, -120.27f, 292.50f);
-	cube[978].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[978].scale = D3DXVECTOR3(3, 1, 10);
+	cube[978].position = D3DXVECTOR3(-19.88f, -46.78f, 185.63f);
+	cube[978].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[978].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[979].position = D3DXVECTOR3(68.85f, -123.13f, 295.99f);
-	cube[979].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[979].position = D3DXVECTOR3(-20.31f, -45.39f, 183.68f);
+	cube[979].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[979].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[980].position = D3DXVECTOR3(68.41f, -121.97f, 297.17f);
-	cube[980].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[980].scale = D3DXVECTOR3(3, 1, 10);
+	cube[980].position = D3DXVECTOR3(-21.11f, -45.48f, 184.65f);
+	cube[980].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[980].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[981].position = D3DXVECTOR3(76.95f, -124.80f, 300.65f);
-	cube[981].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[981].position = D3DXVECTOR3(-24.66f, -48.18f, 188.41f);
+	cube[981].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[981].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[982].position = D3DXVECTOR3(76.51f, -123.64f, 301.83f);
-	cube[982].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[982].scale = D3DXVECTOR3(3, 1, 10);
+	cube[982].position = D3DXVECTOR3(-25.37f, -48.51f, 189.56f);
+	cube[982].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[982].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[983].position = D3DXVECTOR3(85.25f, -126.50f, 305.43f);
-	cube[983].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[983].position = D3DXVECTOR3(-25.46f, -47.02f, 187.43f);
+	cube[983].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[983].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[984].position = D3DXVECTOR3(84.81f, -125.34f, 306.61f);
-	cube[984].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[984].scale = D3DXVECTOR3(3, 1, 10);
+	cube[984].position = D3DXVECTOR3(-26.49f, -47.13f, 188.26f);
+	cube[984].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[984].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[985].position = D3DXVECTOR3(92.83f, -128.07f, 309.75f);
-	cube[985].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[985].position = D3DXVECTOR3(-32.13f, -49.77f, 192.78f);
+	cube[985].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[985].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[986].position = D3DXVECTOR3(92.38f, -126.91f, 310.93f);
-	cube[986].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[986].position = D3DXVECTOR3(-32.94f, -48.61f, 191.81f);
+	cube[986].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[986].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[987].position = D3DXVECTOR3(98.63f, -129.76f, 313.68f);
-	cube[987].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[987].position = D3DXVECTOR3(-40.09f, -51.50f, 197.39f);
+	cube[987].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[987].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[988].position = D3DXVECTOR3(99.61f, -129.94f, 313.96f);
-	cube[988].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 50.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[988].scale = D3DXVECTOR3(3, 1, 7);
+	cube[988].position = D3DXVECTOR3(-40.90f, -50.34f, 196.42f);
+	cube[988].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[988].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[989].position = D3DXVECTOR3(97.99f, -128.60f, 314.77f);
-	cube[989].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[989].position = D3DXVECTOR3(-47.39f, -53.05f, 201.59f);
+	cube[989].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[989].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[990].position = D3DXVECTOR3(98.86f, -128.63f, 315.31f);
-	cube[990].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 50.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[990].scale = D3DXVECTOR3(5, 1, 7);
+	cube[990].position = D3DXVECTOR3(-48.20f, -51.89f, 200.62f);
+	cube[990].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[990].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[991].position = D3DXVECTOR3(103.51f, -131.42f, 318.35f);
-	cube[991].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[991].position = D3DXVECTOR3(-54.69f, -54.57f, 205.79f);
+	cube[991].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[991].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[992].position = D3DXVECTOR3(104.79f, -131.78f, 318.93f);
-	cube[992].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 40.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[992].scale = D3DXVECTOR3(3, 1, 7);
+	cube[992].position = D3DXVECTOR3(-55.50f, -53.41f, 204.82f);
+	cube[992].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[992].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[993].position = D3DXVECTOR3(102.69f, -130.26f, 319.31f);
-	cube[993].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[993].position = D3DXVECTOR3(-62.59f, -56.30f, 210.39f);
+	cube[993].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[993].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[994].position = D3DXVECTOR3(103.58f, -130.18f, 320.40f);
-	cube[994].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 40.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[994].scale = D3DXVECTOR3(5, 1, 7);
+	cube[994].position = D3DXVECTOR3(-63.40f, -55.14f, 209.42f);
+	cube[994].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[994].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[995].position = D3DXVECTOR3(107.25f, -133.02f, 323.44f);
-	cube[995].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[995].position = D3DXVECTOR3(-70.45f, -57.94f, 214.86f);
+	cube[995].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[995].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[996].position = D3DXVECTOR3(108.39f, -133.28f, 324.27f);
-	cube[996].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 30.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[996].scale = D3DXVECTOR3(3, 1, 7);
+	cube[996].position = D3DXVECTOR3(-71.26f, -56.78f, 213.88f);
+	cube[996].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[996].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[997].position = D3DXVECTOR3(106.27f, -131.86f, 324.25f);
-	cube[997].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[997].position = D3DXVECTOR3(-122.48f, -69.38f, 244.32f);
+	cube[997].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[997].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[998].position = D3DXVECTOR3(107.15f, -131.96f, 325.35f);
-	cube[998].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 30.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[998].scale = D3DXVECTOR3(5, 1, 7);
+	cube[998].position = D3DXVECTOR3(-123.22f, -69.56f, 245.02f);
+	cube[998].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[998].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[999].position = D3DXVECTOR3(110.25f, -134.67f, 329.47f);
-	cube[999].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[999].position = D3DXVECTOR3(-123.11f, -68.22f, 243.21f);
+	cube[999].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[999].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1000].position = D3DXVECTOR3(111.23f, -135.00f, 330.36f);
-	cube[1000].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1000].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1000].position = D3DXVECTOR3(-124.01f, -68.25f, 243.70f);
+	cube[1000].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1000].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1001].position = D3DXVECTOR3(109.14f, -133.51f, 330.09f);
-	cube[1001].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1001].position = D3DXVECTOR3(-128.97f, -71.04f, 246.21f);
+	cube[1001].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1001].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1002].position = D3DXVECTOR3(109.79f, -133.62f, 331.26f);
-	cube[1002].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1002].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1002].position = D3DXVECTOR3(-130.11f, -71.40f, 247.03f);
+	cube[1002].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1002].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1003].position = D3DXVECTOR3(113.47f, -136.36f, 338.32f);
-	cube[1003].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1003].position = D3DXVECTOR3(-129.39f, -69.88f, 245.02f);
+	cube[1003].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1003].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1004].position = D3DXVECTOR3(112.37f, -135.20f, 338.94f);
-	cube[1004].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1004].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1004].position = D3DXVECTOR3(-130.78f, -69.80f, 245.24f);
+	cube[1004].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1004].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1005].position = D3DXVECTOR3(116.55f, -138.02f, 346.79f);
-	cube[1005].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1005].position = D3DXVECTOR3(-135.24f, -72.64f, 246.90f);
+	cube[1005].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1005].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1006].position = D3DXVECTOR3(115.45f, -136.86f, 347.41f);
-	cube[1006].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1006].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1006].position = D3DXVECTOR3(-136.54f, -72.90f, 247.47f);
+	cube[1006].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1006].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1007].position = D3DXVECTOR3(119.68f, -139.67f, 355.24f);
-	cube[1007].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1007].position = D3DXVECTOR3(-135.45f, -71.48f, 245.65f);
+	cube[1007].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1007].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1008].position = D3DXVECTOR3(118.57f, -138.51f, 355.86f);
-	cube[1008].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1008].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1008].position = D3DXVECTOR3(-136.85f, -71.58f, 245.86f);
+	cube[1008].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1008].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1009].position = D3DXVECTOR3(121.59f, -141.36f, 361.98f);
-	cube[1009].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1009].position = D3DXVECTOR3(-141.96f, -74.29f, 246.48f);
+	cube[1009].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1009].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1010].position = D3DXVECTOR3(122.16f, -141.54f, 362.83f);
-	cube[1010].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 10.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1010].position = D3DXVECTOR3(-143.23f, -74.62f, 246.89f);
+	cube[1010].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1010].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1011].position = D3DXVECTOR3(120.40f, -140.20f, 362.41f);
-	cube[1011].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1011].position = D3DXVECTOR3(-141.95f, -73.13f, 245.21f);
+	cube[1011].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1011].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1012].position = D3DXVECTOR3(120.72f, -140.23f, 363.38f);
-	cube[1012].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 10.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1012].position = D3DXVECTOR3(-143.29f, -73.24f, 245.19f);
+	cube[1012].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1012].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1013].position = D3DXVECTOR3(122.33f, -143.02f, 368.70f);
-	cube[1013].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1013].position = D3DXVECTOR3(-148.62f, -75.59f, 245.29f);
+	cube[1013].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1013].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1014].position = D3DXVECTOR3(122.94f, -143.38f, 369.96f);
-	cube[1014].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1014].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1014].position = D3DXVECTOR3(-148.61f, -74.43f, 244.03f);
+	cube[1014].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (260.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1014].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1015].position = D3DXVECTOR3(121.08f, -141.86f, 368.91f);
-	cube[1015].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1015].position = D3DXVECTOR3(-157.42f, -77.20f, 244.38f);
+	cube[1015].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1015].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1016].position = D3DXVECTOR3(121.06f, -141.78f, 370.31f);
-	cube[1016].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1016].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1016].position = D3DXVECTOR3(-157.63f, -76.04f, 243.13f);
+	cube[1016].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (270.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1016].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1017].position = D3DXVECTOR3(121.92f, -144.62f, 375.00f);
-	cube[1017].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1017].position = D3DXVECTOR3(-165.90f, -78.79f, 244.98f);
+	cube[1017].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1017].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1018].position = D3DXVECTOR3(122.26f, -144.88f, 376.37f);
-	cube[1018].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1018].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1018].position = D3DXVECTOR3(-166.33f, -77.63f, 243.78f);
+	cube[1018].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (280.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1018].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1019].position = D3DXVECTOR3(120.65f, -143.46f, 374.99f);
-	cube[1019].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1019].position = D3DXVECTOR3(-174.44f, -80.42f, 247.12f);
+	cube[1019].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1019].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1020].position = D3DXVECTOR3(120.62f, -143.56f, 376.40f);
-	cube[1020].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1020].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1020].position = D3DXVECTOR3(-175.06f, -79.26f, 246.01f);
+	cube[1020].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (290.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1020].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1021].position = D3DXVECTOR3(120.34f, -146.27f, 381.54f);
-	cube[1021].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1021].position = D3DXVECTOR3(-182.43f, -82.05f, 250.68f);
+	cube[1021].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1021].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1022].position = D3DXVECTOR3(120.53f, -146.60f, 382.86f);
-	cube[1022].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1022].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1022].position = D3DXVECTOR3(-183.24f, -80.89f, 249.70f);
+	cube[1022].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1022].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1023].position = D3DXVECTOR3(119.09f, -145.11f, 381.31f);
-	cube[1023].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1023].position = D3DXVECTOR3(-189.65f, -83.65f, 255.55f);
+	cube[1023].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1023].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1024].position = D3DXVECTOR3(118.84f, -145.22f, 382.62f);
-	cube[1024].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1024].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1024].position = D3DXVECTOR3(-190.62f, -82.49f, 254.72f);
+	cube[1024].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (310.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1024].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1025].position = D3DXVECTOR3(117.02f, -148.00f, 390.61f);
-	cube[1025].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1025].position = D3DXVECTOR3(-195.96f, -85.29f, 261.65f);
+	cube[1025].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1025].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1026].position = D3DXVECTOR3(115.78f, -146.84f, 390.38f);
-	cube[1026].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1026].position = D3DXVECTOR3(-197.06f, -84.13f, 261.01f);
+	cube[1026].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (320.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1026].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1027].position = D3DXVECTOR3(113.89f, -149.66f, 399.13f);
-	cube[1027].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1027].position = D3DXVECTOR3(-200.94f, -86.95f, 268.62f);
+	cube[1027].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1027].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1028].position = D3DXVECTOR3(112.65f, -148.50f, 398.90f);
-	cube[1028].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1028].position = D3DXVECTOR3(-202.13f, -85.79f, 268.17f);
+	cube[1028].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (330.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1028].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1029].position = D3DXVECTOR3(111.46f, -151.27f, 407.64f);
-	cube[1029].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1029].position = D3DXVECTOR3(-204.58f, -88.49f, 276.07f);
+	cube[1029].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1029].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1030].position = D3DXVECTOR3(110.20f, -150.11f, 407.63f);
-	cube[1030].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1030].position = D3DXVECTOR3(-205.82f, -87.33f, 275.84f);
+	cube[1030].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1030].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1031].position = D3DXVECTOR3(110.58f, -152.86f, 416.09f);
-	cube[1031].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1031].position = D3DXVECTOR3(-207.05f, -89.85f, 282.77f);
+	cube[1031].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1031].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1032].position = D3DXVECTOR3(109.33f, -151.70f, 416.30f);
-	cube[1032].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1032].position = D3DXVECTOR3(-208.30f, -88.69f, 282.54f);
+	cube[1032].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1032].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1033].position = D3DXVECTOR3(111.21f, -154.49f, 424.87f);
-	cube[1033].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1033].position = D3DXVECTOR3(-209.48f, -91.46f, 291.28f);
+	cube[1033].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1033].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1034].position = D3DXVECTOR3(110.01f, -153.33f, 425.29f);
-	cube[1034].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1034].position = D3DXVECTOR3(-210.75f, -90.30f, 291.27f);
+	cube[1034].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1034].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1035].position = D3DXVECTOR3(113.32f, -156.12f, 433.36f);
-	cube[1035].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1035].position = D3DXVECTOR3(-210.36f, -93.05f, 299.73f);
+	cube[1035].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1035].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1036].position = D3DXVECTOR3(112.22f, -154.96f, 433.99f);
-	cube[1036].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1036].position = D3DXVECTOR3(-211.61f, -91.89f, 299.94f);
+	cube[1036].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1036].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1037].position = D3DXVECTOR3(116.46f, -157.79f, 442.00f);
-	cube[1037].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1037].position = D3DXVECTOR3(-209.74f, -94.68f, 308.51f);
+	cube[1037].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1037].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1038].position = D3DXVECTOR3(115.35f, -156.63f, 442.62f);
-	cube[1038].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1038].position = D3DXVECTOR3(-210.93f, -93.52f, 308.93f);
+	cube[1038].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1038].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1039].position = D3DXVECTOR3(118.37f, -159.48f, 448.74f);
-	cube[1039].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1039].position = D3DXVECTOR3(-207.62f, -96.31f, 317.00f);
+	cube[1039].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1039].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1040].position = D3DXVECTOR3(118.94f, -159.66f, 449.59f);
-	cube[1040].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 10.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1040].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1040].position = D3DXVECTOR3(-208.72f, -95.15f, 317.63f);
+	cube[1040].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1040].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1041].position = D3DXVECTOR3(117.18f, -158.32f, 449.17f);
-	cube[1041].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1041].position = D3DXVECTOR3(-204.08f, -97.91f, 324.96f);
+	cube[1041].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1041].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1042].position = D3DXVECTOR3(117.50f, -158.35f, 450.14f);
-	cube[1042].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 10.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1042].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1042].position = D3DXVECTOR3(-205.06f, -96.75f, 325.76f);
+	cube[1042].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1042].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1043].position = D3DXVECTOR3(119.11f, -161.14f, 455.46f);
-	cube[1043].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1043].position = D3DXVECTOR3(-199.16f, -99.55f, 332.23f);
+	cube[1043].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1043].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1044].position = D3DXVECTOR3(119.72f, -161.50f, 456.72f);
-	cube[1044].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1044].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1044].position = D3DXVECTOR3(-199.99f, -98.39f, 333.20f);
+	cube[1044].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1044].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1045].position = D3DXVECTOR3(117.86f, -159.98f, 455.67f);
-	cube[1045].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1045].position = D3DXVECTOR3(-193.17f, -101.21f, 338.34f);
+	cube[1045].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1045].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1046].position = D3DXVECTOR3(117.84f, -159.90f, 457.07f);
-	cube[1046].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1046].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1046].position = D3DXVECTOR3(-193.81f, -100.05f, 339.43f);
+	cube[1046].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1046].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1047].position = D3DXVECTOR3(118.70f, -162.74f, 461.76f);
-	cube[1047].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1047].position = D3DXVECTOR3(-186.45f, -102.75f, 343.22f);
+	cube[1047].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1047].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1048].position = D3DXVECTOR3(119.04f, -163.00f, 463.13f);
-	cube[1048].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1048].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1048].position = D3DXVECTOR3(-186.90f, -101.59f, 344.41f);
+	cube[1048].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1048].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1049].position = D3DXVECTOR3(117.43f, -161.58f, 461.75f);
-	cube[1049].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1049].position = D3DXVECTOR3(-178.72f, -104.42f, 347.70f);
+	cube[1049].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1049].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1050].position = D3DXVECTOR3(117.40f, -161.68f, 463.16f);
-	cube[1050].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1050].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1050].position = D3DXVECTOR3(-179.17f, -103.26f, 348.88f);
+	cube[1050].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1050].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1051].position = D3DXVECTOR3(117.12f, -164.39f, 468.30f);
-	cube[1051].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1051].position = D3DXVECTOR3(-170.64f, -106.12f, 352.37f);
+	cube[1051].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1051].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1052].position = D3DXVECTOR3(117.31f, -164.72f, 469.62f);
-	cube[1052].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1052].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1052].position = D3DXVECTOR3(-171.09f, -104.96f, 353.55f);
+	cube[1052].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1052].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1053].position = D3DXVECTOR3(115.87f, -163.23f, 468.07f);
-	cube[1053].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1053].position = D3DXVECTOR3(-162.14f, -107.87f, 357.30f);
+	cube[1053].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1053].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1054].position = D3DXVECTOR3(115.62f, -163.34f, 469.38f);
-	cube[1054].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1054].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1054].position = D3DXVECTOR3(-162.59f, -106.71f, 358.48f);
+	cube[1054].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1054].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1055].position = D3DXVECTOR3(113.89f, -166.09f, 477.19f);
-	cube[1055].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1055].position = D3DXVECTOR3(-154.09f, -109.54f, 362.02f);
+	cube[1055].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1055].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1056].position = D3DXVECTOR3(112.65f, -164.93f, 476.96f);
-	cube[1056].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1056].position = D3DXVECTOR3(-154.53f, -108.38f, 363.20f);
+	cube[1056].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1056].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1057].position = D3DXVECTOR3(110.64f, -167.81f, 486.14f);
-	cube[1057].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1057].position = D3DXVECTOR3(-146.13f, -111.15f, 365.89f);
+	cube[1057].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1057].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1058].position = D3DXVECTOR3(109.40f, -166.65f, 485.91f);
-	cube[1058].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1058].position = D3DXVECTOR3(-146.36f, -109.99f, 367.13f);
+	cube[1058].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1058].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1059].position = D3DXVECTOR3(107.51f, -169.46f, 494.70f);
-	cube[1059].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1059].position = D3DXVECTOR3(-137.96f, -112.74f, 368.22f);
+	cube[1059].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1059].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1060].position = D3DXVECTOR3(106.27f, -168.30f, 494.47f);
-	cube[1060].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1060].position = D3DXVECTOR3(-137.97f, -111.58f, 369.49f);
+	cube[1060].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1060].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1061].position = D3DXVECTOR3(105.08f, -171.07f, 503.21f);
-	cube[1061].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1061].position = D3DXVECTOR3(-129.21f, -114.37f, 369.13f);
+	cube[1061].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1061].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1062].position = D3DXVECTOR3(103.82f, -169.91f, 503.20f);
-	cube[1062].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1062].position = D3DXVECTOR3(-129.00f, -113.21f, 370.38f);
+	cube[1062].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1062].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1063].position = D3DXVECTOR3(104.20f, -172.66f, 511.66f);
-	cube[1063].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1063].position = D3DXVECTOR3(-120.48f, -116.00f, 368.52f);
+	cube[1063].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1063].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1064].position = D3DXVECTOR3(102.95f, -171.50f, 511.87f);
-	cube[1064].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1064].position = D3DXVECTOR3(-120.05f, -114.84f, 369.72f);
+	cube[1064].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1064].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1065].position = D3DXVECTOR3(104.83f, -174.29f, 520.44f);
-	cube[1065].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1065].position = D3DXVECTOR3(-111.20f, -117.70f, 366.89f);
+	cube[1065].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1065].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1066].position = D3DXVECTOR3(103.63f, -173.13f, 520.86f);
-	cube[1066].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1066].position = D3DXVECTOR3(-110.78f, -116.54f, 368.08f);
+	cube[1066].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1066].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1067].position = D3DXVECTOR3(106.94f, -175.92f, 528.93f);
-	cube[1067].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1067].position = D3DXVECTOR3(-104.22f, -119.39f, 366.17f);
+	cube[1067].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1067].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1068].position = D3DXVECTOR3(105.84f, -174.76f, 529.56f);
-	cube[1068].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1068].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1068].position = D3DXVECTOR3(-103.30f, -119.57f, 365.76f);
+	cube[1068].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1068].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1069].position = D3DXVECTOR3(110.22f, -177.64f, 537.93f);
-	cube[1069].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1069].position = D3DXVECTOR3(-104.01f, -118.23f, 367.42f);
+	cube[1069].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1069].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1070].position = D3DXVECTOR3(109.12f, -176.48f, 538.55f);
-	cube[1070].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1070].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1070].position = D3DXVECTOR3(-103.00f, -118.26f, 367.27f);
+	cube[1070].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1070].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1071].position = D3DXVECTOR3(113.50f, -179.37f, 546.93f);
-	cube[1071].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1071].position = D3DXVECTOR3(-97.48f, -121.05f, 366.61f);
+	cube[1071].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1071].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1072].position = D3DXVECTOR3(112.40f, -178.21f, 547.55f);
-	cube[1072].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1072].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1072].position = D3DXVECTOR3(-96.13f, -121.41f, 366.23f);
+	cube[1072].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1072].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1073].position = D3DXVECTOR3(116.72f, -181.06f, 555.77f);
-	cube[1073].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1073].position = D3DXVECTOR3(-97.49f, -119.89f, 367.87f);
+	cube[1073].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1073].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1074].position = D3DXVECTOR3(115.62f, -179.90f, 556.39f);
-	cube[1074].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1074].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1074].position = D3DXVECTOR3(-96.11f, -119.81f, 368.13f);
+	cube[1074].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1074].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1075].position = D3DXVECTOR3(119.89f, -182.74f, 564.50f);
-	cube[1075].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1075].position = D3DXVECTOR3(-91.35f, -122.65f, 368.11f);
+	cube[1075].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1075].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1076].position = D3DXVECTOR3(118.79f, -181.58f, 565.12f);
-	cube[1076].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1076].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1076].position = D3DXVECTOR3(-89.94f, -122.91f, 368.01f);
+	cube[1076].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1076].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1077].position = D3DXVECTOR3(123.05f, -184.42f, 573.17f);
-	cube[1077].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1077].position = D3DXVECTOR3(-91.58f, -121.49f, 369.35f);
+	cube[1077].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1077].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1078].position = D3DXVECTOR3(121.95f, -183.26f, 573.79f);
-	cube[1078].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1078].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1078].position = D3DXVECTOR3(-90.19f, -121.59f, 369.63f);
+	cube[1078].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1078].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1079].position = D3DXVECTOR3(126.29f, -186.16f, 582.10f);
-	cube[1079].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1079].position = D3DXVECTOR3(-85.18f, -124.30f, 370.80f);
+	cube[1079].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1079].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1080].position = D3DXVECTOR3(125.19f, -185.00f, 582.72f);
-	cube[1080].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1080].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1080].position = D3DXVECTOR3(-83.85f, -124.63f, 370.85f);
+	cube[1080].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1080].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1081].position = D3DXVECTOR3(129.52f, -187.86f, 590.98f);
-	cube[1081].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1081].position = D3DXVECTOR3(-85.62f, -123.14f, 371.99f);
+	cube[1081].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1081].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1082].position = D3DXVECTOR3(128.42f, -186.70f, 591.60f);
-	cube[1082].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1082].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1082].position = D3DXVECTOR3(-84.37f, -123.25f, 372.46f);
+	cube[1082].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1082].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1083].position = D3DXVECTOR3(132.69f, -189.56f, 599.77f);
-	cube[1083].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1083].position = D3DXVECTOR3(-77.26f, -125.97f, 375.40f);
+	cube[1083].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1083].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1084].position = D3DXVECTOR3(131.59f, -188.40f, 600.40f);
-	cube[1084].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1084].position = D3DXVECTOR3(-77.70f, -124.81f, 376.58f);
+	cube[1084].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1084].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1085].position = D3DXVECTOR3(136.30f, -191.17f, 607.85f);
-	cube[1085].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1085].position = D3DXVECTOR3(-69.30f, -127.58f, 379.27f);
+	cube[1085].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1085].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1086].position = D3DXVECTOR3(135.32f, -190.01f, 608.66f);
-	cube[1086].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1086].position = D3DXVECTOR3(-69.53f, -126.42f, 380.51f);
+	cube[1086].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1086].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1087].position = D3DXVECTOR3(141.06f, -192.76f, 614.90f);
-	cube[1087].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1087].position = D3DXVECTOR3(-61.13f, -129.17f, 381.60f);
+	cube[1087].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1087].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1088].position = D3DXVECTOR3(140.23f, -191.60f, 615.86f);
-	cube[1088].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1088].position = D3DXVECTOR3(-61.14f, -128.01f, 382.87f);
+	cube[1088].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1088].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1089].position = D3DXVECTOR3(147.18f, -194.39f, 621.22f);
-	cube[1089].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1089].position = D3DXVECTOR3(-52.38f, -130.80f, 382.51f);
+	cube[1089].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1089].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1090].position = D3DXVECTOR3(146.53f, -193.23f, 622.31f);
-	cube[1090].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1090].position = D3DXVECTOR3(-52.17f, -129.64f, 383.76f);
+	cube[1090].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1090].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1091].position = D3DXVECTOR3(154.26f, -196.02f, 626.36f);
-	cube[1091].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1091].position = D3DXVECTOR3(-43.65f, -132.43f, 381.90f);
+	cube[1091].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1091].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1092].position = D3DXVECTOR3(153.81f, -194.86f, 627.55f);
-	cube[1092].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1092].position = D3DXVECTOR3(-43.22f, -131.27f, 383.10f);
+	cube[1092].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1092].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1093].position = D3DXVECTOR3(162.08f, -197.62f, 630.18f);
-	cube[1093].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1093].position = D3DXVECTOR3(-34.52f, -134.15f, 380.34f);
+	cube[1093].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1093].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1094].position = D3DXVECTOR3(161.85f, -196.46f, 631.43f);
-	cube[1094].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1094].position = D3DXVECTOR3(-34.10f, -132.99f, 381.53f);
+	cube[1094].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1094].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1095].position = D3DXVECTOR3(170.53f, -199.26f, 632.59f);
-	cube[1095].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1095].position = D3DXVECTOR3(-27.54f, -135.84f, 379.62f);
+	cube[1095].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1095].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1096].position = D3DXVECTOR3(170.52f, -198.10f, 633.86f);
-	cube[1096].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1096].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1096].position = D3DXVECTOR3(-26.62f, -136.02f, 379.21f);
+	cube[1096].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1096].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1097].position = D3DXVECTOR3(179.05f, -200.92f, 633.42f);
-	cube[1097].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1097].position = D3DXVECTOR3(-27.33f, -134.68f, 380.87f);
+	cube[1097].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1097].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1098].position = D3DXVECTOR3(179.26f, -199.76f, 634.67f);
-	cube[1098].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1098].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1098].position = D3DXVECTOR3(-26.32f, -134.71f, 380.72f);
+	cube[1098].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1098].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1099].position = D3DXVECTOR3(187.32f, -202.46f, 632.84f);
-	cube[1099].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1099].position = D3DXVECTOR3(-20.80f, -137.50f, 380.06f);
+	cube[1099].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1099].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1100].position = D3DXVECTOR3(187.75f, -201.30f, 634.04f);
-	cube[1100].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1100].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1100].position = D3DXVECTOR3(-19.45f, -137.86f, 379.68f);
+	cube[1100].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1100].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1101].position = D3DXVECTOR3(196.52f, -204.13f, 631.22f);
-	cube[1101].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1101].position = D3DXVECTOR3(-20.81f, -136.34f, 381.32f);
+	cube[1101].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1101].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1102].position = D3DXVECTOR3(196.95f, -202.97f, 632.42f);
-	cube[1102].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1102].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1102].position = D3DXVECTOR3(-19.43f, -136.26f, 381.58f);
+	cube[1102].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1102].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1103].position = D3DXVECTOR3(205.85f, -205.82f, 629.58f);
-	cube[1103].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1103].position = D3DXVECTOR3(-14.67f, -139.10f, 381.56f);
+	cube[1103].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1103].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1104].position = D3DXVECTOR3(206.28f, -204.66f, 630.78f);
-	cube[1104].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1104].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1104].position = D3DXVECTOR3(-13.26f, -139.36f, 381.46f);
+	cube[1104].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1104].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1105].position = D3DXVECTOR3(214.76f, -207.44f, 628.04f);
-	cube[1105].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1105].position = D3DXVECTOR3(-14.90f, -137.94f, 382.80f);
+	cube[1105].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1105].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1106].position = D3DXVECTOR3(215.18f, -206.28f, 629.23f);
-	cube[1106].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1106].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1106].position = D3DXVECTOR3(-13.51f, -138.04f, 383.08f);
+	cube[1106].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1106].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1107].position = D3DXVECTOR3(221.73f, -209.13f, 627.32f);
-	cube[1107].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1107].position = D3DXVECTOR3(-8.50f, -140.75f, 384.25f);
+	cube[1107].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1107].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1108].position = D3DXVECTOR3(222.66f, -209.31f, 626.91f);
-	cube[1108].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1108].position = D3DXVECTOR3(-7.17f, -141.08f, 384.30f);
+	cube[1108].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1108].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1109].position = D3DXVECTOR3(221.94f, -207.97f, 628.57f);
-	cube[1109].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1109].position = D3DXVECTOR3(-8.94f, -139.59f, 385.44f);
+	cube[1109].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1109].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1110].position = D3DXVECTOR3(222.96f, -208.00f, 628.42f);
-	cube[1110].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1110].position = D3DXVECTOR3(-7.69f, -139.70f, 385.91f);
+	cube[1110].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1110].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1111].position = D3DXVECTOR3(228.47f, -210.79f, 627.76f);
-	cube[1111].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1111].position = D3DXVECTOR3(56.53f, -154.30f, 421.67f);
+	cube[1111].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1111].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1112].position = D3DXVECTOR3(229.82f, -211.15f, 627.38f);
-	cube[1112].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1112].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1112].position = D3DXVECTOR3(56.09f, -153.14f, 422.86f);
+	cube[1112].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1112].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1113].position = D3DXVECTOR3(228.46f, -209.63f, 629.02f);
-	cube[1113].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1113].position = D3DXVECTOR3(64.56f, -155.99f, 426.32f);
+	cube[1113].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1113].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1114].position = D3DXVECTOR3(229.84f, -209.55f, 629.28f);
-	cube[1114].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1114].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1114].position = D3DXVECTOR3(64.12f, -154.83f, 427.51f);
+	cube[1114].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1114].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1115].position = D3DXVECTOR3(234.60f, -212.39f, 629.26f);
-	cube[1115].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1115].position = D3DXVECTOR3(72.82f, -157.71f, 431.08f);
+	cube[1115].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1115].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1116].position = D3DXVECTOR3(236.01f, -212.65f, 629.16f);
-	cube[1116].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1116].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1116].position = D3DXVECTOR3(72.38f, -156.55f, 432.27f);
+	cube[1116].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1116].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1117].position = D3DXVECTOR3(234.37f, -211.23f, 630.50f);
-	cube[1117].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1117].position = D3DXVECTOR3(80.94f, -159.41f, 435.75f);
+	cube[1117].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1117].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1118].position = D3DXVECTOR3(235.76f, -211.33f, 630.78f);
-	cube[1118].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1118].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1118].position = D3DXVECTOR3(80.50f, -158.25f, 436.94f);
+	cube[1118].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1118].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1119].position = D3DXVECTOR3(240.78f, -214.04f, 631.95f);
+	cube[1119].position = D3DXVECTOR3(89.04f, -161.08f, 440.41f);
 	cube[1119].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1119].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1120].position = D3DXVECTOR3(242.11f, -214.37f, 632.00f);
-	cube[1120].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1120].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1120].position = D3DXVECTOR3(88.60f, -159.92f, 441.60f);
+	cube[1120].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1120].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1121].position = D3DXVECTOR3(240.33f, -212.88f, 633.14f);
-	cube[1121].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1121].position = D3DXVECTOR3(97.34f, -162.78f, 445.19f);
+	cube[1121].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1121].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1122].position = D3DXVECTOR3(241.58f, -212.99f, 633.61f);
-	cube[1122].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1122].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1122].position = D3DXVECTOR3(96.90f, -161.62f, 446.38f);
+	cube[1122].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1122].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1123].position = D3DXVECTOR3(246.49f, -215.75f, 635.84f);
-	cube[1123].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1123].position = D3DXVECTOR3(104.92f, -164.35f, 449.51f);
+	cube[1123].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1123].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1124].position = D3DXVECTOR3(247.69f, -215.98f, 636.18f);
-	cube[1124].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 50.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1124].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1124].position = D3DXVECTOR3(104.48f, -163.19f, 450.70f);
+	cube[1124].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1124].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1125].position = D3DXVECTOR3(245.85f, -214.59f, 636.93f);
-	cube[1125].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1125].position = D3DXVECTOR3(110.09f, -165.93f, 452.99f);
+	cube[1125].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1125].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1126].position = D3DXVECTOR3(246.94f, -214.68f, 637.56f);
-	cube[1126].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 50.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1126].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1126].position = D3DXVECTOR3(111.07f, -166.11f, 453.27f);
+	cube[1126].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 50.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1126].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1127].position = D3DXVECTOR3(251.26f, -217.38f, 640.40f);
-	cube[1127].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1127].position = D3DXVECTOR3(109.45f, -164.77f, 454.09f);
+	cube[1127].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1127].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1128].position = D3DXVECTOR3(252.51f, -217.71f, 640.90f);
-	cube[1128].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 40.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1128].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1128].position = D3DXVECTOR3(110.32f, -164.80f, 454.62f);
+	cube[1128].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 50.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1128].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1129].position = D3DXVECTOR3(250.44f, -216.22f, 641.36f);
-	cube[1129].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1129].position = D3DXVECTOR3(114.97f, -167.59f, 457.66f);
+	cube[1129].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1129].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1130].position = D3DXVECTOR3(251.43f, -216.33f, 642.23f);
-	cube[1130].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 40.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1130].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1130].position = D3DXVECTOR3(116.25f, -167.95f, 458.24f);
+	cube[1130].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 40.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1130].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1131].position = D3DXVECTOR3(255.27f, -219.01f, 645.89f);
-	cube[1131].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1131].position = D3DXVECTOR3(114.15f, -166.43f, 458.63f);
+	cube[1131].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1131].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1132].position = D3DXVECTOR3(256.35f, -219.31f, 646.67f);
-	cube[1132].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 30.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1132].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1132].position = D3DXVECTOR3(115.04f, -166.35f, 459.71f);
+	cube[1132].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 40.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1132].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1133].position = D3DXVECTOR3(254.29f, -217.85f, 646.70f);
-	cube[1133].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1133].position = D3DXVECTOR3(118.71f, -169.19f, 462.75f);
+	cube[1133].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1133].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1134].position = D3DXVECTOR3(255.13f, -217.97f, 647.75f);
-	cube[1134].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 30.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1134].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1134].position = D3DXVECTOR3(119.85f, -169.45f, 463.58f);
+	cube[1134].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 30.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1134].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1135].position = D3DXVECTOR3(258.14f, -220.57f, 651.67f);
-	cube[1135].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1135].position = D3DXVECTOR3(117.73f, -168.03f, 463.56f);
+	cube[1135].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1135].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1136].position = D3DXVECTOR3(258.50f, -220.52f, 652.72f);
-	cube[1136].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1136].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1136].position = D3DXVECTOR3(118.61f, -168.13f, 464.66f);
+	cube[1136].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 30.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1136].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1137].position = D3DXVECTOR3(257.04f, -219.41f, 652.30f);
-	cube[1137].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1137].position = D3DXVECTOR3(121.70f, -170.84f, 468.78f);
+	cube[1137].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1137].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1138].position = D3DXVECTOR3(257.60f, -219.50f, 653.32f);
-	cube[1138].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1138].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1138].position = D3DXVECTOR3(122.69f, -171.17f, 469.67f);
+	cube[1138].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1138].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1139].position = D3DXVECTOR3(261.32f, -222.24f, 660.38f);
-	cube[1139].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1139].position = D3DXVECTOR3(120.60f, -169.68f, 469.41f);
+	cube[1139].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1139].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1140].position = D3DXVECTOR3(260.22f, -221.08f, 661.00f);
-	cube[1140].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1140].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1140].position = D3DXVECTOR3(121.25f, -169.79f, 470.57f);
+	cube[1140].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1140].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1141].position = D3DXVECTOR3(264.58f, -223.94f, 669.35f);
+	cube[1141].position = D3DXVECTOR3(124.93f, -172.53f, 477.63f);
 	cube[1141].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1141].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1142].position = D3DXVECTOR3(263.48f, -222.78f, 669.97f);
+	cube[1142].position = D3DXVECTOR3(123.83f, -171.37f, 478.25f);
 	cube[1142].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1142].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1143].position = D3DXVECTOR3(267.84f, -225.71f, 678.28f);
+	cube[1143].position = D3DXVECTOR3(128.01f, -174.19f, 486.10f);
 	cube[1143].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1143].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1144].position = D3DXVECTOR3(266.74f, -224.55f, 678.91f);
+	cube[1144].position = D3DXVECTOR3(126.91f, -173.03f, 486.72f);
 	cube[1144].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1144].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1145].position = D3DXVECTOR3(271.45f, -227.32f, 686.36f);
-	cube[1145].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1145].position = D3DXVECTOR3(131.13f, -175.84f, 494.55f);
+	cube[1145].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1145].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1146].position = D3DXVECTOR3(270.47f, -226.16f, 687.17f);
-	cube[1146].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1146].position = D3DXVECTOR3(130.03f, -174.68f, 495.17f);
+	cube[1146].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1146].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1147].position = D3DXVECTOR3(276.21f, -228.91f, 693.41f);
-	cube[1147].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1147].position = D3DXVECTOR3(133.05f, -177.53f, 501.30f);
+	cube[1147].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1147].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1148].position = D3DXVECTOR3(275.38f, -227.75f, 694.37f);
-	cube[1148].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1148].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1148].position = D3DXVECTOR3(133.62f, -177.71f, 502.14f);
+	cube[1148].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 10.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1148].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1149].position = D3DXVECTOR3(282.33f, -230.54f, 699.73f);
-	cube[1149].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1149].position = D3DXVECTOR3(131.86f, -176.37f, 501.72f);
+	cube[1149].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1149].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1150].position = D3DXVECTOR3(281.68f, -229.38f, 700.82f);
-	cube[1150].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1150].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1150].position = D3DXVECTOR3(132.18f, -176.40f, 502.69f);
+	cube[1150].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 10.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1150].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1151].position = D3DXVECTOR3(289.41f, -232.17f, 704.87f);
-	cube[1151].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1151].position = D3DXVECTOR3(133.79f, -179.19f, 508.01f);
+	cube[1151].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1151].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1152].position = D3DXVECTOR3(288.96f, -231.01f, 706.06f);
-	cube[1152].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1152].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1152].position = D3DXVECTOR3(134.40f, -179.55f, 509.27f);
+	cube[1152].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1152].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1153].position = D3DXVECTOR3(297.23f, -233.77f, 708.69f);
-	cube[1153].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1153].position = D3DXVECTOR3(132.54f, -178.03f, 508.22f);
+	cube[1153].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1153].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1154].position = D3DXVECTOR3(297.00f, -232.61f, 709.94f);
-	cube[1154].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1154].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1154].position = D3DXVECTOR3(132.52f, -177.95f, 509.62f);
+	cube[1154].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1154].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1155].position = D3DXVECTOR3(305.68f, -235.41f, 711.10f);
-	cube[1155].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1155].position = D3DXVECTOR3(133.38f, -180.79f, 514.31f);
+	cube[1155].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1155].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1156].position = D3DXVECTOR3(305.67f, -234.25f, 712.37f);
-	cube[1156].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1156].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1156].position = D3DXVECTOR3(133.72f, -181.05f, 515.68f);
+	cube[1156].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1156].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1157].position = D3DXVECTOR3(314.20f, -237.07f, 711.93f);
-	cube[1157].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1157].position = D3DXVECTOR3(132.11f, -179.63f, 514.30f);
+	cube[1157].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1157].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1158].position = D3DXVECTOR3(314.41f, -235.91f, 713.18f);
-	cube[1158].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1158].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1158].position = D3DXVECTOR3(132.08f, -179.73f, 515.71f);
+	cube[1158].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1158].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1159].position = D3DXVECTOR3(322.47f, -238.61f, 711.35f);
-	cube[1159].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1159].position = D3DXVECTOR3(131.80f, -182.44f, 520.86f);
+	cube[1159].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1159].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1160].position = D3DXVECTOR3(322.90f, -237.45f, 712.55f);
-	cube[1160].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1160].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1160].position = D3DXVECTOR3(131.98f, -182.77f, 522.18f);
+	cube[1160].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1160].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1161].position = D3DXVECTOR3(331.83f, -240.37f, 709.72f);
-	cube[1161].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1161].position = D3DXVECTOR3(130.55f, -181.28f, 520.62f);
+	cube[1161].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1161].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1162].position = D3DXVECTOR3(332.26f, -239.21f, 710.91f);
-	cube[1162].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1162].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1162].position = D3DXVECTOR3(130.30f, -181.39f, 521.94f);
+	cube[1162].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1162].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1163].position = D3DXVECTOR3(340.42f, -241.98f, 707.57f);
-	cube[1163].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1163].position = D3DXVECTOR3(128.48f, -184.17f, 529.93f);
+	cube[1163].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1163].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1164].position = D3DXVECTOR3(341.04f, -240.82f, 708.67f);
-	cube[1164].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1164].position = D3DXVECTOR3(127.24f, -183.01f, 529.70f);
+	cube[1164].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1164].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1165].position = D3DXVECTOR3(348.18f, -243.57f, 704.10f);
-	cube[1165].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1165].position = D3DXVECTOR3(125.35f, -185.83f, 538.44f);
+	cube[1165].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1165].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1166].position = D3DXVECTOR3(348.99f, -242.41f, 705.08f);
-	cube[1166].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1166].position = D3DXVECTOR3(124.11f, -184.67f, 538.21f);
+	cube[1166].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1166].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1167].position = D3DXVECTOR3(355.47f, -245.20f, 699.17f);
-	cube[1167].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1167].position = D3DXVECTOR3(122.92f, -187.44f, 546.95f);
+	cube[1167].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1167].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1168].position = D3DXVECTOR3(356.43f, -244.04f, 700.00f);
-	cube[1168].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1168].position = D3DXVECTOR3(121.66f, -186.28f, 546.94f);
+	cube[1168].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1168].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1169].position = D3DXVECTOR3(361.76f, -246.83f, 693.09f);
-	cube[1169].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1169].position = D3DXVECTOR3(122.04f, -189.03f, 555.40f);
+	cube[1169].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1169].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1170].position = D3DXVECTOR3(362.85f, -245.67f, 693.74f);
-	cube[1170].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1170].position = D3DXVECTOR3(120.79f, -187.87f, 555.61f);
+	cube[1170].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1170].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1171].position = D3DXVECTOR3(366.88f, -248.43f, 686.05f);
-	cube[1171].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1171].position = D3DXVECTOR3(122.67f, -190.66f, 564.18f);
+	cube[1171].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1171].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1172].position = D3DXVECTOR3(368.07f, -247.27f, 686.49f);
-	cube[1172].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1172].position = D3DXVECTOR3(121.47f, -189.50f, 564.60f);
+	cube[1172].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1172].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1173].position = D3DXVECTOR3(370.72f, -250.07f, 678.15f);
-	cube[1173].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1173].position = D3DXVECTOR3(124.78f, -192.29f, 572.67f);
+	cube[1173].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1173].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1174].position = D3DXVECTOR3(371.97f, -248.91f, 678.38f);
-	cube[1174].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1174].position = D3DXVECTOR3(123.68f, -191.13f, 573.30f);
+	cube[1174].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1174].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1175].position = D3DXVECTOR3(373.02f, -251.73f, 669.91f);
-	cube[1175].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1175].position = D3DXVECTOR3(127.91f, -193.96f, 581.31f);
+	cube[1175].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1175].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1176].position = D3DXVECTOR3(374.28f, -250.57f, 669.92f);
-	cube[1176].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1176].scale = D3DXVECTOR3(3, 1, 10.00001);
+	cube[1176].position = D3DXVECTOR3(126.81f, -192.80f, 581.93f);
+	cube[1176].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1176].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1177].position = D3DXVECTOR3(373.89f, -253.27f, 661.66f);
-	cube[1177].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1177].position = D3DXVECTOR3(129.83f, -195.65f, 588.06f);
+	cube[1177].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1177].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1178].position = D3DXVECTOR3(375.14f, -252.11f, 661.45f);
-	cube[1178].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1178].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1178].position = D3DXVECTOR3(130.40f, -195.83f, 588.90f);
+	cube[1178].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 10.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1178].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1179].position = D3DXVECTOR3(373.88f, -254.95f, 652.29f);
-	cube[1179].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1179].position = D3DXVECTOR3(128.64f, -194.49f, 588.48f);
+	cube[1179].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1179].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1180].position = D3DXVECTOR3(375.13f, -253.79f, 652.08f);
-	cube[1180].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1180].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1180].position = D3DXVECTOR3(128.96f, -194.52f, 589.45f);
+	cube[1180].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 10.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1180].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1181].position = D3DXVECTOR3(373.88f, -256.70f, 642.75f);
-	cube[1181].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1181].position = D3DXVECTOR3(130.57f, -197.31f, 594.77f);
+	cube[1181].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1181].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1182].position = D3DXVECTOR3(375.13f, -255.54f, 642.54f);
-	cube[1182].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1182].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1182].position = D3DXVECTOR3(131.18f, -197.67f, 596.03f);
+	cube[1182].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1182].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1183].position = D3DXVECTOR3(373.88f, -258.40f, 633.36f);
-	cube[1183].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1183].position = D3DXVECTOR3(129.32f, -196.15f, 594.98f);
+	cube[1183].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1183].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1184].position = D3DXVECTOR3(375.13f, -257.24f, 633.15f);
-	cube[1184].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1184].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1184].position = D3DXVECTOR3(129.30f, -196.07f, 596.38f);
+	cube[1184].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1184].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1185].position = D3DXVECTOR3(373.88f, -260.05f, 624.20f);
-	cube[1185].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1185].position = D3DXVECTOR3(130.16f, -198.91f, 601.07f);
+	cube[1185].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1185].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1186].position = D3DXVECTOR3(375.13f, -258.89f, 623.99f);
-	cube[1186].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1186].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1186].position = D3DXVECTOR3(130.50f, -199.17f, 602.44f);
+	cube[1186].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1186].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1187].position = D3DXVECTOR3(373.88f, -261.79f, 614.62f);
-	cube[1187].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1187].position = D3DXVECTOR3(128.89f, -197.75f, 601.06f);
+	cube[1187].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1187].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1188].position = D3DXVECTOR3(375.13f, -260.63f, 614.41f);
-	cube[1188].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1188].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1188].position = D3DXVECTOR3(128.86f, -197.85f, 602.47f);
+	cube[1188].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1188].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1189].position = D3DXVECTOR3(373.88f, -263.37f, 605.90f);
-	cube[1189].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1189].position = D3DXVECTOR3(128.58f, -200.56f, 607.61f);
+	cube[1189].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1189].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1190].position = D3DXVECTOR3(375.13f, -262.21f, 605.69f);
-	cube[1190].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1190].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1190].position = D3DXVECTOR3(128.76f, -200.89f, 608.94f);
+	cube[1190].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1190].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1191].position = D3DXVECTOR3(373.25f, -264.98f, 597.07f);
-	cube[1191].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1191].position = D3DXVECTOR3(127.33f, -199.40f, 607.38f);
+	cube[1191].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1191].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1192].position = D3DXVECTOR3(374.44f, -263.82f, 596.65f);
-	cube[1192].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1192].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1192].position = D3DXVECTOR3(127.08f, -199.51f, 608.70f);
+	cube[1192].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1192].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1193].position = D3DXVECTOR3(371.19f, -266.57f, 588.82f);
-	cube[1193].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1193].position = D3DXVECTOR3(125.35f, -202.26f, 616.51f);
+	cube[1193].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1193].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1194].position = D3DXVECTOR3(372.29f, -265.41f, 588.20f);
-	cube[1194].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1194].position = D3DXVECTOR3(124.11f, -201.10f, 616.28f);
+	cube[1194].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1194].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1195].position = D3DXVECTOR3(367.60f, -268.20f, 580.79f);
-	cube[1195].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1195].position = D3DXVECTOR3(122.10f, -203.98f, 625.46f);
+	cube[1195].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1195].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1196].position = D3DXVECTOR3(368.57f, -267.04f, 579.99f);
-	cube[1196].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1196].position = D3DXVECTOR3(120.86f, -202.82f, 625.23f);
+	cube[1196].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1196].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1197].position = D3DXVECTOR3(362.70f, -269.83f, 573.54f);
-	cube[1197].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1197].position = D3DXVECTOR3(118.97f, -205.63f, 634.01f);
+	cube[1197].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1197].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1198].position = D3DXVECTOR3(363.52f, -268.67f, 572.57f);
-	cube[1198].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1198].position = D3DXVECTOR3(117.73f, -204.47f, 633.78f);
+	cube[1198].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (340.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1198].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1199].position = D3DXVECTOR3(356.74f, -271.51f, 566.43f);
-	cube[1199].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1199].position = D3DXVECTOR3(116.54f, -207.24f, 642.52f);
+	cube[1199].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1199].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1200].position = D3DXVECTOR3(357.57f, -270.35f, 565.47f);
-	cube[1200].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1200].position = D3DXVECTOR3(115.28f, -206.08f, 642.51f);
+	cube[1200].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (350.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1200].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1201].position = D3DXVECTOR3(352.63f, -273.20f, 560.75f);
-	cube[1201].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1201].position = D3DXVECTOR3(115.66f, -208.83f, 650.97f);
+	cube[1201].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1201].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1202].position = D3DXVECTOR3(351.81f, -273.38f, 560.15f);
-	cube[1202].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 210.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1202].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1202].position = D3DXVECTOR3(114.41f, -207.67f, 651.18f);
+	cube[1202].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1202].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1203].position = D3DXVECTOR3(353.61f, -272.04f, 559.94f);
-	cube[1203].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1203].position = D3DXVECTOR3(116.29f, -210.46f, 659.75f);
+	cube[1203].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1203].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1204].position = D3DXVECTOR3(352.97f, -272.07f, 559.14f);
-	cube[1204].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 210.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1204].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1204].position = D3DXVECTOR3(115.09f, -209.30f, 660.17f);
+	cube[1204].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1204].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1205].position = D3DXVECTOR3(349.64f, -274.86f, 554.69f);
-	cube[1205].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1205].position = D3DXVECTOR3(118.40f, -212.09f, 668.24f);
+	cube[1205].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1205].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1206].position = D3DXVECTOR3(348.64f, -275.22f, 553.71f);
-	cube[1206].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 200.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1206].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1206].position = D3DXVECTOR3(117.30f, -210.93f, 668.87f);
+	cube[1206].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1206].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1207].position = D3DXVECTOR3(350.75f, -273.70f, 554.07f);
-	cube[1207].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1207].position = D3DXVECTOR3(147.05f, -227.27f, 747.12f);
+	cube[1207].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1207].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1208].position = D3DXVECTOR3(350.28f, -273.62f, 552.74f);
-	cube[1208].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 200.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1208].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1208].position = D3DXVECTOR3(145.95f, -226.11f, 747.74f);
+	cube[1208].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1208].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1209].position = D3DXVECTOR3(347.88f, -276.46f, 548.63f);
-	cube[1209].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1209].position = D3DXVECTOR3(150.33f, -229.00f, 756.12f);
+	cube[1209].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1209].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1210].position = D3DXVECTOR3(347.09f, -276.72f, 547.46f);
-	cube[1210].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 190.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1210].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1210].position = D3DXVECTOR3(149.23f, -227.84f, 756.74f);
+	cube[1210].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1210].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1211].position = D3DXVECTOR3(349.07f, -275.30f, 548.21f);
-	cube[1211].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1211].position = D3DXVECTOR3(153.55f, -230.69f, 764.96f);
+	cube[1211].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1211].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1212].position = D3DXVECTOR3(348.62f, -275.40f, 546.87f);
-	cube[1212].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 190.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1212].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1212].position = D3DXVECTOR3(152.45f, -229.53f, 765.58f);
+	cube[1212].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1212].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1213].position = D3DXVECTOR3(347.12f, -278.11f, 541.94f);
-	cube[1213].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1213].position = D3DXVECTOR3(156.72f, -232.37f, 773.69f);
+	cube[1213].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1213].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1214].position = D3DXVECTOR3(346.50f, -278.44f, 540.76f);
-	cube[1214].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1214].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1214].position = D3DXVECTOR3(155.62f, -231.21f, 774.31f);
+	cube[1214].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1214].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1215].position = D3DXVECTOR3(348.37f, -276.95f, 541.73f);
-	cube[1215].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1215].position = D3DXVECTOR3(159.88f, -234.05f, 782.36f);
+	cube[1215].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1215].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1216].position = D3DXVECTOR3(348.16f, -277.06f, 540.41f);
-	cube[1216].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1216].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1216].position = D3DXVECTOR3(158.78f, -232.89f, 782.98f);
+	cube[1216].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1216].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1217].position = D3DXVECTOR3(347.12f, -279.77f, 532.61f);
-	cube[1217].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1217].position = D3DXVECTOR3(163.12f, -235.79f, 791.29f);
+	cube[1217].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1217].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1218].position = D3DXVECTOR3(348.37f, -278.61f, 532.40f);
-	cube[1218].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1218].position = D3DXVECTOR3(162.02f, -234.63f, 791.91f);
+	cube[1218].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1218].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1219].position = D3DXVECTOR3(347.12f, -281.46f, 523.16f);
-	cube[1219].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1219].position = D3DXVECTOR3(166.35f, -237.49f, 800.17f);
+	cube[1219].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1219].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1220].position = D3DXVECTOR3(348.37f, -280.30f, 522.95f);
-	cube[1220].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1220].position = D3DXVECTOR3(165.25f, -236.33f, 800.79f);
+	cube[1220].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1220].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1221].position = D3DXVECTOR3(347.12f, -283.01f, 514.73f);
-	cube[1221].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1221].position = D3DXVECTOR3(169.52f, -239.19f, 808.96f);
+	cube[1221].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1221].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1222].position = D3DXVECTOR3(348.37f, -281.85f, 514.52f);
-	cube[1222].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1222].position = D3DXVECTOR3(168.42f, -238.03f, 809.59f);
+	cube[1222].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1222].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1223].position = D3DXVECTOR3(347.63f, -284.70f, 507.73f);
-	cube[1223].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1223].position = D3DXVECTOR3(173.07f, -240.78f, 816.80f);
+	cube[1223].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1223].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1224].position = D3DXVECTOR3(347.38f, -284.88f, 506.75f);
-	cube[1224].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 170.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1224].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1224].position = D3DXVECTOR3(172.09f, -239.62f, 817.61f);
+	cube[1224].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1224].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1225].position = D3DXVECTOR3(348.90f, -283.54f, 507.74f);
-	cube[1225].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1225].position = D3DXVECTOR3(177.83f, -242.37f, 823.84f);
+	cube[1225].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1225].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1226].position = D3DXVECTOR3(348.92f, -283.57f, 506.72f);
-	cube[1226].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 170.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1226].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1226].position = D3DXVECTOR3(177.01f, -241.21f, 824.81f);
+	cube[1226].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1226].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1227].position = D3DXVECTOR3(349.23f, -286.36f, 501.17f);
-	cube[1227].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1227].position = D3DXVECTOR3(183.95f, -244.00f, 830.16f);
+	cube[1227].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1227].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1228].position = D3DXVECTOR3(349.09f, -286.72f, 499.78f);
-	cube[1228].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 160.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1228].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1228].position = D3DXVECTOR3(183.31f, -242.84f, 831.26f);
+	cube[1228].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1228].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1229].position = D3DXVECTOR3(350.48f, -285.20f, 501.40f);
-	cube[1229].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1229].position = D3DXVECTOR3(191.03f, -245.63f, 835.31f);
+	cube[1229].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1229].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1230].position = D3DXVECTOR3(350.97f, -285.12f, 500.09f);
-	cube[1230].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 160.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1230].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1230].position = D3DXVECTOR3(190.59f, -244.47f, 836.50f);
+	cube[1230].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1230].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1231].position = D3DXVECTOR3(351.77f, -287.96f, 495.39f);
-	cube[1231].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1231].position = D3DXVECTOR3(198.86f, -247.23f, 839.13f);
+	cube[1231].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1231].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1232].position = D3DXVECTOR3(351.92f, -288.22f, 493.99f);
-	cube[1232].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 150.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1232].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1232].position = D3DXVECTOR3(198.63f, -246.07f, 840.37f);
+	cube[1232].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1232].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1233].position = D3DXVECTOR3(352.96f, -286.80f, 495.84f);
-	cube[1233].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1233].position = D3DXVECTOR3(207.30f, -248.87f, 841.54f);
+	cube[1233].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1233].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1234].position = D3DXVECTOR3(353.47f, -286.90f, 494.52f);
-	cube[1234].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 150.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1234].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1234].position = D3DXVECTOR3(207.29f, -247.71f, 842.81f);
+	cube[1234].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1234].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1235].position = D3DXVECTOR3(355.49f, -289.61f, 489.78f);
-	cube[1235].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1235].position = D3DXVECTOR3(215.82f, -250.53f, 842.37f);
+	cube[1235].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1235].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1236].position = D3DXVECTOR3(355.77f, -289.94f, 488.48f);
-	cube[1236].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 140.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1236].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1236].position = D3DXVECTOR3(216.03f, -249.37f, 843.62f);
+	cube[1236].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1236].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1237].position = D3DXVECTOR3(356.59f, -288.45f, 490.42f);
-	cube[1237].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1237].position = D3DXVECTOR3(224.10f, -252.07f, 841.79f);
+	cube[1237].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1237].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1238].position = D3DXVECTOR3(357.27f, -288.56f, 489.28f);
-	cube[1238].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 140.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1238].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1238].position = D3DXVECTOR3(224.52f, -250.91f, 842.98f);
+	cube[1238].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1238].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1239].position = D3DXVECTOR3(361.64f, -291.33f, 482.44f);
-	cube[1239].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1239].scale = D3DXVECTOR3(3, 1, 10.00001);
+	cube[1239].position = D3DXVECTOR3(233.30f, -253.73f, 840.17f);
+	cube[1239].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1239].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1240].position = D3DXVECTOR3(362.73f, -290.17f, 483.08f);
-	cube[1240].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1240].scale = D3DXVECTOR3(3, 1, 10.00002);
+	cube[1240].position = D3DXVECTOR3(233.72f, -252.57f, 841.36f);
+	cube[1240].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1240].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1241].position = D3DXVECTOR3(367.69f, -293.03f, 475.23f);
-	cube[1241].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1241].scale = D3DXVECTOR3(3, 1, 10.00001);
+	cube[1241].position = D3DXVECTOR3(242.63f, -255.42f, 838.53f);
+	cube[1241].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1241].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1242].position = D3DXVECTOR3(368.78f, -291.87f, 475.87f);
-	cube[1242].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1242].scale = D3DXVECTOR3(3, 1, 10.00002);
+	cube[1242].position = D3DXVECTOR3(243.05f, -254.26f, 839.72f);
+	cube[1242].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1242].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1243].position = D3DXVECTOR3(373.81f, -294.76f, 467.93f);
-	cube[1243].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1243].scale = D3DXVECTOR3(3, 1, 10.00001);
+	cube[1243].position = D3DXVECTOR3(251.53f, -257.05f, 836.98f);
+	cube[1243].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1243].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1244].position = D3DXVECTOR3(374.90f, -293.60f, 468.57f);
-	cube[1244].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1244].scale = D3DXVECTOR3(3, 1, 10.00002);
+	cube[1244].position = D3DXVECTOR3(251.95f, -255.89f, 838.18f);
+	cube[1244].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1244].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1245].position = D3DXVECTOR3(379.92f, -296.51f, 460.70f);
-	cube[1245].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1245].scale = D3DXVECTOR3(3, 1, 10.00001);
+	cube[1245].position = D3DXVECTOR3(258.51f, -258.74f, 836.27f);
+	cube[1245].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1245].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1246].position = D3DXVECTOR3(381.02f, -295.35f, 461.34f);
-	cube[1246].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1246].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1246].position = D3DXVECTOR3(259.43f, -258.92f, 835.85f);
+	cube[1246].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1246].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1247].position = D3DXVECTOR3(384.81f, -298.20f, 455.66f);
-	cube[1247].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1247].position = D3DXVECTOR3(258.72f, -257.58f, 837.52f);
+	cube[1247].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1247].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1248].position = D3DXVECTOR3(385.25f, -298.38f, 454.75f);
-	cube[1248].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 130.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1248].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1248].position = D3DXVECTOR3(259.73f, -257.61f, 837.36f);
+	cube[1248].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1248].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1249].position = D3DXVECTOR3(385.77f, -297.04f, 456.49f);
-	cube[1249].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1249].position = D3DXVECTOR3(265.25f, -260.40f, 836.70f);
+	cube[1249].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1249].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1250].position = D3DXVECTOR3(386.45f, -297.07f, 455.72f);
-	cube[1250].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 130.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1250].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1250].position = D3DXVECTOR3(266.59f, -260.76f, 836.33f);
+	cube[1250].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1250].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1251].position = D3DXVECTOR3(390.25f, -299.86f, 451.67f);
-	cube[1251].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1251].scale = D3DXVECTOR3(3, 1, 10.00001);
+	cube[1251].position = D3DXVECTOR3(265.24f, -259.24f, 837.97f);
+	cube[1251].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1251].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1252].position = D3DXVECTOR3(391.04f, -300.22f, 450.51f);
-	cube[1252].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 120.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1252].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1252].position = D3DXVECTOR3(266.62f, -259.16f, 838.23f);
+	cube[1252].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1252].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1253].position = D3DXVECTOR3(391.06f, -298.70f, 452.64f);
-	cube[1253].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1253].scale = D3DXVECTOR3(3, 1, 10.00001);
+	cube[1253].position = D3DXVECTOR3(271.38f, -262.00f, 838.20f);
+	cube[1253].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1253].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1254].position = D3DXVECTOR3(392.28f, -298.62f, 451.96f);
-	cube[1254].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 120.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1254].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1254].position = D3DXVECTOR3(272.79f, -262.26f, 838.11f);
+	cube[1254].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1254].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1255].position = D3DXVECTOR3(395.91f, -301.46f, 448.87f);
-	cube[1255].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1255].position = D3DXVECTOR3(271.15f, -260.84f, 839.45f);
+	cube[1255].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1255].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1256].position = D3DXVECTOR3(396.93f, -301.72f, 447.89f);
-	cube[1256].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 110.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1256].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1256].position = D3DXVECTOR3(272.54f, -260.94f, 839.73f);
+	cube[1256].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1256].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1257].position = D3DXVECTOR3(396.54f, -300.30f, 449.98f);
-	cube[1257].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1257].position = D3DXVECTOR3(277.55f, -263.65f, 840.89f);
+	cube[1257].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1257].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1258].position = D3DXVECTOR3(397.78f, -300.40f, 449.30f);
-	cube[1258].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 110.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1258].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1258].position = D3DXVECTOR3(278.88f, -263.98f, 840.94f);
+	cube[1258].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1258].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1259].position = D3DXVECTOR3(402.37f, -303.11f, 446.97f);
-	cube[1259].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1259].position = D3DXVECTOR3(277.11f, -262.49f, 842.08f);
+	cube[1259].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1259].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1260].position = D3DXVECTOR3(403.42f, -303.44f, 446.15f);
-	cube[1260].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1260].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1260].position = D3DXVECTOR3(278.36f, -262.60f, 842.56f);
+	cube[1260].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1260].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1261].position = D3DXVECTOR3(402.79f, -301.95f, 448.16f);
-	cube[1261].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1261].scale = D3DXVECTOR3(3, 1, 10.00001);
+	cube[1261].position = D3DXVECTOR3(283.27f, -265.36f, 844.79f);
+	cube[1261].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1261].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1262].position = D3DXVECTOR3(404.06f, -302.06f, 447.73f);
-	cube[1262].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1262].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1262].position = D3DXVECTOR3(284.46f, -265.59f, 845.13f);
+	cube[1262].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 50.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1262].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1263].position = D3DXVECTOR3(409.25f, -304.82f, 446.28f);
-	cube[1263].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1263].position = D3DXVECTOR3(282.62f, -264.20f, 845.88f);
+	cube[1263].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1263].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1264].position = D3DXVECTOR3(410.39f, -305.05f, 445.77f);
-	cube[1264].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1264].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1264].position = D3DXVECTOR3(283.71f, -264.29f, 846.51f);
+	cube[1264].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 50.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1264].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1265].position = D3DXVECTOR3(409.46f, -303.66f, 447.53f);
-	cube[1265].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1265].position = D3DXVECTOR3(288.03f, -266.99f, 849.34f);
+	cube[1265].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1265].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1266].position = D3DXVECTOR3(410.70f, -303.75f, 447.31f);
-	cube[1266].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1266].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1266].position = D3DXVECTOR3(289.29f, -267.32f, 849.85f);
+	cube[1266].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 40.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1266].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1267].position = D3DXVECTOR3(415.83f, -306.45f, 446.70f);
-	cube[1267].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1267].position = D3DXVECTOR3(287.21f, -265.83f, 850.31f);
+	cube[1267].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1267].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1268].position = D3DXVECTOR3(417.12f, -306.78f, 446.28f);
-	cube[1268].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
-	cube[1268].scale = D3DXVECTOR3(3, 1, 7);
+	cube[1268].position = D3DXVECTOR3(288.20f, -265.94f, 851.18f);
+	cube[1268].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 40.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1268].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1269].position = D3DXVECTOR3(415.82f, -305.29f, 447.97f);
-	cube[1269].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1269].position = D3DXVECTOR3(292.04f, -268.62f, 854.84f);
+	cube[1269].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1269].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1270].position = D3DXVECTOR3(417.14f, -305.40f, 448.00f);
-	cube[1270].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1270].scale = D3DXVECTOR3(5, 1, 7);
+	cube[1270].position = D3DXVECTOR3(293.13f, -268.92f, 855.61f);
+	cube[1270].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 30.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1270].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1271].position = D3DXVECTOR3(425.01f, -308.13f, 448.32f);
-	cube[1271].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1271].position = D3DXVECTOR3(291.06f, -267.46f, 855.64f);
+	cube[1271].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1271].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1272].position = D3DXVECTOR3(425.00f, -306.97f, 449.59f);
-	cube[1272].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1272].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1272].position = D3DXVECTOR3(291.91f, -267.58f, 856.70f);
+	cube[1272].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 30.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1272].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1273].position = D3DXVECTOR3(434.56f, -309.89f, 450.00f);
-	cube[1273].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1273].position = D3DXVECTOR3(294.91f, -270.18f, 860.62f);
+	cube[1273].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1273].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1274].position = D3DXVECTOR3(434.55f, -308.73f, 451.27f);
-	cube[1274].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1274].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1274].position = D3DXVECTOR3(295.27f, -270.13f, 861.67f);
+	cube[1274].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1274].scale = D3DXVECTOR3(3, 1, 7);
 
-	cube[1275].position = D3DXVECTOR3(443.94f, -311.61f, 451.66f);
-	cube[1275].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1275].position = D3DXVECTOR3(293.81f, -269.02f, 861.24f);
+	cube[1275].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1275].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1276].position = D3DXVECTOR3(443.93f, -310.45f, 452.93f);
-	cube[1276].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
-	cube[1276].scale = D3DXVECTOR3(3, 1, 10);
+	cube[1276].position = D3DXVECTOR3(294.37f, -269.11f, 862.27f);
+	cube[1276].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1276].scale = D3DXVECTOR3(5, 1, 7);
 
-	cube[1277].position = D3DXVECTOR3(453.38f, -313.34f, 453.32f);
-	cube[1277].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1277].position = D3DXVECTOR3(298.09f, -271.84f, 869.32f);
+	cube[1277].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1277].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1278].position = D3DXVECTOR3(453.37f, -312.18f, 454.59f);
-	cube[1278].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1278].position = D3DXVECTOR3(296.99f, -270.68f, 869.95f);
+	cube[1278].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1278].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1279].position = D3DXVECTOR3(462.78f, -315.05f, 454.99f);
-	cube[1279].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1279].position = D3DXVECTOR3(301.35f, -273.54f, 878.29f);
+	cube[1279].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1279].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1280].position = D3DXVECTOR3(462.77f, -313.89f, 456.26f);
-	cube[1280].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1280].position = D3DXVECTOR3(300.25f, -272.38f, 878.92f);
+	cube[1280].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1280].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1281].position = D3DXVECTOR3(472.33f, -316.79f, 456.66f);
-	cube[1281].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1281].position = D3DXVECTOR3(304.61f, -275.32f, 887.23f);
+	cube[1281].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1281].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1282].position = D3DXVECTOR3(472.32f, -315.63f, 457.93f);
-	cube[1282].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1282].position = D3DXVECTOR3(303.51f, -274.16f, 887.86f);
+	cube[1282].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1282].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1283].position = D3DXVECTOR3(481.62f, -318.47f, 458.30f);
-	cube[1283].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1283].position = D3DXVECTOR3(308.22f, -276.93f, 895.31f);
+	cube[1283].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1283].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1284].position = D3DXVECTOR3(481.61f, -317.31f, 459.57f);
-	cube[1284].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1284].position = D3DXVECTOR3(307.24f, -275.77f, 896.12f);
+	cube[1284].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1284].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1285].position = D3DXVECTOR3(491.03f, -320.18f, 459.96f);
-	cube[1285].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1285].position = D3DXVECTOR3(312.98f, -278.52f, 902.35f);
+	cube[1285].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1285].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1286].position = D3DXVECTOR3(491.02f, -319.02f, 461.23f);
-	cube[1286].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1286].position = D3DXVECTOR3(312.16f, -277.36f, 903.32f);
+	cube[1286].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1286].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1287].position = D3DXVECTOR3(500.42f, -321.89f, 461.62f);
-	cube[1287].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1287].position = D3DXVECTOR3(319.10f, -280.15f, 908.67f);
+	cube[1287].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1287].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1288].position = D3DXVECTOR3(500.41f, -320.73f, 462.89f);
-	cube[1288].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1288].position = D3DXVECTOR3(318.46f, -278.99f, 909.77f);
+	cube[1288].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1288].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1289].position = D3DXVECTOR3(509.78f, -323.59f, 463.27f);
-	cube[1289].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1289].position = D3DXVECTOR3(326.18f, -281.78f, 913.82f);
+	cube[1289].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[1289].scale = D3DXVECTOR3(3, 1, 10);
 
-	cube[1290].position = D3DXVECTOR3(509.77f, -322.43f, 464.54f);
-	cube[1290].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1290].position = D3DXVECTOR3(325.74f, -280.62f, 915.01f);
+	cube[1290].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1290].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1291].position = D3DXVECTOR3(334.01f, -283.38f, 917.64f);
+	cube[1291].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1291].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1292].position = D3DXVECTOR3(333.78f, -282.22f, 918.88f);
+	cube[1292].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1292].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1293].position = D3DXVECTOR3(342.45f, -285.02f, 920.05f);
+	cube[1293].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1293].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1294].position = D3DXVECTOR3(342.44f, -283.86f, 921.32f);
+	cube[1294].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1294].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1295].position = D3DXVECTOR3(350.97f, -286.68f, 920.88f);
+	cube[1295].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1295].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1296].position = D3DXVECTOR3(351.18f, -285.52f, 922.13f);
+	cube[1296].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1296].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1297].position = D3DXVECTOR3(359.25f, -288.22f, 920.30f);
+	cube[1297].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1297].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1298].position = D3DXVECTOR3(359.67f, -287.06f, 921.49f);
+	cube[1298].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1298].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1299].position = D3DXVECTOR3(368.64f, -289.95f, 918.64f);
+	cube[1299].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1299].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1300].position = D3DXVECTOR3(369.06f, -288.79f, 919.84f);
+	cube[1300].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1300].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1301].position = D3DXVECTOR3(377.22f, -291.56f, 916.49f);
+	cube[1301].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1301].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1302].position = D3DXVECTOR3(377.85f, -290.40f, 917.59f);
+	cube[1302].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1302].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1303].position = D3DXVECTOR3(384.98f, -293.15f, 913.03f);
+	cube[1303].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1303].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1304].position = D3DXVECTOR3(385.79f, -291.99f, 914.01f);
+	cube[1304].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1304].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1305].position = D3DXVECTOR3(392.27f, -294.78f, 908.10f);
+	cube[1305].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1305].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1306].position = D3DXVECTOR3(393.24f, -293.62f, 908.92f);
+	cube[1306].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1306].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1307].position = D3DXVECTOR3(398.57f, -296.41f, 902.02f);
+	cube[1307].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1307].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1308].position = D3DXVECTOR3(399.66f, -295.25f, 902.66f);
+	cube[1308].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1308].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1309].position = D3DXVECTOR3(403.69f, -298.01f, 894.97f);
+	cube[1309].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1309].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1310].position = D3DXVECTOR3(404.87f, -296.85f, 895.42f);
+	cube[1310].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1310].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1311].position = D3DXVECTOR3(407.53f, -299.65f, 887.08f);
+	cube[1311].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1311].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1312].position = D3DXVECTOR3(408.78f, -298.49f, 887.31f);
+	cube[1312].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1312].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1313].position = D3DXVECTOR3(409.82f, -301.31f, 878.83f);
+	cube[1313].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1313].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1314].position = D3DXVECTOR3(411.09f, -300.15f, 878.84f);
+	cube[1314].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1314].scale = D3DXVECTOR3(3, 1, 10.00001);
+
+	cube[1315].position = D3DXVECTOR3(410.69f, -302.85f, 870.58f);
+	cube[1315].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1315].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1316].position = D3DXVECTOR3(411.94f, -301.69f, 870.37f);
+	cube[1316].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1316].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1317].position = D3DXVECTOR3(410.61f, -314.60f, 805.80f);
+	cube[1317].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1317].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1318].position = D3DXVECTOR3(411.86f, -313.44f, 805.59f);
+	cube[1318].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1318].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1319].position = D3DXVECTOR3(410.61f, -316.35f, 796.26f);
+	cube[1319].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1319].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1320].position = D3DXVECTOR3(411.86f, -315.19f, 796.05f);
+	cube[1320].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1320].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1321].position = D3DXVECTOR3(410.61f, -318.05f, 786.87f);
+	cube[1321].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1321].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1322].position = D3DXVECTOR3(411.86f, -316.89f, 786.66f);
+	cube[1322].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1322].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1323].position = D3DXVECTOR3(410.61f, -319.70f, 777.71f);
+	cube[1323].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1323].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1324].position = D3DXVECTOR3(411.86f, -318.54f, 777.50f);
+	cube[1324].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1324].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1325].position = D3DXVECTOR3(410.61f, -321.44f, 768.13f);
+	cube[1325].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1325].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1326].position = D3DXVECTOR3(411.86f, -320.28f, 767.92f);
+	cube[1326].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1326].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1327].position = D3DXVECTOR3(410.61f, -323.03f, 759.41f);
+	cube[1327].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1327].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1328].position = D3DXVECTOR3(411.86f, -321.87f, 759.19f);
+	cube[1328].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1328].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1329].position = D3DXVECTOR3(410.00f, -324.71f, 750.74f);
+	cube[1329].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1329].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1330].position = D3DXVECTOR3(411.20f, -323.55f, 750.32f);
+	cube[1330].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1330].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1331].position = D3DXVECTOR3(407.94f, -326.30f, 742.50f);
+	cube[1331].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1331].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1332].position = D3DXVECTOR3(409.04f, -325.14f, 741.87f);
+	cube[1332].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1332].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1333].position = D3DXVECTOR3(404.35f, -327.93f, 734.47f);
+	cube[1333].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1333].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1334].position = D3DXVECTOR3(405.33f, -326.77f, 733.66f);
+	cube[1334].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1334].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1335].position = D3DXVECTOR3(399.46f, -329.56f, 727.21f);
+	cube[1335].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1335].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1336].position = D3DXVECTOR3(400.28f, -328.40f, 726.24f);
+	cube[1336].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1336].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1337].position = D3DXVECTOR3(393.50f, -331.24f, 720.11f);
+	cube[1337].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1337].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1338].position = D3DXVECTOR3(394.32f, -330.08f, 719.14f);
+	cube[1338].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1338].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1339].position = D3DXVECTOR3(389.39f, -332.93f, 714.42f);
+	cube[1339].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1339].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1340].position = D3DXVECTOR3(388.57f, -333.11f, 713.83f);
+	cube[1340].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 210.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1340].scale = D3DXVECTOR3(3, 1, 7);
+
+	cube[1341].position = D3DXVECTOR3(390.37f, -331.77f, 713.62f);
+	cube[1341].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1341].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1342].position = D3DXVECTOR3(389.73f, -331.80f, 712.81f);
+	cube[1342].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 210.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1342].scale = D3DXVECTOR3(5, 1, 7);
+
+	cube[1343].position = D3DXVECTOR3(386.40f, -334.59f, 708.37f);
+	cube[1343].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1343].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1344].position = D3DXVECTOR3(385.40f, -334.95f, 707.39f);
+	cube[1344].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 200.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1344].scale = D3DXVECTOR3(3, 1, 7);
+
+	cube[1345].position = D3DXVECTOR3(387.50f, -333.43f, 707.74f);
+	cube[1345].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1345].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1346].position = D3DXVECTOR3(387.04f, -333.35f, 706.42f);
+	cube[1346].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 200.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1346].scale = D3DXVECTOR3(5, 1, 7);
+
+	cube[1347].position = D3DXVECTOR3(384.63f, -336.19f, 702.31f);
+	cube[1347].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1347].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1348].position = D3DXVECTOR3(383.84f, -336.45f, 701.13f);
+	cube[1348].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 190.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1348].scale = D3DXVECTOR3(3, 1, 7);
+
+	cube[1349].position = D3DXVECTOR3(385.82f, -335.03f, 701.88f);
+	cube[1349].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1349].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1350].position = D3DXVECTOR3(385.37f, -335.13f, 700.54f);
+	cube[1350].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 190.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1350].scale = D3DXVECTOR3(5, 1, 7);
+
+	cube[1351].position = D3DXVECTOR3(383.88f, -337.84f, 695.62f);
+	cube[1351].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1351].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1352].position = D3DXVECTOR3(383.25f, -338.17f, 694.44f);
+	cube[1352].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1352].scale = D3DXVECTOR3(3, 1, 7);
+
+	cube[1353].position = D3DXVECTOR3(385.13f, -336.68f, 695.41f);
+	cube[1353].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1353].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1354].position = D3DXVECTOR3(384.91f, -336.79f, 694.09f);
+	cube[1354].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1354].scale = D3DXVECTOR3(5, 1, 7);
+
+	cube[1355].position = D3DXVECTOR3(383.87f, -339.50f, 686.29f);
+	cube[1355].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1355].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1356].position = D3DXVECTOR3(385.12f, -338.34f, 686.08f);
+	cube[1356].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1356].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1357].position = D3DXVECTOR3(383.87f, -341.19f, 676.84f);
+	cube[1357].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1357].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1358].position = D3DXVECTOR3(385.12f, -340.03f, 676.63f);
+	cube[1358].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1358].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1359].position = D3DXVECTOR3(383.88f, -342.74f, 668.40f);
+	cube[1359].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1359].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1360].position = D3DXVECTOR3(385.13f, -341.58f, 668.19f);
+	cube[1360].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1360].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1361].position = D3DXVECTOR3(384.38f, -344.43f, 661.41f);
+	cube[1361].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1361].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1362].position = D3DXVECTOR3(384.14f, -344.61f, 660.42f);
+	cube[1362].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 170.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1362].scale = D3DXVECTOR3(3, 1, 7);
+
+	cube[1363].position = D3DXVECTOR3(385.65f, -343.27f, 661.42f);
+	cube[1363].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1363].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1364].position = D3DXVECTOR3(385.68f, -343.30f, 660.39f);
+	cube[1364].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 170.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1364].scale = D3DXVECTOR3(5, 1, 7);
+
+	cube[1365].position = D3DXVECTOR3(385.99f, -346.09f, 654.84f);
+	cube[1365].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1365].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1366].position = D3DXVECTOR3(385.85f, -346.45f, 653.45f);
+	cube[1366].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 160.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1366].scale = D3DXVECTOR3(3, 1, 7);
+
+	cube[1367].position = D3DXVECTOR3(387.23f, -344.93f, 655.07f);
+	cube[1367].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1367].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1368].position = D3DXVECTOR3(387.73f, -344.85f, 653.76f);
+	cube[1368].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 160.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1368].scale = D3DXVECTOR3(5, 1, 7);
+
+	cube[1369].position = D3DXVECTOR3(388.53f, -347.69f, 649.07f);
+	cube[1369].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1369].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1370].position = D3DXVECTOR3(388.68f, -347.95f, 647.66f);
+	cube[1370].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 150.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1370].scale = D3DXVECTOR3(3, 1, 7);
+
+	cube[1371].position = D3DXVECTOR3(389.71f, -346.53f, 649.51f);
+	cube[1371].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1371].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1372].position = D3DXVECTOR3(390.23f, -346.63f, 648.19f);
+	cube[1372].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 150.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1372].scale = D3DXVECTOR3(5, 1, 7);
+
+	cube[1373].position = D3DXVECTOR3(392.25f, -349.34f, 643.45f);
+	cube[1373].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1373].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1374].position = D3DXVECTOR3(392.53f, -349.67f, 642.15f);
+	cube[1374].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 140.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1374].scale = D3DXVECTOR3(3, 1, 7);
+
+	cube[1375].position = D3DXVECTOR3(393.34f, -348.18f, 644.10f);
+	cube[1375].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1375].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1376].position = D3DXVECTOR3(394.03f, -348.29f, 642.95f);
+	cube[1376].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 140.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1376].scale = D3DXVECTOR3(5, 1, 7);
+
+	cube[1377].position = D3DXVECTOR3(398.39f, -351.06f, 636.11f);
+	cube[1377].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1377].scale = D3DXVECTOR3(3, 1, 10.00001);
+
+	cube[1378].position = D3DXVECTOR3(399.49f, -349.90f, 636.75f);
+	cube[1378].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1378].scale = D3DXVECTOR3(3, 1, 10.00002);
+
+	cube[1379].position = D3DXVECTOR3(404.44f, -352.76f, 628.90f);
+	cube[1379].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1379].scale = D3DXVECTOR3(3, 1, 10.00001);
+
+	cube[1380].position = D3DXVECTOR3(405.54f, -351.60f, 629.54f);
+	cube[1380].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1380].scale = D3DXVECTOR3(3, 1, 10.00002);
+
+	cube[1381].position = D3DXVECTOR3(410.56f, -354.49f, 621.60f);
+	cube[1381].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1381].scale = D3DXVECTOR3(3, 1, 10.00001);
+
+	cube[1382].position = D3DXVECTOR3(411.66f, -353.33f, 622.24f);
+	cube[1382].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1382].scale = D3DXVECTOR3(3, 1, 10.00002);
+
+	cube[1383].position = D3DXVECTOR3(416.68f, -356.24f, 614.37f);
+	cube[1383].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1383].scale = D3DXVECTOR3(3, 1, 10.00001);
+
+	cube[1384].position = D3DXVECTOR3(417.77f, -355.08f, 615.01f);
+	cube[1384].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1384].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1385].position = D3DXVECTOR3(421.56f, -357.93f, 609.34f);
+	cube[1385].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1385].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1386].position = D3DXVECTOR3(422.01f, -358.11f, 608.42f);
+	cube[1386].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 130.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1386].scale = D3DXVECTOR3(3, 1, 7);
+
+	cube[1387].position = D3DXVECTOR3(422.52f, -356.77f, 610.16f);
+	cube[1387].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1387].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1388].position = D3DXVECTOR3(423.20f, -356.80f, 609.39f);
+	cube[1388].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 130.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1388].scale = D3DXVECTOR3(5, 1, 7);
+
+	cube[1389].position = D3DXVECTOR3(427.01f, -359.59f, 605.34f);
+	cube[1389].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1389].scale = D3DXVECTOR3(3, 1, 10.00001);
+
+	cube[1390].position = D3DXVECTOR3(427.80f, -359.95f, 604.18f);
+	cube[1390].rotation = D3DXVECTOR3(12.00f*3.141592f / 180, 120.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1390].scale = D3DXVECTOR3(3, 1, 7);
+
+	cube[1391].position = D3DXVECTOR3(427.81f, -358.43f, 606.32f);
+	cube[1391].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1391].scale = D3DXVECTOR3(3, 1, 10.00001);
+
+	cube[1392].position = D3DXVECTOR3(429.04f, -358.35f, 605.63f);
+	cube[1392].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 120.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1392].scale = D3DXVECTOR3(5, 1, 7);
+
+	cube[1393].position = D3DXVECTOR3(432.67f, -361.19f, 602.55f);
+	cube[1393].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1393].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1394].position = D3DXVECTOR3(433.69f, -361.45f, 601.57f);
+	cube[1394].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 110.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1394].scale = D3DXVECTOR3(3, 1, 7);
+
+	cube[1395].position = D3DXVECTOR3(433.29f, -360.03f, 603.65f);
+	cube[1395].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1395].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1396].position = D3DXVECTOR3(434.53f, -360.13f, 602.97f);
+	cube[1396].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 110.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1396].scale = D3DXVECTOR3(5, 1, 7);
+
+	cube[1397].position = D3DXVECTOR3(439.13f, -362.84f, 600.64f);
+	cube[1397].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1397].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1398].position = D3DXVECTOR3(440.18f, -363.17f, 599.82f);
+	cube[1398].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1398].scale = D3DXVECTOR3(3, 1, 7);
+
+	cube[1399].position = D3DXVECTOR3(439.55f, -361.68f, 601.84f);
+	cube[1399].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1399].scale = D3DXVECTOR3(3, 1, 10.00001);
+
+	cube[1400].position = D3DXVECTOR3(440.81f, -361.79f, 601.40f);
+	cube[1400].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 100.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1400].scale = D3DXVECTOR3(5, 1, 7);
+
+	cube[1401].position = D3DXVECTOR3(446.01f, -364.55f, 599.95f);
+	cube[1401].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1401].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1402].position = D3DXVECTOR3(447.14f, -364.78f, 599.44f);
+	cube[1402].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1402].scale = D3DXVECTOR3(3, 1, 7);
+
+	cube[1403].position = D3DXVECTOR3(446.22f, -363.39f, 601.20f);
+	cube[1403].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1403].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1404].position = D3DXVECTOR3(447.45f, -363.48f, 600.98f);
+	cube[1404].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 90.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1404].scale = D3DXVECTOR3(5, 1, 7);
+
+	cube[1405].position = D3DXVECTOR3(452.59f, -366.18f, 600.37f);
+	cube[1405].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1405].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1406].position = D3DXVECTOR3(453.87f, -366.51f, 599.96f);
+	cube[1406].rotation = D3DXVECTOR3(13.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1406].scale = D3DXVECTOR3(3, 1, 7);
+
+	cube[1407].position = D3DXVECTOR3(452.57f, -365.02f, 601.64f);
+	cube[1407].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1407].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1408].position = D3DXVECTOR3(453.90f, -365.13f, 601.67f);
+	cube[1408].rotation = D3DXVECTOR3(14.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1408].scale = D3DXVECTOR3(5, 1, 7);
+
+	cube[1409].position = D3DXVECTOR3(461.71f, -367.88f, 601.95f);
+	cube[1409].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1409].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1410].position = D3DXVECTOR3(461.70f, -366.72f, 603.22f);
+	cube[1410].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1410].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1411].position = D3DXVECTOR3(471.26f, -369.64f, 603.63f);
+	cube[1411].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1411].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1412].position = D3DXVECTOR3(471.25f, -368.48f, 604.90f);
+	cube[1412].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1412].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1413].position = D3DXVECTOR3(480.64f, -371.36f, 605.29f);
+	cube[1413].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1413].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1414].position = D3DXVECTOR3(480.63f, -370.20f, 606.56f);
+	cube[1414].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1414].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1415].position = D3DXVECTOR3(490.08f, -373.09f, 606.95f);
+	cube[1415].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1415].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1416].position = D3DXVECTOR3(490.07f, -371.93f, 608.22f);
+	cube[1416].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1416].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1417].position = D3DXVECTOR3(497.77f, -374.48f, 608.35f);
+	cube[1417].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1417].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1418].position = D3DXVECTOR3(497.76f, -373.32f, 609.61f);
+	cube[1418].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1418].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1419].position = D3DXVECTOR3(507.32f, -376.22f, 610.02f);
+	cube[1419].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1419].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1420].position = D3DXVECTOR3(507.31f, -375.06f, 611.28f);
+	cube[1420].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1420].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1421].position = D3DXVECTOR3(516.61f, -377.90f, 611.66f);
+	cube[1421].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1421].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1422].position = D3DXVECTOR3(516.60f, -376.74f, 612.92f);
+	cube[1422].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1422].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1423].position = D3DXVECTOR3(526.02f, -379.61f, 613.32f);
+	cube[1423].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1423].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1424].position = D3DXVECTOR3(526.01f, -378.45f, 614.58f);
+	cube[1424].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1424].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1425].position = D3DXVECTOR3(535.41f, -381.32f, 614.98f);
+	cube[1425].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1425].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1426].position = D3DXVECTOR3(535.40f, -380.16f, 616.24f);
+	cube[1426].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1426].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1427].position = D3DXVECTOR3(544.77f, -383.02f, 616.63f);
+	cube[1427].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1427].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1428].position = D3DXVECTOR3(544.76f, -381.86f, 617.89f);
+	cube[1428].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1428].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1429].position = D3DXVECTOR3(-6.27f, -25.09f, 83.25f);
+	cube[1429].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1429].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1430].position = D3DXVECTOR3(-7.52f, -23.93f, 83.46f);
+	cube[1430].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1430].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1431].position = D3DXVECTOR3(-6.27f, -26.75f, 92.25f);
+	cube[1431].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1431].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1432].position = D3DXVECTOR3(-7.52f, -25.59f, 92.46f);
+	cube[1432].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1432].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1433].position = D3DXVECTOR3(-6.27f, -28.34f, 100.95f);
+	cube[1433].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1433].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1434].position = D3DXVECTOR3(-7.52f, -27.18f, 101.16f);
+	cube[1434].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1434].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1435].position = D3DXVECTOR3(-6.27f, -30.02f, 110.05f);
+	cube[1435].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1435].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1436].position = D3DXVECTOR3(-7.52f, -28.86f, 110.26f);
+	cube[1436].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1436].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1437].position = D3DXVECTOR3(-6.27f, -31.81f, 119.45f);
+	cube[1437].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1437].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1438].position = D3DXVECTOR3(-7.52f, -30.65f, 119.66f);
+	cube[1438].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1438].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1439].position = D3DXVECTOR3(-6.27f, -33.49f, 128.75f);
+	cube[1439].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1439].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1440].position = D3DXVECTOR3(-7.52f, -32.33f, 128.96f);
+	cube[1440].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1440].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1441].position = D3DXVECTOR3(-6.27f, -35.28f, 138.45f);
+	cube[1441].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1441].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1442].position = D3DXVECTOR3(-7.52f, -34.12f, 138.66f);
+	cube[1442].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1442].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1443].position = D3DXVECTOR3(-6.27f, -36.87f, 147.25f);
+	cube[1443].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1443].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1444].position = D3DXVECTOR3(-7.52f, -35.71f, 147.46f);
+	cube[1444].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1444].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1445].position = D3DXVECTOR3(-6.27f, -38.24f, 154.87f);
+	cube[1445].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1445].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1446].position = D3DXVECTOR3(-7.52f, -37.08f, 155.08f);
+	cube[1446].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1446].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1447].position = D3DXVECTOR3(-78.02f, -59.51f, 219.22f);
+	cube[1447].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1447].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1448].position = D3DXVECTOR3(-78.83f, -58.35f, 218.24f);
+	cube[1448].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1448].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1449].position = D3DXVECTOR3(-85.98f, -61.24f, 223.83f);
+	cube[1449].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1449].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1450].position = D3DXVECTOR3(-86.79f, -60.08f, 222.85f);
+	cube[1450].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1450].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1451].position = D3DXVECTOR3(-93.28f, -62.79f, 228.03f);
+	cube[1451].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1451].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1452].position = D3DXVECTOR3(-94.09f, -61.63f, 227.05f);
+	cube[1452].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1452].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1453].position = D3DXVECTOR3(-100.58f, -64.31f, 232.23f);
+	cube[1453].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1453].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1454].position = D3DXVECTOR3(-101.39f, -63.15f, 231.25f);
+	cube[1454].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1454].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1455].position = D3DXVECTOR3(-108.48f, -66.04f, 236.83f);
+	cube[1455].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1455].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1456].position = D3DXVECTOR3(-109.29f, -64.88f, 235.85f);
+	cube[1456].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1456].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1457].position = D3DXVECTOR3(-116.34f, -67.68f, 241.30f);
+	cube[1457].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1457].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1458].position = D3DXVECTOR3(-117.15f, -66.52f, 240.32f);
+	cube[1458].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, (300.00f - 360)*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1458].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1459].position = D3DXVECTOR3(-0.18f, -142.49f, 389.03f);
+	cube[1459].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1459].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1460].position = D3DXVECTOR3(-0.62f, -141.33f, 390.22f);
+	cube[1460].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1460].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1461].position = D3DXVECTOR3(7.85f, -144.18f, 393.68f);
+	cube[1461].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1461].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1462].position = D3DXVECTOR3(7.41f, -143.02f, 394.87f);
+	cube[1462].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1462].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1463].position = D3DXVECTOR3(16.11f, -145.90f, 398.44f);
+	cube[1463].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1463].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1464].position = D3DXVECTOR3(15.67f, -144.74f, 399.63f);
+	cube[1464].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1464].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1465].position = D3DXVECTOR3(24.23f, -147.60f, 403.11f);
+	cube[1465].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1465].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1466].position = D3DXVECTOR3(23.79f, -146.44f, 404.30f);
+	cube[1466].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1466].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1467].position = D3DXVECTOR3(32.33f, -149.27f, 407.77f);
+	cube[1467].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1467].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1468].position = D3DXVECTOR3(31.89f, -148.11f, 408.96f);
+	cube[1468].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1468].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1469].position = D3DXVECTOR3(40.63f, -150.97f, 412.55f);
+	cube[1469].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1469].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1470].position = D3DXVECTOR3(40.19f, -149.81f, 413.74f);
+	cube[1470].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1470].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1471].position = D3DXVECTOR3(48.21f, -152.54f, 416.87f);
+	cube[1471].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1471].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1472].position = D3DXVECTOR3(47.76f, -151.38f, 418.06f);
+	cube[1472].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1472].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1473].position = D3DXVECTOR3(121.64f, -213.83f, 677.24f);
+	cube[1473].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1473].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1474].position = D3DXVECTOR3(120.54f, -212.67f, 677.87f);
+	cube[1474].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1474].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1475].position = D3DXVECTOR3(124.92f, -215.56f, 686.24f);
+	cube[1475].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1475].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1476].position = D3DXVECTOR3(123.82f, -214.40f, 686.87f);
+	cube[1476].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1476].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1477].position = D3DXVECTOR3(128.14f, -217.25f, 695.08f);
+	cube[1477].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1477].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1478].position = D3DXVECTOR3(127.04f, -216.09f, 695.71f);
+	cube[1478].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1478].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1479].position = D3DXVECTOR3(131.31f, -218.93f, 703.81f);
+	cube[1479].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1479].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1480].position = D3DXVECTOR3(130.21f, -217.77f, 704.44f);
+	cube[1480].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1480].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1481].position = D3DXVECTOR3(134.47f, -220.61f, 712.48f);
+	cube[1481].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1481].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1482].position = D3DXVECTOR3(133.37f, -219.45f, 713.11f);
+	cube[1482].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1482].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1483].position = D3DXVECTOR3(137.71f, -222.35f, 721.41f);
+	cube[1483].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1483].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1484].position = D3DXVECTOR3(136.61f, -221.19f, 722.04f);
+	cube[1484].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1484].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1485].position = D3DXVECTOR3(140.94f, -224.05f, 730.29f);
+	cube[1485].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1485].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1486].position = D3DXVECTOR3(139.84f, -222.89f, 730.92f);
+	cube[1486].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1486].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1487].position = D3DXVECTOR3(144.11f, -225.75f, 739.09f);
+	cube[1487].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1487].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1488].position = D3DXVECTOR3(143.01f, -224.59f, 739.71f);
+	cube[1488].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1488].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1489].position = D3DXVECTOR3(410.66f, -304.57f, 861.16f);
+	cube[1489].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1489].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1490].position = D3DXVECTOR3(411.91f, -303.41f, 860.95f);
+	cube[1490].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1490].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1491].position = D3DXVECTOR3(410.66f, -306.32f, 851.62f);
+	cube[1491].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1491].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1492].position = D3DXVECTOR3(411.91f, -305.16f, 851.41f);
+	cube[1492].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1492].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1493].position = D3DXVECTOR3(410.66f, -308.02f, 842.23f);
+	cube[1493].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1493].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1494].position = D3DXVECTOR3(411.91f, -306.86f, 842.02f);
+	cube[1494].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1494].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1495].position = D3DXVECTOR3(410.66f, -309.67f, 833.07f);
+	cube[1495].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1495].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1496].position = D3DXVECTOR3(411.91f, -308.51f, 832.86f);
+	cube[1496].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1496].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1497].position = D3DXVECTOR3(410.66f, -311.41f, 823.49f);
+	cube[1497].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1497].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1498].position = D3DXVECTOR3(411.91f, -310.25f, 823.28f);
+	cube[1498].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1498].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1499].position = D3DXVECTOR3(410.66f, -312.99f, 814.76f);
+	cube[1499].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1499].scale = D3DXVECTOR3(3, 1, 10.00004);
+
+	cube[1500].position = D3DXVECTOR3(411.91f, -311.83f, 814.55f);
+	cube[1500].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1500].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1501].position = D3DXVECTOR3(553.88f, -384.73f, 618.25f);
+	cube[1501].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1501].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1502].position = D3DXVECTOR3(553.87f, -383.57f, 619.51f);
+	cube[1502].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1502].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1503].position = D3DXVECTOR3(563.43f, -386.49f, 619.93f);
+	cube[1503].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1503].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1504].position = D3DXVECTOR3(563.42f, -385.33f, 621.19f);
+	cube[1504].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1504].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1505].position = D3DXVECTOR3(572.81f, -388.21f, 621.59f);
+	cube[1505].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1505].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1506].position = D3DXVECTOR3(572.80f, -387.05f, 622.85f);
+	cube[1506].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1506].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1507].position = D3DXVECTOR3(582.25f, -389.94f, 623.25f);
+	cube[1507].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1507].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1508].position = D3DXVECTOR3(582.24f, -388.78f, 624.51f);
+	cube[1508].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1508].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1509].position = D3DXVECTOR3(589.94f, -391.32f, 624.64f);
+	cube[1509].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1509].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1510].position = D3DXVECTOR3(589.93f, -390.16f, 625.91f);
+	cube[1510].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1510].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1511].position = D3DXVECTOR3(599.49f, -393.06f, 626.31f);
+	cube[1511].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1511].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1512].position = D3DXVECTOR3(599.48f, -391.90f, 627.58f);
+	cube[1512].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1512].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1513].position = D3DXVECTOR3(608.78f, -394.74f, 627.95f);
+	cube[1513].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1513].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1514].position = D3DXVECTOR3(608.77f, -393.58f, 629.22f);
+	cube[1514].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1514].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1515].position = D3DXVECTOR3(618.19f, -396.45f, 629.61f);
+	cube[1515].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1515].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1516].position = D3DXVECTOR3(618.18f, -395.29f, 630.88f);
+	cube[1516].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1516].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1517].position = D3DXVECTOR3(627.58f, -398.16f, 631.27f);
+	cube[1517].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1517].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1518].position = D3DXVECTOR3(627.57f, -397.00f, 632.54f);
+	cube[1518].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1518].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1519].position = D3DXVECTOR3(636.94f, -399.86f, 632.92f);
+	cube[1519].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	cube[1519].scale = D3DXVECTOR3(3, 1, 10);
+
+	cube[1520].position = D3DXVECTOR3(636.93f, -398.70f, 634.19f);
+	cube[1520].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
+	cube[1520].scale = D3DXVECTOR3(3, 1, 10);
 
 	rightWall[0].position = D3DXVECTOR3(8.30f, -6.11f, 2.95f);
 	rightWall[0].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 85.00f*3.141592f / 180);
@@ -5227,733 +6139,917 @@ void StageInit() {			//座標とサイズと角度を入れる
 	rightWall[8].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[8].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[9].position = D3DXVECTOR3(7.43f, -20.95f, 84.08f);
+	rightWall[9].position = D3DXVECTOR3(7.56f, -35.80f, 164.91f);
 	rightWall[9].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 350.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[9].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[10].position = D3DXVECTOR3(5.04f, -22.61f, 93.06f);
+	rightWall[10].position = D3DXVECTOR3(5.17f, -37.46f, 173.89f);
 	rightWall[10].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[10].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[11].position = D3DXVECTOR3(1.30f, -24.21f, 101.08f);
+	rightWall[11].position = D3DXVECTOR3(1.43f, -39.06f, 181.91f);
 	rightWall[11].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 330.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[11].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[12].position = D3DXVECTOR3(-3.99f, -25.86f, 108.69f);
+	rightWall[12].position = D3DXVECTOR3(-3.86f, -40.71f, 189.52f);
 	rightWall[12].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 320.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[12].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[13].position = D3DXVECTOR3(-10.71f, -27.57f, 115.34f);
+	rightWall[13].position = D3DXVECTOR3(-10.58f, -42.42f, 196.17f);
 	rightWall[13].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 310.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[13].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[14].position = D3DXVECTOR3(-18.18f, -29.20f, 120.59f);
+	rightWall[14].position = D3DXVECTOR3(-18.06f, -44.05f, 201.42f);
 	rightWall[14].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[14].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[15].position = D3DXVECTOR3(-26.27f, -30.92f, 125.26f);
+	rightWall[15].position = D3DXVECTOR3(-25.53f, -45.64f, 205.80f);
 	rightWall[15].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[15].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[16].position = D3DXVECTOR3(-34.23f, -32.65f, 129.87f);
+	rightWall[16].position = D3DXVECTOR3(-33.49f, -47.37f, 210.41f);
 	rightWall[16].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[16].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[17].position = D3DXVECTOR3(-41.53f, -34.20f, 134.07f);
+	rightWall[17].position = D3DXVECTOR3(-40.79f, -48.92f, 214.61f);
 	rightWall[17].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[17].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[18].position = D3DXVECTOR3(-48.83f, -35.72f, 138.27f);
+	rightWall[18].position = D3DXVECTOR3(-48.09f, -50.44f, 218.81f);
 	rightWall[18].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[18].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[19].position = D3DXVECTOR3(-56.73f, -37.45f, 142.87f);
+	rightWall[19].position = D3DXVECTOR3(-55.99f, -52.17f, 223.41f);
 	rightWall[19].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[19].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[20].position = D3DXVECTOR3(-64.59f, -39.09f, 147.34f);
+	rightWall[20].position = D3DXVECTOR3(-63.85f, -53.81f, 227.87f);
 	rightWall[20].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[20].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[21].position = D3DXVECTOR3(-73.26f, -40.78f, 151.35f);
+	rightWall[21].position = D3DXVECTOR3(-118.24f, -65.25f, 258.28f);
 	rightWall[21].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 290.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[21].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[22].position = D3DXVECTOR3(-82.23f, -42.44f, 153.77f);
+	rightWall[22].position = D3DXVECTOR3(-127.22f, -66.91f, 260.70f);
 	rightWall[22].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 280.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[22].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[23].position = D3DXVECTOR3(-91.05f, -44.04f, 154.54f);
+	rightWall[23].position = D3DXVECTOR3(-136.03f, -68.51f, 261.47f);
 	rightWall[23].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 270.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[23].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[24].position = D3DXVECTOR3(-100.29f, -45.69f, 153.76f);
+	rightWall[24].position = D3DXVECTOR3(-145.27f, -70.16f, 260.69f);
 	rightWall[24].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 260.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[24].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[25].position = D3DXVECTOR3(-106.95f, -46.99f, 152.57f);
+	rightWall[25].position = D3DXVECTOR3(-151.93f, -71.46f, 259.50f);
 	rightWall[25].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 260.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[25].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[26].position = D3DXVECTOR3(-114.19f, -48.77f, 152.02f);
+	rightWall[26].position = D3DXVECTOR3(-159.17f, -73.24f, 258.95f);
 	rightWall[26].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 270.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[26].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[27].position = D3DXVECTOR3(-120.13f, -50.36f, 152.70f);
+	rightWall[27].position = D3DXVECTOR3(-165.11f, -74.83f, 259.63f);
 	rightWall[27].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 280.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[27].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[28].position = D3DXVECTOR3(-126.11f, -51.99f, 154.48f);
+	rightWall[28].position = D3DXVECTOR3(-171.09f, -76.46f, 261.41f);
 	rightWall[28].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 290.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[28].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[29].position = D3DXVECTOR3(-131.68f, -53.62f, 157.24f);
+	rightWall[29].position = D3DXVECTOR3(-176.67f, -78.09f, 264.17f);
 	rightWall[29].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[29].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[30].position = D3DXVECTOR3(-136.62f, -55.22f, 160.88f);
+	rightWall[30].position = D3DXVECTOR3(-181.60f, -79.69f, 267.81f);
 	rightWall[30].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 310.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[30].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[31].position = D3DXVECTOR3(-140.91f, -56.85f, 165.39f);
+	rightWall[31].position = D3DXVECTOR3(-185.89f, -81.32f, 272.32f);
 	rightWall[31].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 320.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[31].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[32].position = D3DXVECTOR3(-144.20f, -58.51f, 170.47f);
+	rightWall[32].position = D3DXVECTOR3(-189.18f, -82.98f, 277.40f);
 	rightWall[32].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 330.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[32].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[33].position = D3DXVECTOR3(-146.57f, -60.09f, 175.99f);
+	rightWall[33].position = D3DXVECTOR3(-191.56f, -84.56f, 282.92f);
 	rightWall[33].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[33].scale = D3DXVECTOR3(5, 1, 7.5);
 
-	rightWall[34].position = D3DXVECTOR3(-148.65f, -61.25f, 181.57f);
+	rightWall[34].position = D3DXVECTOR3(-193.63f, -85.72f, 288.50f);
 	rightWall[34].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[34].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[35].position = D3DXVECTOR3(-150.45f, -63.03f, 188.60f);
+	rightWall[35].position = D3DXVECTOR3(-195.44f, -87.50f, 295.53f);
 	rightWall[35].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 350.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[35].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[36].position = D3DXVECTOR3(-150.81f, -64.62f, 194.57f);
+	rightWall[36].position = D3DXVECTOR3(-195.80f, -89.09f, 301.50f);
 	rightWall[36].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[36].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[37].position = D3DXVECTOR3(-150.10f, -66.25f, 200.77f);
+	rightWall[37].position = D3DXVECTOR3(-195.09f, -90.72f, 307.70f);
 	rightWall[37].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[37].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[38].position = D3DXVECTOR3(-148.35f, -67.88f, 206.74f);
+	rightWall[38].position = D3DXVECTOR3(-193.33f, -92.35f, 313.67f);
 	rightWall[38].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[38].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[39].position = D3DXVECTOR3(-145.62f, -69.48f, 212.23f);
+	rightWall[39].position = D3DXVECTOR3(-190.61f, -93.95f, 319.16f);
 	rightWall[39].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[39].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[40].position = D3DXVECTOR3(-141.92f, -71.11f, 217.24f);
+	rightWall[40].position = D3DXVECTOR3(-186.91f, -95.58f, 324.17f);
 	rightWall[40].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[40].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[41].position = D3DXVECTOR3(-137.49f, -72.77f, 221.36f);
+	rightWall[41].position = D3DXVECTOR3(-182.48f, -97.24f, 328.29f);
 	rightWall[41].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[41].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[42].position = D3DXVECTOR3(-132.47f, -74.35f, 224.66f);
+	rightWall[42].position = D3DXVECTOR3(-177.45f, -98.82f, 331.59f);
 	rightWall[42].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[42].scale = D3DXVECTOR3(5, 1, 7.500003);
 
-	rightWall[43].position = D3DXVECTOR3(-125.77f, -75.83f, 228.54f);
+	rightWall[43].position = D3DXVECTOR3(-170.76f, -100.30f, 335.47f);
 	rightWall[43].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[43].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[44].position = D3DXVECTOR3(-117.69f, -77.53f, 233.21f);
+	rightWall[44].position = D3DXVECTOR3(-162.68f, -102.00f, 340.14f);
 	rightWall[44].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[44].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[45].position = D3DXVECTOR3(-109.19f, -79.28f, 238.14f);
+	rightWall[45].position = D3DXVECTOR3(-154.18f, -103.75f, 345.07f);
 	rightWall[45].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[45].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[46].position = D3DXVECTOR3(-101.14f, -80.94f, 242.87f);
+	rightWall[46].position = D3DXVECTOR3(-146.12f, -105.41f, 349.79f);
 	rightWall[46].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[46].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[47].position = D3DXVECTOR3(-94.52f, -82.72f, 245.87f);
+	rightWall[47].position = D3DXVECTOR3(-139.50f, -107.19f, 352.80f);
 	rightWall[47].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[47].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[48].position = D3DXVECTOR3(-88.71f, -84.31f, 247.26f);
+	rightWall[48].position = D3DXVECTOR3(-133.69f, -108.78f, 354.19f);
 	rightWall[48].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[48].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[49].position = D3DXVECTOR3(-82.48f, -85.94f, 247.63f);
+	rightWall[49].position = D3DXVECTOR3(-127.46f, -110.41f, 354.56f);
 	rightWall[49].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[49].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[50].position = D3DXVECTOR3(-76.30f, -87.57f, 246.94f);
+	rightWall[50].position = D3DXVECTOR3(-121.28f, -112.04f, 353.87f);
 	rightWall[50].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[50].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[51].position = D3DXVECTOR3(-67.97f, -89.10f, 245.47f);
+	rightWall[51].position = D3DXVECTOR3(-112.95f, -113.57f, 352.40f);
 	rightWall[51].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[51].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[52].position = D3DXVECTOR3(-58.45f, -90.79f, 244.67f);
+	rightWall[52].position = D3DXVECTOR3(-103.43f, -115.26f, 351.60f);
 	rightWall[52].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[52].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[53].position = D3DXVECTOR3(-49.19f, -92.45f, 245.47f);
+	rightWall[53].position = D3DXVECTOR3(-94.17f, -116.92f, 352.40f);
 	rightWall[53].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[53].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[54].position = D3DXVECTOR3(-40.64f, -94.05f, 247.76f);
+	rightWall[54].position = D3DXVECTOR3(-85.63f, -118.52f, 354.68f);
 	rightWall[54].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[54].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[55].position = D3DXVECTOR3(-32.22f, -95.70f, 251.65f);
+	rightWall[55].position = D3DXVECTOR3(-77.21f, -120.17f, 358.58f);
 	rightWall[55].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[55].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[56].position = D3DXVECTOR3(-24.31f, -97.37f, 256.25f);
+	rightWall[56].position = D3DXVECTOR3(-69.29f, -121.84f, 363.17f);
 	rightWall[56].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[56].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[57].position = D3DXVECTOR3(-17.69f, -99.15f, 259.25f);
+	rightWall[57].position = D3DXVECTOR3(-62.67f, -123.62f, 366.18f);
 	rightWall[57].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[57].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[58].position = D3DXVECTOR3(-11.88f, -100.74f, 260.64f);
+	rightWall[58].position = D3DXVECTOR3(-56.86f, -125.21f, 367.57f);
 	rightWall[58].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[58].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[59].position = D3DXVECTOR3(-5.65f, -102.37f, 261.01f);
+	rightWall[59].position = D3DXVECTOR3(-50.63f, -126.84f, 367.94f);
 	rightWall[59].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[59].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[60].position = D3DXVECTOR3(0.53f, -104.00f, 260.32f);
+	rightWall[60].position = D3DXVECTOR3(-44.45f, -128.47f, 367.25f);
 	rightWall[60].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[60].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[61].position = D3DXVECTOR3(8.71f, -105.55f, 258.92f);
+	rightWall[61].position = D3DXVECTOR3(-36.27f, -130.02f, 365.85f);
 	rightWall[61].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[61].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[62].position = D3DXVECTOR3(18.23f, -107.24f, 258.12f);
+	rightWall[62].position = D3DXVECTOR3(-26.75f, -131.71f, 365.05f);
 	rightWall[62].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[62].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[63].position = D3DXVECTOR3(27.49f, -108.90f, 258.92f);
+	rightWall[63].position = D3DXVECTOR3(-17.49f, -133.37f, 365.85f);
 	rightWall[63].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[63].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[64].position = D3DXVECTOR3(36.04f, -110.50f, 261.21f);
+	rightWall[64].position = D3DXVECTOR3(-8.95f, -134.97f, 368.13f);
 	rightWall[64].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[64].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[65].position = D3DXVECTOR3(44.46f, -112.15f, 265.10f);
+	rightWall[65].position = D3DXVECTOR3(-0.53f, -136.62f, 372.03f);
 	rightWall[65].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[65].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[66].position = D3DXVECTOR3(52.41f, -113.89f, 269.68f);
+	rightWall[66].position = D3DXVECTOR3(64.50f, -150.17f, 409.45f);
 	rightWall[66].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[66].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[67].position = D3DXVECTOR3(60.44f, -115.58f, 274.33f);
+	rightWall[67].position = D3DXVECTOR3(72.53f, -151.86f, 414.10f);
 	rightWall[67].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[67].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[68].position = D3DXVECTOR3(68.70f, -117.30f, 279.09f);
+	rightWall[68].position = D3DXVECTOR3(80.79f, -153.58f, 418.86f);
 	rightWall[68].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[68].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[69].position = D3DXVECTOR3(76.82f, -119.00f, 283.76f);
+	rightWall[69].position = D3DXVECTOR3(88.91f, -155.28f, 423.53f);
 	rightWall[69].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[69].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[70].position = D3DXVECTOR3(84.92f, -120.67f, 288.42f);
+	rightWall[70].position = D3DXVECTOR3(97.01f, -156.95f, 428.19f);
 	rightWall[70].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[70].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[71].position = D3DXVECTOR3(93.22f, -122.37f, 293.20f);
+	rightWall[71].position = D3DXVECTOR3(105.31f, -158.65f, 432.97f);
 	rightWall[71].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[71].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[72].position = D3DXVECTOR3(100.80f, -123.94f, 297.52f);
+	rightWall[72].position = D3DXVECTOR3(112.89f, -160.22f, 437.29f);
 	rightWall[72].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[72].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[73].position = D3DXVECTOR3(108.60f, -125.63f, 303.03f);
+	rightWall[73].position = D3DXVECTOR3(120.06f, -161.80f, 442.34f);
 	rightWall[73].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[73].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[74].position = D3DXVECTOR3(115.18f, -127.29f, 309.59f);
+	rightWall[74].position = D3DXVECTOR3(126.64f, -163.46f, 448.90f);
 	rightWall[74].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[74].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[75].position = D3DXVECTOR3(120.26f, -128.89f, 316.84f);
+	rightWall[75].position = D3DXVECTOR3(131.72f, -165.06f, 456.15f);
 	rightWall[75].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[75].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[76].position = D3DXVECTOR3(124.21f, -130.54f, 325.23f);
+	rightWall[76].position = D3DXVECTOR3(135.66f, -166.71f, 464.54f);
 	rightWall[76].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[76].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[77].position = D3DXVECTOR3(127.43f, -132.23f, 334.08f);
+	rightWall[77].position = D3DXVECTOR3(138.89f, -168.40f, 473.39f);
 	rightWall[77].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[77].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[78].position = D3DXVECTOR3(130.51f, -133.89f, 342.55f);
+	rightWall[78].position = D3DXVECTOR3(141.97f, -170.06f, 481.86f);
 	rightWall[78].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[78].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[79].position = D3DXVECTOR3(133.64f, -135.54f, 351.00f);
+	rightWall[79].position = D3DXVECTOR3(145.10f, -171.71f, 490.31f);
 	rightWall[79].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[79].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[80].position = D3DXVECTOR3(136.08f, -137.23f, 360.23f);
+	rightWall[80].position = D3DXVECTOR3(147.54f, -173.40f, 499.54f);
 	rightWall[80].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[80].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[81].position = D3DXVECTOR3(136.90f, -138.89f, 369.49f);
+	rightWall[81].position = D3DXVECTOR3(148.36f, -175.06f, 508.80f);
 	rightWall[81].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[81].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[82].position = D3DXVECTOR3(136.13f, -140.49f, 378.30f);
+	rightWall[82].position = D3DXVECTOR3(147.59f, -176.66f, 517.62f);
 	rightWall[82].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 350.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[82].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[83].position = D3DXVECTOR3(133.76f, -142.14f, 387.27f);
+	rightWall[83].position = D3DXVECTOR3(145.22f, -178.31f, 526.58f);
 	rightWall[83].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[83].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[84].position = D3DXVECTOR3(130.44f, -143.87f, 396.34f);
+	rightWall[84].position = D3DXVECTOR3(141.90f, -180.04f, 535.65f);
 	rightWall[84].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[84].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[85].position = D3DXVECTOR3(127.31f, -145.53f, 404.86f);
+	rightWall[85].position = D3DXVECTOR3(138.77f, -181.70f, 544.17f);
 	rightWall[85].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[85].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[86].position = D3DXVECTOR3(125.51f, -147.31f, 411.89f);
+	rightWall[86].position = D3DXVECTOR3(136.97f, -183.48f, 551.21f);
 	rightWall[86].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 350.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[86].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[87].position = D3DXVECTOR3(125.15f, -148.90f, 417.86f);
+	rightWall[87].position = D3DXVECTOR3(136.60f, -185.07f, 557.17f);
 	rightWall[87].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[87].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[88].position = D3DXVECTOR3(125.86f, -150.53f, 424.06f);
+	rightWall[88].position = D3DXVECTOR3(137.32f, -186.70f, 563.37f);
 	rightWall[88].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[88].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[89].position = D3DXVECTOR3(127.61f, -152.16f, 430.03f);
+	rightWall[89].position = D3DXVECTOR3(139.07f, -188.33f, 569.34f);
 	rightWall[89].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[89].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[90].position = D3DXVECTOR3(130.42f, -153.66f, 437.76f);
+	rightWall[90].position = D3DXVECTOR3(141.88f, -189.83f, 577.07f);
 	rightWall[90].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[90].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[91].position = D3DXVECTOR3(132.86f, -155.35f, 446.99f);
+	rightWall[91].position = D3DXVECTOR3(144.32f, -191.52f, 586.30f);
 	rightWall[91].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[91].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[92].position = D3DXVECTOR3(133.68f, -157.01f, 456.25f);
+	rightWall[92].position = D3DXVECTOR3(145.14f, -193.18f, 595.56f);
 	rightWall[92].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[92].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[93].position = D3DXVECTOR3(132.91f, -158.61f, 465.06f);
+	rightWall[93].position = D3DXVECTOR3(144.37f, -194.78f, 604.38f);
 	rightWall[93].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 350.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[93].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[94].position = D3DXVECTOR3(130.54f, -160.26f, 474.03f);
+	rightWall[94].position = D3DXVECTOR3(142.00f, -196.43f, 613.34f);
 	rightWall[94].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[94].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[95].position = D3DXVECTOR3(127.31f, -161.96f, 482.92f);
+	rightWall[95].position = D3DXVECTOR3(138.77f, -198.13f, 622.23f);
 	rightWall[95].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[95].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[96].position = D3DXVECTOR3(124.06f, -163.68f, 491.87f);
+	rightWall[96].position = D3DXVECTOR3(135.52f, -199.85f, 631.18f);
 	rightWall[96].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[96].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[97].position = D3DXVECTOR3(120.93f, -165.33f, 500.43f);
+	rightWall[97].position = D3DXVECTOR3(132.39f, -201.50f, 639.74f);
 	rightWall[97].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[97].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[98].position = D3DXVECTOR3(119.13f, -167.11f, 507.46f);
+	rightWall[98].position = D3DXVECTOR3(130.59f, -203.28f, 646.78f);
 	rightWall[98].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 350.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[98].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[99].position = D3DXVECTOR3(118.77f, -168.70f, 513.43f);
+	rightWall[99].position = D3DXVECTOR3(130.22f, -204.87f, 652.74f);
 	rightWall[99].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[99].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[100].position = D3DXVECTOR3(119.48f, -170.33f, 519.63f);
+	rightWall[100].position = D3DXVECTOR3(130.94f, -206.50f, 658.94f);
 	rightWall[100].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[100].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[101].position = D3DXVECTOR3(121.23f, -171.96f, 525.60f);
+	rightWall[101].position = D3DXVECTOR3(132.69f, -208.13f, 664.91f);
 	rightWall[101].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[101].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[102].position = D3DXVECTOR3(124.18f, -173.51f, 533.69f);
+	rightWall[102].position = D3DXVECTOR3(161.01f, -223.14f, 742.88f);
 	rightWall[102].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[102].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[103].position = D3DXVECTOR3(127.46f, -175.24f, 542.69f);
+	rightWall[103].position = D3DXVECTOR3(164.29f, -224.87f, 751.88f);
 	rightWall[103].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[103].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[104].position = D3DXVECTOR3(130.68f, -176.93f, 551.53f);
+	rightWall[104].position = D3DXVECTOR3(167.51f, -226.56f, 760.72f);
 	rightWall[104].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[104].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[105].position = D3DXVECTOR3(133.85f, -178.61f, 560.26f);
+	rightWall[105].position = D3DXVECTOR3(170.68f, -228.24f, 769.45f);
 	rightWall[105].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[105].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[106].position = D3DXVECTOR3(137.01f, -180.29f, 568.93f);
+	rightWall[106].position = D3DXVECTOR3(173.84f, -229.92f, 778.12f);
 	rightWall[106].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[106].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[107].position = D3DXVECTOR3(140.25f, -182.03f, 577.86f);
+	rightWall[107].position = D3DXVECTOR3(177.08f, -231.66f, 787.05f);
 	rightWall[107].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[107].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[108].position = D3DXVECTOR3(143.48f, -183.73f, 586.74f);
+	rightWall[108].position = D3DXVECTOR3(180.31f, -233.36f, 795.93f);
 	rightWall[108].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[108].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[109].position = D3DXVECTOR3(146.65f, -185.43f, 595.53f);
+	rightWall[109].position = D3DXVECTOR3(183.48f, -235.06f, 804.72f);
 	rightWall[109].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[109].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[110].position = D3DXVECTOR3(149.79f, -187.21f, 602.09f);
+	rightWall[110].position = D3DXVECTOR3(186.56f, -236.82f, 811.03f);
 	rightWall[110].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[110].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[111].position = D3DXVECTOR3(153.35f, -188.80f, 606.89f);
+	rightWall[111].position = D3DXVECTOR3(190.12f, -238.41f, 815.83f);
 	rightWall[111].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[111].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[112].position = D3DXVECTOR3(157.88f, -190.43f, 611.18f);
+	rightWall[112].position = D3DXVECTOR3(194.65f, -240.04f, 820.12f);
 	rightWall[112].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[112].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[113].position = D3DXVECTOR3(163.06f, -192.06f, 614.62f);
+	rightWall[113].position = D3DXVECTOR3(199.83f, -241.67f, 823.57f);
 	rightWall[113].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[113].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[114].position = D3DXVECTOR3(168.68f, -193.66f, 617.08f);
+	rightWall[114].position = D3DXVECTOR3(205.45f, -243.27f, 826.03f);
 	rightWall[114].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[114].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[115].position = D3DXVECTOR3(174.73f, -195.29f, 618.54f);
+	rightWall[115].position = D3DXVECTOR3(211.51f, -244.90f, 827.48f);
 	rightWall[115].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[115].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[116].position = D3DXVECTOR3(180.77f, -196.95f, 618.85f);
+	rightWall[116].position = D3DXVECTOR3(217.55f, -246.56f, 827.80f);
 	rightWall[116].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[116].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[117].position = D3DXVECTOR3(186.74f, -198.53f, 618.15f);
+	rightWall[117].position = D3DXVECTOR3(223.52f, -248.14f, 827.09f);
 	rightWall[117].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[117].scale = D3DXVECTOR3(5, 1, 7.500003);
 
-	rightWall[118].position = D3DXVECTOR3(194.77f, -200.00f, 616.74f);
+	rightWall[118].position = D3DXVECTOR3(231.54f, -249.61f, 825.68f);
 	rightWall[118].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[118].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[119].position = D3DXVECTOR3(204.10f, -201.69f, 615.10f);
+	rightWall[119].position = D3DXVECTOR3(240.87f, -251.30f, 824.04f);
 	rightWall[119].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[119].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[120].position = D3DXVECTOR3(213.00f, -203.31f, 613.55f);
+	rightWall[120].position = D3DXVECTOR3(249.78f, -252.92f, 822.50f);
 	rightWall[120].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[120].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[121].position = D3DXVECTOR3(222.52f, -205.00f, 612.75f);
+	rightWall[121].position = D3DXVECTOR3(259.30f, -254.61f, 821.70f);
 	rightWall[121].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[121].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[122].position = D3DXVECTOR3(231.78f, -206.66f, 613.55f);
+	rightWall[122].position = D3DXVECTOR3(268.56f, -256.27f, 822.49f);
 	rightWall[122].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[122].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[123].position = D3DXVECTOR3(240.33f, -208.26f, 615.84f);
+	rightWall[123].position = D3DXVECTOR3(277.10f, -257.87f, 824.78f);
 	rightWall[123].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[123].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[124].position = D3DXVECTOR3(248.75f, -209.91f, 619.73f);
+	rightWall[124].position = D3DXVECTOR3(285.52f, -259.52f, 828.67f);
 	rightWall[124].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[124].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[125].position = D3DXVECTOR3(256.46f, -211.62f, 625.19f);
+	rightWall[125].position = D3DXVECTOR3(293.24f, -261.23f, 834.13f);
 	rightWall[125].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[125].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[126].position = D3DXVECTOR3(262.93f, -213.25f, 631.64f);
+	rightWall[126].position = D3DXVECTOR3(299.70f, -262.86f, 840.58f);
 	rightWall[126].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[126].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[127].position = D3DXVECTOR3(268.28f, -214.88f, 639.29f);
+	rightWall[127].position = D3DXVECTOR3(305.05f, -264.49f, 848.24f);
 	rightWall[127].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[127].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[128].position = D3DXVECTOR3(272.10f, -216.44f, 647.43f);
+	rightWall[128].position = D3DXVECTOR3(308.88f, -266.05f, 856.38f);
 	rightWall[128].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[128].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[129].position = D3DXVECTOR3(275.28f, -218.11f, 656.14f);
+	rightWall[129].position = D3DXVECTOR3(312.05f, -267.72f, 865.08f);
 	rightWall[129].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[129].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[130].position = D3DXVECTOR3(278.54f, -219.81f, 665.11f);
+	rightWall[130].position = D3DXVECTOR3(315.31f, -269.42f, 874.05f);
 	rightWall[130].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[130].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[131].position = D3DXVECTOR3(281.80f, -221.58f, 674.04f);
+	rightWall[131].position = D3DXVECTOR3(318.57f, -271.19f, 882.99f);
 	rightWall[131].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[131].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[132].position = D3DXVECTOR3(284.94f, -223.36f, 680.60f);
+	rightWall[132].position = D3DXVECTOR3(321.71f, -272.97f, 889.54f);
 	rightWall[132].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[132].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[133].position = D3DXVECTOR3(288.50f, -224.95f, 685.40f);
+	rightWall[133].position = D3DXVECTOR3(325.27f, -274.56f, 894.34f);
 	rightWall[133].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[133].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[134].position = D3DXVECTOR3(293.03f, -226.58f, 689.69f);
+	rightWall[134].position = D3DXVECTOR3(329.80f, -276.19f, 898.63f);
 	rightWall[134].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[134].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[135].position = D3DXVECTOR3(298.21f, -228.21f, 693.13f);
+	rightWall[135].position = D3DXVECTOR3(334.98f, -277.82f, 902.08f);
 	rightWall[135].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[135].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[136].position = D3DXVECTOR3(303.83f, -229.81f, 695.59f);
+	rightWall[136].position = D3DXVECTOR3(340.60f, -279.42f, 904.54f);
 	rightWall[136].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[136].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[137].position = D3DXVECTOR3(309.88f, -231.44f, 697.05f);
+	rightWall[137].position = D3DXVECTOR3(346.66f, -281.05f, 905.99f);
 	rightWall[137].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[137].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[138].position = D3DXVECTOR3(315.92f, -233.10f, 697.36f);
+	rightWall[138].position = D3DXVECTOR3(352.70f, -282.71f, 906.31f);
 	rightWall[138].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[138].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[139].position = D3DXVECTOR3(321.89f, -234.68f, 696.66f);
+	rightWall[139].position = D3DXVECTOR3(358.67f, -284.29f, 905.60f);
 	rightWall[139].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[139].scale = D3DXVECTOR3(5, 1, 7.500003);
 
-	rightWall[140].position = D3DXVECTOR3(330.08f, -236.24f, 695.23f);
+	rightWall[140].position = D3DXVECTOR3(366.89f, -285.82f, 904.16f);
 	rightWall[140].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[140].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[141].position = D3DXVECTOR3(337.08f, -238.02f, 693.28f);
+	rightWall[141].position = D3DXVECTOR3(373.88f, -287.60f, 902.20f);
 	rightWall[141].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[141].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[142].position = D3DXVECTOR3(342.43f, -239.61f, 690.61f);
+	rightWall[142].position = D3DXVECTOR3(379.23f, -289.19f, 899.53f);
 	rightWall[142].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[142].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[143].position = D3DXVECTOR3(347.44f, -241.24f, 686.89f);
+	rightWall[143].position = D3DXVECTOR3(384.24f, -290.82f, 895.82f);
 	rightWall[143].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[143].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[144].position = D3DXVECTOR3(351.73f, -242.87f, 682.39f);
+	rightWall[144].position = D3DXVECTOR3(388.54f, -292.45f, 891.31f);
 	rightWall[144].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[144].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[145].position = D3DXVECTOR3(355.12f, -244.47f, 677.28f);
+	rightWall[145].position = D3DXVECTOR3(391.93f, -294.05f, 886.20f);
 	rightWall[145].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[145].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[146].position = D3DXVECTOR3(357.61f, -246.10f, 671.57f);
+	rightWall[146].position = D3DXVECTOR3(394.42f, -295.68f, 880.50f);
 	rightWall[146].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[146].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[147].position = D3DXVECTOR3(358.97f, -247.76f, 665.68f);
+	rightWall[147].position = D3DXVECTOR3(395.77f, -297.34f, 874.60f);
 	rightWall[147].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[147].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[148].position = D3DXVECTOR3(359.31f, -249.34f, 659.68f);
+	rightWall[148].position = D3DXVECTOR3(396.12f, -298.92f, 868.60f);
 	rightWall[148].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[148].scale = D3DXVECTOR3(5, 1, 7.500008);
 
-	rightWall[149].position = D3DXVECTOR3(359.31f, -250.82f, 651.50f);
+	rightWall[149].position = D3DXVECTOR3(396.04f, -310.48f, 805.01f);
 	rightWall[149].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[149].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[150].position = D3DXVECTOR3(359.31f, -252.57f, 641.96f);
+	rightWall[150].position = D3DXVECTOR3(396.04f, -312.23f, 795.47f);
 	rightWall[150].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[150].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[151].position = D3DXVECTOR3(359.31f, -254.27f, 632.57f);
+	rightWall[151].position = D3DXVECTOR3(396.04f, -313.93f, 786.08f);
 	rightWall[151].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[151].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[152].position = D3DXVECTOR3(359.31f, -255.92f, 623.41f);
+	rightWall[152].position = D3DXVECTOR3(396.04f, -315.58f, 776.92f);
 	rightWall[152].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[152].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[153].position = D3DXVECTOR3(359.31f, -257.66f, 613.83f);
+	rightWall[153].position = D3DXVECTOR3(396.04f, -317.32f, 767.34f);
 	rightWall[153].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[153].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[154].position = D3DXVECTOR3(359.31f, -259.24f, 605.11f);
+	rightWall[154].position = D3DXVECTOR3(396.04f, -318.90f, 758.61f);
 	rightWall[154].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[154].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[155].position = D3DXVECTOR3(358.60f, -261.02f, 597.88f);
+	rightWall[155].position = D3DXVECTOR3(395.35f, -320.75f, 751.55f);
 	rightWall[155].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[155].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[156].position = D3DXVECTOR3(356.90f, -262.61f, 592.15f);
+	rightWall[156].position = D3DXVECTOR3(393.65f, -322.34f, 745.82f);
 	rightWall[156].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[156].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[157].position = D3DXVECTOR3(354.11f, -264.24f, 586.57f);
+	rightWall[157].position = D3DXVECTOR3(390.86f, -323.97f, 740.24f);
 	rightWall[157].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[157].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[158].position = D3DXVECTOR3(350.42f, -265.87f, 581.56f);
+	rightWall[158].position = D3DXVECTOR3(387.17f, -325.60f, 735.23f);
 	rightWall[158].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[158].scale = D3DXVECTOR3(5, 1, 8);
 
-	rightWall[159].position = D3DXVECTOR3(345.07f, -267.38f, 575.19f);
+	rightWall[159].position = D3DXVECTOR3(381.83f, -327.11f, 728.87f);
 	rightWall[159].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[159].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[160].position = D3DXVECTOR3(339.62f, -269.07f, 567.35f);
+	rightWall[160].position = D3DXVECTOR3(376.38f, -328.80f, 721.02f);
 	rightWall[160].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[160].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[161].position = D3DXVECTOR3(335.68f, -270.73f, 558.93f);
+	rightWall[161].position = D3DXVECTOR3(372.44f, -330.46f, 712.61f);
 	rightWall[161].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[161].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[162].position = D3DXVECTOR3(333.39f, -272.33f, 550.39f);
+	rightWall[162].position = D3DXVECTOR3(370.15f, -332.06f, 704.06f);
 	rightWall[162].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[162].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[163].position = D3DXVECTOR3(332.55f, -273.98f, 541.15f);
+	rightWall[163].position = D3DXVECTOR3(369.31f, -333.71f, 694.83f);
 	rightWall[163].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[163].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[164].position = D3DXVECTOR3(332.55f, -275.64f, 531.82f);
+	rightWall[164].position = D3DXVECTOR3(369.30f, -335.37f, 685.50f);
 	rightWall[164].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[164].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[165].position = D3DXVECTOR3(332.55f, -277.33f, 522.37f);
+	rightWall[165].position = D3DXVECTOR3(369.30f, -337.06f, 676.05f);
 	rightWall[165].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[165].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[166].position = D3DXVECTOR3(332.55f, -278.88f, 513.94f);
+	rightWall[166].position = D3DXVECTOR3(369.31f, -338.61f, 667.61f);
 	rightWall[166].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[166].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[167].position = D3DXVECTOR3(333.42f, -280.57f, 504.42f);
+	rightWall[167].position = D3DXVECTOR3(370.17f, -340.30f, 658.10f);
 	rightWall[167].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[167].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[168].position = D3DXVECTOR3(335.81f, -282.23f, 495.44f);
+	rightWall[168].position = D3DXVECTOR3(372.57f, -341.96f, 649.12f);
 	rightWall[168].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[168].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[169].position = D3DXVECTOR3(339.55f, -283.83f, 487.42f);
+	rightWall[169].position = D3DXVECTOR3(376.30f, -343.56f, 641.10f);
 	rightWall[169].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[169].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[170].position = D3DXVECTOR3(344.84f, -285.48f, 479.81f);
+	rightWall[170].position = D3DXVECTOR3(381.60f, -345.21f, 633.48f);
 	rightWall[170].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[170].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[171].position = D3DXVECTOR3(350.99f, -287.20f, 472.47f);
+	rightWall[171].position = D3DXVECTOR3(387.74f, -346.93f, 626.14f);
 	rightWall[171].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[171].scale = D3DXVECTOR3(5, 1, 10.00002);
 
-	rightWall[172].position = D3DXVECTOR3(357.04f, -288.90f, 465.26f);
+	rightWall[172].position = D3DXVECTOR3(393.79f, -348.63f, 618.93f);
 	rightWall[172].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[172].scale = D3DXVECTOR3(5, 1, 10.00002);
 
-	rightWall[173].position = D3DXVECTOR3(363.16f, -290.63f, 457.96f);
+	rightWall[173].position = D3DXVECTOR3(399.91f, -350.36f, 611.63f);
 	rightWall[173].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[173].scale = D3DXVECTOR3(5, 1, 10.00002);
 
-	rightWall[174].position = D3DXVECTOR3(369.27f, -292.38f, 450.73f);
+	rightWall[174].position = D3DXVECTOR3(406.02f, -352.11f, 604.40f);
 	rightWall[174].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[174].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[175].position = D3DXVECTOR3(376.05f, -294.07f, 444.00f);
+	rightWall[175].position = D3DXVECTOR3(412.80f, -353.80f, 597.67f);
 	rightWall[175].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[175].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[176].position = D3DXVECTOR3(383.65f, -295.73f, 438.65f);
+	rightWall[176].position = D3DXVECTOR3(420.41f, -355.46f, 592.33f);
 	rightWall[176].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[176].scale = D3DXVECTOR3(5, 1, 10.00002);
 
-	rightWall[177].position = D3DXVECTOR3(391.67f, -297.33f, 434.91f);
+	rightWall[177].position = D3DXVECTOR3(428.42f, -357.06f, 588.59f);
 	rightWall[177].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[177].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[178].position = D3DXVECTOR3(400.62f, -298.98f, 432.48f);
+	rightWall[178].position = D3DXVECTOR3(437.37f, -358.71f, 586.16f);
 	rightWall[178].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[178].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[179].position = D3DXVECTOR3(410.04f, -300.69f, 431.71f);
+	rightWall[179].position = D3DXVECTOR3(446.80f, -360.42f, 585.38f);
 	rightWall[179].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[179].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[180].position = D3DXVECTOR3(419.14f, -302.32f, 432.49f);
+	rightWall[180].position = D3DXVECTOR3(455.89f, -362.05f, 586.16f);
 	rightWall[180].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[180].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[181].position = D3DXVECTOR3(428.32f, -304.00f, 434.11f);
+	rightWall[181].position = D3DXVECTOR3(465.01f, -363.76f, 587.74f);
 	rightWall[181].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[181].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[182].position = D3DXVECTOR3(437.87f, -305.76f, 435.79f);
+	rightWall[182].position = D3DXVECTOR3(474.56f, -365.52f, 589.42f);
 	rightWall[182].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[182].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[183].position = D3DXVECTOR3(447.25f, -307.48f, 437.45f);
+	rightWall[183].position = D3DXVECTOR3(483.94f, -367.24f, 591.08f);
 	rightWall[183].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[183].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[184].position = D3DXVECTOR3(456.69f, -309.21f, 439.11f);
+	rightWall[184].position = D3DXVECTOR3(491.68f, -368.64f, 592.47f);
 	rightWall[184].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[184].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[185].position = D3DXVECTOR3(466.09f, -310.92f, 440.78f);
+	rightWall[185].position = D3DXVECTOR3(501.08f, -370.35f, 594.14f);
 	rightWall[185].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[185].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[186].position = D3DXVECTOR3(475.64f, -312.66f, 442.45f);
+	rightWall[186].position = D3DXVECTOR3(510.63f, -372.09f, 595.81f);
 	rightWall[186].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[186].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[187].position = D3DXVECTOR3(484.93f, -314.34f, 444.09f);
+	rightWall[187].position = D3DXVECTOR3(519.92f, -373.77f, 597.45f);
 	rightWall[187].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[187].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[188].position = D3DXVECTOR3(494.34f, -316.05f, 445.75f);
+	rightWall[188].position = D3DXVECTOR3(529.33f, -375.48f, 599.11f);
 	rightWall[188].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[188].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[189].position = D3DXVECTOR3(503.73f, -317.76f, 447.41f);
+	rightWall[189].position = D3DXVECTOR3(538.72f, -377.19f, 600.77f);
 	rightWall[189].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[189].scale = D3DXVECTOR3(5, 1, 10);
 
-	rightWall[190].position = D3DXVECTOR3(513.09f, -319.46f, 449.06f);
+	rightWall[190].position = D3DXVECTOR3(548.08f, -378.89f, 602.42f);
 	rightWall[190].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[190].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[191].position = D3DXVECTOR3(8.30f, -20.96f, 84.04f);
+	rightWall[191].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[191].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[192].position = D3DXVECTOR3(8.30f, -22.62f, 93.04f);
+	rightWall[192].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[192].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[193].position = D3DXVECTOR3(8.30f, -24.21f, 101.74f);
+	rightWall[193].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[193].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[194].position = D3DXVECTOR3(8.30f, -25.89f, 110.84f);
+	rightWall[194].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[194].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[195].position = D3DXVECTOR3(8.30f, -27.68f, 120.24f);
+	rightWall[195].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[195].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[196].position = D3DXVECTOR3(8.30f, -29.36f, 129.54f);
+	rightWall[196].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[196].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[197].position = D3DXVECTOR3(8.30f, -31.15f, 139.24f);
+	rightWall[197].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[197].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[198].position = D3DXVECTOR3(8.30f, -32.74f, 148.04f);
+	rightWall[198].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[198].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[199].position = D3DXVECTOR3(8.30f, -34.11f, 155.66f);
+	rightWall[199].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[199].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[200].position = D3DXVECTOR3(-71.42f, -55.38f, 232.23f);
+	rightWall[200].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[200].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[201].position = D3DXVECTOR3(-79.38f, -57.11f, 236.84f);
+	rightWall[201].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[201].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[202].position = D3DXVECTOR3(-86.68f, -58.66f, 241.04f);
+	rightWall[202].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[202].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[203].position = D3DXVECTOR3(-93.98f, -60.18f, 245.24f);
+	rightWall[203].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[203].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[204].position = D3DXVECTOR3(-101.88f, -61.91f, 249.84f);
+	rightWall[204].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[204].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[205].position = D3DXVECTOR3(-109.74f, -63.55f, 254.31f);
+	rightWall[205].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[205].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[206].position = D3DXVECTOR3(7.79f, -138.36f, 376.81f);
+	rightWall[206].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[206].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[207].position = D3DXVECTOR3(15.82f, -140.05f, 381.46f);
+	rightWall[207].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[207].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[208].position = D3DXVECTOR3(24.08f, -141.77f, 386.22f);
+	rightWall[208].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[208].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[209].position = D3DXVECTOR3(32.20f, -143.47f, 390.89f);
+	rightWall[209].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[209].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[210].position = D3DXVECTOR3(40.30f, -145.14f, 395.55f);
+	rightWall[210].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[210].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[211].position = D3DXVECTOR3(48.60f, -146.84f, 400.33f);
+	rightWall[211].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[211].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[212].position = D3DXVECTOR3(56.18f, -148.41f, 404.65f);
+	rightWall[212].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[212].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[213].position = D3DXVECTOR3(135.60f, -209.70f, 673.00f);
+	rightWall[213].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[213].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[214].position = D3DXVECTOR3(138.88f, -211.43f, 682.00f);
+	rightWall[214].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[214].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[215].position = D3DXVECTOR3(142.10f, -213.12f, 690.84f);
+	rightWall[215].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[215].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[216].position = D3DXVECTOR3(145.27f, -214.80f, 699.57f);
+	rightWall[216].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[216].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[217].position = D3DXVECTOR3(148.43f, -216.48f, 708.24f);
+	rightWall[217].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[217].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[218].position = D3DXVECTOR3(151.67f, -218.22f, 717.17f);
+	rightWall[218].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[218].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[219].position = D3DXVECTOR3(154.90f, -219.92f, 726.05f);
+	rightWall[219].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[219].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[220].position = D3DXVECTOR3(158.07f, -221.62f, 734.85f);
+	rightWall[220].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[220].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[221].position = D3DXVECTOR3(396.09f, -300.44f, 860.37f);
+	rightWall[221].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[221].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[222].position = D3DXVECTOR3(396.09f, -302.19f, 850.83f);
+	rightWall[222].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[222].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[223].position = D3DXVECTOR3(396.09f, -303.89f, 841.44f);
+	rightWall[223].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[223].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[224].position = D3DXVECTOR3(396.09f, -305.54f, 832.28f);
+	rightWall[224].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[224].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[225].position = D3DXVECTOR3(396.09f, -307.28f, 822.70f);
+	rightWall[225].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[225].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[226].position = D3DXVECTOR3(396.09f, -308.86f, 813.97f);
+	rightWall[226].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[226].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[227].position = D3DXVECTOR3(557.18f, -380.60f, 604.04f);
+	rightWall[227].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[227].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[228].position = D3DXVECTOR3(566.73f, -382.36f, 605.72f);
+	rightWall[228].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[228].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[229].position = D3DXVECTOR3(576.11f, -384.08f, 607.38f);
+	rightWall[229].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[229].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[230].position = D3DXVECTOR3(583.85f, -385.48f, 608.76f);
+	rightWall[230].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[230].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[231].position = D3DXVECTOR3(593.25f, -387.19f, 610.43f);
+	rightWall[231].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[231].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[232].position = D3DXVECTOR3(602.80f, -388.93f, 612.10f);
+	rightWall[232].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[232].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[233].position = D3DXVECTOR3(612.09f, -390.61f, 613.74f);
+	rightWall[233].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[233].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[234].position = D3DXVECTOR3(621.50f, -392.32f, 615.40f);
+	rightWall[234].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[234].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[235].position = D3DXVECTOR3(630.89f, -394.03f, 617.06f);
+	rightWall[235].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[235].scale = D3DXVECTOR3(5, 1, 10);
+
+	rightWall[236].position = D3DXVECTOR3(640.25f, -395.73f, 618.71f);
+	rightWall[236].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 85.00f*3.141592f / 180);
+	rightWall[236].scale = D3DXVECTOR3(5, 1, 10);
 
 	leftWall[0].position = D3DXVECTOR3(-8.76f, -6.34f, 2.89f);
 	leftWall[0].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 275.00f*3.141592f / 180);
@@ -5991,790 +7087,949 @@ void StageInit() {			//座標とサイズと角度を入れる
 	leftWall[8].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[8].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[9].position = D3DXVECTOR3(-9.52f, -21.35f, 81.98f);
+	leftWall[9].position = D3DXVECTOR3(-9.40f, -36.20f, 162.82f);
 	leftWall[9].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 350.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[9].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[10].position = D3DXVECTOR3(-11.28f, -23.00f, 88.02f);
+	leftWall[10].position = D3DXVECTOR3(-11.16f, -37.85f, 168.86f);
 	leftWall[10].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[10].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[11].position = D3DXVECTOR3(-13.91f, -24.61f, 93.31f);
+	leftWall[11].position = D3DXVECTOR3(-13.79f, -39.46f, 174.15f);
 	leftWall[11].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 330.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[11].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[12].position = D3DXVECTOR3(-17.62f, -26.25f, 98.39f);
+	leftWall[12].position = D3DXVECTOR3(-17.50f, -41.10f, 179.23f);
 	leftWall[12].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 320.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[12].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[13].position = D3DXVECTOR3(-22.35f, -27.97f, 102.83f);
+	leftWall[13].position = D3DXVECTOR3(-22.23f, -42.82f, 183.67f);
 	leftWall[13].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 310.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[13].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[14].position = D3DXVECTOR3(-27.46f, -29.59f, 106.25f);
+	leftWall[14].position = D3DXVECTOR3(-27.34f, -44.44f, 187.09f);
 	leftWall[14].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[14].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[15].position = D3DXVECTOR3(-34.75f, -31.15f, 110.46f);
+	leftWall[15].position = D3DXVECTOR3(-34.01f, -45.87f, 190.99f);
 	leftWall[15].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[15].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[16].position = D3DXVECTOR3(-42.71f, -32.88f, 115.07f);
+	leftWall[16].position = D3DXVECTOR3(-41.97f, -47.60f, 195.60f);
 	leftWall[16].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[16].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[17].position = D3DXVECTOR3(-50.01f, -34.43f, 119.27f);
+	leftWall[17].position = D3DXVECTOR3(-49.27f, -49.15f, 199.80f);
 	leftWall[17].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[17].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[18].position = D3DXVECTOR3(-57.31f, -35.95f, 123.47f);
+	leftWall[18].position = D3DXVECTOR3(-56.57f, -50.67f, 204.00f);
 	leftWall[18].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[18].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[19].position = D3DXVECTOR3(-65.21f, -37.68f, 128.07f);
+	leftWall[19].position = D3DXVECTOR3(-64.47f, -52.40f, 208.60f);
 	leftWall[19].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[19].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[20].position = D3DXVECTOR3(-73.07f, -39.32f, 132.54f);
+	leftWall[20].position = D3DXVECTOR3(-72.33f, -54.04f, 213.07f);
 	leftWall[20].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[20].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[21].position = D3DXVECTOR3(-79.93f, -41.18f, 135.62f);
+	leftWall[21].position = D3DXVECTOR3(-124.91f, -65.65f, 242.55f);
 	leftWall[21].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 290.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[21].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[22].position = D3DXVECTOR3(-86.04f, -42.83f, 137.11f);
+	leftWall[22].position = D3DXVECTOR3(-131.02f, -67.30f, 244.04f);
 	leftWall[22].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 280.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[22].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[23].position = D3DXVECTOR3(-91.93f, -44.44f, 137.48f);
+	leftWall[23].position = D3DXVECTOR3(-136.92f, -68.91f, 244.41f);
 	leftWall[23].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 270.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[23].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[24].position = D3DXVECTOR3(-98.19f, -46.08f, 136.81f);
+	leftWall[24].position = D3DXVECTOR3(-143.17f, -70.55f, 243.74f);
 	leftWall[24].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 260.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[24].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[25].position = D3DXVECTOR3(-103.92f, -47.22f, 135.78f);
+	leftWall[25].position = D3DXVECTOR3(-148.91f, -71.69f, 242.71f);
 	leftWall[25].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 260.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[25].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[26].position = D3DXVECTOR3(-113.17f, -48.83f, 134.96f);
+	leftWall[26].position = D3DXVECTOR3(-158.15f, -73.30f, 241.89f);
 	leftWall[26].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 270.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[26].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[27].position = D3DXVECTOR3(-122.07f, -50.42f, 135.72f);
+	leftWall[27].position = D3DXVECTOR3(-167.05f, -74.89f, 242.65f);
 	leftWall[27].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 280.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[27].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[28].position = D3DXVECTOR3(-130.99f, -52.05f, 138.10f);
+	leftWall[28].position = D3DXVECTOR3(-175.97f, -76.52f, 245.03f);
 	leftWall[28].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 290.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[28].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[29].position = D3DXVECTOR3(-139.32f, -53.68f, 141.96f);
+	leftWall[29].position = D3DXVECTOR3(-184.31f, -78.15f, 248.89f);
 	leftWall[29].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[29].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[30].position = D3DXVECTOR3(-146.83f, -55.28f, 147.18f);
+	leftWall[30].position = D3DXVECTOR3(-191.81f, -79.75f, 254.11f);
 	leftWall[30].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 310.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[30].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[31].position = D3DXVECTOR3(-153.36f, -56.92f, 153.68f);
+	leftWall[31].position = D3DXVECTOR3(-198.34f, -81.39f, 260.61f);
 	leftWall[31].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 320.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[31].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[32].position = D3DXVECTOR3(-158.48f, -58.58f, 161.07f);
+	leftWall[32].position = D3DXVECTOR3(-203.46f, -83.05f, 268.00f);
 	leftWall[32].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 330.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[32].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[33].position = D3DXVECTOR3(-162.18f, -60.12f, 168.98f);
+	leftWall[33].position = D3DXVECTOR3(-207.17f, -84.59f, 275.91f);
 	leftWall[33].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[33].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[34].position = D3DXVECTOR3(-164.66f, -61.48f, 175.68f);
+	leftWall[34].position = D3DXVECTOR3(-209.64f, -85.95f, 282.60f);
 	leftWall[34].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[34].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[35].position = D3DXVECTOR3(-167.08f, -63.09f, 184.63f);
+	leftWall[35].position = D3DXVECTOR3(-212.06f, -87.56f, 291.56f);
 	leftWall[35].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 350.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[35].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[36].position = D3DXVECTOR3(-167.87f, -64.68f, 193.53f);
+	leftWall[36].position = D3DXVECTOR3(-212.85f, -89.15f, 300.46f);
 	leftWall[36].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[36].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[37].position = D3DXVECTOR3(-167.08f, -66.31f, 202.73f);
+	leftWall[37].position = D3DXVECTOR3(-212.06f, -90.78f, 309.66f);
 	leftWall[37].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[37].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[38].position = D3DXVECTOR3(-164.73f, -67.94f, 211.61f);
+	leftWall[38].position = D3DXVECTOR3(-209.71f, -92.41f, 318.54f);
 	leftWall[38].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[38].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[39].position = D3DXVECTOR3(-160.89f, -69.54f, 219.90f);
+	leftWall[39].position = D3DXVECTOR3(-205.87f, -94.01f, 326.83f);
 	leftWall[39].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[39].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[40].position = D3DXVECTOR3(-155.62f, -71.18f, 227.46f);
+	leftWall[40].position = D3DXVECTOR3(-200.60f, -95.65f, 334.39f);
 	leftWall[40].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[40].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[41].position = D3DXVECTOR3(-149.22f, -72.84f, 233.79f);
+	leftWall[41].position = D3DXVECTOR3(-194.21f, -97.31f, 340.72f);
 	leftWall[41].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[41].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[42].position = D3DXVECTOR3(-142.08f, -74.38f, 238.81f);
+	leftWall[42].position = D3DXVECTOR3(-187.07f, -98.85f, 345.74f);
 	leftWall[42].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[42].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[43].position = D3DXVECTOR3(-134.35f, -76.06f, 243.29f);
+	leftWall[43].position = D3DXVECTOR3(-179.34f, -100.53f, 350.22f);
 	leftWall[43].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[43].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[44].position = D3DXVECTOR3(-126.27f, -77.76f, 247.96f);
+	leftWall[44].position = D3DXVECTOR3(-171.26f, -102.23f, 354.89f);
 	leftWall[44].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[44].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[45].position = D3DXVECTOR3(-117.77f, -79.51f, 252.89f);
+	leftWall[45].position = D3DXVECTOR3(-162.76f, -103.98f, 359.82f);
 	leftWall[45].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[45].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[46].position = D3DXVECTOR3(-109.72f, -81.17f, 257.61f);
+	leftWall[46].position = D3DXVECTOR3(-154.70f, -105.64f, 364.54f);
 	leftWall[46].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[46].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[47].position = D3DXVECTOR3(-101.31f, -82.78f, 261.55f);
+	leftWall[47].position = D3DXVECTOR3(-146.30f, -107.25f, 368.48f);
 	leftWall[47].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[47].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[48].position = D3DXVECTOR3(-92.69f, -84.37f, 263.87f);
+	leftWall[48].position = D3DXVECTOR3(-137.67f, -108.84f, 370.80f);
 	leftWall[48].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[48].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[49].position = D3DXVECTOR3(-83.49f, -86.00f, 264.69f);
+	leftWall[49].position = D3DXVECTOR3(-128.48f, -110.47f, 371.62f);
 	leftWall[49].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[49].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[50].position = D3DXVECTOR3(-74.34f, -87.63f, 263.92f);
+	leftWall[50].position = D3DXVECTOR3(-119.33f, -112.10f, 370.85f);
 	leftWall[50].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[50].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[51].position = D3DXVECTOR3(-65.06f, -89.33f, 262.28f);
+	leftWall[51].position = D3DXVECTOR3(-110.05f, -113.80f, 369.21f);
 	leftWall[51].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[51].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[52].position = D3DXVECTOR3(-57.56f, -91.19f, 261.73f);
+	leftWall[52].position = D3DXVECTOR3(-102.55f, -115.66f, 368.66f);
 	leftWall[52].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[52].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[53].position = D3DXVECTOR3(-51.31f, -92.84f, 262.42f);
+	leftWall[53].position = D3DXVECTOR3(-96.30f, -117.31f, 369.35f);
 	leftWall[53].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[53].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[54].position = D3DXVECTOR3(-45.64f, -94.45f, 264.09f);
+	leftWall[54].position = D3DXVECTOR3(-90.63f, -118.92f, 371.02f);
 	leftWall[54].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[54].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[55].position = D3DXVECTOR3(-40.00f, -96.09f, 266.86f);
+	leftWall[55].position = D3DXVECTOR3(-84.98f, -120.56f, 373.79f);
 	leftWall[55].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[55].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[56].position = D3DXVECTOR3(-32.89f, -97.60f, 270.99f);
+	leftWall[56].position = D3DXVECTOR3(-77.87f, -122.07f, 377.92f);
 	leftWall[56].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[56].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[57].position = D3DXVECTOR3(-24.48f, -99.21f, 274.93f);
+	leftWall[57].position = D3DXVECTOR3(-69.47f, -123.68f, 381.86f);
 	leftWall[57].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[57].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[58].position = D3DXVECTOR3(-15.86f, -100.80f, 277.25f);
+	leftWall[58].position = D3DXVECTOR3(-60.84f, -125.27f, 384.18f);
 	leftWall[58].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[58].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[59].position = D3DXVECTOR3(-6.66f, -102.43f, 278.07f);
+	leftWall[59].position = D3DXVECTOR3(-51.65f, -126.90f, 385.00f);
 	leftWall[59].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[59].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[60].position = D3DXVECTOR3(2.49f, -104.06f, 277.30f);
+	leftWall[60].position = D3DXVECTOR3(-42.50f, -128.53f, 384.23f);
 	leftWall[60].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[60].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[61].position = D3DXVECTOR3(11.62f, -105.78f, 275.73f);
+	leftWall[61].position = D3DXVECTOR3(-33.37f, -130.25f, 382.66f);
 	leftWall[61].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[61].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[62].position = D3DXVECTOR3(19.12f, -107.64f, 275.18f);
+	leftWall[62].position = D3DXVECTOR3(-25.87f, -132.11f, 382.11f);
 	leftWall[62].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[62].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[63].position = D3DXVECTOR3(25.37f, -109.29f, 275.87f);
+	leftWall[63].position = D3DXVECTOR3(-19.62f, -133.76f, 382.80f);
 	leftWall[63].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[63].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[64].position = D3DXVECTOR3(31.04f, -110.90f, 277.54f);
+	leftWall[64].position = D3DXVECTOR3(-13.95f, -135.37f, 384.47f);
 	leftWall[64].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[64].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[65].position = D3DXVECTOR3(36.68f, -112.54f, 280.31f);
+	leftWall[65].position = D3DXVECTOR3(-8.30f, -137.01f, 387.24f);
 	leftWall[65].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[65].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[66].position = D3DXVECTOR3(43.83f, -114.12f, 284.43f);
+	leftWall[66].position = D3DXVECTOR3(55.92f, -150.40f, 424.19f);
 	leftWall[66].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[66].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[67].position = D3DXVECTOR3(51.86f, -115.81f, 289.08f);
+	leftWall[67].position = D3DXVECTOR3(63.95f, -152.09f, 428.84f);
 	leftWall[67].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[67].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[68].position = D3DXVECTOR3(60.12f, -117.53f, 293.84f);
+	leftWall[68].position = D3DXVECTOR3(72.21f, -153.81f, 433.60f);
 	leftWall[68].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[68].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[69].position = D3DXVECTOR3(68.24f, -119.23f, 298.51f);
+	leftWall[69].position = D3DXVECTOR3(80.33f, -155.51f, 438.27f);
 	leftWall[69].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[69].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[70].position = D3DXVECTOR3(76.34f, -120.90f, 303.17f);
+	leftWall[70].position = D3DXVECTOR3(88.43f, -157.18f, 442.93f);
 	leftWall[70].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[70].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[71].position = D3DXVECTOR3(84.64f, -122.60f, 307.95f);
+	leftWall[71].position = D3DXVECTOR3(96.73f, -158.88f, 447.71f);
 	leftWall[71].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[71].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[72].position = D3DXVECTOR3(92.21f, -124.17f, 312.27f);
+	leftWall[72].position = D3DXVECTOR3(104.31f, -160.45f, 452.03f);
 	leftWall[72].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[72].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[73].position = D3DXVECTOR3(98.31f, -126.03f, 316.67f);
+	leftWall[73].position = D3DXVECTOR3(109.77f, -162.20f, 455.98f);
 	leftWall[73].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[73].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[74].position = D3DXVECTOR3(102.66f, -127.68f, 321.21f);
+	leftWall[74].position = D3DXVECTOR3(114.12f, -163.85f, 460.52f);
 	leftWall[74].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[74].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[75].position = D3DXVECTOR3(105.93f, -129.29f, 326.13f);
+	leftWall[75].position = D3DXVECTOR3(117.39f, -165.46f, 465.45f);
 	leftWall[75].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[75].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[76].position = D3DXVECTOR3(108.47f, -130.93f, 331.89f);
+	leftWall[76].position = D3DXVECTOR3(119.93f, -167.10f, 471.20f);
 	leftWall[76].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[76].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[77].position = D3DXVECTOR3(111.38f, -132.46f, 339.86f);
+	leftWall[77].position = D3DXVECTOR3(122.84f, -168.63f, 479.17f);
 	leftWall[77].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[77].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[78].position = D3DXVECTOR3(114.46f, -134.12f, 348.33f);
+	leftWall[78].position = D3DXVECTOR3(125.92f, -170.29f, 487.64f);
 	leftWall[78].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[78].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[79].position = D3DXVECTOR3(117.58f, -135.77f, 356.78f);
+	leftWall[79].position = D3DXVECTOR3(129.04f, -171.94f, 496.09f);
 	leftWall[79].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[79].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[80].position = D3DXVECTOR3(119.43f, -137.63f, 364.06f);
+	leftWall[80].position = D3DXVECTOR3(130.89f, -173.80f, 503.38f);
 	leftWall[80].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[80].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[81].position = D3DXVECTOR3(119.84f, -139.28f, 370.34f);
+	leftWall[81].position = D3DXVECTOR3(131.30f, -175.45f, 509.65f);
 	leftWall[81].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[81].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[82].position = D3DXVECTOR3(119.18f, -140.89f, 376.21f);
+	leftWall[82].position = D3DXVECTOR3(130.64f, -177.06f, 515.52f);
 	leftWall[82].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 350.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[82].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[83].position = D3DXVECTOR3(117.43f, -142.53f, 382.26f);
+	leftWall[83].position = D3DXVECTOR3(128.89f, -178.70f, 521.57f);
 	leftWall[83].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[83].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[84].position = D3DXVECTOR3(114.43f, -144.10f, 390.45f);
+	leftWall[84].position = D3DXVECTOR3(125.89f, -180.27f, 529.76f);
 	leftWall[84].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[84].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[85].position = D3DXVECTOR3(111.30f, -145.76f, 398.97f);
+	leftWall[85].position = D3DXVECTOR3(122.76f, -181.93f, 538.28f);
 	leftWall[85].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[85].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[86].position = D3DXVECTOR3(108.88f, -147.37f, 407.93f);
+	leftWall[86].position = D3DXVECTOR3(120.34f, -183.54f, 547.24f);
 	leftWall[86].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 350.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[86].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[87].position = D3DXVECTOR3(108.09f, -148.96f, 416.82f);
+	leftWall[87].position = D3DXVECTOR3(119.55f, -185.13f, 556.13f);
 	leftWall[87].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[87].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[88].position = D3DXVECTOR3(108.88f, -150.59f, 426.02f);
+	leftWall[88].position = D3DXVECTOR3(120.34f, -186.76f, 565.33f);
 	leftWall[88].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[88].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[89].position = D3DXVECTOR3(111.23f, -152.22f, 434.90f);
+	leftWall[89].position = D3DXVECTOR3(122.69f, -188.39f, 574.21f);
 	leftWall[89].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[89].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[90].position = D3DXVECTOR3(114.36f, -153.89f, 443.54f);
+	leftWall[90].position = D3DXVECTOR3(125.82f, -190.06f, 582.85f);
 	leftWall[90].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[90].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[91].position = D3DXVECTOR3(116.21f, -155.75f, 450.82f);
+	leftWall[91].position = D3DXVECTOR3(127.67f, -191.92f, 590.14f);
 	leftWall[91].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[91].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[92].position = D3DXVECTOR3(116.62f, -157.40f, 457.10f);
+	leftWall[92].position = D3DXVECTOR3(128.08f, -193.57f, 596.41f);
 	leftWall[92].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[92].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[93].position = D3DXVECTOR3(115.96f, -159.01f, 462.97f);
+	leftWall[93].position = D3DXVECTOR3(127.42f, -195.18f, 602.28f);
 	leftWall[93].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 350.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[93].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[94].position = D3DXVECTOR3(114.21f, -160.65f, 469.02f);
+	leftWall[94].position = D3DXVECTOR3(125.67f, -196.82f, 608.33f);
 	leftWall[94].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[94].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[95].position = D3DXVECTOR3(111.30f, -162.19f, 477.03f);
+	leftWall[95].position = D3DXVECTOR3(122.76f, -198.36f, 616.34f);
 	leftWall[95].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[95].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[96].position = D3DXVECTOR3(108.05f, -163.91f, 485.98f);
+	leftWall[96].position = D3DXVECTOR3(119.51f, -200.08f, 625.29f);
 	leftWall[96].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[96].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[97].position = D3DXVECTOR3(104.92f, -165.56f, 494.54f);
+	leftWall[97].position = D3DXVECTOR3(116.38f, -201.73f, 633.85f);
 	leftWall[97].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 340.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[97].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[98].position = D3DXVECTOR3(102.50f, -167.17f, 503.49f);
+	leftWall[98].position = D3DXVECTOR3(113.96f, -203.34f, 642.81f);
 	leftWall[98].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 350.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[98].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[99].position = D3DXVECTOR3(101.71f, -168.76f, 512.39f);
+	leftWall[99].position = D3DXVECTOR3(113.17f, -204.93f, 651.70f);
 	leftWall[99].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[99].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[100].position = D3DXVECTOR3(102.50f, -170.39f, 521.59f);
+	leftWall[100].position = D3DXVECTOR3(113.96f, -206.56f, 660.90f);
 	leftWall[100].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 10.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[100].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[101].position = D3DXVECTOR3(104.85f, -172.02f, 530.47f);
+	leftWall[101].position = D3DXVECTOR3(116.31f, -208.19f, 669.78f);
 	leftWall[101].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[101].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[102].position = D3DXVECTOR3(108.13f, -173.74f, 539.47f);
+	leftWall[102].position = D3DXVECTOR3(144.96f, -223.37f, 748.65f);
 	leftWall[102].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[102].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[103].position = D3DXVECTOR3(111.41f, -175.47f, 548.47f);
+	leftWall[103].position = D3DXVECTOR3(148.24f, -225.10f, 757.65f);
 	leftWall[103].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[103].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[104].position = D3DXVECTOR3(114.63f, -177.16f, 557.31f);
+	leftWall[104].position = D3DXVECTOR3(151.46f, -226.79f, 766.49f);
 	leftWall[104].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[104].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[105].position = D3DXVECTOR3(117.80f, -178.84f, 566.04f);
+	leftWall[105].position = D3DXVECTOR3(154.63f, -228.47f, 775.22f);
 	leftWall[105].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[105].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[106].position = D3DXVECTOR3(120.96f, -180.52f, 574.71f);
+	leftWall[106].position = D3DXVECTOR3(157.79f, -230.15f, 783.89f);
 	leftWall[106].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[106].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[107].position = D3DXVECTOR3(124.20f, -182.26f, 583.64f);
+	leftWall[107].position = D3DXVECTOR3(161.03f, -231.89f, 792.82f);
 	leftWall[107].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[107].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[108].position = D3DXVECTOR3(127.43f, -183.96f, 592.52f);
+	leftWall[108].position = D3DXVECTOR3(164.26f, -233.59f, 801.70f);
 	leftWall[108].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[108].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[109].position = D3DXVECTOR3(130.60f, -185.66f, 601.31f);
+	leftWall[109].position = D3DXVECTOR3(167.43f, -235.29f, 810.50f);
 	leftWall[109].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[109].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[110].position = D3DXVECTOR3(134.50f, -187.27f, 609.73f);
+	leftWall[110].position = D3DXVECTOR3(171.28f, -236.88f, 818.68f);
 	leftWall[110].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[110].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[111].position = D3DXVECTOR3(139.62f, -188.86f, 617.06f);
+	leftWall[111].position = D3DXVECTOR3(176.39f, -238.47f, 826.00f);
 	leftWall[111].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[111].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[112].position = D3DXVECTOR3(146.13f, -190.49f, 623.59f);
+	leftWall[112].position = D3DXVECTOR3(182.91f, -240.10f, 832.54f);
 	leftWall[112].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[112].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[113].position = D3DXVECTOR3(153.64f, -192.12f, 628.88f);
+	leftWall[113].position = D3DXVECTOR3(190.42f, -241.73f, 837.83f);
 	leftWall[113].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[113].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[114].position = D3DXVECTOR3(161.92f, -193.72f, 632.77f);
+	leftWall[114].position = D3DXVECTOR3(198.69f, -243.33f, 841.72f);
 	leftWall[114].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[114].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[115].position = D3DXVECTOR3(170.81f, -195.36f, 635.17f);
+	leftWall[115].position = D3DXVECTOR3(207.59f, -244.97f, 844.12f);
 	leftWall[115].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[115].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[116].position = D3DXVECTOR3(179.78f, -197.02f, 635.91f);
+	leftWall[116].position = D3DXVECTOR3(216.55f, -246.63f, 844.86f);
 	leftWall[116].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[116].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[117].position = D3DXVECTOR3(188.48f, -198.56f, 635.17f);
+	leftWall[117].position = D3DXVECTOR3(225.25f, -248.17f, 844.11f);
 	leftWall[117].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[117].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[118].position = D3DXVECTOR3(197.67f, -200.23f, 633.55f);
+	leftWall[118].position = D3DXVECTOR3(234.45f, -249.84f, 842.49f);
 	leftWall[118].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[118].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[119].position = D3DXVECTOR3(207.00f, -201.92f, 631.91f);
+	leftWall[119].position = D3DXVECTOR3(243.78f, -251.53f, 840.85f);
 	leftWall[119].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[119].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[120].position = D3DXVECTOR3(215.91f, -203.54f, 630.36f);
+	leftWall[120].position = D3DXVECTOR3(252.68f, -253.15f, 839.31f);
 	leftWall[120].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[120].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[121].position = D3DXVECTOR3(223.41f, -205.40f, 629.81f);
+	leftWall[121].position = D3DXVECTOR3(260.18f, -255.01f, 838.76f);
 	leftWall[121].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[121].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[122].position = D3DXVECTOR3(229.66f, -207.05f, 630.50f);
+	leftWall[122].position = D3DXVECTOR3(266.43f, -256.66f, 839.44f);
 	leftWall[122].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[122].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[123].position = D3DXVECTOR3(235.33f, -208.66f, 632.17f);
+	leftWall[123].position = D3DXVECTOR3(272.10f, -258.27f, 841.11f);
 	leftWall[123].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[123].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[124].position = D3DXVECTOR3(240.97f, -210.30f, 634.94f);
+	leftWall[124].position = D3DXVECTOR3(277.75f, -259.91f, 843.89f);
 	leftWall[124].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[124].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[125].position = D3DXVECTOR3(246.17f, -212.02f, 638.83f);
+	leftWall[125].position = D3DXVECTOR3(282.94f, -261.63f, 847.77f);
 	leftWall[125].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[125].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[126].position = D3DXVECTOR3(250.42f, -213.64f, 643.26f);
+	leftWall[126].position = D3DXVECTOR3(287.20f, -263.25f, 852.21f);
 	leftWall[126].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[126].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[127].position = D3DXVECTOR3(253.95f, -215.28f, 648.60f);
+	leftWall[127].position = D3DXVECTOR3(290.73f, -264.89f, 857.55f);
 	leftWall[127].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[127].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[128].position = D3DXVECTOR3(256.38f, -216.84f, 654.12f);
+	leftWall[128].position = D3DXVECTOR3(293.15f, -266.45f, 863.06f);
 	leftWall[128].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[128].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[129].position = D3DXVECTOR3(259.23f, -218.34f, 661.92f);
+	leftWall[129].position = D3DXVECTOR3(296.00f, -267.95f, 870.86f);
 	leftWall[129].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[129].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[130].position = D3DXVECTOR3(262.49f, -220.04f, 670.89f);
+	leftWall[130].position = D3DXVECTOR3(299.26f, -269.65f, 879.83f);
 	leftWall[130].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[130].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[131].position = D3DXVECTOR3(265.75f, -221.81f, 679.82f);
+	leftWall[131].position = D3DXVECTOR3(302.52f, -271.42f, 888.77f);
 	leftWall[131].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[131].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[132].position = D3DXVECTOR3(269.65f, -223.42f, 688.24f);
+	leftWall[132].position = D3DXVECTOR3(306.43f, -273.03f, 897.19f);
 	leftWall[132].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 30.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[132].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[133].position = D3DXVECTOR3(274.77f, -225.01f, 695.57f);
+	leftWall[133].position = D3DXVECTOR3(311.54f, -274.62f, 904.51f);
 	leftWall[133].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 40.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[133].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[134].position = D3DXVECTOR3(281.28f, -226.64f, 702.10f);
+	leftWall[134].position = D3DXVECTOR3(318.06f, -276.25f, 911.05f);
 	leftWall[134].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 50.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[134].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[135].position = D3DXVECTOR3(288.79f, -228.27f, 707.39f);
+	leftWall[135].position = D3DXVECTOR3(325.57f, -277.88f, 916.34f);
 	leftWall[135].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[135].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[136].position = D3DXVECTOR3(297.07f, -229.87f, 711.28f);
+	leftWall[136].position = D3DXVECTOR3(333.84f, -279.48f, 920.23f);
 	leftWall[136].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 70.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[136].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[137].position = D3DXVECTOR3(305.96f, -231.51f, 713.68f);
+	leftWall[137].position = D3DXVECTOR3(342.74f, -281.12f, 922.63f);
 	leftWall[137].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[137].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[138].position = D3DXVECTOR3(314.93f, -233.17f, 714.42f);
+	leftWall[138].position = D3DXVECTOR3(351.70f, -282.78f, 923.37f);
 	leftWall[138].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[138].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[139].position = D3DXVECTOR3(323.63f, -234.71f, 713.68f);
+	leftWall[139].position = D3DXVECTOR3(360.40f, -284.32f, 922.62f);
 	leftWall[139].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[139].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[140].position = D3DXVECTOR3(332.99f, -236.47f, 712.04f);
+	leftWall[140].position = D3DXVECTOR3(369.79f, -286.05f, 920.97f);
 	leftWall[140].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[140].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[141].position = D3DXVECTOR3(341.95f, -238.08f, 709.66f);
+	leftWall[141].position = D3DXVECTOR3(378.76f, -287.66f, 918.58f);
 	leftWall[141].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[141].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[142].position = D3DXVECTOR3(350.06f, -239.67f, 705.90f);
+	leftWall[142].position = D3DXVECTOR3(386.86f, -289.25f, 914.82f);
 	leftWall[142].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[142].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[143].position = D3DXVECTOR3(357.63f, -241.30f, 700.61f);
+	leftWall[143].position = D3DXVECTOR3(394.43f, -290.88f, 909.54f);
 	leftWall[143].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[143].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[144].position = D3DXVECTOR3(364.14f, -242.93f, 694.14f);
+	leftWall[144].position = D3DXVECTOR3(400.95f, -292.51f, 903.06f);
 	leftWall[144].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[144].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[145].position = D3DXVECTOR3(369.40f, -244.53f, 686.66f);
+	leftWall[145].position = D3DXVECTOR3(406.21f, -294.11f, 895.59f);
 	leftWall[145].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[145].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[146].position = D3DXVECTOR3(373.31f, -246.17f, 678.32f);
+	leftWall[146].position = D3DXVECTOR3(410.12f, -295.75f, 887.24f);
 	leftWall[146].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[146].scale = D3DXVECTOR3(5, 1, 10.00001);
 
-	leftWall[147].position = D3DXVECTOR3(375.60f, -247.83f, 669.62f);
+	leftWall[147].position = D3DXVECTOR3(412.40f, -297.41f, 878.54f);
 	leftWall[147].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[147].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[148].position = D3DXVECTOR3(376.38f, -249.37f, 660.93f);
+	leftWall[148].position = D3DXVECTOR3(413.18f, -298.95f, 869.85f);
 	leftWall[148].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[148].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[149].position = D3DXVECTOR3(376.37f, -251.05f, 651.56f);
+	leftWall[149].position = D3DXVECTOR3(413.10f, -310.71f, 805.07f);
 	leftWall[149].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[149].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[150].position = D3DXVECTOR3(376.37f, -252.80f, 642.02f);
+	leftWall[150].position = D3DXVECTOR3(413.10f, -312.46f, 795.53f);
 	leftWall[150].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[150].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[151].position = D3DXVECTOR3(376.37f, -254.50f, 632.63f);
+	leftWall[151].position = D3DXVECTOR3(413.10f, -314.16f, 786.14f);
 	leftWall[151].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[151].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[152].position = D3DXVECTOR3(376.37f, -256.15f, 623.47f);
+	leftWall[152].position = D3DXVECTOR3(413.10f, -315.81f, 776.98f);
 	leftWall[152].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[152].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[153].position = D3DXVECTOR3(376.37f, -257.89f, 613.89f);
+	leftWall[153].position = D3DXVECTOR3(413.10f, -317.55f, 767.40f);
 	leftWall[153].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[153].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[154].position = D3DXVECTOR3(376.37f, -259.47f, 605.17f);
+	leftWall[154].position = D3DXVECTOR3(413.10f, -319.13f, 758.67f);
 	leftWall[154].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[154].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[155].position = D3DXVECTOR3(375.58f, -261.08f, 595.92f);
+	leftWall[155].position = D3DXVECTOR3(412.33f, -320.81f, 749.59f);
 	leftWall[155].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[155].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[156].position = D3DXVECTOR3(373.28f, -262.67f, 587.29f);
+	leftWall[156].position = D3DXVECTOR3(410.03f, -322.40f, 740.96f);
 	leftWall[156].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[156].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[157].position = D3DXVECTOR3(369.39f, -264.30f, 578.91f);
+	leftWall[157].position = D3DXVECTOR3(406.14f, -324.03f, 732.59f);
 	leftWall[157].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[157].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[158].position = D3DXVECTOR3(364.14f, -265.93f, 571.37f);
+	leftWall[158].position = D3DXVECTOR3(400.90f, -325.66f, 725.05f);
 	leftWall[158].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[158].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[159].position = D3DXVECTOR3(358.18f, -267.61f, 564.27f);
+	leftWall[159].position = D3DXVECTOR3(394.94f, -327.34f, 717.95f);
 	leftWall[159].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 220.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[159].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[160].position = D3DXVECTOR3(353.96f, -269.47f, 558.05f);
+	leftWall[160].position = D3DXVECTOR3(390.71f, -329.20f, 711.73f);
 	leftWall[160].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[160].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[161].position = D3DXVECTOR3(351.42f, -271.12f, 552.30f);
+	leftWall[161].position = D3DXVECTOR3(388.18f, -330.85f, 705.97f);
 	leftWall[161].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 200.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[161].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[162].position = D3DXVECTOR3(350.04f, -272.73f, 546.55f);
+	leftWall[162].position = D3DXVECTOR3(386.79f, -332.46f, 700.23f);
 	leftWall[162].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 190.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[162].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[163].position = D3DXVECTOR3(349.61f, -274.37f, 540.28f);
+	leftWall[163].position = D3DXVECTOR3(386.37f, -334.10f, 693.95f);
 	leftWall[163].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[163].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[164].position = D3DXVECTOR3(349.61f, -275.87f, 531.88f);
+	leftWall[164].position = D3DXVECTOR3(386.36f, -335.60f, 685.56f);
 	leftWall[164].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[164].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[165].position = D3DXVECTOR3(349.61f, -277.56f, 522.43f);
+	leftWall[165].position = D3DXVECTOR3(386.36f, -337.29f, 676.11f);
 	leftWall[165].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[165].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[166].position = D3DXVECTOR3(349.61f, -279.11f, 514.00f);
+	leftWall[166].position = D3DXVECTOR3(386.37f, -338.84f, 667.67f);
 	leftWall[166].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[166].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[167].position = D3DXVECTOR3(350.37f, -280.97f, 506.52f);
+	leftWall[167].position = D3DXVECTOR3(387.13f, -340.70f, 660.19f);
 	leftWall[167].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 170.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[167].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[168].position = D3DXVECTOR3(352.13f, -282.62f, 500.48f);
+	leftWall[168].position = D3DXVECTOR3(388.89f, -342.35f, 654.15f);
 	leftWall[168].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 160.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[168].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[169].position = D3DXVECTOR3(354.76f, -284.23f, 495.19f);
+	leftWall[169].position = D3DXVECTOR3(391.52f, -343.96f, 648.86f);
 	leftWall[169].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 150.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[169].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[170].position = D3DXVECTOR3(358.47f, -285.87f, 490.11f);
+	leftWall[170].position = D3DXVECTOR3(395.23f, -345.60f, 643.78f);
 	leftWall[170].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[170].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[171].position = D3DXVECTOR3(364.02f, -287.43f, 483.48f);
+	leftWall[171].position = D3DXVECTOR3(400.77f, -347.16f, 637.15f);
 	leftWall[171].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[171].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[172].position = D3DXVECTOR3(370.07f, -289.13f, 476.27f);
+	leftWall[172].position = D3DXVECTOR3(406.82f, -348.86f, 629.94f);
 	leftWall[172].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[172].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[173].position = D3DXVECTOR3(376.19f, -290.86f, 468.97f);
+	leftWall[173].position = D3DXVECTOR3(412.94f, -350.59f, 622.64f);
 	leftWall[173].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[173].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[174].position = D3DXVECTOR3(382.30f, -292.61f, 461.74f);
+	leftWall[174].position = D3DXVECTOR3(419.05f, -352.34f, 615.41f);
 	leftWall[174].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 140.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[174].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[175].position = D3DXVECTOR3(387.69f, -294.47f, 456.50f);
+	leftWall[175].position = D3DXVECTOR3(424.44f, -354.20f, 610.17f);
 	leftWall[175].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 130.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[175].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[176].position = D3DXVECTOR3(392.92f, -296.12f, 453.00f);
+	leftWall[176].position = D3DXVECTOR3(429.68f, -355.85f, 606.68f);
 	leftWall[176].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 120.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[176].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[177].position = D3DXVECTOR3(398.34f, -297.73f, 450.64f);
+	leftWall[177].position = D3DXVECTOR3(435.09f, -357.46f, 604.31f);
 	leftWall[177].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 110.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[177].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[178].position = D3DXVECTOR3(404.44f, -299.37f, 449.13f);
+	leftWall[178].position = D3DXVECTOR3(441.20f, -359.10f, 602.81f);
 	leftWall[178].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[178].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[179].position = D3DXVECTOR3(410.92f, -301.09f, 448.77f);
+	leftWall[179].position = D3DXVECTOR3(447.67f, -360.82f, 602.45f);
 	leftWall[179].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[179].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[180].position = D3DXVECTOR3(417.03f, -302.71f, 449.44f);
+	leftWall[180].position = D3DXVECTOR3(453.79f, -362.44f, 603.11f);
 	leftWall[180].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[180].scale = D3DXVECTOR3(5, 1, 8);
 
-	leftWall[181].position = D3DXVECTOR3(425.30f, -304.23f, 450.90f);
+	leftWall[181].position = D3DXVECTOR3(461.99f, -363.99f, 604.53f);
 	leftWall[181].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[181].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[182].position = D3DXVECTOR3(434.85f, -305.99f, 452.58f);
+	leftWall[182].position = D3DXVECTOR3(471.54f, -365.75f, 606.21f);
 	leftWall[182].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[182].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[183].position = D3DXVECTOR3(444.23f, -307.71f, 454.24f);
+	leftWall[183].position = D3DXVECTOR3(480.92f, -367.47f, 607.87f);
 	leftWall[183].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[183].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[184].position = D3DXVECTOR3(453.67f, -309.44f, 455.90f);
+	leftWall[184].position = D3DXVECTOR3(490.36f, -369.20f, 609.53f);
 	leftWall[184].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[184].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[185].position = D3DXVECTOR3(463.07f, -311.15f, 457.57f);
+	leftWall[185].position = D3DXVECTOR3(498.06f, -370.58f, 610.93f);
 	leftWall[185].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[185].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[186].position = D3DXVECTOR3(472.62f, -312.89f, 459.24f);
+	leftWall[186].position = D3DXVECTOR3(507.61f, -372.32f, 612.60f);
 	leftWall[186].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[186].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[187].position = D3DXVECTOR3(481.91f, -314.57f, 460.88f);
+	leftWall[187].position = D3DXVECTOR3(516.90f, -374.00f, 614.24f);
 	leftWall[187].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[187].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[188].position = D3DXVECTOR3(491.32f, -316.28f, 462.54f);
+	leftWall[188].position = D3DXVECTOR3(526.31f, -375.71f, 615.90f);
 	leftWall[188].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[188].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[189].position = D3DXVECTOR3(500.71f, -317.99f, 464.20f);
+	leftWall[189].position = D3DXVECTOR3(535.70f, -377.42f, 617.56f);
 	leftWall[189].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[189].scale = D3DXVECTOR3(5, 1, 10);
 
-	leftWall[190].position = D3DXVECTOR3(510.07f, -319.69f, 465.85f);
+	leftWall[190].position = D3DXVECTOR3(545.06f, -379.12f, 619.21f);
 	leftWall[190].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[190].scale = D3DXVECTOR3(5, 1, 10);
 
+	leftWall[191].position = D3DXVECTOR3(-8.76f, -21.19f, 83.98f);
+	leftWall[191].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[191].scale = D3DXVECTOR3(5, 1, 10);
 
-	Transform accelSpeedPattern[7];
-	int pattern[ACCEL_SPEED_NUM];
+	leftWall[192].position = D3DXVECTOR3(-8.76f, -22.85f, 92.98f);
+	leftWall[192].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[192].scale = D3DXVECTOR3(5, 1, 10);
 
-	//加速床をこの中からランダムで決定する
-	accelSpeedPattern[0].position = D3DXVECTOR3(-0.27f, -15.78f, 28.86f);
-	accelSpeedPattern[0].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	accelSpeedPattern[0].scale = D3DXVECTOR3(2, 1.5, 1);
+	leftWall[193].position = D3DXVECTOR3(-8.76f, -24.44f, 101.68f);
+	leftWall[193].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[193].scale = D3DXVECTOR3(5, 1, 10);
 
-	accelSpeedPattern[1].position = D3DXVECTOR3(63.65f, -122.04f, 286.07f);
-	accelSpeedPattern[1].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	accelSpeedPattern[1].scale = D3DXVECTOR3(2, 1.5, 1);
+	leftWall[194].position = D3DXVECTOR3(-8.76f, -26.12f, 110.78f);
+	leftWall[194].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[194].scale = D3DXVECTOR3(5, 1, 10);
 
-	accelSpeedPattern[2].position = D3DXVECTOR3(115.83f, -178.25f, 535.79f);
-	accelSpeedPattern[2].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	accelSpeedPattern[2].scale = D3DXVECTOR3(2, 1.5, 1);
+	leftWall[195].position = D3DXVECTOR3(-8.76f, -27.91f, 120.18f);
+	leftWall[195].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[195].scale = D3DXVECTOR3(5, 1, 10);
 
-	accelSpeedPattern[3].position = D3DXVECTOR3(367.88f, -262.40f, 614.72f);
-	accelSpeedPattern[3].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	accelSpeedPattern[3].scale = D3DXVECTOR3(2, 1.5, 1);
+	leftWall[196].position = D3DXVECTOR3(-8.76f, -29.59f, 129.48f);
+	leftWall[196].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[196].scale = D3DXVECTOR3(5, 1, 10);
 
-	accelSpeedPattern[4].position = D3DXVECTOR3(361.37f, -261.39f, 614.55f);
-	accelSpeedPattern[4].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	accelSpeedPattern[4].scale = D3DXVECTOR3(2, 1.5, 1);
+	leftWall[197].position = D3DXVECTOR3(-8.76f, -31.38f, 139.18f);
+	leftWall[197].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[197].scale = D3DXVECTOR3(5, 1, 10);
 
-	accelSpeedPattern[5].position = D3DXVECTOR3(374.47f, -261.28f, 614.53f);
-	accelSpeedPattern[5].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, -45.00f*3.141592f / 180);
-	accelSpeedPattern[5].scale = D3DXVECTOR3(2, 1.5, 1);
+	leftWall[198].position = D3DXVECTOR3(-8.76f, -32.97f, 147.98f);
+	leftWall[198].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[198].scale = D3DXVECTOR3(5, 1, 10);
 
-	accelSpeedPattern[6].position = D3DXVECTOR3(444.89f, -312.22f, 445.74f);
-	accelSpeedPattern[6].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	accelSpeedPattern[6].scale = D3DXVECTOR3(2, 1.5, 1);
+	leftWall[199].position = D3DXVECTOR3(-8.76f, -34.34f, 155.60f);
+	leftWall[199].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[199].scale = D3DXVECTOR3(5, 1, 10);
 
-	//ランダムで被らないように決定する
-	int n;
-	for (int i = 0; i < ACCEL_SPEED_NUM; i++) {
-		n =  (int)(rand() % 7);
-		pattern[i]=n;
-		for (int j = i; j >= 0; j--) {
-			if (pattern[i] == pattern[j]) {
-				n = (int)(rand() % 7);
-				pattern[i]=n;
-				j = i;
-			}
-		}
-	}
-	//決定したパターンを入れる
-	for (int i = 0; i < ACCEL_SPEED_NUM; i++) {
-		accelSpeed[i].position = accelSpeedPattern[pattern[i]].position;
-		accelSpeed[i].rotation = accelSpeedPattern[pattern[i]].rotation;
-		accelSpeed[i].scale = accelSpeedPattern[pattern[i]].scale;
-	}
-	
+	leftWall[200].position = D3DXVECTOR3(-79.90f, -55.61f, 217.43f);
+	leftWall[200].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[200].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[201].position = D3DXVECTOR3(-87.86f, -57.34f, 222.04f);
+	leftWall[201].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[201].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[202].position = D3DXVECTOR3(-95.16f, -58.89f, 226.24f);
+	leftWall[202].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[202].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[203].position = D3DXVECTOR3(-102.46f, -60.41f, 230.44f);
+	leftWall[203].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[203].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[204].position = D3DXVECTOR3(-110.36f, -62.14f, 235.04f);
+	leftWall[204].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[204].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[205].position = D3DXVECTOR3(-118.22f, -63.78f, 239.50f);
+	leftWall[205].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[205].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[206].position = D3DXVECTOR3(-0.79f, -138.59f, 391.55f);
+	leftWall[206].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[206].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[207].position = D3DXVECTOR3(7.24f, -140.28f, 396.20f);
+	leftWall[207].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[207].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[208].position = D3DXVECTOR3(15.50f, -142.00f, 400.96f);
+	leftWall[208].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[208].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[209].position = D3DXVECTOR3(23.62f, -143.70f, 405.63f);
+	leftWall[209].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[209].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[210].position = D3DXVECTOR3(31.72f, -145.37f, 410.29f);
+	leftWall[210].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[210].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[211].position = D3DXVECTOR3(40.02f, -147.07f, 415.07f);
+	leftWall[211].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[211].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[212].position = D3DXVECTOR3(47.59f, -148.64f, 419.39f);
+	leftWall[212].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[212].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[213].position = D3DXVECTOR3(119.55f, -209.93f, 678.78f);
+	leftWall[213].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[213].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[214].position = D3DXVECTOR3(122.83f, -211.66f, 687.78f);
+	leftWall[214].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[214].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[215].position = D3DXVECTOR3(126.05f, -213.35f, 696.62f);
+	leftWall[215].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[215].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[216].position = D3DXVECTOR3(129.22f, -215.03f, 705.35f);
+	leftWall[216].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[216].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[217].position = D3DXVECTOR3(132.38f, -216.71f, 714.02f);
+	leftWall[217].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[217].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[218].position = D3DXVECTOR3(135.62f, -218.45f, 722.95f);
+	leftWall[218].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[218].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[219].position = D3DXVECTOR3(138.85f, -220.15f, 731.83f);
+	leftWall[219].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[219].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[220].position = D3DXVECTOR3(142.02f, -221.85f, 740.63f);
+	leftWall[220].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[220].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[221].position = D3DXVECTOR3(413.15f, -300.67f, 860.43f);
+	leftWall[221].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[221].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[222].position = D3DXVECTOR3(413.15f, -302.42f, 850.89f);
+	leftWall[222].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[222].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[223].position = D3DXVECTOR3(413.15f, -304.12f, 841.50f);
+	leftWall[223].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[223].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[224].position = D3DXVECTOR3(413.15f, -305.77f, 832.34f);
+	leftWall[224].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[224].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[225].position = D3DXVECTOR3(413.15f, -307.51f, 822.76f);
+	leftWall[225].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[225].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[226].position = D3DXVECTOR3(413.15f, -309.09f, 814.03f);
+	leftWall[226].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[226].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[227].position = D3DXVECTOR3(554.16f, -380.83f, 620.83f);
+	leftWall[227].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[227].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[228].position = D3DXVECTOR3(563.71f, -382.59f, 622.51f);
+	leftWall[228].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[228].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[229].position = D3DXVECTOR3(573.09f, -384.31f, 624.17f);
+	leftWall[229].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[229].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[230].position = D3DXVECTOR3(582.53f, -386.04f, 625.83f);
+	leftWall[230].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[230].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[231].position = D3DXVECTOR3(590.23f, -387.42f, 627.22f);
+	leftWall[231].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[231].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[232].position = D3DXVECTOR3(599.78f, -389.16f, 628.89f);
+	leftWall[232].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[232].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[233].position = D3DXVECTOR3(609.07f, -390.84f, 630.53f);
+	leftWall[233].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[233].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[234].position = D3DXVECTOR3(618.48f, -392.55f, 632.19f);
+	leftWall[234].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[234].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[235].position = D3DXVECTOR3(627.87f, -394.26f, 633.85f);
+	leftWall[235].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[235].scale = D3DXVECTOR3(5, 1, 10);
+
+	leftWall[236].position = D3DXVECTOR3(637.23f, -395.96f, 635.50f);
+	leftWall[236].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
+	leftWall[236].scale = D3DXVECTOR3(5, 1, 10);
+
+	//加速床座標
+	accelSpeed[0].position = D3DXVECTOR3(-0.27f, -15.78f, 28.86f);
+	accelSpeed[0].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	accelSpeed[0].scale = D3DXVECTOR3(2, 1.5, 1);
+
+	accelSpeed[1].position = D3DXVECTOR3(63.65f, -122.04f, 286.07f);
+	accelSpeed[1].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	accelSpeed[1].scale = D3DXVECTOR3(2, 1.5, 1);
+
+	accelSpeed[2].position = D3DXVECTOR3(115.83f, -178.25f, 535.79f);
+	accelSpeed[2].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	accelSpeed[2].scale = D3DXVECTOR3(2, 1.5, 1);
+
+	accelSpeed[3].position = D3DXVECTOR3(367.88f, -262.40f, 614.72f);
+	accelSpeed[3].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	accelSpeed[3].scale = D3DXVECTOR3(2, 1.5, 1);
+
+	accelSpeed[4].position = D3DXVECTOR3(361.37f, -261.39f, 614.55f);
+	accelSpeed[4].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	accelSpeed[4].scale = D3DXVECTOR3(2, 1.5, 1);
+
+	accelSpeed[5].position = D3DXVECTOR3(374.47f, -261.28f, 614.53f);
+	accelSpeed[5].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, -45.00f*3.141592f / 180);
+	accelSpeed[5].scale = D3DXVECTOR3(2, 1.5, 1);
+
+	accelSpeed[6].position = D3DXVECTOR3(444.89f, -312.22f, 445.74f);
+	accelSpeed[6].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	accelSpeed[6].scale = D3DXVECTOR3(2, 1.5, 1);
 
 	//ゴール床座標
-	goalCube.position = D3DXVECTOR3(523.82f, -325.23f, 459.65f);
+	goalCube.position = D3DXVECTOR3(651.14f, -401.45f, 629.33f);
 	goalCube.rotation = D3DXVECTOR3(0.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	goalCube.scale = D3DXVECTOR3(20, 0, 20);
 
@@ -6787,7 +8042,7 @@ void StageInit() {			//座標とサイズと角度を入れる
 
 void StageDraw() {
 	D3DXVECTOR3 distance;
-	const float DRAW_RANGE = 200;
+	const float DRAW_RANGE = 150;
 	//Cubeの描画
 	for (int i = 0; i < CUBE_NUM; i++) {
 		distance = cube[i].position - GetPlayerPos();//ソリとオブジェクトとの距離を計算
@@ -6842,7 +8097,7 @@ Cube GetRightWall(int n) {
 Cube GetLeftWall(int n) {
 	return leftWall[n];
 }
-Cube GetGoalCube() {
+Plane GetGoalCube() {
 	return goalCube;
 }
 
