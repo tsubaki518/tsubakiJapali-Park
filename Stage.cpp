@@ -1,12 +1,22 @@
 #include"figure.h"
 #include"Stage.h"
 #include"Game.h"
+#include"Obstacle.h"
+#include<stdlib.h>
+#include<time.h>
+
+struct Transform{
+	D3DXVECTOR3 position;
+	D3DXVECTOR3 rotation;
+	D3DXVECTOR3 scale;
+};
 
 //最大設置数
 const int CUBE_NUM = 1521;
-const int ACCEL_SPEED_NUM = 7;
+const int ACCEL_SPEED_NUM = 5;
 const int RIGHT_WALL_NUM = 237;
 const int LEFT_WALL_NUM = 237;
+const int OBSTACLE_NUM = 10;
 
 
 //rotationのx,zは1.4ｆまで
@@ -15,6 +25,7 @@ Cube accelSpeed[ACCEL_SPEED_NUM];	//加速床
 Cube rightWall[RIGHT_WALL_NUM];		//右側の壁
 Cube leftWall[LEFT_WALL_NUM];		//左側の壁
 Plane goalCube;						//ゴール_床
+Obstacle obstacle[OBSTACLE_NUM];
 
 
 void StageInit() {			//座標とサイズと角度を入れる
@@ -7999,34 +8010,7 @@ void StageInit() {			//座標とサイズと角度を入れる
 	leftWall[236].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[236].scale = D3DXVECTOR3(5, 1, 10);
 
-	//加速床座標
-	accelSpeed[0].position = D3DXVECTOR3(-0.27f, -15.78f, 28.86f);
-	accelSpeed[0].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	accelSpeed[0].scale = D3DXVECTOR3(2, 1.5, 1);
-
-	accelSpeed[1].position = D3DXVECTOR3(63.65f, -122.04f, 286.07f);
-	accelSpeed[1].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	accelSpeed[1].scale = D3DXVECTOR3(2, 1.5, 1);
-
-	accelSpeed[2].position = D3DXVECTOR3(115.83f, -178.25f, 535.79f);
-	accelSpeed[2].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	accelSpeed[2].scale = D3DXVECTOR3(2, 1.5, 1);
-
-	accelSpeed[3].position = D3DXVECTOR3(367.88f, -262.40f, 614.72f);
-	accelSpeed[3].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	accelSpeed[3].scale = D3DXVECTOR3(2, 1.5, 1);
-
-	accelSpeed[4].position = D3DXVECTOR3(361.37f, -261.39f, 614.55f);
-	accelSpeed[4].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
-	accelSpeed[4].scale = D3DXVECTOR3(2, 1.5, 1);
-
-	accelSpeed[5].position = D3DXVECTOR3(374.47f, -261.28f, 614.53f);
-	accelSpeed[5].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, -45.00f*3.141592f / 180);
-	accelSpeed[5].scale = D3DXVECTOR3(2, 1.5, 1);
-
-	accelSpeed[6].position = D3DXVECTOR3(444.89f, -312.22f, 445.74f);
-	accelSpeed[6].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	accelSpeed[6].scale = D3DXVECTOR3(2, 1.5, 1);
+	
 
 	//ゴール床座標
 	goalCube.position = D3DXVECTOR3(651.14f, -401.45f, 629.33f);
@@ -8034,15 +8018,84 @@ void StageInit() {			//座標とサイズと角度を入れる
 	goalCube.scale = D3DXVECTOR3(20, 0, 20);
 
 
+	////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+
+	//加速床の情報をランダムで決定する
+	const int ACCELSPEED_PATTERN = 7;
+	Transform accelSpeedPattern[ACCELSPEED_PATTERN];
+	int pattern[ACCELSPEED_PATTERN];
+
+	//加速床の情報の候補を設定
+	accelSpeedPattern[0].position = D3DXVECTOR3(-0.27f, -15.78f, 28.86f);
+	accelSpeedPattern[0].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	accelSpeedPattern[0].scale = D3DXVECTOR3(2, 1.5, 1);
+
+	accelSpeedPattern[1].position = D3DXVECTOR3(63.65f, -122.04f, 286.07f);
+	accelSpeedPattern[1].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	accelSpeedPattern[1].scale = D3DXVECTOR3(2, 1.5, 1);
+
+	accelSpeedPattern[2].position = D3DXVECTOR3(115.83f, -178.25f, 535.79f);
+	accelSpeedPattern[2].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	accelSpeedPattern[2].scale = D3DXVECTOR3(2, 1.5, 1);
+
+	accelSpeedPattern[3].position = D3DXVECTOR3(367.88f, -262.40f, 614.72f);
+	accelSpeedPattern[3].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	accelSpeedPattern[3].scale = D3DXVECTOR3(2, 1.5, 1);
+
+	accelSpeedPattern[4].position = D3DXVECTOR3(361.37f, -261.39f, 614.55f);
+	accelSpeedPattern[4].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
+	accelSpeedPattern[4].scale = D3DXVECTOR3(2, 1.5, 1);
+
+	accelSpeedPattern[5].position = D3DXVECTOR3(374.47f, -261.28f, 614.53f);
+	accelSpeedPattern[5].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, -45.00f*3.141592f / 180);
+	accelSpeedPattern[5].scale = D3DXVECTOR3(2, 1.5, 1);
+
+	accelSpeedPattern[6].position = D3DXVECTOR3(444.89f, -312.22f, 445.74f);
+	accelSpeedPattern[6].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	accelSpeedPattern[6].scale = D3DXVECTOR3(2, 1.5, 1);
+
+
+	//何番目のパターンの情報を入れるか決定する
+	int n;
+	for (int i = 0; i < ACCEL_SPEED_NUM; i++) {
+		n = (int)(rand() % ACCELSPEED_PATTERN);
+		pattern[i] = n;
+		for (int j = i; j >= 0; j--) {
+			if (pattern[i] == pattern[j]) {
+				n = (int)(rand() % ACCELSPEED_PATTERN);
+				pattern[i] = n;
+				j = i;
+			}
+		}
+	}
+
+	//ランダムで決定した情報を入れる
+	for (int i = 0; i < ACCEL_SPEED_NUM; i++) {
+		accelSpeed[i].position = accelSpeedPattern[pattern[i]].position;
+		accelSpeed[i].rotation = accelSpeedPattern[pattern[i]].rotation;
+		accelSpeed[i].scale = accelSpeedPattern[pattern[i]].scale;
+	}
+
+
 	for (int i = 0; i < CUBE_NUM; i++) {
 		cube[i].scale *= 1.1f;
 	}
+
+	//障害物のInit
+	for (int i = 0; i < OBSTACLE_NUM; i++) {
+		obstacle[i].Init();
+	}
+	////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
 }
 
 
 void StageDraw() {
 	D3DXVECTOR3 distance;
-	const float DRAW_RANGE = 150;
+	const float DRAW_RANGE = 300;
 	//Cubeの描画
 	for (int i = 0; i < CUBE_NUM; i++) {
 		distance = cube[i].position - GetPlayerPos();//ソリとオブジェクトとの距離を計算
@@ -8081,6 +8134,11 @@ void StageDraw() {
 
 	for (int i = 0; i < ACCEL_SPEED_NUM; i++) {
 		accelSpeed[i].Draw(TEXTURE_INDEX_MAX, D3DXCOLOR(1, 0, 0, 1));
+	}
+
+	for (int i = 0; i < OBSTACLE_NUM; i++) {
+		obstacle[i].Update();
+		obstacle[i].Draw();
 	}
 }
 
