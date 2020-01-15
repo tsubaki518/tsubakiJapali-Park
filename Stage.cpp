@@ -16,7 +16,7 @@ const int CUBE_NUM = 1521;
 const int ACCEL_SPEED_NUM = 5;
 const int RIGHT_WALL_NUM = 237;
 const int LEFT_WALL_NUM = 237;
-const int OBSTACLE_NUM = 10;
+const int OBSTACLE_NUM = 1;
 
 
 //rotationのx,zは1.4ｆまで
@@ -8010,6 +8010,13 @@ void StageInit() {			//座標とサイズと角度を入れる
 	leftWall[236].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[236].scale = D3DXVECTOR3(5, 1, 10);
 
+
+	//障害物のInit
+	for (int i = 0; i < OBSTACLE_NUM; i++) {
+		obstacle[i].Init();
+	}
+	obstacle[0].position = D3DXVECTOR3(0, -13.85f, 22.06f);
+	obstacle[0].rotation = D3DXVECTOR3(0,0,0);
 	
 
 	//ゴール床座標
@@ -8083,10 +8090,7 @@ void StageInit() {			//座標とサイズと角度を入れる
 		cube[i].scale *= 1.1f;
 	}
 
-	//障害物のInit
-	for (int i = 0; i < OBSTACLE_NUM; i++) {
-		obstacle[i].Init();
-	}
+	
 	////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////
@@ -8094,6 +8098,10 @@ void StageInit() {			//座標とサイズと角度を入れる
 
 
 void StageDraw() {
+	for (int i = 0; i < OBSTACLE_NUM; i++) {
+		obstacle[i].Update();
+		obstacle[i].Draw();
+	}
 	D3DXVECTOR3 distance;
 	const float DRAW_RANGE = 300;
 	//Cubeの描画
@@ -8136,10 +8144,7 @@ void StageDraw() {
 		accelSpeed[i].Draw(TEXTURE_INDEX_MAX, D3DXCOLOR(1, 0, 0, 1));
 	}
 
-	for (int i = 0; i < OBSTACLE_NUM; i++) {
-		obstacle[i].Update();
-		obstacle[i].Draw();
-	}
+
 }
 
 

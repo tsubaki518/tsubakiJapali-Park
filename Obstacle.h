@@ -4,12 +4,14 @@
 
 class Obstacle {
 public:
-	D3DXVECTOR3 positopn;
+	D3DXVECTOR3 position;
 	D3DXVECTOR3 rotation;
 	Cube cube;
 	bool isBroken = false;
 
-	Obstacle(){}
+	Obstacle(){
+		cube.position = D3DXVECTOR3(25255455, 545454545, 454545454);
+	}
 	void Init();
 	void Update();
 	void Draw();
