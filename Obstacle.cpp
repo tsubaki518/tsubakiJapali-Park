@@ -11,13 +11,16 @@ void Obstacle::Update() {
 	BoxCollider boxCollider;
 	cube.position = positopn;
 	cube.rotation = rotation;
-	bool isHit = boxCollider.Collider(cube.collider, GetPlayer().objCollider);
+	bool isHit = boxCollider.Collider(cube.collider, GetPlayer()->objCollider);
 	if (isHit == true) {
 		isBroken = true;
+		GetPlayer()->speed *= 0.5f;
+		GetPlayer()->speedAccel *= 0.5f;
+		GetPlayer()->slidCount *= 0.5f;
 	}
 
 	if (isBroken == true) {
-		positopn += GetPlayer().GetForward()*2;
+		positopn += GetPlayer()->GetForward()*2;
 		positopn.y += 0.2f;
 	}
 }

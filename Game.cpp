@@ -423,6 +423,6 @@ void UIDraw() {
 D3DXVECTOR3 GetPlayerPos() {
 	return sori.position;
 }
-Sori GetPlayer() {
-	return sori;
+Sori* GetPlayer() {
+	return &sori;
 }
