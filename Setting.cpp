@@ -76,8 +76,8 @@ void SettingDraw() {
 
 	camera.SetCamera();
 	//”wŒi‚Ì•`‰æ
-	backGround.position = D3DXVECTOR3(0, 0.4f, 7);
-	backGround.scale = D3DXVECTOR3(17.9f, 9.85f, 0);
+	backGround.position = D3DXVECTOR3(0., 0.15f, 8);
+	backGround.scale = D3DXVECTOR3(19.05f, 10.5f, 0);
 	backGround.Draw(TEXTURE_INDEX_KYOUTUUHAIKEI);
 
 	switch (settingState) {
