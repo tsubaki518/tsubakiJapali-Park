@@ -31,7 +31,7 @@ void Sori::Init(float weight1, float weight2) {
 	speedAccel = 0;//加速床に当たったときに加速する速度を初期化する
 
 	//プレイヤーの初期位置
-	position = D3DXVECTOR3(2, -10.10f, 2);
+	position = D3DXVECTOR3(2, -10.10f, 3);
 	rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0, 0);
 	isGoalGround = false;
 	isSpin = false;
@@ -47,6 +47,8 @@ void Sori::Init(float weight1, float weight2) {
 
 	slidSpeed = 0;
 	slidCount = 0;
+
+	isWallSpeedAccel = false;
 }
 void Sori::Update() {
 	//当たり判定の情報を入れる
@@ -127,7 +129,7 @@ void Sori::Draw() {
 	character[0]->Draw();
 	character[1]->Draw();
 
-
+	DebugFont_Draw(0, 0, "%lf", rotation.z);
 	shaveIce[0].Draw();
 	shaveIce[1].Draw();
 }
@@ -348,12 +350,15 @@ void Sori::SlideDown() {
 		}
 	}
 
-	if (GetRight().y == 0 && -GetRight().y == 0) {
+	if (rotation.z == 0) {
 		slidSpeed = slidCount;
 	
 	}
-	if (slidCount > 0) {
-		slidCount -= 0.001f;
+	if (slidCount > 0 && GetRight().y == 0 && -GetRight().y==0) {
+		slidCount -= 0.0015f;
+		isWallSpeedAccel = true;
+	} else {
+		isWallSpeedAccel = false;
 	}
 }
 void Sori::Bound() {
