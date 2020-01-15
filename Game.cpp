@@ -9,7 +9,6 @@
 #include"Camera.h"
 #include<vector>
 #include"main.h"
-#include"Sori.h"
 #include"Figure.h"
 #include"debug_font.h"
 #include"Light.h"
@@ -423,4 +422,7 @@ void UIDraw() {
 
 D3DXVECTOR3 GetPlayerPos() {
 	return sori.position;
+}
+Sori GetPlayer() {
+	return sori;
 }

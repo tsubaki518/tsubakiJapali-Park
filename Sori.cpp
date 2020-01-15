@@ -129,7 +129,6 @@ void Sori::Draw() {
 	character[0]->Draw();
 	character[1]->Draw();
 
-	DebugFont_Draw(0, 0, "%lf", rotation.z);
 	shaveIce[0].Draw();
 	shaveIce[1].Draw();
 }
@@ -501,6 +500,13 @@ void Sori::SetCollisionTransform() {
 	backCollider.size.x = 1.8f;
 	backCollider.size.y = 1;
 	backCollider.size.z = 3;
+
+	//è·äQï®Ç∆ÇÃìñÇΩÇËîªíË
+	objCollider.position = position;
+	objCollider.size.x = 2;
+	objCollider.size.y = 1;
+	objCollider.size.z = 5;
+	objCollider.rotation = rotation;
 }
 void Sori::CharacterTouch() {
 	for (int i = 0; i < 2; i++) {

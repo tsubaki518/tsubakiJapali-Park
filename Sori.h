@@ -62,6 +62,7 @@ public:
 	Collider3D leftCollider; //¶‘¤‚Ì“–‚½‚è”»’è
 	Collider3D forwardCollider;
 	Collider3D backCollider;
+	Collider3D objCollider;
 
 	Sori();
 
