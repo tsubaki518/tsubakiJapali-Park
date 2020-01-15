@@ -357,8 +357,12 @@ void UIDraw() {
 	tezukaLine[0]->Draw();
 	tezukaLine[1]->Draw();
 	//Speed•\Ž¦
+	float meterCutSizeX = ((sori.speed + sori.speedAccel + sori.slidSpeed)*0.6f) * (316 / sori.maxSpeed);
+	if (meterCutSizeX > 316) {
+		meterCutSizeX = 316;
+	}
 	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
-	Sprite_Draw(TEXTURE_INDEX_METER, 1170, 678, 0, 0,(sori.speed + sori.speedAccel) * (316/sori.maxSpeed), 56);
+	Sprite_Draw(TEXTURE_INDEX_METER, 1170, 678, 0, 0, meterCutSizeX, 56);
 	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH/2 * 5 / 12 * 19, SCREEN_HEIGHT /2 *9 ), D3DXVECTOR2(0.2, 0.2), 0);
 	
 
@@ -385,7 +389,7 @@ void UIDraw() {
 	float hitoketa;
 	float hutaketa;
 	float sanketa;
-	float seisuu = (sori.speed + sori.speedAccel) * 330;
+	float seisuu = (sori.speed + sori.speedAccel+sori.slidSpeed) * 200;
 	hitoketa = (int)seisuu % 10;
 	hutaketa = (int)seisuu/10 % 100;
 	sanketa = (int)seisuu/100 % 1000;
