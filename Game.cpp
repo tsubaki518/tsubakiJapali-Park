@@ -112,7 +112,7 @@ void GameDraw() {
 void GameUnInit() {
 	sori.UnInit();
 	npc.UnInit();
-	for (int i; i < 2; i++) {
+	for (int i=0; i < 2; i++) {
 		delete tezukaLine[i];
 	}
 }
