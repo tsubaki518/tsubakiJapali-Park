@@ -30,6 +30,7 @@ private:
 	void SetCollisionTransform(); //当たり判定の情報を入れる
 	void CharacterTouch(); //キャラクターがプレイヤーにくっつく
 	void ReceiveSpinMove(); //敵のスピンが当たった時に吹っ飛ぶ
+	void SearchDistance(); //プレイヤーとの距離を計算して一定以上離れないようにする
 
 	//引数に体重を入れてキャラクターをセットする
 	void SetCharacter(float weight1, float weight2);

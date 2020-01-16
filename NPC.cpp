@@ -5,6 +5,8 @@
 #include<time.h>
 #include<stdlib.h>
 #include"Sori.h"
+#include"Game.h"
+#include<math.h>
 
 #define CHARACTER_ROTATION_SPEED 0.1f
 #define SPIN_NUM 4
@@ -83,6 +85,9 @@ void NPC::Update() {
 
 	//敵のスピンに当たったら吹っ飛ぶ
 	ReceiveSpinMove();
+
+	//プレイヤーから一定距離以上離れないようにする
+	SearchDistance();
 
 	//氷が削れるパーティクル
 	shaveIce[0].Update(GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 50);
@@ -512,6 +517,16 @@ void NPC::ReceiveSpinMove() {
 	}
 	receiveSpinSpeed *= 0.8f;
 	
+}
+void NPC::SearchDistance() {
+	D3DXVECTOR3 distance;
+	float vectorLen;
+	distance = position - GetPlayerPos();
+	vectorLen = pow(distance.x*distance.x + distance.y*distance.y + distance.z*distance.z, 0.5f);
+
+	if (position.y>GetPlayerPos().y&&vectorLen > 15) {
+		position = -GetPlayer()->GetForward()*15+GetPlayerPos();
+	}
 }
 
 //ifでweightに値の範囲を指定してセットするキャラを決める

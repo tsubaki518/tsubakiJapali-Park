@@ -9,9 +9,7 @@ public:
 	Cube cube;
 	bool isBroken = false;
 
-	Obstacle(){
-		cube.position = D3DXVECTOR3(25255455, 545454545, 454545454);
-	}
+	Obstacle(){}
 	void Init();
 	void Update();
 	void Draw();
