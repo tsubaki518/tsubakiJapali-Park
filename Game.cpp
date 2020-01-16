@@ -416,6 +416,13 @@ void UIDraw() {
 	//‹’®—¦•\¦
 	RatingDraw();
 
+	//‡ˆÊ‚Ì•\¦
+	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
+	if (sori.position.y <= npc.position.y) {
+		Sprite_Draw(TEXTURE_INDEX_1ST, 0, SCREEN_HEIGHT- 210, 0, 0, 269, 171);
+	} else {
+		Sprite_Draw(TEXTURE_INDEX_2ND, 0, SCREEN_HEIGHT- 210, 0, 0, 269, 171);
+	}
 	
 }
 
