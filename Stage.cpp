@@ -8250,27 +8250,27 @@ void StageInit() {			//座標とサイズと角度を入れる
 	accelSpeedPattern[0].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	accelSpeedPattern[0].scale = D3DXVECTOR3(2, 1.5, 1);
 
-	accelSpeedPattern[1].position = D3DXVECTOR3(63.65f, -122.04f, 286.07f);
+	accelSpeedPattern[1].position = D3DXVECTOR3(35.25f, -149.88f, 402.52f);
 	accelSpeedPattern[1].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	accelSpeedPattern[1].scale = D3DXVECTOR3(2, 1.5, 1);
 
-	accelSpeedPattern[2].position = D3DXVECTOR3(115.83f, -178.25f, 535.79f);
+	accelSpeedPattern[2].position = D3DXVECTOR3(127.25f, -214.44f, 675.10f);
 	accelSpeedPattern[2].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	accelSpeedPattern[2].scale = D3DXVECTOR3(2, 1.5, 1);
 
-	accelSpeedPattern[3].position = D3DXVECTOR3(367.88f, -262.40f, 614.72f);
+	accelSpeedPattern[3].position = D3DXVECTOR3(404.61f, -322.05f, 768.22f);
 	accelSpeedPattern[3].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	accelSpeedPattern[3].scale = D3DXVECTOR3(2, 1.5, 1);
 
-	accelSpeedPattern[4].position = D3DXVECTOR3(361.37f, -261.39f, 614.55f);
+	accelSpeedPattern[4].position = D3DXVECTOR3(398.05f, -307.62f, 767.42f);
 	accelSpeedPattern[4].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	accelSpeedPattern[4].scale = D3DXVECTOR3(2, 1.5, 1);
 
-	accelSpeedPattern[5].position = D3DXVECTOR3(374.47f, -261.28f, 614.53f);
+	accelSpeedPattern[5].position = D3DXVECTOR3(410.51f, -307.75f, 767.44f);
 	accelSpeedPattern[5].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, -45.00f*3.141592f / 180);
 	accelSpeedPattern[5].scale = D3DXVECTOR3(2, 1.5, 1);
 
-	accelSpeedPattern[6].position = D3DXVECTOR3(444.89f, -312.22f, 445.74f);
+	accelSpeedPattern[6].position = D3DXVECTOR3(498.72f, -375.09f, 602.41f);
 	accelSpeedPattern[6].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	accelSpeedPattern[6].scale = D3DXVECTOR3(2, 1.5, 1);
 
