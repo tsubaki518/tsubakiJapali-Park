@@ -15,6 +15,8 @@
 #define CENTRIFUGAL_FORCE 0.035f
 #define MOVE_PROBABILITY 5
 #define MOVE_HORIZON_COUNT 150
+#define YOKONOSYAMENNNINOTTAATOKASOKUSURUYATU 0.3f //â°ÇÃéŒñ Ç…èÊÇ¡ÇΩå„â¡ë¨Ç∑ÇÈÇ‚Ç¬
+
 
 NPC::NPC() {
 	
@@ -239,13 +241,14 @@ void NPC::MoveForward() {
 	bool canMoveLeft = isHitLeftWall == false && isBoundRight == false && isBoundLeft == false && isSpin == false;
 
 	//ê≥ñ Ç…à⁄ìÆ
-	position += GetForward() * (speed / 2 + speedAccel) + (centrifugalDirection*speed / 2);
+	position += GetForward() * (speed / 2 + speedAccel + slidSpeed) + (centrifugalDirection*speed / 2);
+
 
 	//1PÇÃà⁄ìÆ
 	{
 			//speedÇ™maxSpeedÇí¥Ç¶Ç»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
 		if (speed < maxSpeed) {
-			speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
+			speed += (character[0]->moveAccel + character[1]->moveAccel) / 2;
 		}
 
 	}
@@ -254,7 +257,7 @@ void NPC::MoveForward() {
 	{
 		//speedÇ™maxSpeedÇí¥Ç¶Ç»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
 		if (speed < maxSpeed) {
-			speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
+			speed += (character[0]->moveAccel + character[1]->moveAccel) / 2;
 		}
 	}
 }
@@ -343,11 +346,28 @@ void NPC::SlideDown() {
 	if (GetForward().y < 0) {
 		position -= GetForward()*GetForward().y*0.03f;
 	}
-	if (GetRight().y < 0) {
+	if (GetRight().y > 0) {
 		position += GetRight()*-GetRight().y*0.03f;
+		if (slidCount < YOKONOSYAMENNNINOTTAATOKASOKUSURUYATU) {
+			slidCount += 0.015f;
+		}
 	}
-	if (-GetRight().y < 0) {
+	if (-GetRight().y > 0) {
 		position -= GetRight()*GetRight().y*0.03f;
+		if (slidCount < YOKONOSYAMENNNINOTTAATOKASOKUSURUYATU) {
+			slidCount += 0.015f;
+		}
+	}
+
+	if (rotation.z == 0) {
+		slidSpeed = slidCount;
+
+	}
+	if (slidCount > 0 && GetRight().y == 0 && -GetRight().y == 0) {
+		slidCount -= 0.0015f;
+		isWallSpeedAccel = true;
+	} else {
+		isWallSpeedAccel = false;
 	}
 }
 void NPC::Bound() {

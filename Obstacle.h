@@ -6,7 +6,7 @@ class Obstacle {
 public:
 	D3DXVECTOR3 position;
 	D3DXVECTOR3 rotation;
-	Cube cube;
+	Cube cube[2];
 	bool isBroken = false;
 
 	Obstacle(){}

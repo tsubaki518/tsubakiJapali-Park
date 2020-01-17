@@ -58,6 +58,9 @@ public:
 	D3DXVECTOR3 centrifugalDirection; //遠心力の向き
 	D3DXVECTOR3 centrifugalRotation;  //遠心力の向きを取得するための角度
 	float speedAccel = 0;			//加速床に当たったときに加速する速度
+	float slidSpeed = 0;
+	int slidCount = 0;
+	bool isWallSpeedAccel;
 	XFile bobsled;				  //モデルデータ(ソリ)
 	Character *character[2];	  //キャラクター 要素番号0が1P　要素番号1が2P
 	Collider3D collisoin;		 //ソリの当たり判定を入れる
