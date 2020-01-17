@@ -418,7 +418,7 @@ void UIDraw() {
 	RatingDraw();
 
 	//èáà îªíË
-	if (sori.isGoalGround == false) {
+	if (sori.isGoalGround == false && npc.isGoalGround==false) {
 		if (sori.position.y <= npc.position.y) {
 			playerRank = 1;
 		} else {
