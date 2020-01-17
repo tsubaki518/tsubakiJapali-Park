@@ -210,10 +210,7 @@ void SettingSearchUpdate() {
 
 }
 void SettingSearchDraw() {
-	//プレイヤーエントリーの表示
-	UI[0]->position = D3DXVECTOR3(2, 1.5f, 0);
-	UI[0]->scale = D3DXVECTOR3(3, 0.5f, 0);
-	UI[0]->Draw(TEXTURE_INDEX_PUREIYAENTORI);
+
 
 	//立ち絵の表示
 	UI[1]->position = D3DXVECTOR3(-1.8f, -0.1f, 0);
@@ -325,11 +322,6 @@ void SettingSetWeightUpdate() {
 	}
 }
 void SettingSetWeightDraw() {
-	//プレイヤーエントリーの表示
-	UI[0]->position = D3DXVECTOR3(2, 1.5f, 0);
-	UI[0]->scale = D3DXVECTOR3(3, 0.5f, 0);
-	UI[0]->Draw(TEXTURE_INDEX_PUREIYAENTORI);
-
 	//ボブスレーを障子
 	SetMatrix();
 	settingPlayer.soriModel.Draw();
@@ -374,11 +366,6 @@ void SettingSetWeightEndUpdate() {
 	}
 }
 void SettingSetWeightEndDraw() {
-	//プレイヤーエントリーの表示
-	UI[0]->position = D3DXVECTOR3(2, 1.5f, 0);
-	UI[0]->scale = D3DXVECTOR3(3, 0.5f, 0);
-	UI[0]->Draw(TEXTURE_INDEX_PUREIYAENTORI);
-
 	//ボブスレーを障子
 	SetMatrix();
 	settingPlayer.soriModel.Draw();

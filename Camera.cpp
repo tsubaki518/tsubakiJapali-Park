@@ -6,7 +6,7 @@
 #include <d3dx9.h>
 #include"Camera.h"
 #include<math.h>
-
+#include"input.h"
 
 
 void Camera::Init(Sori sori) {
@@ -95,12 +95,18 @@ void Camera::SetCamera(Sori sori) {
 		addPos *= 0.99f;
 	}
 
-
-	eye.x = sinf(rad.y)*-10 + sori.position.x;
-	eye.y = -sinf(rad.x)*-5 + sori.position.y + 5;
-	eye.z = cosf(rad.y)*-10 + sori.position.z;
-	eye += addPos;
-	at = sori.position;
+	if (Keyboard_IsPress(DIK_G)) {
+		eye = sori.GetForward() * 5+sori.position;
+		eye += sori.GetUp() * 3;
+		at = -sori.GetForward() * 5 + sori.position;
+		at += sori.GetUp() * 3;
+	} else {
+		eye.x = sinf(rad.y)*-10 + sori.position.x;
+		eye.y = -sinf(rad.x)*-5 + sori.position.y + 5;
+		eye.z = cosf(rad.y)*-10 + sori.position.z;
+		eye += addPos;
+		at = sori.position;
+	}
 	
 	//ÉrÉÖÅ[çsóÒÇÃçÏê¨
 	D3DXVECTOR3 up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
