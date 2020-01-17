@@ -185,10 +185,10 @@ void SettingSearchUpdate() {
 	}
 
 	//各プレイヤーの認識をする
-	if (Keyboard_IsPress(DIK_UP)) {
+	if (Keyboard_IsPress(DIK_W)) {
 		isNext[0] = true;
 	}
-	if (Keyboard_IsPress(DIK_W)) {
+	if (Keyboard_IsPress(DIK_UP)) {
 		isNext[1] = true;
 	}
 
