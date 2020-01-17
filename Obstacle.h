@@ -7,7 +7,9 @@ public:
 	D3DXVECTOR3 position;
 	D3DXVECTOR3 rotation;
 	Cube cube[2];
-	bool isBroken = false;
+	int frameCount = 0;
+	bool isBrokenPlayer = false;
+	bool isBrokenNPC = false;
 
 	Obstacle(){}
 	void Init();

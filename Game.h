@@ -9,3 +9,4 @@ void GameUnInit();
 void GameCollision();
 D3DXVECTOR3 GetPlayerPos();
 Sori* GetPlayer();
+NPC* GetNPC();

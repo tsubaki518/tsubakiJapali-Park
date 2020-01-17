@@ -513,6 +513,13 @@ void NPC::SetCollisionTransform() {
 	backCollider.size.y = 1;
 	backCollider.size.z = 3;
 
+	//è·äQï®Ç∆ÇÃìñÇΩÇËîªíË
+	objCollider.position = position;
+	objCollider.size.x = 1;
+	objCollider.size.y = 1;
+	objCollider.size.z = 5;
+	objCollider.rotation = rotation;
+
 }
 void NPC::CharacterTouch() {
 	for (int i = 0; i < 2; i++) {

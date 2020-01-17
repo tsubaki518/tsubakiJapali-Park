@@ -503,7 +503,7 @@ void Sori::SetCollisionTransform() {
 
 	//è·äQï®Ç∆ÇÃìñÇΩÇËîªíË
 	objCollider.position = position;
-	objCollider.size.x = 2;
+	objCollider.size.x = 1;
 	objCollider.size.y = 1;
 	objCollider.size.z = 5;
 	objCollider.rotation = rotation;

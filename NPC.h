@@ -68,6 +68,7 @@ public:
 	Collider3D leftCollider; //‰E‘¤‚Ì“–‚½‚è”»’è
 	Collider3D forwardCollider;
 	Collider3D backCollider;
+	Collider3D objCollider;
 	NPC();
 
 	//Init()‚Ìˆø”

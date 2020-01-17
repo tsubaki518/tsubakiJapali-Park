@@ -16,7 +16,7 @@ const int CUBE_NUM = 1621;
 const int ACCEL_SPEED_NUM = 5;
 const int RIGHT_WALL_NUM = 257;
 const int LEFT_WALL_NUM = 257;
-const int OBSTACLE_NUM = 72;
+const int OBSTACLE_NUM = 24;
 
 
 //rotationのx,zは1.4ｆまで
@@ -8014,221 +8014,231 @@ void StageInit() {			//座標とサイズと角度を入れる
 	for (int i = 0; i < OBSTACLE_NUM; i++) {
 		obstacle[i].Init();
 	}
-	obstacle[0].position = D3DXVECTOR3(-67.59f, -57.33f, 220.31f);
-	obstacle[0].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[1].position = D3DXVECTOR3(-64.77f, -56.37f, 225.53f);
-	obstacle[1].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 40.00f*3.141592f / 180);
+	Transform obstaclePattern[72];
+	obstaclePattern[0].position = D3DXVECTOR3(-67.59f, -57.33f, 220.31f);
+	obstaclePattern[0].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[2].position = D3DXVECTOR3(-70.81f, -56.39f, 215.06f);
-	obstacle[2].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 320.00f*3.141592f / 180);
+	obstaclePattern[1].position = D3DXVECTOR3(-64.77f, -56.37f, 225.53f);
+	obstaclePattern[1].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 40.00f*3.141592f / 180);
 
-	obstacle[3].position = D3DXVECTOR3(-105.93f, -65.54f, 242.43f);
-	obstacle[3].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[2].position = D3DXVECTOR3(-70.81f, -56.39f, 215.06f);
+	obstaclePattern[2].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 320.00f*3.141592f / 180);
 
-	obstacle[4].position = D3DXVECTOR3(-103.01f, -64.46f, 247.85f);
-	obstacle[4].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[3].position = D3DXVECTOR3(-105.93f, -65.54f, 242.43f);
+	obstaclePattern[3].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[5].position = D3DXVECTOR3(-109.22f, -64.61f, 237.05f);
-	obstacle[5].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[4].position = D3DXVECTOR3(-103.01f, -64.46f, 247.85f);
+	obstaclePattern[4].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[6].position = D3DXVECTOR3(-158.47f, -107.38f, 352.30f);
-	obstacle[6].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[5].position = D3DXVECTOR3(-109.22f, -64.61f, 237.05f);
+	obstaclePattern[5].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 300.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[7].position = D3DXVECTOR3(-155.27f, -106.35f, 347.11f);
-	obstacle[7].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[6].position = D3DXVECTOR3(-158.47f, -107.38f, 352.30f);
+	obstaclePattern[6].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[8].position = D3DXVECTOR3(-161.48f, -106.49f, 357.84f);
-	obstacle[8].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[7].position = D3DXVECTOR3(-155.27f, -106.35f, 347.11f);
+	obstaclePattern[7].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[9].position = D3DXVECTOR3(-132.99f, -112.83f, 362.92f);
-	obstacle[9].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[8].position = D3DXVECTOR3(-161.48f, -106.49f, 357.84f);
+	obstaclePattern[8].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[10].position = D3DXVECTOR3(-131.76f, -111.85f, 356.96f);
-	obstacle[10].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[9].position = D3DXVECTOR3(-132.99f, -112.83f, 362.92f);
+	obstaclePattern[9].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[11].position = D3DXVECTOR3(-133.92f, -111.92f, 369.13f);
-	obstacle[11].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[10].position = D3DXVECTOR3(-131.76f, -111.85f, 356.96f);
+	obstaclePattern[10].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[12].position = D3DXVECTOR3(11.74f, -143.72f, 389.01f);
-	obstacle[12].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[11].position = D3DXVECTOR3(-133.92f, -111.92f, 369.13f);
+	obstaclePattern[11].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[13].position = D3DXVECTOR3(15.04f, -142.75f, 383.63f);
-	obstacle[13].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[12].position = D3DXVECTOR3(11.74f, -143.72f, 389.01f);
+	obstaclePattern[12].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[14].position = D3DXVECTOR3(8.79f, -142.81f, 394.43f);
-	obstacle[14].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[13].position = D3DXVECTOR3(15.04f, -142.75f, 383.63f);
+	obstaclePattern[13].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[15].position = D3DXVECTOR3(52.06f, -152.08f, 412.09f);
-	obstacle[15].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[14].position = D3DXVECTOR3(8.79f, -142.81f, 394.43f);
+	obstaclePattern[14].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[16].position = D3DXVECTOR3(55.33f, -151.08f, 406.81f);
-	obstacle[16].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[15].position = D3DXVECTOR3(52.06f, -152.08f, 412.09f);
+	obstaclePattern[15].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[17].position = D3DXVECTOR3(49.09f, -151.24f, 417.53f);
-	obstacle[17].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[16].position = D3DXVECTOR3(55.33f, -151.08f, 406.81f);
+	obstaclePattern[16].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[18].position = D3DXVECTOR3(59.87f, -153.78f, 416.67f);
-	obstacle[18].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[17].position = D3DXVECTOR3(49.09f, -151.24f, 417.53f);
+	obstaclePattern[17].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[19].position = D3DXVECTOR3(63.19f, -152.73f, 411.29f);
-	obstacle[19].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[18].position = D3DXVECTOR3(59.87f, -153.78f, 416.67f);
+	obstaclePattern[18].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[20].position = D3DXVECTOR3(56.98f, -152.92f, 421.97f);
-	obstacle[20].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[19].position = D3DXVECTOR3(63.19f, -152.73f, 411.29f);
+	obstaclePattern[19].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[21].position = D3DXVECTOR3(67.94f, -155.45f, 421.28f);
-	obstacle[21].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[20].position = D3DXVECTOR3(56.98f, -152.92f, 421.97f);
+	obstaclePattern[20].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[22].position = D3DXVECTOR3(71.22f, -154.41f, 415.97f);
-	obstacle[22].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[21].position = D3DXVECTOR3(67.94f, -155.45f, 421.28f);
+	obstaclePattern[21].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[23].position = D3DXVECTOR3(64.99f, -154.51f, 426.74f);
-	obstacle[23].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[22].position = D3DXVECTOR3(71.22f, -154.41f, 415.97f);
+	obstaclePattern[22].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[24].position = D3DXVECTOR3(121.73f, -208.77f, 654.11f);
-	obstacle[24].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[23].position = D3DXVECTOR3(64.99f, -154.51f, 426.74f);
+	obstaclePattern[23].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 60.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[25].position = D3DXVECTOR3(127.38f, -207.86f, 654.27f);
-	obstacle[25].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[24].position = D3DXVECTOR3(121.73f, -208.77f, 654.11f);
+	obstaclePattern[24].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[26].position = D3DXVECTOR3(115.87f, -208.07f, 654.24f);
-	obstacle[26].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[25].position = D3DXVECTOR3(127.38f, -207.86f, 654.27f);
+	obstaclePattern[25].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[27].position = D3DXVECTOR3(134.38f, -216.89f, 694.17f);
-	obstacle[27].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[26].position = D3DXVECTOR3(115.87f, -208.07f, 654.24f);
+	obstaclePattern[26].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[28].position = D3DXVECTOR3(139.86f, -215.92f, 692.37f);
-	obstacle[28].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[27].position = D3DXVECTOR3(134.38f, -216.89f, 694.17f);
+	obstaclePattern[27].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[29].position = D3DXVECTOR3(128.90f, -216.07f, 696.31f);
-	obstacle[29].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[28].position = D3DXVECTOR3(139.86f, -215.92f, 692.37f);
+	obstaclePattern[28].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[30].position = D3DXVECTOR3(137.25f, -218.41f, 702.05f);
-	obstacle[30].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[29].position = D3DXVECTOR3(128.90f, -216.07f, 696.31f);
+	obstaclePattern[29].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[31].position = D3DXVECTOR3(142.77f, -217.49f, 700.21f);
-	obstacle[31].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[30].position = D3DXVECTOR3(137.25f, -218.41f, 702.05f);
+	obstaclePattern[30].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[32].position = D3DXVECTOR3(131.76f, -217.62f, 704.20f);
-	obstacle[32].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[31].position = D3DXVECTOR3(142.77f, -217.49f, 700.21f);
+	obstaclePattern[31].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[33].position = D3DXVECTOR3(261.95f, -258.75f, 830.19f);
-	obstacle[33].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[32].position = D3DXVECTOR3(131.76f, -217.62f, 704.20f);
+	obstaclePattern[32].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[34].position = D3DXVECTOR3(262.12f, -257.80f, 824.20f);
-	obstacle[34].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[33].position = D3DXVECTOR3(261.95f, -258.75f, 830.19f);
+	obstaclePattern[33].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[35].position = D3DXVECTOR3(262.10f, -257.87f, 835.88f);
-	obstacle[35].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[34].position = D3DXVECTOR3(262.12f, -257.80f, 824.20f);
+	obstaclePattern[34].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[36].position = D3DXVECTOR3(301.81f, -270.22f, 861.85f);
-	obstacle[36].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[35].position = D3DXVECTOR3(262.10f, -257.87f, 835.88f);
+	obstaclePattern[35].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 90.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[37].position = D3DXVECTOR3(307.45f, -269.30f, 859.98f);
-	obstacle[37].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[36].position = D3DXVECTOR3(301.81f, -270.22f, 861.85f);
+	obstaclePattern[36].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[38].position = D3DXVECTOR3(296.42f, -269.33f, 863.97f);
-	obstacle[38].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[37].position = D3DXVECTOR3(307.45f, -269.30f, 859.98f);
+	obstaclePattern[37].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[39].position = D3DXVECTOR3(368.25f, -289.45f, 912.57f);
-	obstacle[39].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[38].position = D3DXVECTOR3(296.42f, -269.33f, 863.97f);
+	obstaclePattern[38].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 20.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[40].position = D3DXVECTOR3(367.37f, -288.52f, 906.66f);
-	obstacle[40].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[39].position = D3DXVECTOR3(368.25f, -289.45f, 912.57f);
+	obstaclePattern[39].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[41].position = D3DXVECTOR3(369.40f, -288.55f, 918.13f);
-	obstacle[41].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[40].position = D3DXVECTOR3(367.37f, -288.52f, 906.66f);
+	obstaclePattern[40].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[42].position = D3DXVECTOR3(404.56f, -307.59f, 841.51f);
-	obstacle[42].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[41].position = D3DXVECTOR3(369.40f, -288.55f, 918.13f);
+	obstaclePattern[41].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 100.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[43].position = D3DXVECTOR3(398.71f, -306.58f, 841.33f);
-	obstacle[43].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[42].position = D3DXVECTOR3(404.56f, -307.59f, 841.51f);
+	obstaclePattern[42].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[44].position = D3DXVECTOR3(410.40f, -306.70f, 841.36f);
-	obstacle[44].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[43].position = D3DXVECTOR3(398.71f, -306.58f, 841.33f);
+	obstaclePattern[43].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[45].position = D3DXVECTOR3(404.56f, -309.17f, 832.26f);
-	obstacle[45].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[44].position = D3DXVECTOR3(410.40f, -306.70f, 841.36f);
+	obstaclePattern[44].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[46].position = D3DXVECTOR3(398.73f, -308.29f, 832.10f);
-	obstacle[46].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[45].position = D3DXVECTOR3(404.56f, -309.17f, 832.26f);
+	obstaclePattern[45].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[47].position = D3DXVECTOR3(410.41f, -308.36f, 832.12f);
-	obstacle[47].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[46].position = D3DXVECTOR3(398.73f, -308.29f, 832.10f);
+	obstaclePattern[46].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[48].position = D3DXVECTOR3(404.70f, -310.96f, 822.54f);
-	obstacle[48].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[47].position = D3DXVECTOR3(410.41f, -308.36f, 832.12f);
+	obstaclePattern[47].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[49].position = D3DXVECTOR3(398.72f, -310.01f, 822.38f);
-	obstacle[49].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[48].position = D3DXVECTOR3(404.70f, -310.96f, 822.54f);
+	obstaclePattern[48].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[50].position = D3DXVECTOR3(410.44f, -310.15f, 822.40f);
-	obstacle[50].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[49].position = D3DXVECTOR3(398.72f, -310.01f, 822.38f);
+	obstaclePattern[49].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[51].position = D3DXVECTOR3(382.55f, -332.91f, 714.54f);
-	obstacle[51].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[50].position = D3DXVECTOR3(410.44f, -310.15f, 822.40f);
+	obstaclePattern[50].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[52].position = D3DXVECTOR3(377.38f, -331.97f, 717.34f);
-	obstacle[52].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[51].position = D3DXVECTOR3(382.55f, -332.91f, 714.54f);
+	obstaclePattern[51].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[53].position = D3DXVECTOR3(387.45f, -332.04f, 711.54f);
-	obstacle[53].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[52].position = D3DXVECTOR3(377.38f, -331.97f, 717.34f);
+	obstaclePattern[52].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[54].position = D3DXVECTOR3(377.94f, -338.96f, 685.61f);
-	obstacle[54].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[53].position = D3DXVECTOR3(387.45f, -332.04f, 711.54f);
+	obstaclePattern[53].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 210.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[55].position = D3DXVECTOR3(371.89f, -338.09f, 685.46f);
-	obstacle[55].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[54].position = D3DXVECTOR3(377.94f, -338.96f, 685.61f);
+	obstaclePattern[54].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[56].position = D3DXVECTOR3(383.63f, -338.19f, 685.48f);
-	obstacle[56].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[55].position = D3DXVECTOR3(371.89f, -338.09f, 685.46f);
+	obstaclePattern[55].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[57].position = D3DXVECTOR3(472.74f, -369.18f, 597.76f);
-	obstacle[57].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[56].position = D3DXVECTOR3(383.63f, -338.19f, 685.48f);
+	obstaclePattern[56].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 180.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[58].position = D3DXVECTOR3(473.95f, -368.26f, 591.85f);
-	obstacle[58].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[57].position = D3DXVECTOR3(472.74f, -369.18f, 597.76f);
+	obstaclePattern[57].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[59].position = D3DXVECTOR3(471.90f, -368.39f, 603.39f);
-	obstacle[59].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[58].position = D3DXVECTOR3(473.95f, -368.26f, 591.85f);
+	obstaclePattern[58].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[60].position = D3DXVECTOR3(482.17f, -370.91f, 599.42f);
-	obstacle[60].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[59].position = D3DXVECTOR3(471.90f, -368.39f, 603.39f);
+	obstaclePattern[59].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[61].position = D3DXVECTOR3(483.38f, -369.94f, 593.55f);
-	obstacle[61].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[60].position = D3DXVECTOR3(482.17f, -370.91f, 599.42f);
+	obstaclePattern[60].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[62].position = D3DXVECTOR3(481.32f, -370.13f, 605.03f);
-	obstacle[62].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[61].position = D3DXVECTOR3(483.38f, -369.94f, 593.55f);
+	obstaclePattern[61].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[63].position = D3DXVECTOR3(517.96f, -377.41f, 605.66f);
-	obstacle[63].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[62].position = D3DXVECTOR3(481.32f, -370.13f, 605.03f);
+	obstaclePattern[62].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[64].position = D3DXVECTOR3(519.41f, -376.52f, 599.90f);
-	obstacle[64].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[63].position = D3DXVECTOR3(517.96f, -377.41f, 605.66f);
+	obstaclePattern[63].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[65].position = D3DXVECTOR3(516.99f, -376.53f, 611.37f);
-	obstacle[65].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[64].position = D3DXVECTOR3(519.41f, -376.52f, 599.90f);
+	obstaclePattern[64].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[66].position = D3DXVECTOR3(573.97f, -387.78f, 615.71f);
-	obstacle[66].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[65].position = D3DXVECTOR3(516.99f, -376.53f, 611.37f);
+	obstaclePattern[65].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[67].position = D3DXVECTOR3(575.22f, -386.69f, 609.77f);
-	obstacle[67].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[66].position = D3DXVECTOR3(573.97f, -387.78f, 615.71f);
+	obstaclePattern[66].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[68].position = D3DXVECTOR3(573.16f, -386.87f, 621.28f);
-	obstacle[68].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[67].position = D3DXVECTOR3(575.22f, -386.69f, 609.77f);
+	obstaclePattern[67].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 
-	obstacle[69].position = D3DXVECTOR3(583.90f, -389.55f, 617.50f);
-	obstacle[69].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+	obstaclePattern[68].position = D3DXVECTOR3(573.16f, -386.87f, 621.28f);
+	obstaclePattern[68].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 
-	obstacle[70].position = D3DXVECTOR3(585.14f, -388.51f, 611.50f);
-	obstacle[70].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+	obstaclePattern[69].position = D3DXVECTOR3(583.90f, -389.55f, 617.50f);
+	obstaclePattern[69].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 
-	obstacle[71].position = D3DXVECTOR3(583.08f, -388.67f, 623.03f);
-	obstacle[71].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+	obstaclePattern[70].position = D3DXVECTOR3(585.14f, -388.51f, 611.50f);
+	obstaclePattern[70].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 30.00f*3.141592f / 180);
+
+	obstaclePattern[71].position = D3DXVECTOR3(583.08f, -388.67f, 623.03f);
+	obstaclePattern[71].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 330.00f*3.141592f / 180);
+
+	int count = 0;
+	for (int i = 0; i < 72 - 3; i += 3) {
+		int p = rand() % 3;
+		obstacle[count].position = obstaclePattern[i + p].position;
+		obstacle[count].rotation = obstaclePattern[i + p].rotation;
+		count++;
+	}
 
 	//ゴール床座標
 	goalCube.position = D3DXVECTOR3(651.14f, -401.45f, 629.33f);

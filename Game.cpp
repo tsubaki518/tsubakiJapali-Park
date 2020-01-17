@@ -22,6 +22,7 @@
 #include"Setting.h"
 #include"ImageNumber.h"
 #include"Sky.h"
+
 StartAnimation startAnimation;
 GoalAnimation goalAnimation;
 Camera camera;
@@ -31,7 +32,7 @@ TezukaLine *tezukaLine[2];
 static bool isAnimatioin = false;
 static bool isChangeScene = false;
 static bool isTimerInit = true;
-
+static int playerRank = 1;
 //UI‚Ì•`‰æ
 void UIDraw();
 
@@ -416,14 +417,23 @@ void UIDraw() {
 	//‹’®—¦•\¦
 	RatingDraw();
 
+	//‡ˆÊ”»’è
+	if (sori.isGoalGround == false) {
+		if (sori.position.y <= npc.position.y) {
+			playerRank = 1;
+		} else {
+			playerRank = 2;
+		}
+	}
 	//‡ˆÊ‚Ì•\¦
 	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
-	if (sori.position.y <= npc.position.y) {
-		Sprite_Draw(TEXTURE_INDEX_1ST, 0, SCREEN_HEIGHT- 210, 0, 0, 269, 171);
-	} else {
-		Sprite_Draw(TEXTURE_INDEX_2ND, 0, SCREEN_HEIGHT- 210, 0, 0, 269, 171);
+	if (playerRank == 1) {
+		Sprite_Draw(TEXTURE_INDEX_1ST, 0, SCREEN_HEIGHT - 210, 0, 0, 269, 171);
+
+	} else if (playerRank == 2) {
+		Sprite_Draw(TEXTURE_INDEX_2ND, 0, SCREEN_HEIGHT - 210, 0, 0, 269, 171);
+
 	}
-	
 }
 
 
@@ -432,4 +442,7 @@ D3DXVECTOR3 GetPlayerPos() {
 }
 Sori* GetPlayer() {
 	return &sori;
+}
+NPC* GetNPC() {
+	return &npc;
 }
