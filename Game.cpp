@@ -186,9 +186,10 @@ void GameCollision() {
 	}
 
 	//ÉSÅ[ÉãîªíË
-	if (sori.CollisionWall(GetGoalCube().collider)) {
-		sori.speed = 0;
-		sori.isGoalGround = true;
+	for (int i = 0; i < GetGoalCubeNum(); i++) {
+		if (sori.CollisionWall(GetGoalCube(i).collider)) {
+			sori.isGoalGround = true;
+		}
 	}
 
 	//â¡ë¨è∞ÇÃìñÇΩÇËîªíË
@@ -272,9 +273,10 @@ void GameCollision() {
 	}
 
 	//ÉSÅ[ÉãîªíË
-	if (npc.CollisionWall(GetGoalCube().collider)) {
-		npc.speed = 0;
-		npc.isGoalGround = true;
+	for (int i = 0; i < GetGoalCubeNum(); i++) {
+		if (npc.CollisionWall(GetGoalCube(i).collider)) {
+			npc.isGoalGround = true;
+		}
 	}
 
 	//â¡ë¨è∞ÇÃìñÇΩÇËîªíË

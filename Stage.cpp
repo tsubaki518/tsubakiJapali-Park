@@ -17,14 +17,14 @@ const int ACCEL_SPEED_NUM = 5;
 const int RIGHT_WALL_NUM = 257;
 const int LEFT_WALL_NUM = 257;
 const int OBSTACLE_NUM = 24;
-
+const int GOAL_CUBE_NUM = 10;
 
 //rotationのx,zは1.4ｆまで
 Plane cube[CUBE_NUM];				//床
 Cube accelSpeed[ACCEL_SPEED_NUM];	//加速床
 Cube rightWall[RIGHT_WALL_NUM];		//右側の壁
 Cube leftWall[LEFT_WALL_NUM];		//左側の壁
-Plane goalCube;						//ゴール_床
+Plane goalCube[GOAL_CUBE_NUM];						//ゴール_床
 Obstacle obstacle[OBSTACLE_NUM];
 
 
@@ -8241,9 +8241,12 @@ void StageInit() {			//座標とサイズと角度を入れる
 	}
 
 	//ゴール床座標
-	goalCube.position = D3DXVECTOR3(651.14f, -401.45f, 629.33f);
-	goalCube.rotation = D3DXVECTOR3(0.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
-	goalCube.scale = D3DXVECTOR3(20, 0, 20);
+	for (int i = 0; i < GOAL_CUBE_NUM; i++) {
+		goalCube[i].position = D3DXVECTOR3(651.14f, -401.45f, 629.33f)+goalCube[0].GetForward()*20*i;
+		goalCube[i].rotation = D3DXVECTOR3(0.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+		goalCube[i].scale = D3DXVECTOR3(20, 0, 20);
+	}
+
 
 
 	////////////////////////////////////////////////////////////////
@@ -8359,7 +8362,22 @@ void StageDraw() {
 			leftWall[i].Draw(TEXTURE_INDEX_ICE);
 		}
 	}
-	goalCube.Draw(TEXTURE_INDEX_ICE);
+
+	//ゴールキューブの描画
+	for (int i = 0; i < GOAL_CUBE_NUM; i++) {
+		goalCube[i].Draw(TEXTURE_INDEX_RED_FLOOR);
+	}
+
+	//ゴール_テェック床の描画
+	Cube check[4];
+
+	for (int i = 0; i < 4; i++) {
+		check[i].position = D3DXVECTOR3(643.76f, -401.41f, 628.03f);
+		check[i].rotation = D3DXVECTOR3(0.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
+		check[i].scale = D3DXVECTOR3(5, 0, 5);
+		check[i].position += check[0].GetRight()*(5*i)- (check[0].GetRight()*(5 * 3))/2;
+		check[i].Draw(TEXTURE_INDEX_CHECK_FLOOR);
+	}
 
 	for (int i = 0; i < ACCEL_SPEED_NUM; i++) {
 		accelSpeed[i].Draw(TEXTURE_INDEX_MAX, D3DXCOLOR(1, 0, 0, 1));
@@ -8381,8 +8399,8 @@ Cube GetRightWall(int n) {
 Cube GetLeftWall(int n) {
 	return leftWall[n];
 }
-Plane GetGoalCube() {
-	return goalCube;
+Plane GetGoalCube(int n) {
+	return goalCube[n];
 }
 
 
@@ -8397,4 +8415,7 @@ int GetRightWallNum() {
 }
 int GetLeftWallNum() {
 	return LEFT_WALL_NUM;
+}
+int GetGoalCubeNum() {
+	return GOAL_CUBE_NUM;
 }

@@ -31,7 +31,8 @@ void Sori::Init(float weight1, float weight2) {
 	speedAccel = 0;//加速床に当たったときに加速する速度を初期化する
 
 	//プレイヤーの初期位置
-	position = D3DXVECTOR3(2, -10.10f, 3);
+	//プレイヤーの初期位置
+	position = D3DXVECTOR3(2.0f, -10.10f, 3.0f);
 	rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0, 0);
 	isGoalGround = false;
 	isSpin = false;
@@ -129,8 +130,10 @@ void Sori::Draw() {
 	character[0]->Draw();
 	character[1]->Draw();
 
-	shaveIce[0].Draw();
-	shaveIce[1].Draw();
+	if (isGoalGround == false) {
+		shaveIce[0].Draw();
+		shaveIce[1].Draw();
+	}
 }
 void Sori::UnInit() {
 	for (int i = 0; i < 2; i++) {
@@ -178,7 +181,7 @@ bool Sori::CollisionGoal(Collider3D c) {
 
 	if (collider.Collider(collisoin, c).isHit) {
 		position += collider.Collider(collisoin, c).addPosition;
-		speed = 0;
+		rotation = c.rotation;
 		return true;
 
 	} else {
@@ -232,91 +235,102 @@ void Sori::Move() {
 	leftSpeed = D3DXVECTOR3(0, 0, 0);
 	rightSpeed = D3DXVECTOR3(0, 0, 0);
 
-	//1Pの移動
-	{
-		if (Keyboard_IsPress(DIK_W) && isSpin == false) {
-			//speedがmaxSpeedを超えないようにする
-			if (speed < maxSpeed) {
-				speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
+	if (isGoalGround == true) {
+		rotation.x = 0;
+		rotation.z = 0;
+	}
+
+	//ゴールしたら操作できないようにする
+	if (isGoalGround == false) {
+		//1Pの移動
+		{
+			if (Keyboard_IsPress(DIK_W) && isSpin == false) {
+				//speedがmaxSpeedを超えないようにする
+				if (speed < maxSpeed) {
+					speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
+				}
 			}
-		} else if (Keyboard_IsPress(DIK_S) && isSpin == false) {
-			//後ろに移動できないようにする
-			if (speed >= 0.001f) {
-				speed -= (character[0]->moveAccel + character[1]->moveAccel) / 4;
+			else if (Keyboard_IsPress(DIK_S) && isSpin == false) {
+				//後ろに移動できないようにする
+				if (speed >= 0.001f) {
+					speed -= (character[0]->moveAccel + character[1]->moveAccel) / 4;
+				}
+			}
+
+			//回転
+			if (Keyboard_IsPress(DIK_D) && canMoveRight) {
+				rightSpeed += GetRight() * ((character[0]->handling + character[1]->handling) / 2);  //GetRight()*移動量
+
+				//左右に移動した時のキャラクターのずれを修正
+				character[0]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+				character[1]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+
+				//移動方向にキャラクターが傾く
+				if (character[0]->inputRotZ <= 0.8f) {
+					character[0]->inputRotZ += CHARACTER_ROTATION_SPEED;
+				}
+
+			}
+			else if (Keyboard_IsPress(DIK_A) && canMoveLeft) {
+				leftSpeed -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+
+				//左右に移動した時のキャラクターのずれを修正
+				character[0]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+				character[1]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+
+				//移動方向にキャラクターが傾く
+				if (character[0]->inputRotZ >= -0.8f) {
+					character[0]->inputRotZ -= CHARACTER_ROTATION_SPEED;
+				}
 			}
 		}
 
-		//回転
-		if (Keyboard_IsPress(DIK_D) &&canMoveRight) {
-			rightSpeed += GetRight() * ((character[0]->handling + character[1]->handling) / 2);  //GetRight()*移動量
 
-			//左右に移動した時のキャラクターのずれを修正
-			character[0]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-			character[1]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+		//2Pの移動
+		{
+			if (Keyboard_IsPress(DIK_UP) && isSpin == false) {
+				//speedがmaxSpeedを超えないようにする
+				if (speed < maxSpeed) {
+					speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
+				}
 
-			//移動方向にキャラクターが傾く
-			if (character[0]->inputRotZ <= 0.8f) {
-				character[0]->inputRotZ += CHARACTER_ROTATION_SPEED;
 			}
+			else if (Keyboard_IsPress(DIK_DOWN) && isSpin == false) {
+				//後ろに移動できないようにする
+				if (speed >= 0.001f) {
+					speed -= (character[0]->moveAccel + character[1]->moveAccel) / 4;
+				}
+			}
+			if (Keyboard_IsPress(DIK_RIGHT) && canMoveRight) {
+				//右に移動
+				rightSpeed += GetRight() * ((character[0]->handling + character[1]->handling) / 2);  //GetRight()*移動量
 
-		} else if (Keyboard_IsPress(DIK_A) && canMoveLeft) {
-			leftSpeed -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+				//左右に移動した時のキャラクターのずれを修正
+				character[0]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+				character[1]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
 
-			//左右に移動した時のキャラクターのずれを修正
-			character[0]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-			character[1]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
 
-			//移動方向にキャラクターが傾く
-			if (character[0]->inputRotZ >= -0.8f) {
-				character[0]->inputRotZ -= CHARACTER_ROTATION_SPEED;
+				//移動方向にキャラクターが傾く
+				if (character[1]->inputRotZ <= 0.8f) {
+					character[1]->inputRotZ += CHARACTER_ROTATION_SPEED;
+				}
+
+			}
+			else if (Keyboard_IsPress(DIK_LEFT) && canMoveLeft) {
+				//左に移動
+				leftSpeed -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+
+				//左右に移動した時のキャラクターのずれを修正
+				character[0]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+				character[1]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+
+				//移動方向にキャラクターが傾く
+				if (character[1]->inputRotZ >= -0.8f) {
+					character[1]->inputRotZ -= CHARACTER_ROTATION_SPEED;
+				}
 			}
 		}
 	}
-
-
-	//2Pの移動
-	{
-		if (Keyboard_IsPress(DIK_UP) && isSpin == false) {
-			//speedがmaxSpeedを超えないようにする
-			if (speed < maxSpeed) {
-				speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
-			}
-
-		} else if (Keyboard_IsPress(DIK_DOWN) && isSpin == false) {
-			//後ろに移動できないようにする
-			if (speed >= 0.001f) {
-				speed -= (character[0]->moveAccel + character[1]->moveAccel) / 4;
-			}
-		}
-		if (Keyboard_IsPress(DIK_RIGHT) && canMoveRight) {
-			//右に移動
-			rightSpeed += GetRight() * ((character[0]->handling + character[1]->handling) / 2);  //GetRight()*移動量
-
-			//左右に移動した時のキャラクターのずれを修正
-			character[0]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-			character[1]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-
-
-			//移動方向にキャラクターが傾く
-			if (character[1]->inputRotZ <= 0.8f) {
-				character[1]->inputRotZ += CHARACTER_ROTATION_SPEED;
-			}
-
-		} else if (Keyboard_IsPress(DIK_LEFT) && canMoveLeft) {
-			//左に移動
-			leftSpeed -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-
-			//左右に移動した時のキャラクターのずれを修正
-			character[0]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-			character[1]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-
-			//移動方向にキャラクターが傾く
-			if (character[1]->inputRotZ >= -0.8f) {
-				character[1]->inputRotZ -= CHARACTER_ROTATION_SPEED;
-			}
-		}
-	}
-
 	//操作していなかったらキャラクターが傾いてるのを直す
 	for (int i = 0; i < 2; i++) {
 		if (character[i]->inputRotZ > 0.05f) {
@@ -403,17 +417,19 @@ void Sori::Bound() {
 	}
 }
 void Sori::Spin() {
-	if (Keyboard_IsPress(DIK_A) && Keyboard_IsPress(DIK_RIGHT) ||
-		Keyboard_IsPress(DIK_D) && Keyboard_IsPress(DIK_LEFT) ) {
-		isSpin = true;
-		beforRotation = spinRot;
-	}
+	if (isGoalGround == false) {
+		if (Keyboard_IsPress(DIK_A) && Keyboard_IsPress(DIK_RIGHT) ||
+			Keyboard_IsPress(DIK_D) && Keyboard_IsPress(DIK_LEFT)) {
+			isSpin = true;
+			beforRotation = spinRot;
+		}
 
-	if (isSpin == true) {
-		spinRot.y += SPIN_SPEED;
-		if (beforRotation.y + SPIN_NUM * 6.28f < spinRot.y) {
-			isSpin = false;
-			spinRot.y = 0;
+		if (isSpin == true) {
+			spinRot.y += SPIN_SPEED;
+			if (beforRotation.y + SPIN_NUM * 6.28f < spinRot.y) {
+				isSpin = false;
+				spinRot.y = 0;
+			}
 		}
 	}
 }

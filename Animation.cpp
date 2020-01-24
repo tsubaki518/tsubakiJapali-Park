@@ -48,7 +48,7 @@ bool GoalAnimation::Draw() {
 	Sprite_Draw(TEXTURE_INDEX_GOAL, SCREEN_WIDTH / 2 - 500 / 2, SCREEN_HEIGHT / 2 / 2, 0, 0, 500, 200);
 
 	endCount++;
-	if (endCount > 100) {
+	if (endCount > 350) {
 		return true;
 	}
 	return false;

@@ -55,6 +55,7 @@ void NPC::Init(float weight1, float weight2) {
 	moveHorizonCount = 0;
 	isMoveLeft = false;
 	isMoveRight = false;
+
 }
 void NPC::Update() {
 	//当たり判定の情報を入れる
@@ -139,9 +140,11 @@ void NPC::Draw() {
 	character[0]->Draw();
 	character[1]->Draw();
 
-	//氷が削れるパーティクル
-	shaveIce[0].Draw();
-	shaveIce[1].Draw();
+	if (isGoalGround == false) {
+		//氷が削れるパーティクル
+		shaveIce[0].Draw();
+		shaveIce[1].Draw();
+	}
 
 }
 void NPC::UnInit() {
@@ -193,7 +196,7 @@ bool NPC::CollisionGoal(Collider3D c) {
 
 	if (collider.Collider(collisoin, c).isHit) {
 		position += collider.Collider(collisoin, c).addPosition;
-		speed = 0;
+		// = c.rotation;
 		return true;
 
 	} else {
@@ -243,21 +246,28 @@ void NPC::MoveForward() {
 	//正面に移動
 	position += GetForward() * (speed / 2 + speedAccel + slidSpeed) + (centrifugalDirection*speed / 2);
 
-
-	//1Pの移動
-	{
-			//speedがmaxSpeedを超えないようにする
-		if (speed < maxSpeed) {
-			speed += (character[0]->moveAccel + character[1]->moveAccel) / 2;
-		}
-
+	if (isGoalGround == true) {
+		rotation.x = 0;
+		rotation.z = 0;
 	}
 
-	//2Pの移動
-	{
-		//speedがmaxSpeedを超えないようにする
-		if (speed < maxSpeed) {
-			speed += (character[0]->moveAccel + character[1]->moveAccel) / 2;
+	//ゴールしたら加速しないようにする
+	if (isGoalGround == false) {
+		//1Pの移動
+		{
+			//speedがmaxSpeedを超えないようにする
+			if (speed < maxSpeed) {
+				speed += (character[0]->moveAccel + character[1]->moveAccel) / 2;
+			}
+
+		}
+
+		//2Pの移動
+		{
+			//speedがmaxSpeedを超えないようにする
+			if (speed < maxSpeed) {
+				speed += (character[0]->moveAccel + character[1]->moveAccel) / 2;
+			}
 		}
 	}
 }
@@ -267,63 +277,67 @@ void NPC::MoveHorizon() {
 	leftSpeed = D3DXVECTOR3(0, 0, 0);
 	rightSpeed = D3DXVECTOR3(0, 0, 0);
 
-	int num = 0;
-	if (moveHorizonCount == 0) {
-		num = rand() % MOVE_PROBABILITY;
+	if (isGoalGround == false) {
+		int num = 0;
+		if (moveHorizonCount == 0) {
+			num = rand() % MOVE_PROBABILITY;
+		}
+		moveHorizonCount++;
+
+		if (num == 1) {
+			isMoveLeft = true;
+
+		}
+		else if (num == 2) {
+			isMoveRight = true;
+		}
+
+		if (isMoveRight == true) {
+			//右に移動
+			rightSpeed += GetRight() * ((character[0]->handling + character[1]->handling) / 2);  //GetRight()*移動量
+
+			//左右に移動した時のキャラクターのずれを修正
+			character[0]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+			character[1]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+
+
+			//移動方向にキャラクターが傾く
+			if (character[0]->inputRotZ <= 0.8f) {
+				character[0]->inputRotZ += CHARACTER_ROTATION_SPEED;
+			}
+			//移動方向にキャラクターが傾く
+			if (character[1]->inputRotZ <= 0.8f) {
+				character[1]->inputRotZ += CHARACTER_ROTATION_SPEED;
+			}
+
+			if (moveHorizonCount == MOVE_HORIZON_COUNT) {
+				moveHorizonCount = 0;
+				isMoveRight = false;
+			}
+		}
+		if (isMoveLeft == true) {
+			//左に移動
+			leftSpeed -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+
+			//左右に移動した時のキャラクターのずれを修正
+			character[0]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+			character[1]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
+
+			//移動方向にキャラクターが傾く
+			if (character[0]->inputRotZ >= -0.8f) {
+				character[0]->inputRotZ -= CHARACTER_ROTATION_SPEED;
+			}
+			if (character[1]->inputRotZ >= -0.8f) {
+				character[1]->inputRotZ -= CHARACTER_ROTATION_SPEED;
+			}
+
+			if (moveHorizonCount == MOVE_HORIZON_COUNT) {
+				moveHorizonCount = 0;
+				isMoveLeft = false;
+			}
+		}
 	}
-	moveHorizonCount++;
 
-	if (num == 1) {
-		isMoveLeft = true;
-
-	} else if (num == 2) {
-		isMoveRight = true;
-	}
-
-	if (isMoveRight == true) {
-		//右に移動
-		rightSpeed += GetRight() * ((character[0]->handling + character[1]->handling) / 2);  //GetRight()*移動量
-
-		//左右に移動した時のキャラクターのずれを修正
-		character[0]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-		character[1]->position += GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-
-
-		//移動方向にキャラクターが傾く
-		if (character[0]->inputRotZ <= 0.8f) {
-			character[0]->inputRotZ += CHARACTER_ROTATION_SPEED;
-		}
-		//移動方向にキャラクターが傾く
-		if (character[1]->inputRotZ <= 0.8f) {
-			character[1]->inputRotZ += CHARACTER_ROTATION_SPEED;
-		}
-
-		if (moveHorizonCount == MOVE_HORIZON_COUNT) {
-			moveHorizonCount = 0;
-			isMoveRight = false;
-		}
-	}
-	if (isMoveLeft == true) {
-		//左に移動
-		leftSpeed -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-
-		//左右に移動した時のキャラクターのずれを修正
-		character[0]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-		character[1]->position -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
-
-		//移動方向にキャラクターが傾く
-		if (character[0]->inputRotZ >= -0.8f) {
-			character[0]->inputRotZ -= CHARACTER_ROTATION_SPEED;
-		}
-		if (character[1]->inputRotZ >= -0.8f) {
-			character[1]->inputRotZ -= CHARACTER_ROTATION_SPEED;
-		}
-
-		if (moveHorizonCount == MOVE_HORIZON_COUNT) {
-			moveHorizonCount = 0;
-			isMoveLeft = false;
-		}
-	}
 	//操作していなかったらキャラクターが傾いてるのを直す
 	for (int i = 0; i < 2; i++) {
 		if (character[i]->inputRotZ > 0.05f) {
@@ -415,17 +429,19 @@ void NPC::Bound() {
 	}
 }
 void NPC::Spin() {
-	int num = rand() % 800;
-	if (num == 0) {
-		isSpin = true;
-		beforRotation = spinRot;
-	}
+	if (isGoalGround == false) {
+		int num = rand() % 800;
+		if (num == 0) {
+			isSpin = true;
+			beforRotation = spinRot;
+		}
 
-	if (isSpin == true) {
-		spinRot.y += SPIN_SPEED;
-		if (beforRotation.y + SPIN_NUM * 6.28f < spinRot.y) {
-			isSpin = false;
-			spinRot.y = 0;
+		if (isSpin == true) {
+			spinRot.y += SPIN_SPEED;
+			if (beforRotation.y + SPIN_NUM * 6.28f < spinRot.y) {
+				isSpin = false;
+				spinRot.y = 0;
+			}
 		}
 	}
 }
@@ -551,7 +567,7 @@ void NPC::SearchDistance() {
 	distance = position - GetPlayerPos();
 	vectorLen = pow(distance.x*distance.x + distance.y*distance.y + distance.z*distance.z, 0.5f);
 
-	if (position.y>GetPlayerPos().y&&vectorLen > 15) {
+	if (position.y>GetPlayerPos().y+5&&vectorLen > 15) {
 		position = -GetPlayer()->GetForward()*15+GetPlayerPos();
 	}
 }
