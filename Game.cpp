@@ -22,6 +22,7 @@
 #include"Setting.h"
 #include"ImageNumber.h"
 #include"Sky.h"
+#include"sound.h"
 
 StartAnimation startAnimation;
 GoalAnimation goalAnimation;

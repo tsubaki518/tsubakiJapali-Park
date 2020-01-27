@@ -23,6 +23,8 @@
 #include<time.h>
 #include"system_timer.h"
 #include"Setting.h"
+#include"sound.h"
+#include"BalanceBoardInput.h"
 
 //ここまで3D用追加コード
 //===============================================
@@ -221,6 +223,12 @@ bool Initialize(void)
 	// システムタイマーの起動
 	SystemTimer_Start();
 
+	//sound初期化
+	InitSound(g_hWnd);
+
+	//バランスボードの初期化
+	BalanceBoard_Initialize();
+
 	// フレーム固定用計測時間
 	g_StaticFrameTime = SystemTimer_GetTime();
 	srand((unsigned int)time(NULL));
@@ -230,12 +238,15 @@ bool Initialize(void)
     return true;
 }
 
-
+int count = 0;
 //#######################################################################
 // ゲームの更新関数
 void Update(void){
 	Keyboard_Update();
-
+	BalanceBoard_Update();
+	if (++count % 60 == 0) {
+		BalanceBoard_Reset();
+	}
 
 	//各シーンごとのUpdate処理
 	switch (nowScene) {
@@ -313,6 +324,10 @@ void Finalize(void){
     Texture_Release();
 
 	DebugFont_Finalize();
+
+	UninitSound();
+
+	BalanceBoard_Finalize();
 
     // Direct3Dラッパーモジュールの終了処理
     MyDirect3D_Finalize();

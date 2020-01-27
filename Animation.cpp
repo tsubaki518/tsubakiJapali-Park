@@ -3,9 +3,11 @@
 #include"Animation.h"
 #include"common.h"
 #include"mydirect3d.h"
+#include"sound.h"
 
 void StartAnimation::Init() {
 	start = clock();
+	isSoundOnece = false;
 }
 bool StartAnimation::Draw() {
 	const int ANIMATION_TIME = 100;
@@ -30,6 +32,12 @@ bool StartAnimation::Draw() {
 	} else if (time >= 3) {
 		Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
 		Sprite_Draw(TEXTURE_INDEX_COUNT_DOWN3, SCREEN_WIDTH / 2 - 500 / 2, SCREEN_HEIGHT / 2 / 2, 0, 0, 500, 100);
+
+	} else if (time >= 2) {
+
+		if (isSoundOnece == false) {
+			PlaySound(SOUND_LABEL_SE_START_COUNT_DOWN);
+		}
 	}
 
 	//7秒になったらアニメーション終了

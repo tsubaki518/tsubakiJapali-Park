@@ -69,6 +69,7 @@ public:
 	Collider3D forwardCollider;
 	Collider3D backCollider;
 	Collider3D objCollider;
+
 	NPC();
 
 	//Init()の引数
@@ -86,11 +87,13 @@ public:
 	bool Collision(Collider3D c);
 	bool CollisionGoal(Collider3D c);
 	void AccelFloorCollision(Collider3D c);
+	
 
 	//プレイヤーとの当たり判定
 	bool CollisionRight(Sori c);
 	bool CollisionLeft(Sori c);
 	bool CollisionBack(Sori c);
+	void CollisionOrverlap();
 
 	D3DXVECTOR3 GetForward(); //正面を取得
 	D3DXVECTOR3 GetRight();  //右側取得

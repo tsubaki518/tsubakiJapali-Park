@@ -12,6 +12,7 @@ public:
 class StartAnimation:public Animation {
 private:
 	 clock_t start, end;
+	 bool isSoundOnece = false;
 public:
 	void Init();
 	bool Draw();

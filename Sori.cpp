@@ -3,6 +3,8 @@
 #include"input.h"
 #include"debug_font.h"
 #include"NPC.h"
+#include"sound.h"
+#include"BalanceBoardInput.h"
 
 #define CHARACTER_ROTATION_SPEED 0.1f
 #define SPIN_NUM 4
@@ -193,6 +195,7 @@ void Sori::AccelFloorCollision(Collider3D c) {
 
 	if (collider.Collider(collisoin, c).isHit && isSpin == false) {
 		isHitSpeedAccelBoard = true;
+		PlaySound(SOUND_LABEL_SE_SPEED_ACCEL);
 	}
 }
 bool Sori::CollisionRight(NPC c) {
@@ -227,6 +230,18 @@ bool Sori::CollisionBack(NPC c) {
 void Sori::Move() {
 	bool canMoveRight = isHitRightWall == false && isBoundRight == false && isBoundLeft == false && isSpin==false;
 	bool canMoveLeft = isHitLeftWall == false && isBoundRight == false && isBoundLeft == false && isSpin == false;
+	bool boardForward1P = BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RF) &&  isSpin == false || BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LF) && isSpin == false;
+	bool boardForward2P = BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RF) && isSpin == false || BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LF) && isSpin == false;
+
+	bool boardRight1P = BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LB) ||
+						BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RB) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LB);
+	bool boardRight2P = BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LB) ||
+						BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RB) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LB);
+
+	bool boardLeft1P = BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RB) ||
+					   BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LB) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RB);
+	bool boardLeft2P = BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RB) ||
+					   BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LB) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RB);
 
 	//正面に移動
 	position += GetForward() * (speed/2+speedAccel+ slidSpeed)+ (centrifugalDirection*speed/2);
@@ -244,13 +259,13 @@ void Sori::Move() {
 	if (isGoalGround == false) {
 		//1Pの移動
 		{
-			if (Keyboard_IsPress(DIK_W) && isSpin == false) {
+			if (Keyboard_IsPress(DIK_W) && isSpin == false  || boardForward1P) {
 				//speedがmaxSpeedを超えないようにする
 				if (speed < maxSpeed) {
 					speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
 				}
 			}
-			else if (Keyboard_IsPress(DIK_S) && isSpin == false) {
+			else if (Keyboard_IsPress(DIK_S) && isSpin == false ) {
 				//後ろに移動できないようにする
 				if (speed >= 0.001f) {
 					speed -= (character[0]->moveAccel + character[1]->moveAccel) / 4;
@@ -258,7 +273,7 @@ void Sori::Move() {
 			}
 
 			//回転
-			if (Keyboard_IsPress(DIK_D) && canMoveRight) {
+			if (Keyboard_IsPress(DIK_D) && canMoveRight || boardRight1P && canMoveRight) {
 				rightSpeed += GetRight() * ((character[0]->handling + character[1]->handling) / 2);  //GetRight()*移動量
 
 				//左右に移動した時のキャラクターのずれを修正
@@ -271,7 +286,7 @@ void Sori::Move() {
 				}
 
 			}
-			else if (Keyboard_IsPress(DIK_A) && canMoveLeft) {
+			else if (Keyboard_IsPress(DIK_A) && canMoveLeft || boardLeft1P && canMoveRight) {
 				leftSpeed -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
 
 				//左右に移動した時のキャラクターのずれを修正
@@ -288,7 +303,7 @@ void Sori::Move() {
 
 		//2Pの移動
 		{
-			if (Keyboard_IsPress(DIK_UP) && isSpin == false) {
+			if (Keyboard_IsPress(DIK_UP) && isSpin == false || boardForward2P) {
 				//speedがmaxSpeedを超えないようにする
 				if (speed < maxSpeed) {
 					speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
@@ -301,7 +316,7 @@ void Sori::Move() {
 					speed -= (character[0]->moveAccel + character[1]->moveAccel) / 4;
 				}
 			}
-			if (Keyboard_IsPress(DIK_RIGHT) && canMoveRight) {
+			if (Keyboard_IsPress(DIK_RIGHT) && canMoveRight || boardRight2P && canMoveRight) {
 				//右に移動
 				rightSpeed += GetRight() * ((character[0]->handling + character[1]->handling) / 2);  //GetRight()*移動量
 
@@ -316,7 +331,7 @@ void Sori::Move() {
 				}
 
 			}
-			else if (Keyboard_IsPress(DIK_LEFT) && canMoveLeft) {
+			else if (Keyboard_IsPress(DIK_LEFT) && canMoveLeft || boardLeft2P && canMoveRight) {
 				//左に移動
 				leftSpeed -= GetRight() * ((character[0]->handling + character[1]->handling) / 2);
 
@@ -353,13 +368,13 @@ void Sori::SlideDown() {
 	if (GetRight().y > 0) {
 		position += GetRight()*-GetRight().y*0.03f;
 		if (slidCount < YOKONOSYAMENNNINOTTAATOKASOKUSURUYATU) {
-			slidCount += 0.015f;
+			slidCount += 0.003f;
 		}
 	}
 	if (-GetRight().y > 0) {
 		position -= GetRight()*GetRight().y*0.03f;
 		if (slidCount < YOKONOSYAMENNNINOTTAATOKASOKUSURUYATU) {
-			slidCount += 0.015f;
+			slidCount += 0.003f;
 		}
 	}
 
@@ -368,7 +383,7 @@ void Sori::SlideDown() {
 	
 	}
 	if (slidCount > 0 && GetRight().y == 0 && -GetRight().y==0) {
-		slidCount -= 0.0015f;
+		slidCount -= 0.0004f;
 		isWallSpeedAccel = true;
 	} else {
 		isWallSpeedAccel = false;
@@ -417,19 +432,30 @@ void Sori::Bound() {
 	}
 }
 void Sori::Spin() {
+	bool boardRight1P = BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LB) ||
+		BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RB) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LB);
+	bool boardRight2P = BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LB) ||
+		BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RB) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LB);
+
+	bool boardLeft1P = BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RB) ||
+		BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LB) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RB);
+	bool boardLeft2P = BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RB) ||
+		BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LB) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RB);
+
 	if (isGoalGround == false) {
 		if (Keyboard_IsPress(DIK_A) && Keyboard_IsPress(DIK_RIGHT) ||
-			Keyboard_IsPress(DIK_D) && Keyboard_IsPress(DIK_LEFT)) {
+			Keyboard_IsPress(DIK_D) && Keyboard_IsPress(DIK_LEFT) ||
+			boardLeft1P&& boardRight2P||
+			boardRight1P && boardLeft2P) {
 			isSpin = true;
 			beforRotation = spinRot;
 		}
-
-		if (isSpin == true) {
-			spinRot.y += SPIN_SPEED;
-			if (beforRotation.y + SPIN_NUM * 6.28f < spinRot.y) {
-				isSpin = false;
-				spinRot.y = 0;
-			}
+	}
+	if (isSpin == true) {
+		spinRot.y += SPIN_SPEED;
+		if (beforRotation.y + SPIN_NUM * 6.28f < spinRot.y) {
+			isSpin = false;
+			spinRot.y = 0;
 		}
 	}
 }

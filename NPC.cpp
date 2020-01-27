@@ -91,6 +91,7 @@ void NPC::Update() {
 
 	//プレイヤーから一定距離以上離れないようにする
 	SearchDistance();
+	//CollisionOrverlap();
 
 	//氷が削れるパーティクル
 	shaveIce[0].Update(GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 50);
@@ -236,6 +237,15 @@ bool NPC::CollisionBack(Sori c) {
 		return true;
 	}
 	return false;
+}
+void NPC::CollisionOrverlap() {
+	D3DXVECTOR3 distance = GetPlayer()->position - position;
+	float vectorSize = pow(distance.x*distance.x + distance.y*distance.y + distance.z*distance.z, 0.5f);
+	vectorSize = fabsf(vectorSize);
+	if (vectorSize > 1) {
+		D3DXVec3Normalize(&distance, &distance);
+		position += distance * 3;
+	}
 }
 
 

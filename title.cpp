@@ -6,6 +6,7 @@
 #include"main.h"
 #include"debug_font.h"
 #include"mydirect3d.h"
+#include"sound.h"
 
 static float cursorPos = PosGame;
 static float t = 0;
@@ -67,6 +68,7 @@ void TitleUpdate() {
 		else {
 			cursorPos--;
 		}
+		PlaySound(SOUND_LABEL_SE_SELECT);
 	}
 	else if (Keyboard_IsTrigger(DIK_A) || Keyboard_IsTrigger(DIK_LEFTARROW) || XinputPressButtonDown(LEFT_BUTTON)) {
 		if (cursorPos == PosDate) {
@@ -76,6 +78,7 @@ void TitleUpdate() {
 		else {
 			cursorPos++;
 		}
+		PlaySound(SOUND_LABEL_SE_SELECT);
 	}
 
 	//EnterKey‚ð‰Ÿ‚µ‚½Žž‚Ì”»’è
