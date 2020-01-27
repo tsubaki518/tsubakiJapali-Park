@@ -111,6 +111,7 @@ void GameDraw() {
 
 //I—¹ˆ—
 void GameUnInit() {
+	StopSound();
 	sori.UnInit();
 	npc.UnInit();
 	for (int i=0; i < 2; i++) {
@@ -422,10 +423,20 @@ void UIDraw() {
 
 	//‡ˆÊ”»’è
 	if (sori.isGoalGround == false && npc.isGoalGround==false) {
-		if (sori.position.y <= npc.position.y) {
+		/*if (sori.position.y <= npc.position.y) {
 			playerRank = 1;
 		} else {
 			playerRank = 2;
+		}*/
+		D3DXVECTOR3 distance = npc.position - sori.position;
+		float vecLen = pow(distance.x*distance.x + distance.y*distance.y + distance.z*distance.z, 0.5f);
+		float rad = atan2f(distance.z, distance.x)+sori.rotation.y;
+		if (vecLen < 30) {
+			if (sinf(rad) < 0) {
+				playerRank = 1;
+			} else {
+				playerRank = 2;
+			}
 		}
 	}
 	//‡ˆÊ‚Ì•\¦
