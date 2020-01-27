@@ -50,6 +50,8 @@ void Sori::Init(float weight1, float weight2) {
 
 	slidSpeed = 0;
 	slidCount = 0;
+	speedAccel = 0;
+	speed = 0;
 
 	isWallSpeedAccel = false;
 }

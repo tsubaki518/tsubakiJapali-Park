@@ -81,7 +81,9 @@ void GameUpdate() {
 		sori.Update();
 		npc.Update();
 		RatingUpdate(sori);
-		TimerUpdate();
+		if (sori.isGoalGround == false) {
+			TimerUpdate();
+		}
 		GameCollision();
 	}
 
