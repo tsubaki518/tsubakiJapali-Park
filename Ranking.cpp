@@ -23,7 +23,7 @@ static float posadd_y;
 
 void RankingInit() {
 	//デバッグ用ランキング初期化
-	Score[0].Scoretime = 0.00f;
+	//Score[0].Scoretime = 0.00f;
 
 	if (Score[0].Scoretime == 0.00f) {
 		for (int i = 0; i < 21; i++) {
