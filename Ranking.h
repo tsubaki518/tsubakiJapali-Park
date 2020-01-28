@@ -3,6 +3,8 @@
 typedef struct {
 	float Scoretime;
 	float Scorerating;
+	int Player1;
+	int Player2;
 	bool isClear;
 }SCORE;
 

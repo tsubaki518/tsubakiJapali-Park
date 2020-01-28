@@ -9,8 +9,10 @@
 #include"input.h"
 #include"main.h"
 #include"sprite.h"
+#include"Setting.h"
 #include"ImageNumber.h"
 
+SettingPlayer pPC;
 SCORE Score[22];
 SCORE pScore[22];
 
@@ -20,19 +22,67 @@ static bool SR;
 static float posadd_y;
 
 void RankingInit() {
+	//デバッグ用ランキング初期化
+	Score[0].Scoretime = 0.00f;
+
 	if (Score[0].Scoretime == 0.00f) {
 		for (int i = 0; i < 21; i++) {
 			Score[i].Scoretime = 599.00f;
 			Score[i].Scorerating = 9999.00f;
+			Score[i].Player1 = 1;
+			Score[i].Player2 = 1;
 		}
 	}
+
+	posadd_y = 0;
+	//WriteSave();
+
+	//リザルト→ランキング
 	if (ChangeScene_Title() == false) {
+
+		pPC.weight[0] = GetSettingPlayer().weight[0];
+		pPC.weight[1] = GetSettingPlayer().weight[1];
+
+		//1Pの体重によって表示するキャラクターを変える
+		if (pPC.weight[0] == 75) {
+			//クマ
+			Score[21].Player1 = 1;
+		}
+		else if (pPC.weight[0] == 65) {
+			//イヌ
+			Score[21].Player1 = 2;
+		}
+		else if (pPC.weight[0] == 55) {
+			//ウサギ
+			Score[21].Player1 = 3;
+		}
+		else if (pPC.weight[0] == 45) {
+			//ハムスター
+			Score[21].Player1 = 4;
+		}
+
+
+		//2Pの体重によって表示するキャラクターを変える
+		if (pPC.weight[1] == 75) {
+			//クマ
+			Score[21].Player2 = 1;
+		}
+		else if (pPC.weight[1] == 65) {
+			//イヌ
+			Score[21].Player2 = 2;
+		}
+		else if (pPC.weight[1] == 55) {
+			//ウサギ
+			Score[21].Player2 = 3;
+		}
+		else if (pPC.weight[1] == 45) {
+			//ハムスター
+			Score[21].Player2 = 4;
+		}
+
 		SetRank(GetTime(), GetRating());
 	}
 
-	//WriteSave();
-
-	posadd_y = 0;
 }
 void RankingUpdate() {
 	if (Keyboard_IsTrigger(DIK_RETURN)) {
@@ -46,8 +96,6 @@ void RankingUpdate() {
 		posadd_y += SCREEN_HEIGHT * 0.01;
 	}
 
-	//DebugFont_Draw(SCREEN_WIDTH / 5, 50 +   40, "%d位:%lf",  1, Score[0].Scoretime);
-	//DebugFont_Draw(SCREEN_WIDTH / 5, 50 + 40, "%d位:%lf", 1, Score[1].Scoretime);
 	//LoadSave();
 }
 void RankingDraw() {
@@ -75,7 +123,36 @@ void RankingDraw() {
 			ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2.5 / 100 * 68.7, (SCREEN_HEIGHT * 2.5 * 15.8 / 100)*i + SCREEN_HEIGHT * 2.5 / 100 * 4.0 + posadd_y * 2.5), D3DXVECTOR2(0.4f, 0.4f), 0);
 		}
 		ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2.5 / 100 * 72.7, (SCREEN_HEIGHT * 2.5 * 15.8 / 100)*i + SCREEN_HEIGHT * 2.5 / 100 * 4.0 + posadd_y * 2.5), D3DXVECTOR2(0.4f, 0.4f), (int)Score[i].Scoretime % 100);
+
 		Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
+
+		//1Pの体重によって表示するキャラクターを変える
+		if (Score[i].Player1 == 1) {
+			Sprite_Draw(TEXTURE_INDEX_ICON_BEAR, SCREEN_WIDTH * 0.20, SCREEN_HEIGHT * 3 / 19 * i + posadd_y, 0, 0, 150, 150);
+		}
+		else if (Score[i].Player1 == 2) {
+			Sprite_Draw(TEXTURE_INDEX_ICON_DOG, SCREEN_WIDTH * 0.20, SCREEN_HEIGHT * 3 / 19 * i + posadd_y, 0, 0, 150, 150);
+		}
+		else if (Score[i].Player1 == 3) {
+			Sprite_Draw(TEXTURE_INDEX_ICON_RABBIT, SCREEN_WIDTH * 0.20, SCREEN_HEIGHT * 3 / 19 * i + posadd_y, 0, 0, 150, 150);
+		}
+		else if (Score[i].Player1 == 4) {
+			Sprite_Draw(TEXTURE_INDEX_ICON_HAMSTER, SCREEN_WIDTH * 0.20, SCREEN_HEIGHT * 3 / 19 * i + posadd_y, 0, 0, 150, 150);
+		}
+
+		//2Pの体重によって表示するキャラクターを変える
+		if (Score[i].Player2 == 1) {
+			Sprite_Draw(TEXTURE_INDEX_ICON_BEAR, SCREEN_WIDTH * 0.30, SCREEN_HEIGHT * 3 / 19 * i + posadd_y, 0, 0, 150, 150);
+		}
+		else if (Score[i].Player2 == 2) {
+			Sprite_Draw(TEXTURE_INDEX_ICON_DOG, SCREEN_WIDTH * 0.30, SCREEN_HEIGHT * 3 / 19 * i + posadd_y, 0, 0, 150, 150);
+		}
+		else if (Score[i].Player2 == 3) {
+			Sprite_Draw(TEXTURE_INDEX_ICON_RABBIT, SCREEN_WIDTH * 0.30, SCREEN_HEIGHT * 3 / 19 * i + posadd_y, 0, 0, 150, 150);
+		}
+		else if (Score[i].Player2 == 4) {
+			Sprite_Draw(TEXTURE_INDEX_ICON_HAMSTER, SCREEN_WIDTH * 0.30, SCREEN_HEIGHT * 3 / 19 * i + posadd_y, 0, 0, 150, 150);
+		}
 	}
 
 	//順位表示
