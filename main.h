@@ -9,3 +9,4 @@ enum {
 };
 
 void SetScene(int scene);
+bool ChangeScene_Title();

@@ -61,6 +61,8 @@ static HWND g_hWnd;             // ウィンドウハンドル
 int nowScene;
 static int g_FrameCount = 0;            // フレームカウンター
 static double g_StaticFrameTime = 0.0f; // フレーム固定用計測時間
+
+bool ChangeTitle = false;
 /*------------------------------------------------------------------------------
    関数定義
 ------------------------------------------------------------------------------*/
@@ -337,6 +339,7 @@ void Finalize(void){
 
 void SetScene(int scene) {
 	//各シーンごとの終了処理
+	int beforScene = nowScene;
 	switch (nowScene) {
 	case TITLE:
 		TitleUnInit();
@@ -379,8 +382,18 @@ void SetScene(int scene) {
 		break;
 
 	case RANKING:
+		if (beforScene == TITLE) {
+			ChangeTitle = true;
+		}
+		else {
+			ChangeTitle = false;
+		}
 		RankingInit();
 		break;
 	}
 
+}
+
+bool ChangeScene_Title() {
+	return ChangeTitle;
 }
