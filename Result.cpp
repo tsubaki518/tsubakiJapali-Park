@@ -10,6 +10,7 @@
 #include"Setting.h"
 #include"Camera.h"
 #include"Ranking.h"
+#include"Sky.h"
 
 //ボブスレーのモデルの行列
 void SetMatrix2();
@@ -38,14 +39,14 @@ void ResultInit() {
 	//タイム(少数)を収納
 	score3 = Getsyousuu();
 	//ランキングタイム30位を取得
-	score4 = GetScore(29);
+	score4 = GetScore(19);
 
 	//ランクイン判定初期化
 	isRankin = false;
 
 	//ランクインカットイン初期位置
-	ResultposX1 = SCREEN_WIDTH * 2 * -1;
-	ResultposX2 = SCREEN_WIDTH * 2;
+	ResultposX1 = SCREEN_WIDTH * 3 * -1;
+	ResultposX2 = SCREEN_WIDTH * 3;
 
 	//ソリモデルの取得
 	SP.soriModel.Init("asset/model/Bobsled/bobuv2.x", "asset/model/Bobsled/bobuv022.jpg");
@@ -116,8 +117,14 @@ void ResultUpdate() {
 }
 
 void ResultDraw() {
+	Cube sky;
 	SettingCamera camera;
 	Cube backGround;
+
+	sky.position = D3DXVECTOR3(1, 1, 1);
+	sky.rotation = D3DXVECTOR3(0, 0, 0);
+	sky.scale = D3DXVECTOR3(10, 10, 1);
+	sky.Draw(TEXTURE_INDEX_SKY);
 
 	camera.SetCamera();
 

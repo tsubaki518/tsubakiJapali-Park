@@ -93,7 +93,7 @@ void TitleUpdate() {
 			break;
 
 		case PosDate:
-			//SetScene(Exsit);
+			SetScene(RANKING);
 			break;
 		}
 	}
