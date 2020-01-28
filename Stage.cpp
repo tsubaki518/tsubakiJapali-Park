@@ -8010,10 +8010,7 @@ void StageInit() {			//座標とサイズと角度を入れる
 	leftWall[236].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 275.00f*3.141592f / 180);
 	leftWall[236].scale = D3DXVECTOR3(5, 1, 10);
 
-	//障害物のInit
-	for (int i = 0; i < OBSTACLE_NUM; i++) {
-		obstacle[i].Init();
-	}
+	
 
 	Transform obstaclePattern[72];
 	obstaclePattern[0].position = D3DXVECTOR3(-67.59f, -57.33f, 220.31f);
@@ -8235,6 +8232,7 @@ void StageInit() {			//座標とサイズと角度を入れる
 	int count = 0;
 	for (int i = 0; i < 72 - 3; i += 3) {
 		int p = rand() % 3;
+		obstacle[count].Init();
 		obstacle[count].position = obstaclePattern[i + p].position;
 		obstacle[count].rotation = obstaclePattern[i + p].rotation;
 		count++;
@@ -8385,7 +8383,11 @@ void StageDraw() {
 
 
 }
-
+void StageUnInit() {
+	for (int i = 0; i < OBSTACLE_NUM; i++) {
+		obstacle[i].UnInit();
+	}
+}
 
 Plane GetCube(int n) {
 	return cube[n];

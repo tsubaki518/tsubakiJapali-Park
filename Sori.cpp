@@ -33,7 +33,6 @@ void Sori::Init(float weight1, float weight2) {
 	speedAccel = 0;//加速床に当たったときに加速する速度を初期化する
 
 	//プレイヤーの初期位置
-	//プレイヤーの初期位置
 	position = D3DXVECTOR3(2.0f, -10.10f, 3.0f);
 	rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0, 0);
 	isGoalGround = false;
