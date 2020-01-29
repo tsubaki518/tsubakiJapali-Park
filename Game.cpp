@@ -447,7 +447,9 @@ void UIDraw() {
 		if (vecLen < 30) {
 			if (sinf(rad) < 0) {
 				playerRank = 1;
+				sori.isChangeRank = true;
 			} else {
+				sori.isChangeRank = false;
 				playerRank = 2;
 			}
 		}

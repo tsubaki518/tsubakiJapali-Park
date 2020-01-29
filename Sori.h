@@ -46,6 +46,8 @@ public:
 	bool isHitSpeedAccelBoard = false;
 	bool isGoalGround = false;		//ƒS[ƒ‹‚É“’B”»’è
 	bool isWallSpeedAccel = false;
+	bool isNPCcollision = false;
+	bool isChangeRank = false;
 	float speed;					//Œ»İ‚Ì‘¬“x
 	D3DXVECTOR3 rightSpeed = D3DXVECTOR3(0, 0, 0);
 	D3DXVECTOR3 leftSpeed = D3DXVECTOR3(0, 0, 0);

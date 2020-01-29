@@ -154,7 +154,7 @@ void Sori::Draw() {
 		BOARD_VALUE2 = 50;
 	}
 
-	/*DebugFont_Draw(0,0,"1P::RF:%d, LR: %d, RB:%d, LB:%d, äÓèÄíl:%d", BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RF),
+	DebugFont_Draw(0,0,"1P::RF:%d, LR: %d, RB:%d, LB:%d, äÓèÄíl:%d", BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RF),
 		BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_LF),
 		BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RB),
 		BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_LB),
@@ -164,7 +164,7 @@ void Sori::Draw() {
 		BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_LF),
 		BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_RB),
 		BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_LB),
-		BOARD_VALUE2);*/
+		BOARD_VALUE2);
 }
 void Sori::UnInit() {
 	for (int i = 0; i < 2; i++) {
@@ -232,7 +232,10 @@ bool Sori::CollisionRight(NPC c) {
 
 	if (collider.CharacterCollider(rightCollider, c.leftCollider)) {
 		position += c.leftSpeed*2.0f;
+		isNPCcollision = true;
 		return true;
+	} else {
+		isNPCcollision = false;
 	}
 	return false;
 }
@@ -241,7 +244,10 @@ bool Sori::CollisionLeft(NPC c) {
 
 	if (collider.CharacterCollider(leftCollider, c.rightCollider)) {
 		position += c.rightSpeed*2.0f;
+		isNPCcollision = true;
 		return true;
+	} else {
+		isNPCcollision = false;
 	}
 	return false;
 }
@@ -250,7 +256,10 @@ bool Sori::CollisionBack(NPC c) {
 
 	if (collider.CharacterCollider(backCollider, c.forwardCollider)) {
 		position += c.GetForward() * (c.speed / 2 + c.speedAccel) + (c.centrifugalDirection*c.speed / 2)*2.0f;
+		isNPCcollision = true;
 		return true;
+	} else {
+		isNPCcollision = false;
 	}
 	return false;
 }
@@ -520,8 +529,11 @@ void Sori::Spin() {
 			Keyboard_IsPress(DIK_D) && Keyboard_IsPress(DIK_LEFT) ||
 			boardLeft1P && boardRight2P ||
 			boardRight1P && boardLeft2P) {
-			isSpin = true;
-			beforRotation = spinRot;
+			spinCount++;
+			if (spinCount > 20) {
+				isSpin = true;
+				beforRotation = spinRot;
+			}
 		} else {
 			spinCount = 0;
 
