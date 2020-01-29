@@ -11,6 +11,7 @@
 #include"sprite.h"
 #include"Setting.h"
 #include"ImageNumber.h"
+#include"sound.h"
 
 SettingPlayer pPC;
 SCORE Score[22];
@@ -288,7 +289,7 @@ void RankingDraw() {
 
 }
 void RankingUnInit() {
-
+	StopSound();
 }
 
 
