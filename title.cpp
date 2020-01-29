@@ -89,7 +89,7 @@ void TitleUpdate() {
 			break;
 
 		case PosOption:
-			//SetScene(OPTION);
+			SetScene(OPTION);
 			break;
 
 		case PosDate:

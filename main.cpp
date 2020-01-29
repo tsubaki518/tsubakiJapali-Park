@@ -14,6 +14,7 @@
 #include <d3dx9.h>
 #include"input.h"
 #include"main.h"
+#include"Option.h"
 #include"title.h"
 #include"Game.h"
 #include"Result.h"
@@ -256,6 +257,10 @@ void Update(void){
 		TitleUpdate();
 		break;
 
+	case OPTION:
+		OptionUpdate();
+		break;
+
 	case SETTING:
 		SettingUpdate();
 		break;
@@ -292,6 +297,10 @@ void Draw(void)
 	switch (nowScene) {
 	case TITLE:
 		TitleDraw();
+		break;
+
+	case OPTION:
+		OptionDraw();
 		break;
 
 	case SETTING:
@@ -345,6 +354,10 @@ void SetScene(int scene) {
 		TitleUnInit();
 		break;
 
+	case OPTION:
+		OptionUnInit();
+		break;
+
 	case SETTING:
 		SettingUnInit();
 		break;
@@ -367,6 +380,10 @@ void SetScene(int scene) {
 	switch (nowScene) {
 	case TITLE:
 		TitleInit();
+		break;
+
+	case OPTION:
+		OptionInit();
 		break;
 
 	case SETTING:

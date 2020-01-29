@@ -2,6 +2,7 @@
 
 enum {
 	TITLE,
+	OPTION,
 	GAME,
 	SETTING,
 	RESULT,
