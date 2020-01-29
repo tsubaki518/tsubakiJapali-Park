@@ -38,7 +38,7 @@ void ResultInit() {
 	score2 = GetRating();
 	//タイム(少数)を収納
 	score3 = Getsyousuu();
-	//ランキングタイム30位を取得
+	//ランキングタイム20位を取得
 	score4 = GetScore(19);
 
 	//ランクイン判定初期化
@@ -92,28 +92,20 @@ void ResultInit() {
 
 void ResultUpdate() {
 	if (score1 < score4) {
+		if (Keyboard_IsPress(DIK_RETURN)) {
+			SetScene(RANKING);
+		}
 		isRankin = true;
 	}
-
-	//ランクインカットインアニメーション
-	if (isRankin == true) {
-		if (ResultposX1 >= 0) {
-			ResultposX1 = 0;
-		}
-		else {
-			ResultposX1 += 60;
-		}
-		if (ResultposX2 <= 0) {
-			ResultposX2 = 0;
-		}
-		else {
-			ResultposX2 -= 60;
+	else {
+		if (Keyboard_IsPress(DIK_RETURN)) {
+			SetScene(TITLE);
 		}
 	}
 
-	if (Keyboard_IsPress(DIK_RETURN)) {
-		SetScene(RANKING);
-	}
+
+
+
 }
 
 void ResultDraw() {
@@ -167,10 +159,6 @@ void ResultDraw() {
 	}
 	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2.5 / 100 * 78, SCREEN_HEIGHT*1.25 / 50 * 39), D3DXVECTOR2(0.4f, 0.4f), (int)score3 % 100);
 
-	//ランクインカットイン
-	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
-	Sprite_Draw(TEXTURE_INDEX_RESULT_CUTIN_UP, ResultposX1, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-	Sprite_Draw(TEXTURE_INDEX_RESULT_CUTIN_DOWN, ResultposX2, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 
 	//プレイヤーキャラクター表示

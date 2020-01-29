@@ -24,9 +24,18 @@ static int rankanime_x = 0;
 static int rankanime_y = 0;
 static int add;
 
+static float juni;//順位
+
+static float RankposX1;//カットイン(上)の移動
+static float RankposX2;//カットイン(下)の移動
+static bool isRankingin;//Result->Ranking=false....Title->Ranking=true
+static bool isRankcutin;//カットイン開始
+static bool isRankanime;//スコアアニメーション
+static bool isChangeAl;//アルファ値変化
+
 void RankingInit() {
 	//デバッグ用ランキング初期化
-	Score[0].Scoretime = 0.00f;
+	//Score[0].Scoretime = 0.00f;
 
 	if (Score[0].Scoretime == 0.00f) {
 		for (int i = 0; i < 21; i++) {
@@ -37,11 +46,21 @@ void RankingInit() {
 		}
 	}
 
+	//ランキングスコア移動
 	posadd_y = SCREEN_HEIGHT * 2.2 * -1;
+	//ランクインカットイン初期位置
+	RankposX1 = SCREEN_WIDTH * 3 * -1;
+	RankposX2 = SCREEN_WIDTH * 3;
 	//WriteSave();
 
+	isRankcutin = false;
+	isRankanime = false;
+	isChangeAl = false;
+	isRankingin = ChangeScene_Title();
+	juni = 21;
+
 	//リザルト→ランキング
-	if (ChangeScene_Title() == false) {
+	if (isRankingin == false) {
 
 		pPC.weight[0] = GetSettingPlayer().weight[0];
 		pPC.weight[1] = GetSettingPlayer().weight[1];
@@ -84,40 +103,88 @@ void RankingInit() {
 		}
 
 		SetRank(GetTime(), GetRating());
+
+		//順位を判定する
+		for (int i = 0; i < 21; i++) {
+			if (GetTime() < Score[i].Scoretime) {
+				juni = i - 1;
+				break;
+			}
+
+		}
 	}
 
 }
 void RankingUpdate() {
 	add += 1;
 
+	if (isRankingin == false) {
+		isRankanime = true;
+	}
+	else {
+		//スコアスライド
+		if (Keyboard_IsPress(DIK_UP)) {
+			posadd_y -= SCREEN_HEIGHT * 0.01;
+		}
+		if (Keyboard_IsPress(DIK_DOWN)) {
+			posadd_y += SCREEN_HEIGHT * 0.01;
+		}
+	}
+
 	if (Keyboard_IsTrigger(DIK_RETURN)) {
 		SetScene(TITLE);
 	}
 
-	if (Keyboard_IsPress(DIK_UP)) {
-		posadd_y -= SCREEN_HEIGHT * 0.01;
-	}
-	if (Keyboard_IsPress(DIK_DOWN)) {
-		posadd_y += SCREEN_HEIGHT * 0.01;
-	}
-	if (posadd_y > SCREEN_HEIGHT * 0.21) {
-		posadd_y = SCREEN_HEIGHT * 0.21;
-	}
-	if(posadd_y < SCREEN_HEIGHT * 2.2 * -1){
-		posadd_y = SCREEN_HEIGHT * 2.2 * -1;
-	}
 
+
+
+	//ドット絵アニメーション
 	if (add >= 5) {
 		rankanime_x += 1;
 		add = 0;
 	}
-	
 	if (rankanime_x >= 9) {
 		rankanime_x = 0;
 		rankanime_y += 1;
 	}
 	if (rankanime_y >= 2) {
 		rankanime_y = 0;
+	}
+
+	//ランクインスコアアニメーション
+	if (isRankanime == true) {
+
+		if ((juni + 1)*SCREEN_HEIGHT * 3 / 19 + posadd_y >= SCREEN_HEIGHT / 2) {
+			isRankcutin = true;
+		}
+		else {
+			posadd_y += SCREEN_HEIGHT * 0.01;
+		}
+	}
+	else {
+		if (posadd_y > SCREEN_HEIGHT * 0.21) {
+			posadd_y = SCREEN_HEIGHT * 0.21;
+		}
+		if (posadd_y < SCREEN_HEIGHT * 2.2 * -1) {
+			posadd_y = SCREEN_HEIGHT * 2.2 * -1;
+		}
+	}
+
+	//ランクインカットインアニメーション
+	if (isRankcutin == true) {
+		if (RankposX1 >= 0) {
+			RankposX1 = 0;
+		}
+		else {
+			RankposX1 += 60;
+		}	 
+		if (RankposX2 <= 0) {
+			RankposX2 = 0;
+		}	 
+		else{ 
+			RankposX2 -= 60;
+			isChangeAl = true;
+		}
 	}
 
 	//LoadSave();
@@ -128,7 +195,18 @@ void RankingDraw() {
 	//スコア表示
 	for (int i = 0; i < 20; i++) {
 		//白枠
-		Sprite_Draw(TEXTURE_INDEX_RANKING_WAKU, SCREEN_WIDTH*0.09, i*SCREEN_HEIGHT * 3 / 19 + posadd_y, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 3 / 20);
+		if (isChangeAl == true) {
+			if (i == juni) {
+				Sprite_Draw2(TEXTURE_INDEX_RANKING_WAKU, SCREEN_WIDTH*0.09, i*SCREEN_HEIGHT * 3 / 19 + posadd_y, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 3 / 20, 255);
+			}
+			else {
+				Sprite_Draw2(TEXTURE_INDEX_RANKING_WAKU, SCREEN_WIDTH*0.09, i*SCREEN_HEIGHT * 3 / 19 + posadd_y, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 3 / 20, 200);
+			}
+		}
+		else {
+			Sprite_Draw(TEXTURE_INDEX_RANKING_WAKU, SCREEN_WIDTH*0.09, i*SCREEN_HEIGHT * 3 / 19 + posadd_y, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 3 / 20);
+		}
+
 		//視聴率
 		Sprite_SetColor(D3DCOLOR_RGBA(0, 0, 0, 255));
 		ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 5 / 100 * 92.5, (SCREEN_HEIGHT * 5 * 15.80 / 100)*i + SCREEN_HEIGHT * 5 / 100 * 6.0 + posadd_y * 5), D3DXVECTOR2(0.2f, 0.2f), Score[i].Scorerating / 10);
@@ -193,7 +271,17 @@ void RankingDraw() {
 		}
 		Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
 	}
-	Sprite_Draw(TEXTURE_INDEX_RANKING2, 0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	//見出し
+	if (isRankingin == true) {
+		Sprite_Draw(TEXTURE_INDEX_RANKING2, 0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	}
+
+	//ランクインカットイン
+	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
+	Sprite_Draw(TEXTURE_INDEX_RESULT_CUTIN_UP, RankposX1, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	Sprite_Draw(TEXTURE_INDEX_RESULT_CUTIN_DOWN, RankposX2, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
 
 	//左下アニメ
 	Sprite_Draw(TEXTURE_INDEX_RANKING_ANIME, SCREEN_WIDTH*0.01, SCREEN_HEIGHT * 0.8, SCREEN_WIDTH / 10 * rankanime_x, SCREEN_HEIGHT / 4.5 * rankanime_y, SCREEN_WIDTH / 10, SCREEN_HEIGHT / 4.5, 1, 1);
