@@ -41,6 +41,7 @@ SOUNDPARAM g_aParam[SOUND_LABEL_MAX] ={
 	{"asset/sound/se/corsorSelect.wav", 0},
 	{"asset/sound/se/speedAccel.wav", 0},
 	{"asset/sound/se/StartCountDown.wav", 0},
+	{"asset/sound/se/Buzzer.wav", 0},
 };
 
 //=============================================================================

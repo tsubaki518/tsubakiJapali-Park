@@ -17,6 +17,7 @@ typedef enum
 	SOUND_LABEL_SE_SELECT,			//カーソルの移動音
 	SOUND_LABEL_SE_SPEED_ACCEL,		//加速音
 	SOUND_LABEL_SE_START_COUNT_DOWN,//スタートのカウントダウン
+	SOUND_LABEL_BUZZER,				//ゴール音
 	SOUND_LABEL_MAX,
 } SOUND_LABEL;
 

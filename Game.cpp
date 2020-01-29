@@ -34,6 +34,7 @@ static bool isAnimatioin = false;
 static bool isChangeScene = false;
 static bool isTimerInit = true;
 static int playerRank = 1;
+static bool isGoalGroundSoundOnece = false;
 //UIの描画
 void UIDraw();
 
@@ -47,6 +48,7 @@ void GameInit() {
 	//フラグの初期化
 	isChangeScene = false;
 	isAnimatioin = false;
+	isGoalGroundSoundOnece = false;
 
 	//体重をもとにキャラクターを設定する
 	sori.Init(GetSettingPlayer().weight[0], GetSettingPlayer().weight[1]);//この関数内でプレイヤーの初期位置を決める
@@ -83,6 +85,7 @@ void GameUpdate() {
 		RatingUpdate(sori);
 		if (sori.isGoalGround == false) {
 			TimerUpdate();
+			
 		}
 		GameCollision();
 	}
@@ -386,6 +389,10 @@ void UIDraw() {
 	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
 	if (sori.isGoalGround == true) {
 		isChangeScene = goalAnimation.Draw();
+		if (isGoalGroundSoundOnece == false) {
+			PlaySound(SOUND_LABEL_BUZZER);
+			isGoalGroundSoundOnece = true;
+		}
 	}
 	isAnimatioin = startAnimation.Draw();
 
