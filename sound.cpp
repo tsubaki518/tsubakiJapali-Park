@@ -42,8 +42,8 @@ SOUNDPARAM g_aParam[SOUND_LABEL_MAX] ={
 	{"asset/sound/se/speedAccel.wav", 0},
 	{"asset/sound/se/StartCountDown.wav", 0},
 	{"asset/sound/se/Buzzer.wav", 0},
-	{"asset/sound/bgm/ƒQ[ƒ€‰æ–Ê.wav", -1},
-	{"asset/sound/bgm/ƒS[ƒ‹`ƒ‰ƒ“ƒLƒ“ƒO‚Ü‚Å’Ê‚µ.wav", -1},
+	{"asset/sound/bgm/game.wav", -1},
+	{"asset/sound/bgm/ranking.wav", -1},
 };
 
 //=============================================================================

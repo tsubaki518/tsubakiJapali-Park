@@ -246,7 +246,7 @@ int count = 0;
 void Update(void){
 	Keyboard_Update();
 	BalanceBoard_Update();
-	if (++count == 10) {
+	if (++count == 50) {
 		BalanceBoard_Reset();
 	}
 

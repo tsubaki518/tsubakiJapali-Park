@@ -7,6 +7,8 @@
 #include"main.h"
 #include<stdlib.h>
 #include"Particle.h"
+#include"BalanceBoardInput.h"
+#include"debug_font.h"
 #define NEXT_INTERVAL 100
 
 enum {
@@ -39,6 +41,7 @@ static float alphaAdd = 0.04f;
 static bool isNext[2];
 static int nextIntervalCount = 0;
 static D3DXVECTOR3 rotation;
+	int weight[2];
 
 
 void SettingInit() {
@@ -53,7 +56,7 @@ void SettingInit() {
 	nextIntervalCount = 0;
 	settingPlayer.soriModel.Init("asset/model/Bobsled/bobuv2.x", "asset/model/Bobsled/bobuv022.jpg");
 	rotation = D3DXVECTOR3(0.5f, 3.61f, 0);
-
+	BalanceBoard_Reset();
 }
 void SettingUpdate() {
 	switch (settingState) {
@@ -94,6 +97,9 @@ void SettingDraw() {
 		break;
 
 	}
+
+	DebugFont_Draw(0, 0, "%d", BalanceBoard_GetValue(BALANCEBOARD_2P, 4));
+
 }
 void SettingUnInit() {
 	for (int i = 0; i < 6; i++) {
@@ -185,10 +191,10 @@ void SettingSearchUpdate() {
 	}
 
 	//各プレイヤーの認識をする
-	if (Keyboard_IsPress(DIK_W)) {
+	if (Keyboard_IsPress(DIK_W) || BalanceBoard_GetValue(BALANCEBOARD_1P,4)> 3000) {
 		isNext[0] = true;
 	}
-	if (Keyboard_IsPress(DIK_UP)) {
+	if (Keyboard_IsPress(DIK_UP) || BalanceBoard_GetValue(BALANCEBOARD_2P, 4)> 3000) {
 		isNext[1] = true;
 	}
 
@@ -260,55 +266,120 @@ void SettingSearchDraw() {
 void SettingSetWeightUpdate() {
 	rotation.y -= 0.02f;
 	nextIntervalCount++;
+
+
 	if (nextIntervalCount > NEXT_INTERVAL) {
-		//1Pの体重
-		if (Keyboard_IsPress(DIK_N)) {
-			//ランダムで60kg以上のキャラクターの体重を入れる
-			int n=rand() % 2;
-			if (n == 1) {
-				settingPlayer.weight[0] = 75;
-				settingPlayer.character[0] = new Bear();
-			} else {
-				settingPlayer.weight[0] = 65;
-				settingPlayer.character[0] = new Dog();
-			}
-		} else {
-			//ランダムで59kg以上のキャラクターの体重を入れる
-			int n = rand() % 2;
-			if (n == 1) {
-				settingPlayer.weight[0] = 55;
-				settingPlayer.character[0] = new Rabbit();
-			} else {
-				settingPlayer.weight[0] = 45;
-				settingPlayer.character[0] = new Hamster();
-			}
+		//キャラの選定
+		/*if (weight[0] >= 80)
+		{
+			settingPlayer.character[0] = new Elephant();
+
+		} */
+		weight[0] = BalanceBoard_GetValue(BALANCEBOARD_1P, 4);
+		weight[1] = BalanceBoard_GetValue(BALANCEBOARD_2P, 4);
+		
+		if (weight[0] >= 7000 )
+		{
+			settingPlayer.character[0] = new Bear();
+			settingPlayer.weight[0] = 75;
+
+		} else if (weight[0] >= 6000 && weight[0] <= 6999)
+		{
+			settingPlayer.character[0] = new Dog();
+			settingPlayer.weight[0] = 65;
+
+		} else if (weight[0] >= 5000 && weight[0] <= 5999)
+		{
+			settingPlayer.character[0] = new Rabbit();
+			settingPlayer.weight[0] = 55;
+
+		} else if (weight[0] <= 4900)
+		{
+			settingPlayer.character[0] = new Hamster();
+			settingPlayer.weight[0] = 45;
+
 		}
 
-		//2Pの体重
-		if (Keyboard_IsPress(DIK_M)) {
-			//ランダムで60kg以上のキャラクターの体重を入れる
-			int n = rand() % 2;
-			if (n == 1) {
-				settingPlayer.weight[1] = 75;
-				settingPlayer.character[1] = new Bear();
+
+		/*if (weight[1] >= 80)
+		{
+			settingPlayer.character[1] = new Elephant();
+			settingPlayer.weight[1] = 85;
+
+
+		} */
+		if (weight[1] >= 7000)
+		{
+			settingPlayer.character[1] = new Bear();
+			settingPlayer.weight[1] = 75;
+
+
+		} else if (weight[1] >= 6000 && weight[1] <= 6999)
+		{
+			settingPlayer.character[1] = new Dog();
+			settingPlayer.weight[1] = 65;
+
+		} else if (weight[1] >= 5000 && weight[1] <= 5999)
+		{
+			settingPlayer.character[1] = new Rabbit();
+			settingPlayer.weight[1] = 55;
+
+		} else if (weight[1] <= 4999)
+		{
+			settingPlayer.character[1] = new Hamster();
+			settingPlayer.weight[1] = 45;
+		}
+		{/*
+			//1Pの体重
+			if (Keyboard_IsPress(DIK_N)) {
+				//ランダムで60kg以上のキャラクターの体重を入れる
+				int n = rand() % 2;
+				if (n == 1) {
+					settingPlayer.weight[0] = 75;
+					settingPlayer.character[0] = new Bear();
+				} else {
+					settingPlayer.weight[0] = 65;
+					settingPlayer.character[0] = new Dog();
+				}
 			} else {
-				settingPlayer.weight[1] = 65;
-				settingPlayer.character[1] = new Dog();
+				//ランダムで59kg以上のキャラクターの体重を入れる
+				int n = rand() % 2;
+				if (n == 1) {
+					settingPlayer.weight[0] = 55;
+					settingPlayer.character[0] = new Rabbit();
+				} else {
+					settingPlayer.weight[0] = 45;
+					settingPlayer.character[0] = new Hamster();
+				}
 			}
-		} else {
-			//ランダムで59kg以上のキャラクターの体重を入れる
-			int n = rand() % 2;
-			if (n == 1) {
-				settingPlayer.weight[1] = 55;
-				settingPlayer.character[1] = new Rabbit();
+
+			//2Pの体重
+			if (Keyboard_IsPress(DIK_M)) {
+				//ランダムで60kg以上のキャラクターの体重を入れる
+				int n = rand() % 2;
+				if (n == 1) {
+					settingPlayer.weight[1] = 75;
+					settingPlayer.character[1] = new Bear();
+				} else {
+					settingPlayer.weight[1] = 65;
+					settingPlayer.character[1] = new Dog();
+				}
 			} else {
-				settingPlayer.weight[1] = 45;
-				settingPlayer.character[1] = new Hamster();
-			}
+				//ランダムで59kg以上のキャラクターの体重を入れる
+				int n = rand() % 2;
+				if (n == 1) {
+					settingPlayer.weight[1] = 55;
+					settingPlayer.character[1] = new Rabbit();
+				} else {
+					settingPlayer.weight[1] = 45;
+					settingPlayer.character[1] = new Hamster();
+				}
+			}*/
 		}
 		//ボブスレーの色を変えるために一旦削除
 		settingPlayer.soriModel.UnInit();
 
+		
 		//モデルのの再読み込み
 		settingPlayer.soriModel.Init("asset/model/Bobsled/bobuv2.x", "asset/model/Bobsled/bobuv2.jpg");
 		settingPlayer.character[0]->Init();
@@ -360,7 +431,7 @@ void SettingSetWeightEndUpdate() {
 	rotation.y -= 0.02f;
 	nextIntervalCount++;
 	if (nextIntervalCount > NEXT_INTERVAL) {
-		if (Keyboard_IsPress(DIK_B)) {
+		if (Keyboard_IsPress(DIK_B) || BalanceBoard_GetValue(BALANCEBOARD_1P, 4)<1000|| BalanceBoard_GetValue(BALANCEBOARD_2P, 4) < 1000) {
 			SetScene(GAME);
 		}
 	}
