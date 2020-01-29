@@ -1,5 +1,6 @@
 #pragma once
 #include <time.h>
+#include <d3dx9.h>
 
 
 class Animation {
@@ -33,4 +34,17 @@ private:
 public:
 	void Init(int n);
 	void Draw();
+};
+
+class RatingAnimation {
+private:
+	int alpha;
+	D3DXVECTOR2 position;
+	int stopCount;
+	bool isUp = false;
+public:
+	void Init();
+	void Update();
+	void Draw();
+	void UnInit();
 };

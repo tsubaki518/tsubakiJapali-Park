@@ -112,6 +112,14 @@ void RatingDraw() {
 	Sprite_SetColor(D3DCOLOR_RGBA(0, 255, 0, 255));
 	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 20 / 3 / 100 * 94, SCREEN_HEIGHT * 20 / 3 / 11), D3DXVECTOR2(0.15f, 0.15f), (int)rating / 10);
 	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 10 / 100 * 96, SCREEN_HEIGHT * 10 / 10), D3DXVECTOR2(0.1f, 0.1f), (int)rating % 10);
+
+	//スコアメッセージ
+	//10%OVER!
+	if (rating >= 100.0f) {
+		Sprite_SetColor(D3DCOLOR_RGBA(255, 0, 0, 255));
+		Sprite_Draw(TEXTURE_INDEX_SCOR_MESSAGE, SCREEN_WIDTH / 2  + 550  , SCREEN_HEIGHT / 2 / 2 - 60 , 0, 0, 190, 40);			// %OVER！
+		ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2 - 570 , SCREEN_HEIGHT / 2 / 2 + 40), D3DXVECTOR2(0.5f, 0.5f), 10);			// 10
+	}
 }
 
 float GetRating() {

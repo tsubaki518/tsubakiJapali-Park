@@ -4,6 +4,8 @@
 #include"common.h"
 #include"mydirect3d.h"
 #include"sound.h"
+#include"Rating.h"
+#include"ImageNumber.h"
 
 void StartAnimation::Init() {
 	start = clock();
@@ -47,7 +49,6 @@ bool StartAnimation::Draw() {
 	return true;
 }
 
-
 void GoalAnimation::Init() {
 	endCount = 0;
 }
@@ -86,3 +87,60 @@ void TezukaLine::Draw() {
 
 	drawCount--;
 }
+
+/*
+void RatingAnimation::Init() {
+	stopCount = 0;
+	isUp = false;
+	position = D3DXVECTOR2(
+		SCREEN_HEIGHT / 2 -
+		717 / 2,
+		SCREEN_HEIGHT);
+}
+void RatingAnimation::Update() {
+	const float ALPHA_ADD = 255;
+	const float MOVER_ADD = 0;
+
+	//âÊëúÇâ∫Ç…à⁄ìÆ
+	if (position.y<SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 2 &&
+		isUp == false) {
+		stopCount++;
+		alpha += ALPHA_ADD;
+
+	}
+	if (position.y>SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 2
+		&& isUp == false) {
+		position.y += MOVER_ADD;
+	}
+
+	//è„Ç…è„Ç™ÇÈÇ©îªíËÇ∑ÇÈ
+	if (stopCount > 180.0f) {
+		isUp = true;
+	}
+	if (isUp) {
+		position.y -= MOVER_ADD;
+		alpha -= ALPHA_ADD;
+	}
+}
+void RatingAnimation::Draw() {
+	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, alpha));
+	Sprite_Draw(TEXTURE_INDEX_SCOR_MESSAGE,
+		position.x,
+		position.y,
+		0,
+		0,
+		717,
+		65);
+
+	ImageNumberDraw(
+		D3DXVECTOR2(SCREEN_HEIGHT / 2 -717 / 2,													//xç¿ïW
+					position.y -SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 2),		//yç¿ïW
+		D3DXVECTOR2(1,
+			        1),
+					GetRating());
+
+}
+void RatingAnimation::UnInit() {
+
+}
+*/
