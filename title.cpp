@@ -7,6 +7,7 @@
 #include"debug_font.h"
 #include"mydirect3d.h"
 #include"sound.h"
+#include"Fade.h"
 
 static float cursorPos = PosGame;
 static float t = 0;
@@ -20,10 +21,16 @@ static float titleposX1 = SCREEN_WIDTH - (SCREEN_HEIGHT * 2);
 static float titleposY1 = 0;
 static float titleposX2 = SCREEN_WIDTH - (SCREEN_HEIGHT * 3);
 static float titleposY2 = 0;
-
+static bool wasChangeSceneSetting = false;
+static bool wasChangeSceneOption = false;
+static bool wasChangeSceneRanking = false;
 
 void TitleInit() {
-
+	FadeInInit();
+	FadeOutInit();
+	wasChangeSceneSetting = false;
+	wasChangeSceneOption = false;
+	wasChangeSceneRanking = false;
 }
 
 void TitleUpdate() {
@@ -85,15 +92,15 @@ void TitleUpdate() {
 	if (Keyboard_IsTrigger(DIK_RETURN) || XinputPressButtonDown(B_BUTTON)) {
 		switch ((int)cursorPos) {
 		case PosGame:
-			SetScene(SETTING);
+			wasChangeSceneSetting = true;
 			break;
 
 		case PosOption:
-			SetScene(OPTION);
+			wasChangeSceneOption = true;
 			break;
 
 		case PosDate:
-			SetScene(RANKING);
+			wasChangeSceneRanking = true;
 			break;
 		}
 	}
@@ -136,6 +143,22 @@ void TitleDraw() {
 	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
 	Sprite_Draw(TEXTURE_INDEX_SELECT, SCREEN_WIDTH / 5, SCREEN_HEIGHT / 50 * 39, 0, 0, SCREEN_WIDTH / 1.7, SCREEN_HEIGHT / 15);
 
+	FadeOut();
+	if (wasChangeSceneSetting == true) {
+		if (FadeIn()) {
+			SetScene(SETTING);
+		}
+	}
+	if (wasChangeSceneOption == true) {
+		if (FadeIn()) {
+			SetScene(OPTION);
+		}
+	}
+	if (wasChangeSceneRanking == true) {
+		if (FadeIn()) {
+			SetScene(RANKING);
+		}
+	}
 }
 
 void TitleUnInit() {

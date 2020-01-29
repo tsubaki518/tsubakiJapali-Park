@@ -23,6 +23,7 @@
 #include"ImageNumber.h"
 #include"Sky.h"
 #include"sound.h"
+#include"Fade.h"
 
 StartAnimation startAnimation;
 GoalAnimation goalAnimation;
@@ -35,6 +36,7 @@ static bool isChangeScene = false;
 static bool isTimerInit = true;
 static int playerRank = 1;
 static bool isGoalGroundSoundOnece = false;
+static bool wasChangeScene = false;
 //UIの描画
 void UIDraw();
 
@@ -42,6 +44,9 @@ void UIDraw();
 //初期化
 //プレイヤーの初期位置はSoriクラスのInit()関数で行う
 void GameInit() {
+	FadeInInit();
+	FadeOutInit();
+	wasChangeScene = false;
 	for (int i = 0; i < 2; i++) {
 		tezukaLine[i] = new TezukaLine();
 	}
@@ -93,7 +98,7 @@ void GameUpdate() {
 
 	//シーンの切り替え
 	if (isChangeScene == true) {
-		SetScene(RESULT);
+		wasChangeScene = true;
 	}
 }
 
@@ -465,6 +470,13 @@ void UIDraw() {
 	}
 
 	sori.DrawCharacterIcon();
+
+	FadeOut();
+	if (wasChangeScene == true) {
+		if (FadeIn()) {
+			SetScene(RESULT);
+		}
+	}
 }
 
 

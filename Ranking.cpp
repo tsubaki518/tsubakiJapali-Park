@@ -12,6 +12,7 @@
 #include"Setting.h"
 #include"ImageNumber.h"
 #include"sound.h"
+#include"Fade.h"
 
 SettingPlayer pPC;
 SCORE Score[22];
@@ -33,8 +34,12 @@ static bool isRankingin;//Result->Ranking=false....Title->Ranking=true
 static bool isRankcutin;//カットイン開始
 static bool isRankanime;//スコアアニメーション
 static bool isChangeAl;//アルファ値変化
+static bool wasChangeScene = false;
 
 void RankingInit() {
+	FadeInInit();
+	FadeOutInit();
+	wasChangeScene = false;
 	//デバッグ用ランキング初期化
 	//Score[0].Scoretime = 0.00f;
 
@@ -133,7 +138,7 @@ void RankingUpdate() {
 	}
 
 	if (Keyboard_IsTrigger(DIK_RETURN)) {
-		SetScene(TITLE);
+		wasChangeScene = true;
 	}
 
 	//ドット絵アニメーション
@@ -284,6 +289,12 @@ void RankingDraw() {
 	//左下アニメ
 	Sprite_Draw(TEXTURE_INDEX_RANKING_ANIME, SCREEN_WIDTH*0.01, SCREEN_HEIGHT * 0.8, SCREEN_WIDTH / 10 * rankanime_x, SCREEN_HEIGHT / 4.5 * rankanime_y, SCREEN_WIDTH / 10, SCREEN_HEIGHT / 4.5, 1, 1);
 
+	FadeOut();
+	if (wasChangeScene == true) {
+		if (FadeIn()) {
+			SetScene(TITLE);
+		}
+	}
 }
 void RankingUnInit() {
 	StopSound();

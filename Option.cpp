@@ -7,20 +7,24 @@
 #include"debug_font.h"
 #include"mydirect3d.h"
 #include"sound.h"
-
+#include"Fade.h"
 static float optionposX = SCREEN_WIDTH - SCREEN_HEIGHT;
 static float optionposY = 0;
 static float optionposX1 = SCREEN_WIDTH - (SCREEN_HEIGHT * 2);
 static float optionposY1 = 0;
 static float optionposX2 = SCREEN_WIDTH - (SCREEN_HEIGHT * 3);
 static float optionposY2 = 0;
+static bool wasChangeScene = false;
 
 void OptionInit() {
-
+	wasChangeScene = false;
+	FadeInInit();
+	FadeOutInit();
 }
 void OptionUpdate() {
 	if (Keyboard_IsTrigger(DIK_RETURN)) {
-		SetScene(TITLE);
+		wasChangeScene = true;
+
 	}
 
 	optionposX += 4;
@@ -61,6 +65,13 @@ void OptionDraw() {
 	Sprite_Draw(TEXTURE_INDEX_FACE, optionposX2, optionposY2 + SCREEN_HEIGHT * 2, 0, 0, SCREEN_HEIGHT, SCREEN_HEIGHT);
 
 	Sprite_Draw(TEXTURE_INDEX_STAFF, 0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	FadeOut();
+	if (wasChangeScene == true) {
+		if (FadeIn()) {
+			SetScene(TITLE);
+		}
+	}
 }
 void OptionUnInit() {
 

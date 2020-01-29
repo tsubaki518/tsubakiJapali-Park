@@ -9,6 +9,7 @@
 #include"Particle.h"
 #include"BalanceBoardInput.h"
 #include"debug_font.h"
+#include"Fade.h"
 #define NEXT_INTERVAL 100
 
 enum {
@@ -41,10 +42,12 @@ static float alphaAdd = 0.04f;
 static bool isNext[2];
 static int nextIntervalCount = 0;
 static D3DXVECTOR3 rotation;
-	int weight[2];
+int weight[2];
+static bool wasChangeScene = false;
 
 
 void SettingInit() {
+	wasChangeScene = false;
 	settingState = SETTING_SEARCH;
 	for (int i = 0; i < 6; i++) {
 		UI[i] = new Cube();
@@ -57,6 +60,8 @@ void SettingInit() {
 	settingPlayer.soriModel.Init("asset/model/Bobsled/bobuv2.x", "asset/model/Bobsled/bobuv022.jpg");
 	rotation = D3DXVECTOR3(0.5f, 3.61f, 0);
 	BalanceBoard_Reset();
+	FadeInInit();
+	FadeOutInit();
 }
 void SettingUpdate() {
 	switch (settingState) {
@@ -100,6 +105,12 @@ void SettingDraw() {
 	DebugFont_Draw(0, 0, "1P:%d", BalanceBoard_GetValue(BALANCEBOARD_1P, 4));
 	DebugFont_Draw(0, 30, "2P:%d", BalanceBoard_GetValue(BALANCEBOARD_2P, 4));
 
+	FadeOut();
+	if (wasChangeScene == true) {
+		if (FadeIn()) {
+			SetScene(GAME);
+		}
+	}
 }
 void SettingUnInit() {
 	for (int i = 0; i < 6; i++) {
@@ -432,7 +443,7 @@ void SettingSetWeightEndUpdate() {
 	nextIntervalCount++;
 	if (nextIntervalCount > NEXT_INTERVAL) {
 		if (Keyboard_IsPress(DIK_B) || BalanceBoard_GetValue(BALANCEBOARD_1P, 4)<1000|| BalanceBoard_GetValue(BALANCEBOARD_2P, 4) < 1000) {
-			SetScene(GAME);
+			wasChangeScene = true;
 		}
 	}
 }

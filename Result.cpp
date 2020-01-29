@@ -11,6 +11,7 @@
 #include"Camera.h"
 #include"Ranking.h"
 #include"Sky.h"
+#include"Fade.h"
 
 //ボブスレーのモデルの行列
 void SetMatrix2();
@@ -30,10 +31,17 @@ static D3DXVECTOR3 rotation;
 static D3DXVECTOR3 GetUp2();
 static D3DXVECTOR3 GetForward2();
 static D3DXVECTOR3 GetRight2();
+static bool wasChangeSceneRanking = false;
+static bool wasChangeSceneTitle = false;
 
 static bool isRankin;//ランクイン判定
 
 void ResultInit() {
+	FadeInInit();
+	FadeOutInit();
+	wasChangeSceneRanking = false;
+	wasChangeSceneTitle = false;
+
 	//タイム(整数)を収納
 	score1 = GetTime();
 	//視聴率を収納
@@ -96,7 +104,7 @@ void ResultInit() {
 void ResultUpdate() {
 	if (score1 < score4) {
 		if (Keyboard_IsPress(DIK_RETURN)) {
-			SetScene(RANKING);
+			wasChangeSceneRanking = true;
 		}
 		isRankin = true;
 	}
@@ -107,7 +115,7 @@ void ResultUpdate() {
 		}
 		if (addAl >= 255) {
 			if (Keyboard_IsPress(DIK_RETURN)) {
-				SetScene(TITLE);
+				wasChangeSceneTitle = true;
 			}
 		}
 	}
@@ -211,6 +219,17 @@ void ResultDraw() {
 			}
 			ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 5 / 100 * 95, SCREEN_HEIGHT*2.5 / 50 * 29), D3DXVECTOR2(0.2f, 0.2f), (int)score4 % 100);
 			Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
+		}
+	}
+	FadeOut();
+	if (wasChangeSceneRanking == true) {
+		if (FadeIn()) {
+			SetScene(RANKING);
+		}
+	}
+	if (wasChangeSceneTitle == true) {
+		if (FadeIn()) {
+			SetScene(TITLE);
 		}
 	}
 }

@@ -16,7 +16,7 @@ const int ACCEL_SPEED_NUM = 5;
 const int RIGHT_WALL_NUM = 257;
 const int LEFT_WALL_NUM = 257;
 const int OBSTACLE_NUM = 24;
-const int GOAL_CUBE_NUM = 10;
+const int GOAL_CUBE_NUM = 15;
 
 //rotationのx,zは1.4ｆまで
 Plane cube[CUBE_NUM];				//床
@@ -8362,7 +8362,8 @@ void StageDraw() {
 
 	//ゴールキューブの描画
 	for (int i = 0; i < GOAL_CUBE_NUM; i++) {
-		goalCube[i].Draw(TEXTURE_INDEX_RED_FLOOR);
+		
+			goalCube[i].Draw(TEXTURE_INDEX_RED_FLOOR);
 	}
 
 	//ゴール_テェック床の描画
@@ -8377,7 +8378,15 @@ void StageDraw() {
 	}
 
 	for (int i = 0; i < ACCEL_SPEED_NUM; i++) {
-		accelSpeed[i].Draw();
+		distance = leftWall[i].position - GetPlayerPos();//ソリとオブジェクトとの距離を計算
+		const bool isCollisoinRangeX = distance.x > -DRAW_RANGE && distance.x < DRAW_RANGE;
+		const bool isCollisoinRangeY = distance.y > -DRAW_RANGE && distance.y < DRAW_RANGE;
+		const bool isCollisoinRangeZ = distance.z > -DRAW_RANGE && distance.z < DRAW_RANGE;
+
+		//一定範囲内にCubeが存在する描画する
+		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
+			accelSpeed[i].Draw();
+		}
 	}
 
 
