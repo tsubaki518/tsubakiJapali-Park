@@ -8,6 +8,7 @@ void Character::Init(){
 }
 void Elephant::Init() {
 	inputRotZ = 0;
+	inputRotX = 0;
 }
 void Bear::Init() {
 	model.Init("asset/model/Bear/bear.x", "asset/model/Bear/bearuv2.jpg");
@@ -15,10 +16,11 @@ void Bear::Init() {
 	scale.y = 35;
 	scale.z = 30;
 	inputRotZ = 0;
+	inputRotX = 0;
 }
 void Dog::Init() {
 	inputRotZ = 0;
-
+	inputRotX = 0;
 }
 void Rabbit::Init() {
 	model.Init("asset/model/Rabbit/usagi.x", "asset/model/Rabbit/texture2.jpg");
@@ -26,6 +28,7 @@ void Rabbit::Init() {
 	scale.y = 15;
 	scale.z = 15;
 	inputRotZ = 0;
+	inputRotX = 0;
 }
 void Hamster::Init() {
 	model.Init("asset/model/ham/Hamster.x", "asset/model/ham/ham1.jpg");
@@ -33,6 +36,7 @@ void Hamster::Init() {
 	scale.y = 42;
 	scale.z = 42;
 	inputRotZ = 0;
+	inputRotX = 0;
 }
 
 
@@ -65,7 +69,7 @@ void Bear::Draw() {
 
 
 	//回転行列を作成＆ワールド行列へ合成
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y + 3.1415f, rotation.x - 0.1f, rotation.z);
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y + 3.1415f, rotation.x - 0.1f+ inputRotX , rotation.z);
 	D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxRot);
 
 
@@ -104,7 +108,7 @@ void Rabbit::Draw() {
 
 
 	//回転行列を作成＆ワールド行列へ合成
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y + 3.1415f, rotation.x - 0.1f, rotation.z);
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y + 3.1415f, rotation.x - 0.1f+ inputRotX , rotation.z);
 	D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxRot);
 
 
@@ -143,7 +147,7 @@ void Hamster::Draw() {
 	//D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxTrs);
 
 	//回転行列を作成＆ワールド行列へ合成
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y + 3.1415f, rotation.x - 0.1f, rotation.z);
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, rotation.y + 3.1415f, rotation.x - 0.1f + inputRotX, rotation.z);
 	D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxRot);
 
 

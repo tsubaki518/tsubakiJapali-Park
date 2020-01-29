@@ -272,11 +272,19 @@ void Sori::Move() {
 				if (speed < maxSpeed) {
 					speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
 				}
+				//移動方向にキャラクターが傾く
+				if (character[0]->inputRotX >= -0.4f) {
+					character[0]->inputRotX -= CHARACTER_ROTATION_SPEED/2;
+				}
 			}
 			else if (Keyboard_IsPress(DIK_S) && isSpin == false ) {
 				//後ろに移動できないようにする
 				if (speed >= 0.001f) {
 					speed -= (character[0]->moveAccel + character[1]->moveAccel) / 4;
+				}
+				//移動方向にキャラクターが傾く
+				if (character[0]->inputRotX <= 0.4f) {
+					character[0]->inputRotX += CHARACTER_ROTATION_SPEED/2;
 				}
 			}
 
@@ -316,12 +324,20 @@ void Sori::Move() {
 				if (speed < maxSpeed) {
 					speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
 				}
+				//移動方向にキャラクターが傾く
+				if (character[1]->inputRotX >= -0.4f) {
+					character[1]->inputRotX -= CHARACTER_ROTATION_SPEED/2;
+				}
 
 			}
 			else if (Keyboard_IsPress(DIK_DOWN) && isSpin == false) {
 				//後ろに移動できないようにする
 				if (speed >= 0.001f) {
 					speed -= (character[0]->moveAccel + character[1]->moveAccel) / 4;
+				}
+				//移動方向にキャラクターが傾く
+				if (character[1]->inputRotX <= 0.4f) {
+					character[1]->inputRotX += CHARACTER_ROTATION_SPEED/2;
 				}
 			}
 			if (Keyboard_IsPress(DIK_RIGHT) && canMoveRight || boardRight2P && canMoveRight) {
@@ -362,6 +378,13 @@ void Sori::Move() {
 		} else if (character[i]->inputRotZ < -0.05f) {
 			character[i]->inputRotZ += CHARACTER_ROTATION_SPEED/2;
 		}
+
+		if (character[i]->inputRotX > 0.03f) {
+			character[i]->inputRotX -= CHARACTER_ROTATION_SPEED / 4;
+
+		} else if (character[i]->inputRotX < -0.03f) {
+			character[i]->inputRotX += CHARACTER_ROTATION_SPEED / 4;
+		}
 	}
 }
 void Sori::Friction() {
@@ -388,7 +411,7 @@ void Sori::SlideDown() {
 
 	if (rotation.z == 0) {
 		slidSpeed = slidCount;
-	
+
 	}
 	if (slidCount > 0 && GetRight().y == 0 && -GetRight().y==0) {
 		slidCount -= 0.0004f;

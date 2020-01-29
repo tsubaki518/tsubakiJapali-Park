@@ -19,6 +19,7 @@ public:
 	D3DXVECTOR3 position;
 	D3DXVECTOR3 scale;
 	float inputRotZ = 0;
+	float inputRotX = 0;
 	float maxSpeed = 0.0f;		//最大速度
 	float moveAccel = 0.0f;		//加速性能
 	float handling = 0.0f;		//ハンドリング性能
