@@ -20,21 +20,24 @@ static int cnt = sizeof(Score) / sizeof(SCORE);
 
 static bool SR;
 static float posadd_y;
+static int rankanime_x = 0;
+static int rankanime_y = 0;
+static int add;
 
 void RankingInit() {
 	//デバッグ用ランキング初期化
-	//Score[0].Scoretime = 0.00f;
+	Score[0].Scoretime = 0.00f;
 
 	if (Score[0].Scoretime == 0.00f) {
 		for (int i = 0; i < 21; i++) {
 			Score[i].Scoretime = 599.00f;
 			Score[i].Scorerating = 9999.00f;
-			Score[i].Player1 = 1;
-			Score[i].Player2 = 1;
+			Score[i].Player1 = 3;
+			Score[i].Player2 = 2;
 		}
 	}
 
-	posadd_y = 0;
+	posadd_y = SCREEN_HEIGHT * 2.2 * -1;
 	//WriteSave();
 
 	//リザルト→ランキング
@@ -85,6 +88,8 @@ void RankingInit() {
 
 }
 void RankingUpdate() {
+	add += 1;
+
 	if (Keyboard_IsTrigger(DIK_RETURN)) {
 		SetScene(TITLE);
 	}
@@ -94,6 +99,25 @@ void RankingUpdate() {
 	}
 	if (Keyboard_IsPress(DIK_DOWN)) {
 		posadd_y += SCREEN_HEIGHT * 0.01;
+	}
+	if (posadd_y > SCREEN_HEIGHT * 0.21) {
+		posadd_y = SCREEN_HEIGHT * 0.21;
+	}
+	if(posadd_y < SCREEN_HEIGHT * 2.2 * -1){
+		posadd_y = SCREEN_HEIGHT * 2.2 * -1;
+	}
+
+	if (add >= 5) {
+		rankanime_x += 1;
+		add = 0;
+	}
+	
+	if (rankanime_x >= 9) {
+		rankanime_x = 0;
+		rankanime_y += 1;
+	}
+	if (rankanime_y >= 2) {
+		rankanime_y = 0;
 	}
 
 	//LoadSave();
@@ -128,50 +152,52 @@ void RankingDraw() {
 
 		//1Pの体重によって表示するキャラクターを変える
 		if (Score[i].Player1 == 1) {
-			Sprite_Draw(TEXTURE_INDEX_ICON_BEAR, SCREEN_WIDTH * 0.20, SCREEN_HEIGHT * 3 / 19 * i + posadd_y, 0, 0, 150, 150);
+			Sprite_Draw(TEXTURE_INDEX_ICON_BEAR, SCREEN_WIDTH * 0.25, i*SCREEN_HEIGHT * 3 / 19 + posadd_y, 0, 0, 150, 150);
 		}
 		else if (Score[i].Player1 == 2) {
-			Sprite_Draw(TEXTURE_INDEX_ICON_DOG, SCREEN_WIDTH * 0.20, SCREEN_HEIGHT * 3 / 19 * i + posadd_y, 0, 0, 150, 150);
+			Sprite_Draw(TEXTURE_INDEX_ICON_DOG, SCREEN_WIDTH * 0.25, i*SCREEN_HEIGHT * 3 / 19 + posadd_y, 0, 0, 150, 150);
 		}
 		else if (Score[i].Player1 == 3) {
-			Sprite_Draw(TEXTURE_INDEX_ICON_RABBIT, SCREEN_WIDTH * 0.20, SCREEN_HEIGHT * 3 / 19 * i + posadd_y, 0, 0, 150, 150);
+			Sprite_Draw(TEXTURE_INDEX_ICON_RABBIT, SCREEN_WIDTH * 0.25, i*SCREEN_HEIGHT * 3 / 19 - SCREEN_HEIGHT * 0.01 + posadd_y, 0, 0, 150, 150);
 		}
 		else if (Score[i].Player1 == 4) {
-			Sprite_Draw(TEXTURE_INDEX_ICON_HAMSTER, SCREEN_WIDTH * 0.20, SCREEN_HEIGHT * 3 / 19 * i + posadd_y, 0, 0, 150, 150);
+			Sprite_Draw(TEXTURE_INDEX_ICON_HAMSTER, SCREEN_WIDTH * 0.25, i*SCREEN_HEIGHT * 3 / 19 + posadd_y, 0, 0, 150, 150);
 		}
 
 		//2Pの体重によって表示するキャラクターを変える
 		if (Score[i].Player2 == 1) {
-			Sprite_Draw(TEXTURE_INDEX_ICON_BEAR, SCREEN_WIDTH * 0.30, SCREEN_HEIGHT * 3 / 19 * i + posadd_y, 0, 0, 150, 150);
+			Sprite_Draw(TEXTURE_INDEX_ICON_BEAR, SCREEN_WIDTH * 0.35, i*SCREEN_HEIGHT * 3 / 19.1 + posadd_y, 0, 0, 150, 150);
 		}
 		else if (Score[i].Player2 == 2) {
-			Sprite_Draw(TEXTURE_INDEX_ICON_DOG, SCREEN_WIDTH * 0.30, SCREEN_HEIGHT * 3 / 19 * i + posadd_y, 0, 0, 150, 150);
+			Sprite_Draw(TEXTURE_INDEX_ICON_DOG, SCREEN_WIDTH * 0.35, i*SCREEN_HEIGHT * 3 / 19.1 + posadd_y, 0, 0, 150, 150);
 		}
 		else if (Score[i].Player2 == 3) {
-			Sprite_Draw(TEXTURE_INDEX_ICON_RABBIT, SCREEN_WIDTH * 0.30, SCREEN_HEIGHT * 3 / 19 * i + posadd_y, 0, 0, 150, 150);
+			Sprite_Draw(TEXTURE_INDEX_ICON_RABBIT, SCREEN_WIDTH * 0.35, i*SCREEN_HEIGHT * 3 / 19.1 - SCREEN_HEIGHT * 0.01 + posadd_y, 0, 0, 150, 150);
 		}
 		else if (Score[i].Player2 == 4) {
-			Sprite_Draw(TEXTURE_INDEX_ICON_HAMSTER, SCREEN_WIDTH * 0.30, SCREEN_HEIGHT * 3 / 19 * i + posadd_y, 0, 0, 150, 150);
+			Sprite_Draw(TEXTURE_INDEX_ICON_HAMSTER, SCREEN_WIDTH * 0.35, i*SCREEN_HEIGHT * 3 / 19.1 + posadd_y, 0, 0, 150, 150);
 		}
 	}
 
 	//順位表示
-	Sprite_Draw(TEXTURE_INDEX_RANKING_GOLD, SCREEN_WIDTH*0.09, posadd_y, 0, 0, SCREEN_HEIGHT * 3 / 20, SCREEN_HEIGHT * 3 / 20);
-	Sprite_Draw(TEXTURE_INDEX_RANKING_SILVER, SCREEN_WIDTH*0.09, SCREEN_HEIGHT * 3 / 19 + posadd_y, 0, 0, SCREEN_HEIGHT * 3 / 20, SCREEN_HEIGHT * 3 / 20);
-	Sprite_Draw(TEXTURE_INDEX_RANKING_COPPER, SCREEN_WIDTH*0.09, SCREEN_HEIGHT * 3 / 19 * 2 + posadd_y, 0, 0, SCREEN_HEIGHT * 3 / 20, SCREEN_HEIGHT * 3 / 20);
+	Sprite_Draw(TEXTURE_INDEX_RANKING_GOLD, SCREEN_WIDTH*0.15, posadd_y, 0, 0, SCREEN_HEIGHT * 3 / 20, SCREEN_HEIGHT * 3 / 20);
+	Sprite_Draw(TEXTURE_INDEX_RANKING_SILVER, SCREEN_WIDTH*0.15, SCREEN_HEIGHT * 3 / 19 + posadd_y, 0, 0, SCREEN_HEIGHT * 3 / 20, SCREEN_HEIGHT * 3 / 20);
+	Sprite_Draw(TEXTURE_INDEX_RANKING_COPPER, SCREEN_WIDTH*0.15, SCREEN_HEIGHT * 3 / 19 * 2 + posadd_y, 0, 0, SCREEN_HEIGHT * 3 / 20, SCREEN_HEIGHT * 3 / 20);
 	for (int j = 0; j < 17; j++) {
 		Sprite_SetColor(D3DCOLOR_RGBA(255, 0, 255, 255));
 		if (j < 6) {
-			ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2 / 100 * 9.7, (SCREEN_HEIGHT * 2 * 15.8 / 100)*(j + 3) + SCREEN_HEIGHT * 2 / 100 * 4.0 + posadd_y * 2), D3DXVECTOR2(0.5f, 0.5f), j + 4);
+			ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2 / 100 * 17.7, (SCREEN_HEIGHT * 2 * 15.8 / 100)*(j + 3) + SCREEN_HEIGHT * 2 / 100 * 4.0 + posadd_y * 2), D3DXVECTOR2(0.5f, 0.5f), j + 4);
 		}
 		else {
-			ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2 / 100 * 14.7, (SCREEN_HEIGHT * 2 * 15.8 / 100)*(j + 3) + SCREEN_HEIGHT * 2 / 100 * 4.0 + posadd_y * 2), D3DXVECTOR2(0.5f, 0.5f), j + 4);
+			ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2 / 100 * 18.7, (SCREEN_HEIGHT * 2 * 15.8 / 100)*(j + 3) + SCREEN_HEIGHT * 2 / 100 * 4.0 + posadd_y * 2), D3DXVECTOR2(0.5f, 0.5f), j + 4);
 		}
 		Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
 	}
+	Sprite_Draw(TEXTURE_INDEX_RANKING2, 0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	Sprite_Draw(TEXTURE_INDEX_RANKING_ANIME, SCREEN_WIDTH*0.1, SCREEN_HEIGHT * 2 * 0.8 / 3, 0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT / 1.5);
-	
+	//左下アニメ
+	Sprite_Draw(TEXTURE_INDEX_RANKING_ANIME, SCREEN_WIDTH*0.01, SCREEN_HEIGHT * 0.8, SCREEN_WIDTH / 10 * rankanime_x, SCREEN_HEIGHT / 4.5 * rankanime_y, SCREEN_WIDTH / 10, SCREEN_HEIGHT / 4.5, 1, 1);
+
 }
 void RankingUnInit() {
 
