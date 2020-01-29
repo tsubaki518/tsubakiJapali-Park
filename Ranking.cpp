@@ -263,7 +263,7 @@ void RankingDraw() {
 	Sprite_Draw(TEXTURE_INDEX_RANKING_SILVER, SCREEN_WIDTH*0.15, SCREEN_HEIGHT * 3 / 19 + posadd_y, 0, 0, SCREEN_HEIGHT * 3 / 20, SCREEN_HEIGHT * 3 / 20);
 	Sprite_Draw(TEXTURE_INDEX_RANKING_COPPER, SCREEN_WIDTH*0.15, SCREEN_HEIGHT * 3 / 19 * 2 + posadd_y, 0, 0, SCREEN_HEIGHT * 3 / 20, SCREEN_HEIGHT * 3 / 20);
 	for (int j = 0; j < 17; j++) {
-		Sprite_SetColor(D3DCOLOR_RGBA(255, 0, 255, 255));
+		Sprite_SetColor(D3DCOLOR_RGBA(181, 151, 31, 255));
 		if (j < 6) {
 			ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2 / 100 * 17.7, (SCREEN_HEIGHT * 2 * 15.8 / 100)*(j + 3) + SCREEN_HEIGHT * 2 / 100 * 4.0 + posadd_y * 2), D3DXVECTOR2(0.5f, 0.5f), j + 4);
 		}
