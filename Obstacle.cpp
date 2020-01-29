@@ -5,7 +5,7 @@
 #include"NPC.h"
 
 void Obstacle::Init() {
-	collider.size= D3DXVECTOR3(1.5f, 3.0f, 1.8f);
+	collider.size= D3DXVECTOR3(1.2f, 3.0f, 1.2f);
 	frameCount = 0;
 	isBrokenPlayer = false;
 	isBrokenNPC = false;

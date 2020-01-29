@@ -4,7 +4,6 @@
 #include"Obstacle.h"
 #include<stdlib.h>
 #include<time.h>
-
 struct Transform{
 	D3DXVECTOR3 position;
 	D3DXVECTOR3 rotation;
@@ -21,10 +20,10 @@ const int GOAL_CUBE_NUM = 10;
 
 //rotationのx,zは1.4ｆまで
 Plane cube[CUBE_NUM];				//床
-Cube accelSpeed[ACCEL_SPEED_NUM];	//加速床
+SpeedAccel accelSpeed[ACCEL_SPEED_NUM];	//加速床
 Cube rightWall[RIGHT_WALL_NUM];		//右側の壁
 Cube leftWall[LEFT_WALL_NUM];		//左側の壁
-Plane goalCube[GOAL_CUBE_NUM];						//ゴール_床
+Plane goalCube[GOAL_CUBE_NUM];		//ゴール_床
 Obstacle obstacle[OBSTACLE_NUM];
 
 
@@ -8302,9 +8301,9 @@ void StageInit() {			//座標とサイズと角度を入れる
 
 	//ランダムで決定した情報を入れる
 	for (int i = 0; i < ACCEL_SPEED_NUM; i++) {
+		accelSpeed[i].Init();
 		accelSpeed[i].position = accelSpeedPattern[pattern[i]].position;
 		accelSpeed[i].rotation = accelSpeedPattern[pattern[i]].rotation;
-		accelSpeed[i].scale = accelSpeedPattern[pattern[i]].scale;
 	}
 
 
@@ -8378,7 +8377,7 @@ void StageDraw() {
 	}
 
 	for (int i = 0; i < ACCEL_SPEED_NUM; i++) {
-		accelSpeed[i].Draw(TEXTURE_INDEX_MAX, D3DXCOLOR(1, 0, 0, 1));
+		accelSpeed[i].Draw();
 	}
 
 
@@ -8387,12 +8386,15 @@ void StageUnInit() {
 	for (int i = 0; i < OBSTACLE_NUM; i++) {
 		obstacle[i].UnInit();
 	}
+	for (int i = 0; i < ACCEL_SPEED_NUM; i++) {
+		accelSpeed[i].UnInit();
+	}
 }
 
 Plane GetCube(int n) {
 	return cube[n];
 }
-Cube GetAccelSpeedCube(int n) {
+SpeedAccel GetAccelSpeedCube(int n) {
 	return accelSpeed[n];
 }
 Cube GetRightWall(int n) {
