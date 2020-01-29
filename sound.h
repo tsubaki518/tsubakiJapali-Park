@@ -18,6 +18,8 @@ typedef enum
 	SOUND_LABEL_SE_SPEED_ACCEL,		//加速音
 	SOUND_LABEL_SE_START_COUNT_DOWN,//スタートのカウントダウン
 	SOUND_LABEL_BUZZER,				//ゴール音
+	SOUND_LABEL_BGM_GAME,			//ゲーム画面のBGM
+	SOUND_LABEL_BGM_GOALandRESULT,	//ゲームシーンのゴールからリザルトのBGM
 	SOUND_LABEL_MAX,
 } SOUND_LABEL;
 

@@ -68,6 +68,7 @@ void GameInit() {
 	camera.Init(sori);
 
 	TimerInit();
+	PlaySound(SOUND_LABEL_BGM_GAME);
 
 }
 
@@ -116,7 +117,6 @@ void GameDraw() {
 
 //èIóπèàóù
 void GameUnInit() {
-	StopSound();
 	sori.UnInit();
 	npc.UnInit();
 	for (int i=0; i < 2; i++) {
@@ -390,7 +390,10 @@ void UIDraw() {
 	if (sori.isGoalGround == true) {
 		isChangeScene = goalAnimation.Draw();
 		if (isGoalGroundSoundOnece == false) {
+			StopSound();
 			PlaySound(SOUND_LABEL_BUZZER);
+			PlaySound(SOUND_LABEL_BGM_GOALandRESULT);
+
 			isGoalGroundSoundOnece = true;
 		}
 	}

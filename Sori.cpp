@@ -5,6 +5,7 @@
 #include"NPC.h"
 #include"sound.h"
 #include"BalanceBoardInput.h"
+#include<math.h>
 
 #define CHARACTER_ROTATION_SPEED 0.1f
 #define SPIN_NUM 4
@@ -12,7 +13,7 @@
 #define ACCEL_FLOOR_ACCEL_SPEED 0.3f
 #define CENTRIFUGAL_FORCE 0.035f //âìêSóÕ
 #define YOKONOSYAMENNNINOTTAATOKASOKUSURUYATU 0.3f //â°ÇÃéŒñ Ç…èÊÇ¡ÇΩå„â¡ë¨Ç∑ÇÈÇ‚Ç¬
-
+#define BPARD_VALUE_BOARDER 4
 
 Sori::Sori() {
 
@@ -144,6 +145,26 @@ void Sori::Draw() {
 		shaveIce[0].Draw();
 		shaveIce[1].Draw();
 	}
+	int BOARD_VALUE1 = BalanceBoard_GetValue(BALANCEBOARD_1P, 4) / BPARD_VALUE_BOARDER;
+	int BOARD_VALUE2= BalanceBoard_GetValue(BALANCEBOARD_2P, 4) / BPARD_VALUE_BOARDER;
+	if (fabsf((int)BOARD_VALUE1) < 50) {
+		BOARD_VALUE1 = 50;
+	}
+	if (fabsf((int)BOARD_VALUE2) < 50) {
+		BOARD_VALUE2 = 50;
+	}
+
+	/*DebugFont_Draw(0,0,"1P::RF:%d, LR: %d, RB:%d, LB:%d, äÓèÄíl:%d", BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RF),
+		BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_LF),
+		BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RB),
+		BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_LB),
+		BOARD_VALUE1);
+
+	DebugFont_Draw(0, 30, "2P::RF:%d, LR: %d, RB:%d, LB:%d, äÓèÄíl:%d", BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_RF),
+		BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_LF),
+		BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_RB),
+		BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_LB),
+		BOARD_VALUE2);*/
 }
 void Sori::UnInit() {
 	for (int i = 0; i < 2; i++) {
@@ -235,21 +256,29 @@ bool Sori::CollisionBack(NPC c) {
 }
 
 
-void Sori::Move() {
+void Sori::Move() { 
+	int BOARD_VALUE1 = BalanceBoard_GetValue(BALANCEBOARD_1P, 4) / BPARD_VALUE_BOARDER;
+	int BOARD_VALUE2 = BalanceBoard_GetValue(BALANCEBOARD_2P, 4) / BPARD_VALUE_BOARDER;
+	if (fabsf((int)BOARD_VALUE1) < 50) {
+		BOARD_VALUE1 = 50;
+	}
+	if (fabsf((int)BOARD_VALUE2) < 50) {
+		BOARD_VALUE2 = 50;
+	}
 	bool canMoveRight = isHitRightWall == false && isBoundRight == false && isBoundLeft == false && isSpin==false;
 	bool canMoveLeft = isHitLeftWall == false && isBoundRight == false && isBoundLeft == false && isSpin == false;
-	bool boardForward1P = BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RF) &&  isSpin == false || BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LF) && isSpin == false;
-	bool boardForward2P = BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RF) && isSpin == false || BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LF) && isSpin == false;
+	bool boardForward1P = BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RF)> BOARD_VALUE1 &&  isSpin == false || BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_LF)> BOARD_VALUE1 && isSpin == false;
+	bool boardForward2P = BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_RF)> BOARD_VALUE2 && isSpin == false || BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_LF)> BOARD_VALUE2 && isSpin == false;
 
-	bool boardRight1P = BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LB) ||
-						BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RB) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LB);
-	bool boardRight2P = BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LB) ||
-						BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RB) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LB);
+	bool boardRight1P = BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RF) > BOARD_VALUE1 && !(BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_LF) > BOARD_VALUE1) && !(BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_LB) > BOARD_VALUE1) ||
+						BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RB) > BOARD_VALUE1 && !(BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_LF) > BOARD_VALUE1) && !(BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_LB) > BOARD_VALUE1);
+	bool boardRight2P = BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_RF) > BOARD_VALUE2 && !(BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_LF) > BOARD_VALUE2) && !(BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_LB) > BOARD_VALUE2) ||
+						BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_RB) > BOARD_VALUE2 && !(BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_LF) > BOARD_VALUE2) && !(BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_LB) > BOARD_VALUE2);
 
-	bool boardLeft1P = BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RB) ||
-					   BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LB) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RB);
-	bool boardLeft2P = BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RB) ||
-					   BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LB) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RB);
+	bool boardLeft1P = BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_LF) > BOARD_VALUE1 && !(BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RF) > BOARD_VALUE1) && !(BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RB) > BOARD_VALUE1) ||
+						BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_LB) > BOARD_VALUE1 && !(BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RF) > BOARD_VALUE1) && !(BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RB) > BOARD_VALUE1);
+	bool boardLeft2P = BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_LF) > BOARD_VALUE2 && !(BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_RF) > BOARD_VALUE2) && !(BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_RB) > BOARD_VALUE2) ||
+						BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_LB) > BOARD_VALUE2 && !(BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_RF) > BOARD_VALUE2) && !(BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_RB) > BOARD_VALUE2);
 
 	//ê≥ñ Ç…à⁄ìÆ
 	position += GetForward() * (speed/2+speedAccel+ slidSpeed)+ (centrifugalDirection*speed/2);
@@ -463,23 +492,39 @@ void Sori::Bound() {
 	}
 }
 void Sori::Spin() {
-	bool boardRight1P = BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LB) ||
-		BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RB) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LB);
-	bool boardRight2P = BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LB) ||
-		BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RB) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LB);
+	int BOARD_VALUE1 = BalanceBoard_GetValue(BALANCEBOARD_1P, 4) / BPARD_VALUE_BOARDER;
+	int BOARD_VALUE2 = BalanceBoard_GetValue(BALANCEBOARD_2P, 4) / BPARD_VALUE_BOARDER;
+	if (fabsf((int)BOARD_VALUE1) < 50) {
+		BOARD_VALUE1 = 50;
+	}
+	if (fabsf((int)BOARD_VALUE2) < 50) {
+		BOARD_VALUE2 = 50;
+	}
 
-	bool boardLeft1P = BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RB) ||
-		BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_LB) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_1P, BALANCEBOARD_RB);
-	bool boardLeft2P = BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RB) ||
-		BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_LB) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RF) && !BalanceBoard_isPress(BALANCEBOARD_2P, BALANCEBOARD_RB);
+	bool canMoveRight = isHitRightWall == false && isBoundRight == false && isBoundLeft == false && isSpin == false;
+	bool canMoveLeft = isHitLeftWall == false && isBoundRight == false && isBoundLeft == false && isSpin == false;
+
+	bool boardRight1P = BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RF) > BOARD_VALUE1 && !(BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_LF) > BOARD_VALUE1) && !(BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_LB) > BOARD_VALUE1) ||
+		BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RB) > BOARD_VALUE1 && !(BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_LF) > BOARD_VALUE1) && !(BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_LB) > BOARD_VALUE1);
+	bool boardRight2P = BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_RF) > BOARD_VALUE2 && !(BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_LF) > BOARD_VALUE2) && !(BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_LB) > BOARD_VALUE2) ||
+		BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_RB) > BOARD_VALUE2 && !(BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_LF) > BOARD_VALUE2) && !(BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_LB) > BOARD_VALUE2);
+
+	bool boardLeft1P = BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_LF) > BOARD_VALUE1 && !(BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RF) > BOARD_VALUE1) && !(BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RB) > BOARD_VALUE1) ||
+		BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_LB) > BOARD_VALUE1 && !(BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RF) > BOARD_VALUE1) && !(BalanceBoard_GetValue(BALANCEBOARD_1P, BALANCEBOARD_RB) > BOARD_VALUE1);
+	bool boardLeft2P = BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_LF) > BOARD_VALUE2 && !(BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_RF) > BOARD_VALUE2) && !(BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_RB) > BOARD_VALUE2) ||
+		BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_LB) > BOARD_VALUE2 && !(BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_RF) > BOARD_VALUE2) && !(BalanceBoard_GetValue(BALANCEBOARD_2P, BALANCEBOARD_RB) > BOARD_VALUE2);
+
 
 	if (isGoalGround == false) {
 		if (Keyboard_IsPress(DIK_A) && Keyboard_IsPress(DIK_RIGHT) ||
 			Keyboard_IsPress(DIK_D) && Keyboard_IsPress(DIK_LEFT) ||
-			boardLeft1P&& boardRight2P||
+			boardLeft1P && boardRight2P ||
 			boardRight1P && boardLeft2P) {
 			isSpin = true;
 			beforRotation = spinRot;
+		} else {
+			spinCount = 0;
+
 		}
 	}
 	if (isSpin == true) {

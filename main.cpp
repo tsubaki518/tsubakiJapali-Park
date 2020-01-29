@@ -230,7 +230,7 @@ bool Initialize(void)
 
 	//バランスボードの初期化
 	BalanceBoard_Initialize();
-
+	BalanceBoard_Reset();
 	// フレーム固定用計測時間
 	g_StaticFrameTime = SystemTimer_GetTime();
 	srand((unsigned int)time(NULL));
@@ -246,7 +246,7 @@ int count = 0;
 void Update(void){
 	Keyboard_Update();
 	BalanceBoard_Update();
-	if (++count % 60 == 0) {
+	if (++count == 10) {
 		BalanceBoard_Reset();
 	}
 
