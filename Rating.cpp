@@ -43,19 +43,19 @@ void RatingUpdate(Sori sori) {
 	
 		//自機が高スピードを維持し続ける。80%以上の時
 		if (sori.speed >= sori.maxSpeed*0.8) {
-			rating += 5.0f;
+			rating += 15.0f;
 			cnt = 0;
 		}
 		
 		//加点が無い状態が2秒以上継続。
 		if (cnt >= 2.0f) {
-			rating -= 1.0f;
+			rating -= 3.0f;
 			cnt = 0;
 		}
 
 		//自機がスピンをしている。
 		if (sorispin == true) {
-			rating += 6.0f;
+			rating += 18.0f;
 			sorispin = false;
 			cnt = 0;
 		}
@@ -65,7 +65,7 @@ void RatingUpdate(Sori sori) {
 	//その場判定(トリガー)
 	//自機が障害物にぶつかる。
 	if (hitcrimp == true) {
-		rating += 0.5f;
+		rating += 1.5f;
 		hitcrimp = false;
 		cnt = 0;
 	}
@@ -73,13 +73,13 @@ void RatingUpdate(Sori sori) {
 	
 	//自機が他機体にぶつかる。
 	if (sori.isNPCcollision==true) {
-	rating += 0.1f;
+	rating += 0.3f;
 	cnt = 0;
 	}
 
 	//自分の順位が繰り上がる。
 	if (GetPlayer()->isChangeRank==true) {
-	rating += 0.1f;
+	rating += 0.3f;
 	cnt = 0;
 	}
 	
