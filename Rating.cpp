@@ -2,7 +2,7 @@
 #include"debug_font.h"
 #include"ImageNumber.h"
 #include <time.h>
-
+#include"Game.h"
 float rating;
 
 //秒間処理
@@ -40,7 +40,7 @@ void RatingUpdate(Sori sori) {
 	if ((end - start) / (int)CLOCKS_PER_SEC >= 1) {
 		start = clock();//スタートの時間を初期化
 		cnt += 1;
-
+	
 		//自機が高スピードを維持し続ける。80%以上の時
 		if (sori.speed >= sori.maxSpeed*0.8) {
 			rating += 5.0f;
@@ -53,12 +53,6 @@ void RatingUpdate(Sori sori) {
 			cnt = 0;
 		}
 
-		/*
-		//自分の順位が3位以上の間。
-		if () {
-
-		}
-		*/
 		//自機がスピンをしている。
 		if (sorispin == true) {
 			rating += 6.0f;
@@ -76,26 +70,19 @@ void RatingUpdate(Sori sori) {
 		cnt = 0;
 	}
 
-	/*
+	
 	//自機が他機体にぶつかる。
-	if () {
+	if (sori.isNPCcollision==true) {
 	rating += 0.1f;
 	cnt = 0;
 	}
 
-
-	//他のプレイヤーが脱落する。
-	if () {
-	rating += 5.0f;
-	cnt = 0;
-	}
-
 	//自分の順位が繰り上がる。
-	if () {
-	rating += 3.0f;
+	if (GetPlayer()->isChangeRank==true) {
+	rating += 0.1f;
 	cnt = 0;
 	}
-	*/
+	
 
 	//最大
 	if (rating >= 9999.0f) {
