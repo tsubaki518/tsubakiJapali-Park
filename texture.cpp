@@ -72,6 +72,7 @@ static const TextureFile g_TextureFiles[] = {
 {"asset/texture/リザルト用カットイン下.png",SCREEN_WIDTH,SCREEN_HEIGHT},
 {"asset/texture/リザルト用カットイン上.png",SCREEN_WIDTH,SCREEN_HEIGHT},
 {"asset/texture/称号ワク.png",SCREEN_WIDTH,SCREEN_HEIGHT},
+{"asset/texture/ランクイン目標.png",SCREEN_WIDTH/5,SCREEN_HEIGHT/5},
 
 {"asset/texture/DL00002.jpg",100,100},
 
