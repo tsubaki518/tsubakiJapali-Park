@@ -577,7 +577,7 @@ void NPC::SearchDistance() {
 	distance = position - GetPlayerPos();
 	vectorLen = pow(distance.x*distance.x + distance.y*distance.y + distance.z*distance.z, 0.5f);
 
-	if (position.y>GetPlayerPos().y+5&&vectorLen > 15) {
+	if (position.y>GetPlayerPos().y+5&&vectorLen > 15 || position.y<-405.45f) {
 		position = -GetPlayer()->GetForward()*15+GetPlayerPos();
 	}
 }
