@@ -6,6 +6,7 @@
 #include"sound.h"
 #include"BalanceBoardInput.h"
 #include<math.h>
+#include"sprite.h"
 
 #define CHARACTER_ROTATION_SPEED 0.1f
 #define SPIN_NUM 4
@@ -182,6 +183,36 @@ Sori::~Sori() {
 
 }
 
+D3DXVECTOR2 pos = D3DXVECTOR2(0, 0);
+void Sori::DrawCharacterIcon() {
+	 if (weight[0] >= 70)
+	{
+		 Sprite_Draw(TEXTURE_INDEX_ICON_BEAR, SCREEN_WIDTH*0.111979f, SCREEN_HEIGHT*0.693287f,0,0, 150, 150);
+	} else if (weight[0] >= 60 && weight[0] <= 69)
+	{
+		Sprite_Draw(TEXTURE_INDEX_ICON_DOG, SCREEN_WIDTH*0.111979f, SCREEN_HEIGHT*0.693287f, 0, 0, 150, 150);
+	} else if (weight[0] >= 50 && weight[0] <= 59)
+	{
+		Sprite_Draw(TEXTURE_INDEX_ICON_RABBIT, SCREEN_WIDTH*0.111979f, SCREEN_HEIGHT*0.693287f, 0, 0, 150, 150);
+	} else if (weight[0] <= 49)
+	{
+		Sprite_Draw(TEXTURE_INDEX_ICON_HAMSTER, SCREEN_WIDTH*0.111979f, SCREEN_HEIGHT*0.693287f, 0, 0, 150, 150);
+	}
+
+	 if (weight[1] >= 70 )
+	{
+		 Sprite_Draw(TEXTURE_INDEX_ICON_BEAR, SCREEN_WIDTH*0.157552f, SCREEN_HEIGHT*0.756944f, 0, 0, 150, 150);
+	} else if (weight[1] >= 60 && weight[1] <= 69)
+	{
+		Sprite_Draw(TEXTURE_INDEX_ICON_DOG, SCREEN_WIDTH*0.157552f, SCREEN_HEIGHT*0.756944f, 0, 0, 150, 150);
+	} else if (weight[1] >= 50 && weight[1] <= 59)
+	{
+		Sprite_Draw(TEXTURE_INDEX_ICON_RABBIT, SCREEN_WIDTH*0.157552f, SCREEN_HEIGHT*0.756944f, 0, 0, 150, 150);
+	} else if (weight[1] <= 49)
+	{
+		Sprite_Draw(TEXTURE_INDEX_ICON_HAMSTER, SCREEN_WIDTH*0.157552f, SCREEN_HEIGHT*0.756944f, 0, 0, 150, 150);
+	}
+}
 
 bool Sori::CollisionWall(Collider3D c) {
 	BoxCollider2 collider;
@@ -664,13 +695,10 @@ void Sori::ReceiveSpinMove() {
 
 //ifでweightに値の範囲を指定してセットするキャラを決める
 void Sori::SetCharacter(float weight1, float weight2) {
-
+	weight[0] = weight1;
+	weight[1] = weight2;
 	//キャラの選定
-	if (weight1 >= 80)
-	{
-		character[0] = new Elephant();
-
-	} else if (weight1 >= 70 && weight1 <= 79)
+	 if (weight1 >= 70 )
 	{
 		character[0] = new Bear();
 	} else if (weight1 >= 60 && weight1 <= 69)
@@ -685,11 +713,7 @@ void Sori::SetCharacter(float weight1, float weight2) {
 	}
 
 
-	if (weight2 >= 80)
-	{
-		character[1] = new Elephant();
-
-	} else if (weight2 >= 70 && weight2 <= 79)
+	if (weight2 >= 70)
 	{
 		character[1] = new Bear();
 	} else if (weight2 >= 60 && weight2 <= 69)

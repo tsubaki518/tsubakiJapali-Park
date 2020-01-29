@@ -11,6 +11,7 @@ private:
 	bool isBoundRight = false;  //右に跳ね返る判定
 	bool isBoundLeft = false;   //左に跳ね返る判定
 	int boundCount = 0;
+	int weight[2];//体重
 
 	//氷が削れるパーティクル
 	ShaveIce shaveIce[2];
@@ -79,6 +80,8 @@ public:
 	void Draw();
 	void UnInit();
 	~Sori();
+
+	void DrawCharacterIcon();
 
 	//当たり判定
 	bool CollisionWall(Collider3D c);
