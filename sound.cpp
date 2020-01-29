@@ -37,7 +37,7 @@ DWORD g_aSizeAudio[SOUND_LABEL_MAX] = {};					// オーディオデータサイズ
 // 各音素材のパラメータ
 //-1がループ、0が一回のみ
 SOUNDPARAM g_aParam[SOUND_LABEL_MAX] ={
-	{"asset/sound/se/move.wav", 0},  
+	{"asset/sound/se/move.wav", -1},  
 	{"asset/sound/se/corsorSelect.wav", 0},
 	{"asset/sound/se/speedAccel.wav", 0},
 	{"asset/sound/se/StartCountDown.wav", 0},

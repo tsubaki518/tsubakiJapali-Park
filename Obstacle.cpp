@@ -97,7 +97,7 @@ void Obstacle::ModelDraw() {
 	D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxRot);
 
 	//ïΩçsçsóÒ
-	D3DXMatrixTranslation(&mtxTrs, position.x, position.y-1, position.z);
+	D3DXMatrixTranslation(&mtxTrs, position.x, position.y-1.3f, position.z);
 	D3DXMatrixMultiply(&g_mtxWorld, &g_mtxWorld, &mtxTrs);
 
 

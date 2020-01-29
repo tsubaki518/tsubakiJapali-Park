@@ -29,6 +29,7 @@ private:
 	//引数に体重を入れてキャラクターをセットする
 	void SetCharacter(float weight1, float weight2);
 public:
+	bool isMoveSound=false;
 	D3DXVECTOR3 rotation;
 	D3DXVECTOR3 position;
 	D3DXVECTOR3 scale = { 50,50,50 };

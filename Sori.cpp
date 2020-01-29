@@ -53,6 +53,7 @@ void Sori::Init(float weight1, float weight2) {
 	speed = 0;
 
 	isWallSpeedAccel = false;
+	isMoveSound = false;
 }
 void Sori::Update() {
 	//“–‚½‚è”»’è‚Ìî•ñ‚ð“ü‚ê‚é
@@ -85,6 +86,12 @@ void Sori::Update() {
 	//“G‚ÌƒXƒsƒ“‚ª“–‚½‚Á‚½Žž‚Á”ò‚Ô
 	ReceiveSpinMove();
 
+	if (isMoveSound == false) {
+		if ((speed + speedAccel + slidSpeed) >0.01f) {
+			PlaySound(SOUND_LABEL_SE_MOVE);
+			isMoveSound = true;
+		}
+	}
 
 	shaveIce[0].Update(GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed*50);
 	shaveIce[1].Update(-GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 50 ,-1);
