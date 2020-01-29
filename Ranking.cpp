@@ -36,7 +36,7 @@ static bool isChangeAl;//アルファ値変化
 
 void RankingInit() {
 	//デバッグ用ランキング初期化
-	//Score[0].Scoretime = 0.00f;
+	Score[0].Scoretime = 0.00f;
 
 	if (Score[0].Scoretime == 0.00f) {
 		for (int i = 0; i < 21; i++) {
@@ -135,9 +135,6 @@ void RankingUpdate() {
 	if (Keyboard_IsTrigger(DIK_RETURN)) {
 		SetScene(TITLE);
 	}
-
-
-
 
 	//ドット絵アニメーション
 	if (add >= 5) {

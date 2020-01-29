@@ -22,6 +22,8 @@ static float score4;//ランキングタイム30位
 static float ResultposX1;//カットイン(上)の移動
 static float ResultposX2;//カットイン(下)の移動
 
+static int addAl;
+
 SettingPlayer SP;
 static D3DXVECTOR3 rotation;
 
@@ -43,6 +45,7 @@ void ResultInit() {
 
 	//ランクイン判定初期化
 	isRankin = false;
+	addAl = 0;
 
 	//ランクインカットイン初期位置
 	ResultposX1 = SCREEN_WIDTH * 3 * -1;
@@ -98,13 +101,16 @@ void ResultUpdate() {
 		isRankin = true;
 	}
 	else {
-		if (Keyboard_IsPress(DIK_RETURN)) {
-			SetScene(TITLE);
+		addAl += 1;
+		if (addAl >= 255) {
+			addAl = 255;
+		}
+		if (addAl >= 255) {
+			if (Keyboard_IsPress(DIK_RETURN)) {
+				SetScene(TITLE);
+			}
 		}
 	}
-
-
-
 
 }
 
@@ -189,6 +195,23 @@ void ResultDraw() {
 	}
 	else if (SP.weight[1] == 45) {
 		Sprite_Draw(TEXTURE_INDEX_ICON_HAMSTER, SCREEN_WIDTH / 5 * 2.8, SCREEN_HEIGHT / 3 * 1.35, 0, 0, 150, 150);
+	}
+
+	if (isRankin == false) {
+		Sprite_Draw2(TEXTURE_INDEX_RESULT_NORANKIN, SCREEN_WIDTH*0.8, SCREEN_HEIGHT*0.2, 0, 0, SCREEN_WIDTH / 5, SCREEN_HEIGHT / 5, addAl);
+		if (addAl >= 255) {
+			Sprite_SetColor(D3DCOLOR_RGBA(0, 0, 0, 255));
+			ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 5 / 100 * 85, SCREEN_HEIGHT*2.5 / 50 * 29), D3DXVECTOR2(0.2f, 0.2f), score4 / 60);
+			if ((int)score4 % 60 < 10) {
+				ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 5 / 100 * 87.5, SCREEN_HEIGHT*2.5 / 50 * 29), D3DXVECTOR2(0.2f, 0.2f), 0);
+			}
+			ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 5 / 100 * 90.5, SCREEN_HEIGHT*2.5 / 50 * 29), D3DXVECTOR2(0.2f, 0.2f), (int)score4 % 60);
+			if ((int)score4 % 100 < 10) {
+				ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 5 / 100 * 93, SCREEN_HEIGHT*2.5 / 50 * 29), D3DXVECTOR2(0.2f, 0.2f), 0);
+			}
+			ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 5 / 100 * 95, SCREEN_HEIGHT*2.5 / 50 * 29), D3DXVECTOR2(0.2f, 0.2f), (int)score4 % 100);
+			Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
+		}
 	}
 }
 
