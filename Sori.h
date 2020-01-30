@@ -87,7 +87,7 @@ public:
 	bool CollisionWall(Collider3D c);
 	bool Collision(Collider3D c);
 	bool CollisionGoal(Collider3D c);
-	void AccelFloorCollision(Collider3D c);
+	bool AccelFloorCollision(Collider3D c);
 
 	//NPC‚Æ‚Ì“–‚½‚è”»’è
 	bool CollisionRight(NPC c);

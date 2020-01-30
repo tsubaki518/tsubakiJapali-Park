@@ -207,14 +207,17 @@ void GameCollision() {
 
 	//加速床の当たり判定
 	for (int i = 0; i < GetAccelSpeedNum(); i++) {
-		distance = GetAccelSpeedCube(i).position - sori.position;//ソリとオブジェクトとの距離を計算
+		distance = GetAccelSpeedCube(i)->position - sori.position;//ソリとオブジェクトとの距離を計算
 		const bool isCollisoinRangeX = distance.x > -HIT_CHECK_RANGE && distance.x < HIT_CHECK_RANGE;
 		const bool isCollisoinRangeY = distance.y > -HIT_CHECK_RANGE && distance.y < HIT_CHECK_RANGE;
 		const bool isCollisoinRangeZ = distance.z > -HIT_CHECK_RANGE && distance.z < HIT_CHECK_RANGE;
 
 		//一定範囲内にCubeが存在する場合当たり判定を実行する
-		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
-			sori.AccelFloorCollision(GetAccelSpeedCube(i).collider);
+		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ && GetAccelSpeedCube(i)->isHit==false) {
+			if (sori.AccelFloorCollision(GetAccelSpeedCube(i)->collider)) {
+				GetAccelSpeedCube(i)->isHit = true;
+			}
+
 		}
 	}
 
@@ -294,14 +297,16 @@ void GameCollision() {
 
 	//加速床の当たり判定
 	for (int i = 0; i < GetAccelSpeedNum(); i++) {
-		distance = GetAccelSpeedCube(i).position - npc.position;//ソリとオブジェクトとの距離を計算
+		distance = GetAccelSpeedCube(i)->position - npc.position;//ソリとオブジェクトとの距離を計算
 		const bool isCollisoinRangeX = distance.x > -HIT_CHECK_RANGE && distance.x < HIT_CHECK_RANGE;
 		const bool isCollisoinRangeY = distance.y > -HIT_CHECK_RANGE && distance.y < HIT_CHECK_RANGE;
 		const bool isCollisoinRangeZ = distance.z > -HIT_CHECK_RANGE && distance.z < HIT_CHECK_RANGE;
 
 		//一定範囲内にCubeが存在する場合当たり判定を実行する
-		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
-			npc.AccelFloorCollision(GetAccelSpeedCube(i).collider);
+		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ&& GetAccelSpeedCube(i)->isHit == false) {
+			if (npc.AccelFloorCollision(GetAccelSpeedCube(i)->collider)) {
+				GetAccelSpeedCube(i)->isHit = true;
+			}
 		}
 	}
 	const float SPIN_POWER = 0.7f;

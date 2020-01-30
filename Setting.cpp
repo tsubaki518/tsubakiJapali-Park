@@ -102,8 +102,8 @@ void SettingDraw() {
 		break;
 
 	}
-	DebugFont_Draw(0, 0, "1P:%d", BalanceBoard_GetValue(BALANCEBOARD_1P, 4));
-	DebugFont_Draw(0, 30, "2P:%d", BalanceBoard_GetValue(BALANCEBOARD_2P, 4));
+	/*DebugFont_Draw(0, 0, "1P:%d", BalanceBoard_GetValue(BALANCEBOARD_1P, 4));
+	DebugFont_Draw(0, 30, "2P:%d", BalanceBoard_GetValue(BALANCEBOARD_2P, 4));*/
 
 	FadeOut();
 	if (wasChangeScene == true) {

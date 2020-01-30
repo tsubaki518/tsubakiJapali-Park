@@ -7,6 +7,7 @@
 #include"BalanceBoardInput.h"
 #include<math.h>
 #include"sprite.h"
+#include"Stage.h"
 
 #define CHARACTER_ROTATION_SPEED 0.1f
 #define SPIN_NUM 4
@@ -250,13 +251,15 @@ bool Sori::CollisionGoal(Collider3D c) {
 		return false;
 	}
 }
-void Sori::AccelFloorCollision(Collider3D c) {
+bool Sori::AccelFloorCollision(Collider3D c) {
 	BoxCollider2 collider;
 
 	if (collider.Collider(collisoin, c).isHit && isSpin == false) {
 		isHitSpeedAccelBoard = true;
 		PlaySound(SOUND_LABEL_SE_SPEED_ACCEL);
+		return true;
 	}
+	return false;
 }
 bool Sori::CollisionRight(NPC c) {
 	BoxCollider2 collider;

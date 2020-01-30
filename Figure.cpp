@@ -24,6 +24,7 @@ static bool isOnece = false;
 static bool isOnecePlane = false;
 
 void Cube::Draw(TextureIndex textureIndex, D3DXCOLOR color) {
+	isDraw = true;
 	const float sizeX = 0.5f;
 	const float sizeY = 0.5f;
 	const float sizeZ = 0.5f;
@@ -311,6 +312,7 @@ D3DXVECTOR3 Cube::GetUp() {
 
 
 void Plane::Draw(TextureIndex textureIndex, D3DXCOLOR color) {
+	isDraw = true;
 	const float sizeX = 0.5f;
 	const float sizeY = 0.5f;
 	const float sizeZ = 0.5f;

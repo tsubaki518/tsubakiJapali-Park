@@ -204,12 +204,14 @@ bool NPC::CollisionGoal(Collider3D c) {
 		return false;
 	}
 }
-void NPC::AccelFloorCollision(Collider3D c) {
+bool NPC::AccelFloorCollision(Collider3D c) {
 	BoxCollider2 collider;
 
 	if (collider.Collider(collisoin, c).isHit && isSpin == false) {
 		isHitSpeedAccelBoard = true;
+		return true;
 	}
+	return false;
 }
 bool NPC::CollisionRight(Sori c) {
 	BoxCollider2 collider;

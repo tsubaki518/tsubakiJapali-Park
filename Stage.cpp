@@ -8457,8 +8457,8 @@ void StageUnInit() {
 Plane GetCube(int n) {
 	return cube[n];
 }
-SpeedAccel GetAccelSpeedCube(int n) {
-	return accelSpeed[n];
+SpeedAccel* GetAccelSpeedCube(int n) {
+	return &accelSpeed[n];
 }
 Cube GetRightWall(int n) {
 	return rightWall[n];

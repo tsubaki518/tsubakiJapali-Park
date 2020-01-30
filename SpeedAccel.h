@@ -10,7 +10,7 @@ public:
 	D3DXVECTOR3 scale;
 	XFile model;
 	Collider3D collider;
-
+	bool isHit = false;
 
 	SpeedAccel(){}
 	
