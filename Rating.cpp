@@ -3,15 +3,33 @@
 #include"ImageNumber.h"
 #include <time.h>
 #include"Game.h"
+#include"common.h"
 float rating;
 
 //秒間処理
 static clock_t start, end;
 static int timer;
 
-static bool sorispin = false;//スピン判定
-static bool hitcrimp = false;//障害物当たる
-static int cnt;//2秒間カウント
+static bool sorispin = false;	//スピン判定
+static bool hitcrimp = false;	//障害物当たる
+
+static int cnt;					//2秒間カウント
+
+//メッセージ表示のフラグ
+static bool M10 = true;			//10％OVER！
+static bool M50 = true;			//50％OVER！
+static bool M100 = true;		//100％OVER！
+static bool M150 = true;		//150％OVER！
+static bool M200 = true;		//200％OVER！
+static bool M250 = true;		//250％OVER！
+
+static float mx = 1763;			//メッセージ遷移のX座標(%OVER)
+static float nx = 3390;			//メッセージ遷移のX座標(数字)
+
+static int count = 0;			//メッセージの表示時間
+
+static int madd = -10.0f;		//メッセージの表示速度（%OVER）
+static int nadd = -20.0f;		//メッセージの表示速度（数字）
 
 //視聴率の初期化
 void RatingInit() {
@@ -33,7 +51,6 @@ void RatingUpdate(Sori sori) {
 		hitcrimp = true;
 	}
 
-	
 	
 	//1秒間判定(ホールド)
 	end = clock();
@@ -100,15 +117,111 @@ void RatingDraw() {
 	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 20 / 3 / 100 * 94, SCREEN_HEIGHT * 20 / 3 / 11), D3DXVECTOR2(0.15f, 0.15f), (int)rating / 10);
 	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 10 / 100 * 96, SCREEN_HEIGHT * 10 / 10), D3DXVECTOR2(0.1f, 0.1f), (int)rating % 10);
 
-	//スコアメッセージ
+//スコアメッセージ
 	//10%OVER!
-	if (rating >= 100.0f) {
-		Sprite_SetColor(D3DCOLOR_RGBA(255, 0, 0, 255));
-		Sprite_Draw(TEXTURE_INDEX_SCOR_MESSAGE, SCREEN_WIDTH / 2  + 550  , SCREEN_HEIGHT / 2 / 2 - 60 , 0, 0, 190, 40);			// %OVER！
-		ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2 - 570 , SCREEN_HEIGHT / 2 / 2 + 40), D3DXVECTOR2(0.5f, 0.5f), 10);			// 10
+	if (M10)
+	{
+		if (rating >= 100.0f) {
+			OVER_MESSAGE(10);
+		}
+	}
+
+	//50%OVER!
+	if (M50) {
+		if (rating >= 500.0f) {
+			OVER_MESSAGE(50);
+		}
+	}
+
+	//100%OVER!
+	if (M100) {
+		if (rating >= 1000.0f) {
+			OVER_MESSAGE(100);
+		}
+	}
+
+	//150%OVER!
+	if (M150) {
+		if (rating >= 1500.0f) {
+			OVER_MESSAGE(150);
+		}
+	}
+
+	//200%OVER!
+	if (M200) {
+		if (rating >= 2000.0f) {
+			OVER_MESSAGE(200);
+		}
+	}
+
+	//250%OVER!
+	if (M250) {
+		if (rating >= 2500.0f) {
+			OVER_MESSAGE(250);
+		}
 	}
 }
 
 float GetRating() {
 	return rating;
+}
+
+void OVER_MESSAGE(int num) {
+
+	Sprite_SetColor(D3DCOLOR_RGBA(255, 0, 0, 255));
+	Sprite_Draw(TEXTURE_INDEX_SCOR_MESSAGE, mx, 156, 0, 0, 190, 40);
+	ImageNumberDraw(D3DXVECTOR2(nx, 256), D3DXVECTOR2(0.5f, 0.5f), num);
+
+	mx += madd;
+	nx += nadd;
+
+	if (mx < 1318) {
+		mx = 1318;
+		count++;
+	}
+	if (nx < 2502) {
+		nx = 2502;
+	}
+	if (count > 180) {
+		count = 0;
+		madd *= -1.0f;
+		nadd *= -1.0f;
+	}
+	if (mx > 1783 ) {
+		mx = 1783;
+		madd *= -1.0f;
+		nadd *= -1.0f;
+
+		switch (num)		//表示の制限
+		{
+		case 10:
+			M10 = false;
+			break;
+
+		case 50:
+			M50 = false;
+			break;
+
+		case 100:
+			M100 = false;
+			break;
+
+		case 150:
+			M150 = false;
+			break;
+
+		case 200:
+			M200 = false;
+			break;
+
+		case 250:
+			M250 = false;
+			break;
+		}
+
+	}
+	if (nx > 3390) {
+		nx = 3390;
+	}
+
 }
