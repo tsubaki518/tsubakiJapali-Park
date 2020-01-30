@@ -342,7 +342,7 @@ void Sori::Move() {
 					speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
 				}
 				//移動方向にキャラクターが傾く
-				if (character[0]->inputRotX >= -0.4f) {
+				if (character[0]->inputRotX >= -0.6f) {
 					character[0]->inputRotX -= CHARACTER_ROTATION_SPEED/2;
 				}
 			}
@@ -394,7 +394,7 @@ void Sori::Move() {
 					speed += (character[0]->moveAccel + character[1]->moveAccel) / 4;
 				}
 				//移動方向にキャラクターが傾く
-				if (character[1]->inputRotX >= -0.4f) {
+				if (character[1]->inputRotX >= -0.6f) {
 					character[1]->inputRotX -= CHARACTER_ROTATION_SPEED/2;
 				}
 

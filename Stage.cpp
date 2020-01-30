@@ -17,6 +17,8 @@ const int RIGHT_WALL_NUM = 257;
 const int LEFT_WALL_NUM = 257;
 const int OBSTACLE_NUM = 24;
 const int GOAL_CUBE_NUM = 15;
+//2179
+//一定範囲内に入ったらpushして範囲外になったらpopすれば軽くなりそう
 
 //rotationのx,zは1.4ｆまで
 Plane cube[CUBE_NUM];				//床
@@ -8319,51 +8321,100 @@ void StageInit() {			//座標とサイズと角度を入れる
 
 
 void StageDraw() {
-	for (int i = 0; i < OBSTACLE_NUM; i++) {
-		obstacle[i].Update();
-		obstacle[i].Draw();
-	}
+	
 	D3DXVECTOR3 distance;
-	const float DRAW_RANGE = 300;
+	const float DRAW_RANGE = 230;
+	const float BACK_DRAW_RANGE = 30;
+
+	//障害物の描画
+	for (int i = 0; i < OBSTACLE_NUM; i++) {
+		distance = obstacle[i].position - GetPlayerPos();   //ソリとオブジェクトとの距離を計算
+		float rad = atan2f(distance.z, distance.x);		//cubeとプレイヤーとのｘｚ軸をとって角度を取得
+		float vecLen = pow(distance.x*distance.x +      //距離のベクトルの長さを取得
+			distance.y*distance.y +
+			distance.z*distance.z, 0.5f);
+
+		//プレイヤーの正面方向&距離が150以内だったら描画する
+		if (sinf(rad + GetPlayer()->rotation.y) >= 0 && vecLen <= DRAW_RANGE) {
+			obstacle[i].Update();
+			obstacle[i].Draw();
+
+		} else if (sinf(rad + GetPlayer()->rotation.y) < 0 && vecLen <= BACK_DRAW_RANGE) {
+			//プレイヤーの後ろ方向でも距離が30以内だったら描画する
+			obstacle[i].Update();
+			obstacle[i].Draw();
+		}
+	
+	}
+
 	//Cubeの描画
 	for (int i = 0; i < CUBE_NUM; i++) {
-		distance = cube[i].position - GetPlayerPos();//ソリとオブジェクトとの距離を計算
-		const bool isCollisoinRangeX = distance.x > -DRAW_RANGE && distance.x < DRAW_RANGE;
-		const bool isCollisoinRangeY = distance.y > -DRAW_RANGE && distance.y < DRAW_RANGE;
-		const bool isCollisoinRangeZ = distance.z > -DRAW_RANGE && distance.z < DRAW_RANGE;
+		distance = cube[i].position - GetPlayerPos();   //ソリとオブジェクトとの距離を計算
+		float rad = atan2f(distance.z, distance.x);		//cubeとプレイヤーとのｘｚ軸をとって角度を取得
+		float vecLen = pow(distance.x*distance.x +      //距離のベクトルの長さを取得
+						   distance.y*distance.y + 
+			               distance.z*distance.z, 0.5f);
 
-		//一定範囲内にCubeが存在する描画する
-		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
+
+		//プレイヤーの正面方向&距離が150以内だったら描画する
+		if (sinf(rad+GetPlayer()->rotation.y)>=0 && vecLen<= DRAW_RANGE) {
+			cube[i].Draw(TEXTURE_INDEX_ICE);
+
+		} else if (sinf(rad + GetPlayer()->rotation.y) < 0 && vecLen <= BACK_DRAW_RANGE) {
+			//プレイヤーの後ろ方向でも距離が30以内だったら描画する
 			cube[i].Draw(TEXTURE_INDEX_ICE);
 		}
 	}
 	for (int i = 0; i < RIGHT_WALL_NUM; i++) {
-		distance = rightWall[i].position - GetPlayerPos();//ソリとオブジェクトとの距離を計算
-		const bool isCollisoinRangeX = distance.x > -DRAW_RANGE && distance.x < DRAW_RANGE;
-		const bool isCollisoinRangeY = distance.y > -DRAW_RANGE && distance.y < DRAW_RANGE;
-		const bool isCollisoinRangeZ = distance.z > -DRAW_RANGE && distance.z < DRAW_RANGE;
+		distance = rightWall[i].position - GetPlayerPos();   //ソリとオブジェクトとの距離を計算
+		float rad = atan2f(distance.z, distance.x);		//cubeとプレイヤーとのｘｚ軸をとって角度を取得
+		float vecLen = pow(distance.x*distance.x +      //距離のベクトルの長さを取得
+			distance.y*distance.y +
+			distance.z*distance.z, 0.5f);
 
-		//一定範囲内にCubeが存在する描画する
-		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
+		//プレイヤーの正面方向&距離が150以内だったら描画する
+		if (sinf(rad + GetPlayer()->rotation.y) >= 0 && vecLen <= DRAW_RANGE) {
+			rightWall[i].Draw(TEXTURE_INDEX_ICE);
+
+		} else if (sinf(rad + GetPlayer()->rotation.y) < 0 && vecLen <= BACK_DRAW_RANGE) {
+			//プレイヤーの後ろ方向でも距離が30以内だったら描画する
 			rightWall[i].Draw(TEXTURE_INDEX_ICE);
 		}
 	}
 	for (int i = 0; i < LEFT_WALL_NUM; i++) {
-		distance = leftWall[i].position - GetPlayerPos();//ソリとオブジェクトとの距離を計算
-		const bool isCollisoinRangeX = distance.x > -DRAW_RANGE && distance.x < DRAW_RANGE;
-		const bool isCollisoinRangeY = distance.y > -DRAW_RANGE && distance.y < DRAW_RANGE;
-		const bool isCollisoinRangeZ = distance.z > -DRAW_RANGE && distance.z < DRAW_RANGE;
+		distance = leftWall[i].position - GetPlayerPos();   //ソリとオブジェクトとの距離を計算
+		float rad = atan2f(distance.z, distance.x);		//cubeとプレイヤーとのｘｚ軸をとって角度を取得
+		float vecLen = pow(distance.x*distance.x +      //距離のベクトルの長さを取得
+			distance.y*distance.y +
+			distance.z*distance.z, 0.5f);
 
-		//一定範囲内にCubeが存在する描画する
-		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
+		//プレイヤーの正面方向&距離が150以内だったら描画する
+		if (sinf(rad + GetPlayer()->rotation.y) >= 0 && vecLen <= DRAW_RANGE) {
+			leftWall[i].Draw(TEXTURE_INDEX_ICE);
+
+		} else if (sinf(rad + GetPlayer()->rotation.y) < 0 && vecLen <= BACK_DRAW_RANGE) {
+			//プレイヤーの後ろ方向でも距離が30以内だったら描画する
 			leftWall[i].Draw(TEXTURE_INDEX_ICE);
 		}
 	}
 
 	//ゴールキューブの描画
 	for (int i = 0; i < GOAL_CUBE_NUM; i++) {
-		
+		distance = goalCube[i].position - GetPlayerPos();   //ソリとオブジェクトとの距離を計算
+		float rad = atan2f(distance.z, distance.x);		//cubeとプレイヤーとのｘｚ軸をとって角度を取得
+		float vecLen = pow(distance.x*distance.x +      //距離のベクトルの長さを取得
+			distance.y*distance.y +
+			distance.z*distance.z, 0.5f);
+
+		//プレイヤーの正面方向&距離が150以内だったら描画する
+		if (sinf(rad + GetPlayer()->rotation.y) >= 0 && vecLen <= DRAW_RANGE) {
 			goalCube[i].Draw(TEXTURE_INDEX_RED_FLOOR);
+
+		} else if (sinf(rad + GetPlayer()->rotation.y) < 0 && vecLen <= BACK_DRAW_RANGE) {
+			//プレイヤーの後ろ方向でも距離が30以内だったら描画する
+			goalCube[i].Draw(TEXTURE_INDEX_RED_FLOOR);
+		}
+		
 	}
 
 	//ゴール_テェック床の描画
@@ -8378,18 +8429,21 @@ void StageDraw() {
 	}
 
 	for (int i = 0; i < ACCEL_SPEED_NUM; i++) {
-		distance = leftWall[i].position - GetPlayerPos();//ソリとオブジェクトとの距離を計算
-		const bool isCollisoinRangeX = distance.x > -DRAW_RANGE && distance.x < DRAW_RANGE;
-		const bool isCollisoinRangeY = distance.y > -DRAW_RANGE && distance.y < DRAW_RANGE;
-		const bool isCollisoinRangeZ = distance.z > -DRAW_RANGE && distance.z < DRAW_RANGE;
+		distance = accelSpeed[i].position - GetPlayerPos();   //ソリとオブジェクトとの距離を計算
+		float rad = atan2f(distance.z, distance.x);		//cubeとプレイヤーとのｘｚ軸をとって角度を取得
+		float vecLen = pow(distance.x*distance.x +      //距離のベクトルの長さを取得
+			distance.y*distance.y +
+			distance.z*distance.z, 0.5f);
 
-		//一定範囲内にCubeが存在する描画する
-		if (isCollisoinRangeX&&isCollisoinRangeY&&isCollisoinRangeZ) {
+		//プレイヤーの正面方向&距離が150以内だったら描画する
+		if (sinf(rad + GetPlayer()->rotation.y) >= 0 && vecLen <= DRAW_RANGE) {
+			accelSpeed[i].Draw();
+
+		} else if (sinf(rad + GetPlayer()->rotation.y) < 0 && vecLen <= BACK_DRAW_RANGE) {
+			//プレイヤーの後ろ方向でも距離が30以内だったら描画する
 			accelSpeed[i].Draw();
 		}
 	}
-
-
 }
 void StageUnInit() {
 	for (int i = 0; i < OBSTACLE_NUM; i++) {

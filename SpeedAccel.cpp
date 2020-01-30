@@ -1,7 +1,7 @@
 #include"SpeedAccel.h"
 
 void SpeedAccel::Init() {
-	model.Init("asset/model/アイスクリーム・・・かな/iceC.x", "asset/model/アイスクリーム・・・かな/iceC2.png");
+	model.Init("asset/model/アイスクリーム・・・かな/iceC.x", "asset/model/アイスクリーム・・・かな/iceC22.png");
 	scale = D3DXVECTOR3(1, 1, 1)*0.7f;
 }
 void SpeedAccel::Draw() {
