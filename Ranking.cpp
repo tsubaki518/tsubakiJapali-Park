@@ -193,6 +193,7 @@ void RankingUpdate() {
 	//LoadSave();
 }
 void RankingDraw() {
+	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
 	Sprite_Draw(TEXTURE_INDEX_RANKING, 0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	//スコア表示
