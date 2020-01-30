@@ -16,6 +16,9 @@ private:
 	//氷が削れるパーティクル
 	ShaveIce shaveIce[2];
 
+	//紙吹雪
+	Confetti confetti;
+
 	void Move();		//移動処理
 	void Friction();	//摩擦
 	void SlideDown();	//斜面で滑り落ちる

@@ -23,14 +23,14 @@ void Confetti::Update() {
 
 	//†‚Ì¶¬
 	for (int i = 0; i < amount; i++) {
-		cube.push_back(Cube(D3DXVECTOR3(rand() % generationRange / 2+(float)(rand()%100/100)+0.3f, 0, ((float)(rand() % generationRange) / 2) + (float)(rand() % 100 / 100)) + position));
+		cube.push_back(Cube(D3DXVECTOR3(rand() % generationRange / 2+(float)(rand()%100000/100000)+0.3f, 0, ((float)(rand() % generationRange) / 2) + (float)(rand() % 100000 / 100000)) + position));
 		movement.push_back(D3DXVECTOR3(0, ((float)(rand() % 100) / 5000), 0));
 		rot.push_back(D3DXVECTOR3(((float)(rand() % 100) / 200), ((float)(rand() % 100) / 200),((float)(rand() % 100) / 200)));
 		color.push_back(D3DXCOLOR(c[rand() % 7]));
 		lifeCount.push_back(0);
 	}
 	for (int i = 0; i < amount; i++) {
-		cube.push_back(Cube(D3DXVECTOR3(-(rand() % generationRange / 2) - (float)(rand() % 100 / 100)-0.3f, 0, +((float)(rand() % generationRange) / 2) + (float)(rand() % 100 / 100)) + position));
+		cube.push_back(Cube(D3DXVECTOR3(-(rand() % generationRange / 2) - (float)(rand() % 100000 / 100000)-0.3f, 0, +((float)(rand() % generationRange) / 2) + (float)(rand() % 100000 / 100000)) + position));
 		movement.push_back(D3DXVECTOR3(0, ((float)(rand() % 100) / 5000), 0));
 		rot.push_back(D3DXVECTOR3(((float)(rand() % 100) / 200), ((float)(rand() % 100) / 200), ((float)(rand() % 100) / 200)));
 		color.push_back(D3DXCOLOR(c[rand()%7]));

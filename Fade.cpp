@@ -1,10 +1,10 @@
 #include"Fade.h"
 #include"sprite.h"
 #include"common.h"
+#define FADE_ADD 9
 
 int fadeOutAlpha;
 int fadeInAlpha;
-const int FADE_ADD = 9;
 
 void FadeInInit() {
 	fadeInAlpha = 0;

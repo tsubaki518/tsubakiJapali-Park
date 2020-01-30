@@ -17,6 +17,8 @@
 #define YOKONOSYAMENNNINOTTAATOKASOKUSURUYATU 0.3f //横の斜面に乗った後加速するやつ
 #define BPARD_VALUE_BOARDER 4
 
+float rad = 0;
+
 Sori::Sori() {
 
 }
@@ -147,6 +149,12 @@ void Sori::Draw() {
 		shaveIce[0].Draw();
 		shaveIce[1].Draw();
 	}
+	if (isGoalGround == true) {
+		rad += 0.8f;
+		confetti.Init(D3DXVECTOR3(position.x+cosf(rad)*5+5, position.y+4, position.z + cosf(rad)*5));
+		confetti.Update();
+		confetti.Draw();
+	}
 	int BOARD_VALUE1 = BalanceBoard_GetValue(BALANCEBOARD_1P, 4) / BPARD_VALUE_BOARDER;
 	int BOARD_VALUE2= BalanceBoard_GetValue(BALANCEBOARD_2P, 4) / BPARD_VALUE_BOARDER;
 	if (fabsf((int)BOARD_VALUE1) < 50) {
@@ -178,6 +186,8 @@ void Sori::UnInit() {
 	//パーティクル
 	shaveIce[0].UnInit();
 	shaveIce[1].UnInit();
+
+	confetti.UnInit();
 }
 
 Sori::~Sori() {
