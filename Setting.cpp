@@ -234,19 +234,14 @@ void SettingSearchDraw() {
 	UI[1]->scale = D3DXVECTOR3(1.7f, 2, 0);
 	UI[1]->Draw(TEXTURE_INDEX_TATIE);
 
-	//情報アイコンを表示
-	UI[2]->position = D3DXVECTOR3(0.3f, -1.3f, 0);
-	UI[2]->scale = D3DXVECTOR3(0.5f, 0.5f, 0);
-	UI[2]->Draw(TEXTURE_INDEX_ZYOUHOUAIKONN);
-
 	if (isNext[0] == false || isNext[1] == false) {
 		//アイコンの隣のボードの上に乗ってくださいを表示
 		UI[3]->position = D3DXVECTOR3(1.7f, -1.3f, 0);
-		UI[3]->scale = D3DXVECTOR3(2, 0.5f, 0);
+		UI[3]->scale = D3DXVECTOR3(2, 0.5f, 0)*1.5f;
 		UI[3]->Draw(TEXTURE_INDEX_SONOMAMABODO);
 	} else {
 		UI[3]->position = D3DXVECTOR3(1.7f, -1.3f, 0);
-		UI[3]->scale = D3DXVECTOR3(2, 0.5f, 0);
+		UI[3]->scale = D3DXVECTOR3(2.5f, 0.5f, 0)*1.3f;
 		UI[3]->Draw(TEXTURE_INDEX_SANKAPUREIYAWONINSIKI);
 	}
 
@@ -408,15 +403,10 @@ void SettingSetWeightDraw() {
 	SetMatrix();
 	settingPlayer.soriModel.Draw();
 
-	//立ち絵を表示
-	UI[2]->position = D3DXVECTOR3(0.3f, -1.3f, 0);
-	UI[2]->scale = D3DXVECTOR3(0.5f, 0.5f, 0);
-	UI[2]->Draw(TEXTURE_INDEX_TATIE);
-
 	if (isNext[0] == false || isNext[1] == false) {
 		//アイコンの隣のそのままボードの上に乗ってくださいを表示
 		UI[3]->position = D3DXVECTOR3(1.7f, -1.3f, 0);
-		UI[3]->scale = D3DXVECTOR3(2, 0.5f, 0);
+		UI[3]->scale = D3DXVECTOR3(2, 0.5f, 0)*1.5f;
 		UI[3]->Draw(TEXTURE_INDEX_SONOMAMABODO);
 	}
 
@@ -460,15 +450,10 @@ void SettingSetWeightEndDraw() {
 		settingPlayer.character[i]->Draw();
 	}
 
-	//立ち絵を表示
-	UI[2]->position = D3DXVECTOR3(0.3f, -1.3f, 0);
-	UI[2]->scale = D3DXVECTOR3(0.5f, 0.5f, 0);
-	UI[2]->Draw(TEXTURE_INDEX_TATIE);
-
 	if (nextIntervalCount < NEXT_INTERVAL) {
 		//アイコンの隣のそのままボードの上に乗ってくださいを表示
 		UI[3]->position = D3DXVECTOR3(1.7f, -1.3f, 0);
-		UI[3]->scale = D3DXVECTOR3(2, 0.5f, 0);
+		UI[3]->scale = D3DXVECTOR3(2, 0.5f, 0)*1.5f;
 		UI[3]->Draw(TEXTURE_INDEX_SONOMAMABODO);
 	} else {
 		//アイコンの隣のそのままボードの上に乗ってくださいを表示
