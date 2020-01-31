@@ -135,10 +135,9 @@ void RankingUpdate() {
 		if (Keyboard_IsPress(DIK_DOWN)) {
 			posadd_y += SCREEN_HEIGHT * 0.01;
 		}
-	}
-
-	if (Keyboard_IsTrigger(DIK_RETURN)) {
-		wasChangeScene = true;
+		if (Keyboard_IsTrigger(DIK_RETURN)) {
+			wasChangeScene = true;
+		}
 	}
 
 	//ドット絵アニメーション
@@ -183,6 +182,9 @@ void RankingUpdate() {
 		}	 
 		if (RankposX2 <= 0) {
 			RankposX2 = 0;
+			if (Keyboard_IsTrigger(DIK_RETURN)) {
+				wasChangeScene = true;
+			}
 		}	 
 		else{ 
 			RankposX2 -= 60;
