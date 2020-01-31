@@ -10,6 +10,7 @@
 #include"BalanceBoardInput.h"
 #include"debug_font.h"
 #include"Fade.h"
+
 #define NEXT_INTERVAL 100
 
 enum {
@@ -64,6 +65,11 @@ void SettingInit() {
 	FadeOutInit();
 }
 void SettingUpdate() {
+	//ボードのリセット
+	if (Keyboard_IsTrigger(DIK_SPACE)) {
+		BalanceBoard_Reset();
+	}
+
 	switch (settingState) {
 		case SETTING_SEARCH:
 			SettingSearchUpdate();
@@ -106,11 +112,20 @@ void SettingDraw() {
 	DebugFont_Draw(0, 30, "2P:%d", BalanceBoard_GetValue(BALANCEBOARD_2P, 4));*/
 
 	FadeOut();
+
+	//if (Keyboard_IsTrigger(DIK_RETURN)) {
+	//	if (FadeIn()) {
+	//		SetScene(GAME);
+	//	}
+	//}
+	//
+	
 	if (wasChangeScene == true) {
 		if (FadeIn()) {
 			SetScene(GAME);
 		}
 	}
+	
 }
 void SettingUnInit() {
 	for (int i = 0; i < 6; i++) {
@@ -236,13 +251,13 @@ void SettingSearchDraw() {
 
 	if (isNext[0] == false || isNext[1] == false) {
 		//アイコンの隣のボードの上に乗ってくださいを表示
-		UI[3]->position = D3DXVECTOR3(1.7f, -1.3f, 0);;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		UI[3]->scale = D3DXVECTOR3(2, 0.5f, 0)*1.5f;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		UI[3]->Draw(TEXTURE_INDEX_SONOMAMABODO);;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		UI[3]->position = D3DXVECTOR3(1.85f, -1.37f, 0);;
+		UI[3]->scale = D3DXVECTOR3(2.5f, 0.5f, 0)*1.55f;
+		UI[3]->Draw(TEXTURE_INDEX_SONOMAMABODO);;
 	} else {
-		UI[3]->position = D3DXVECTOR3(1.7f, -1.3f, 0);;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		UI[3]->scale = D3DXVECTOR3(2.5f, 0.5f, 0)*1.3f;;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		UI[3]->Draw(TEXTURE_INDEX_SANKAPUREIYAWONINSIKI);;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		UI[3]->position = D3DXVECTOR3(1.85f, -1.37f, 0);;
+		UI[3]->scale = D3DXVECTOR3(2.5f, 0.5f, 0)*1.55f;
+		UI[3]->Draw(TEXTURE_INDEX_SONOMAMABODO);;
 	}
 
 	if (isNext[0] == false) {
@@ -405,9 +420,9 @@ void SettingSetWeightDraw() {
 
 	if (isNext[0] == false || isNext[1] == false) {
 		//アイコンの隣のそのままボードの上に乗ってくださいを表示
-		UI[3]->position = D3DXVECTOR3(1.7f, -1.3f, 0);;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		UI[3]->scale = D3DXVECTOR3(2, 0.5f, 0)*1.5f;;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		UI[3]->Draw(TEXTURE_INDEX_SONOMAMABODO);;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		UI[3]->position = D3DXVECTOR3(1.85f, -1.37f, 0);;
+		UI[3]->scale = D3DXVECTOR3(2.5f, 0.5f, 0)*1.55f;
+		UI[3]->Draw(TEXTURE_INDEX_SONOMAMABODO);;
 	}
 
 	if (isNext[0] == false) {
@@ -432,7 +447,7 @@ void SettingSetWeightEndUpdate() {
 	rotation.y -= 0.02f;
 	nextIntervalCount++;
 	if (nextIntervalCount > NEXT_INTERVAL) {
-		if (Keyboard_IsPress(DIK_B) || BalanceBoard_GetValue(BALANCEBOARD_1P, 4)<1000|| BalanceBoard_GetValue(BALANCEBOARD_2P, 4) < 1000) {
+		if (Keyboard_IsPress(DIK_RETURN) ) {
 			wasChangeScene = true;
 		}
 	}
@@ -452,16 +467,17 @@ void SettingSetWeightEndDraw() {
 
 	if (nextIntervalCount < NEXT_INTERVAL) {
 		//アイコンの隣のそのままボードの上に乗ってくださいを表示
-		UI[3]->position = D3DXVECTOR3(1.7f, -1.3f, 0);;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		UI[3]->scale = D3DXVECTOR3(2, 0.5f, 0)*1.5f;;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		UI[3]->Draw(TEXTURE_INDEX_SONOMAMABODO);;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		UI[3]->position = D3DXVECTOR3(1.85f, -1.37f, 0);;
+		UI[3]->scale = D3DXVECTOR3(2.5f, 0.5f, 0)*1.55f;
+		UI[3]->Draw(TEXTURE_INDEX_SONOMAMABODO);;
 	} else {
-		//アイコンの隣のそのままボードの上に乗ってくださいを表示
-		UI[3]->position = D3DXVECTOR3(1.7f, -1.3f, 0);;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		UI[3]->scale = D3DXVECTOR3(2, 0.5f, 0);;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		UI[3]->Draw(TEXTURE_INDEX_DOTIRAKAZYANPU);;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//アイコンの隣のまもなくレースを表示
+		UI[3]->position = D3DXVECTOR3(1.6f, -1.37f, 0);;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		UI[3]->scale = D3DXVECTOR3(2.5f, 0.5f, 0)*1.45f;////////////////////////////////////////////////////////////////////////////////////////////////////////
+		UI[3]->Draw(TEXTURE_INDEX_MAMONAKURESU);;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	}
 
+	
 
 	//1Pの体重によって表示するキャラクターを変える
 	if (settingPlayer.weight[0] == 75) {
