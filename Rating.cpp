@@ -23,13 +23,13 @@ static bool M150 = true;		//150％OVER！
 static bool M200 = true;		//200％OVER！
 static bool M250 = true;		//250％OVER！
 
-static float mx = 1763;			//メッセージ遷移のX座標(%OVER)
-static float nx = 3390;			//メッセージ遷移のX座標(数字)
+static float mx = 1563;			//メッセージ遷移のX座標(%OVER)
+static float nx = 5900;			//メッセージ遷移のX座標(数字)
 
 static int count = 0;			//メッセージの表示時間
 
-static int madd = -10.0f;		//メッセージの表示速度（%OVER）
-static int nadd = -20.0f;		//メッセージの表示速度（数字）
+static int madd = -20.0f;		//メッセージの表示速度（%OVER）
+static int nadd = -50.0f;		//メッセージの表示速度（数字）
 
 //視聴率の初期化
 void RatingInit() {
@@ -118,7 +118,7 @@ void RatingDraw() {
 	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 10 / 100 * 96, SCREEN_HEIGHT * 10 / 10), D3DXVECTOR2(0.1f, 0.1f), (int)rating % 10);
 
 //スコアメッセージ
-	//10%OVER!
+	////10%OVER!
 	if (M10)
 	{
 		if (rating >= 100.0f) {
@@ -167,28 +167,27 @@ float GetRating() {
 }
 
 void OVER_MESSAGE(int num) {
-
-	Sprite_SetColor(D3DCOLOR_RGBA(255, 0, 0, 255));
-	Sprite_Draw(TEXTURE_INDEX_SCOR_MESSAGE, mx, 156, 0, 0, 190, 40);
-	ImageNumberDraw(D3DXVECTOR2(nx, 256), D3DXVECTOR2(0.5f, 0.5f), num);
-
+	if (mx < 1750) {
+		Sprite_Draw(TEXTURE_INDEX_SCOR_MESSAGE, mx, 140, 0, 0, 95, 20);
+		ImageNumberDraw(D3DXVECTOR2(nx, 500), D3DXVECTOR2(0.25f, 0.25f), num);
+	}
 	mx += madd;
 	nx += nadd;
 
-	if (mx < 1318) {
-		mx = 1318;
+	if (mx < 1385) {
+		mx = 1385;
 		count++;
 	}
-	if (nx < 2502) {
-		nx = 2502;
+	if (nx < 5400) {
+		nx = 5400;
 	}
 	if (count > 180) {
 		count = 0;
 		madd *= -1.0f;
 		nadd *= -1.0f;
 	}
-	if (mx > 1783 ) {
-		mx = 1783;
+	if (mx > 1880 ) {
+		mx = 1880;
 		madd *= -1.0f;
 		nadd *= -1.0f;
 
@@ -220,8 +219,8 @@ void OVER_MESSAGE(int num) {
 		}
 
 	}
-	if (nx > 3390) {
-		nx = 3390;
+	if (nx > 6500) {
+		nx = 5900;
 	}
 
 }
