@@ -41,12 +41,12 @@ void RankingInit() {
 	FadeOutInit();
 	wasChangeScene = false;
 	//デバッグ用ランキング初期化
-	//Score[0].Scoretime = 0.00f;
+	Score[0].Scoretime = 0.00f;
 
 	if (Score[0].Scoretime == 0.00f) {
 		for (int i = 0; i < 21; i++) {
-			Score[i].Scoretime = 599.00f;
-			Score[i].Scorerating = 9999.00f;
+			Score[i].Scoretime = 59999.00f;
+			Score[i].Scorerating = 9999.0f;
 			Score[i].Player1 = 3;
 			Score[i].Player2 = 2;
 		}
@@ -108,12 +108,12 @@ void RankingInit() {
 			Score[21].Player2 = 4;
 		}
 
-		SetRank(GetTime(), GetRating());
+		SetRank(GetReTime(), GetRating());
 
 		//順位を判定する
 		for (int i = 0; i < 21; i++) {
 			if (GetTime() < Score[i].Scoretime) {
-				juni = i - 1;
+				juni = i;
 				break;
 			}
 
@@ -218,17 +218,17 @@ void RankingDraw() {
 
 		//タイム
 		//分
-		ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2.5 / 100 * 54.7, (SCREEN_HEIGHT * 2.5 * 15.8 / 100)*i + SCREEN_HEIGHT * 2.5 / 100 * 4.0 + posadd_y * 2.5), D3DXVECTOR2(0.4f, 0.4f), Score[i].Scoretime / 60);
+		ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2.5 / 100 * 54.7, (SCREEN_HEIGHT * 2.5 * 15.8 / 100)*i + SCREEN_HEIGHT * 2.5 / 100 * 4.0 + posadd_y * 2.5), D3DXVECTOR2(0.4f, 0.4f), Score[i].Scoretime / 6000);
 		//秒
-		if ((int)Score[i].Scoretime % 60 < 10) {
+		if ((int)Score[i].Scoretime % 6000 < 1000) {
 			ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2.5 / 100 * 60.2, (SCREEN_HEIGHT * 2.5 * 15.8 / 100)*i + SCREEN_HEIGHT * 2.5 / 100 * 4.0 + posadd_y * 2.5), D3DXVECTOR2(0.4f, 0.4f), 0);
 		}
-		ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2.5 / 100 * 63.7, (SCREEN_HEIGHT * 2.5 * 15.8 / 100)*i + SCREEN_HEIGHT * 2.5 / 100 * 4.0 + posadd_y * 2.5), D3DXVECTOR2(0.4f, 0.4f), (int)Score[i].Scoretime % 60);
+		ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2.5 / 100 * 63.7, (SCREEN_HEIGHT * 2.5 * 15.8 / 100)*i + SCREEN_HEIGHT * 2.5 / 100 * 4.0 + posadd_y * 2.5), D3DXVECTOR2(0.4f, 0.4f), (int)Score[i].Scoretime % 6000 / 100);
 		//コンマ
-		if ((int)Score[i].Scoretime % 100 < 10) {
+		if ((int)Score[i].Scoretime%100 < 10) {
 			ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2.5 / 100 * 68.7, (SCREEN_HEIGHT * 2.5 * 15.8 / 100)*i + SCREEN_HEIGHT * 2.5 / 100 * 4.0 + posadd_y * 2.5), D3DXVECTOR2(0.4f, 0.4f), 0);
 		}
-		ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2.5 / 100 * 72.7, (SCREEN_HEIGHT * 2.5 * 15.8 / 100)*i + SCREEN_HEIGHT * 2.5 / 100 * 4.0 + posadd_y * 2.5), D3DXVECTOR2(0.4f, 0.4f), (int)Score[i].Scoretime % 100);
+		ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2.5 / 100 * 72.7, (SCREEN_HEIGHT * 2.5 * 15.8 / 100)*i + SCREEN_HEIGHT * 2.5 / 100 * 4.0 + posadd_y * 2.5), D3DXVECTOR2(0.4f, 0.4f), (int)Score[i].Scoretime %100);
 
 		Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
 

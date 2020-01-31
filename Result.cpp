@@ -102,8 +102,8 @@ void ResultInit() {
 }
 
 void ResultUpdate() {
-	if (score1 < score4) {
-		if (Keyboard_IsPress(DIK_RETURN)) {
+	if ((score1 * 100) + score3 < score4) {
+		if (Keyboard_IsTrigger(DIK_RETURN)) {
 			wasChangeSceneRanking = true;
 		}
 		isRankin = true;
@@ -114,7 +114,7 @@ void ResultUpdate() {
 			addAl = 255;
 		}
 		if (addAl >= 255) {
-			if (Keyboard_IsPress(DIK_RETURN)) {
+			if (Keyboard_IsTrigger(DIK_RETURN)) {
 				wasChangeSceneTitle = true;
 			}
 		}
@@ -330,3 +330,6 @@ D3DXVECTOR3 GetRight2() {
 	return direction;
 }
 
+float GetReTime() {
+	return (score1 * 100) + score3;
+}
