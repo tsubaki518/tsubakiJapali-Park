@@ -28,7 +28,7 @@ void NPC::Init(float weight1, float weight2) {
 	SetCharacter(weight1, weight2);
 	character[1]->Init();
 	character[0]->Init();
-	bobsled.Init("asset/model/Bobsled/bobuv2.x", "asset/model/Bobsled/bobuv022.jpg");
+	bobsled.Init("asset/model/Bobsled/bobuv2.x", "asset/model/Bobsled/bobuv2.jpg");
 
 
 	//------------------スピードなどのパラメータの初期化----------------------------//

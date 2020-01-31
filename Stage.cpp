@@ -4,6 +4,7 @@
 #include"Obstacle.h"
 #include<stdlib.h>
 #include<time.h>
+
 struct Transform{
 	D3DXVECTOR3 position;
 	D3DXVECTOR3 rotation;

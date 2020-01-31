@@ -27,8 +27,8 @@ void Sori::Init(float weight1, float weight2) {
 	//キャラクターをセットする
 	SetCharacter(weight1, weight2);
 	character[1]->Init();
-	character[0]->Init();
-	bobsled.Init("asset/model/Bobsled/bobuv2.x", "asset/model/Bobsled/bobuv2.jpg");
+	character[0]->Init(); 
+	bobsled.Init("asset/model/Bobsled/bobuv2.x", "asset/model/Bobsled/bobuv022.jpg");
 
 
 	//------------------スピードなどのパラメータの初期化----------------------------//
