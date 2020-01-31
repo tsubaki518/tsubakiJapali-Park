@@ -74,7 +74,7 @@ void GameInit() {
 
 	TimerInit();
 	PlaySound(SOUND_LABEL_BGM_GAME);
-
+	isTimerInit = true;
 }
 
 void GameUpdate() {
@@ -94,6 +94,8 @@ void GameUpdate() {
 			
 		}
 		GameCollision();
+	} else {
+		TimerInit();
 	}
 
 	//ƒV[ƒ“‚ÌØ‚è‘Ö‚¦

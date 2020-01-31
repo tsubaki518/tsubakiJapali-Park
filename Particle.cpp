@@ -69,15 +69,16 @@ void Confetti::UnInit() {
 
 
 void ShaveIce::Init() {
+
 }
 void ShaveIce::Update(D3DXVECTOR3 pos, D3DXVECTOR3 rot,D3DXVECTOR3 direction, int amout,float Speed) {
 	for (int i = 0; i < amout; i++) {
-		plane.push_back(Plane(direction*(float)(rand()%2000/1000)+pos, D3DXVECTOR3(0.025f, 0.025f, 0.025f)));
+		plane.push_back(Plane(direction*(float)(rand()%2000/1000)+pos, D3DXVECTOR3(0.03f, 0.03f, 0.03f)));
 		speed.push_back((float)(rand() % 1000) / 5000+0.05f);
 		upSpeed.push_back((float)(rand() & 1000) / 3500);
 		lifeCount.push_back(0);
 
-		plane2.push_back(Plane(direction*(float)(rand() % 2000 / 1000) + pos, D3DXVECTOR3(0.025f, 0.025f, 0.025f)));
+		plane2.push_back(Plane(direction*(float)(rand() % 2000 / 1000) + pos, D3DXVECTOR3(0.03f, 0.03f, 0.03f)));
 		speed2.push_back((float)(rand() % 1000) / 5000 + 0.05f);
 		upSpeed2.push_back((float)(rand() & 1000) / 3500);
 		lifeCount2.push_back(0);

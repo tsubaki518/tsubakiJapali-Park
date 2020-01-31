@@ -16,6 +16,7 @@ static clock_t start, end;
 void TimerInit() 
 {
 	 start = clock();
+	 end = clock();
 	 hun = 0;
 	 byou = 0;
 	 syousuu = 0;

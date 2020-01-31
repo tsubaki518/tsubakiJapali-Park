@@ -4,22 +4,21 @@
 #include"Obstacle.h"
 #include<stdlib.h>
 #include<time.h>
-
 struct Transform{
 	D3DXVECTOR3 position;
 	D3DXVECTOR3 rotation;
 	D3DXVECTOR3 scale;
 };
 
+
 //最大設置数
-const int CUBE_NUM = 1621;
+const int CUBE_NUM = 1521;
 const int ACCEL_SPEED_NUM = 5;
 const int RIGHT_WALL_NUM = 257;
 const int LEFT_WALL_NUM = 257;
 const int OBSTACLE_NUM = 24;
 const int GOAL_CUBE_NUM = 15;
-//2179
-//一定範囲内に入ったらpushして範囲外になったらpopすれば軽くなりそう
+//2179→1581
 
 //rotationのx,zは1.4ｆまで
 Plane cube[CUBE_NUM];				//床
@@ -28,6 +27,16 @@ Cube rightWall[RIGHT_WALL_NUM];		//右側の壁
 Cube leftWall[LEFT_WALL_NUM];		//左側の壁
 Plane goalCube[GOAL_CUBE_NUM];		//ゴール_床
 Obstacle obstacle[OBSTACLE_NUM];
+
+//----------------実際に使うオブジェクト----------------//
+const int DRAW_LEFT_WALL_NUM = 30;
+Cube drawLeftWall[DRAW_LEFT_WALL_NUM];
+int leftWallCount = 0;
+
+const int DRAW_RIGHT_WALL_NUM = 30;
+Cube drawRightWall[DRAW_LEFT_WALL_NUM];
+int rightWallCount = 0;
+
 
 
 void StageInit() {			//座標とサイズと角度を入れる
@@ -1427,7 +1436,9 @@ void StageInit() {			//座標とサイズと角度を入れる
 	cube[348].position = D3DXVECTOR3(637.89f, -400.47f, 626.99f);
 	cube[348].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 0.00f*3.141592f / 180);
 	cube[348].scale = D3DXVECTOR3(10, 1, 10);
-
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	cube[349].position = D3DXVECTOR3(5.70f, -10.22f, 2.16f);
 	cube[349].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 30.00f*3.141592f / 180);
 	cube[349].scale = D3DXVECTOR3(3, 1, 10);
@@ -3803,7 +3814,9 @@ void StageInit() {			//座標とサイズと角度を入れる
 	cube[942].position = D3DXVECTOR3(639.46f, -398.69f, 619.87f);
 	cube[942].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 45.00f*3.141592f / 180);
 	cube[942].scale = D3DXVECTOR3(3, 1, 10);
-
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	cube[943].position = D3DXVECTOR3(-6.27f, -10.24f, 2.16f);
 	cube[943].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 330.00f*3.141592f / 180);
 	cube[943].scale = D3DXVECTOR3(3, 1, 10);
@@ -6115,7 +6128,9 @@ void StageInit() {			//座標とサイズと角度を入れる
 	cube[1520].position = D3DXVECTOR3(636.93f, -398.70f, 634.19f);
 	cube[1520].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 80.00f*3.141592f / 180, 315.00f*3.141592f / 180);
 	cube[1520].scale = D3DXVECTOR3(3, 1, 10);
-
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	rightWall[0].position = D3DXVECTOR3(8.30f, -6.11f, 2.95f);
 	rightWall[0].rotation = D3DXVECTOR3(10.00f*3.141592f / 180, 0.00f*3.141592f / 180, 85.00f*3.141592f / 180);
 	rightWall[0].scale = D3DXVECTOR3(5, 1, 10);
@@ -8318,14 +8333,29 @@ void StageInit() {			//座標とサイズと角度を入れる
 	////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////
+
+
+	leftWallCount = 0;
+	for (int i = 0; i < DRAW_LEFT_WALL_NUM; i++) {
+		drawLeftWall[i].position = leftWall[i].position;
+		drawLeftWall[i].rotation = leftWall[i].rotation;
+		drawLeftWall[i].scale = leftWall[i].scale;
+	}
+
+	rightWallCount = 0;
+	for (int i = 0; i < DRAW_RIGHT_WALL_NUM; i++) {
+		drawRightWall[i].position = rightWall[i].position;
+		drawRightWall[i].rotation = rightWall[i].rotation;
+		drawRightWall[i].scale = rightWall[i].scale;
+	}
 }
 
 
 void StageDraw() {
 	
 	D3DXVECTOR3 distance;
-	const float DRAW_RANGE = 230;
-	const float BACK_DRAW_RANGE = 30;
+	const float DRAW_RANGE = 215;
+	const float BACK_DRAW_RANGE = 20;
 
 	//障害物の描画
 	for (int i = 0; i < OBSTACLE_NUM; i++) {
@@ -8361,41 +8391,87 @@ void StageDraw() {
 		if (sinf(rad+GetPlayer()->rotation.y)>=0 && vecLen<= DRAW_RANGE) {
 			cube[i].Draw(TEXTURE_INDEX_ICE);
 
-		} else if (sinf(rad + GetPlayer()->rotation.y) < 0 && vecLen <= BACK_DRAW_RANGE) {
+		} else if (sinf(rad + GetPlayer()->rotation.y) < 0 && vecLen <= 20) {
 			//プレイヤーの後ろ方向でも距離が30以内だったら描画する
 			cube[i].Draw(TEXTURE_INDEX_ICE);
 		}
 	}
-	for (int i = 0; i < RIGHT_WALL_NUM; i++) {
-		distance = rightWall[i].position - GetPlayerPos();   //ソリとオブジェクトとの距離を計算
-		float rad = atan2f(distance.z, distance.x);		//cubeとプレイヤーとのｘｚ軸をとって角度を取得
-		float vecLen = pow(distance.x*distance.x +      //距離のベクトルの長さを取得
-			distance.y*distance.y +
-			distance.z*distance.z, 0.5f);
 
-		//プレイヤーの正面方向&距離が150以内だったら描画する
-		if (sinf(rad + GetPlayer()->rotation.y) >= 0 && vecLen <= DRAW_RANGE) {
-			rightWall[i].Draw(TEXTURE_INDEX_ICE);
 
-		} else if (sinf(rad + GetPlayer()->rotation.y) < 0 && vecLen <= BACK_DRAW_RANGE) {
-			//プレイヤーの後ろ方向でも距離が30以内だったら描画する
-			rightWall[i].Draw(TEXTURE_INDEX_ICE);
-		}
+
+
+	{
+		//for (int i = 0; i < RIGHT_WALL_NUM; i++) {
+		//	distance = rightWall[i].position - GetPlayerPos();   //ソリとオブジェクトとの距離を計算
+		//	float rad = atan2f(distance.z, distance.x);		//cubeとプレイヤーとのｘｚ軸をとって角度を取得
+		//	float vecLen = pow(distance.x*distance.x +      //距離のベクトルの長さを取得
+		//		distance.y*distance.y +
+		//		distance.z*distance.z, 0.5f);
+
+		//	//プレイヤーの正面方向&距離が150以内だったら描画する
+		//	if (sinf(rad + GetPlayer()->rotation.y) >= 0 && vecLen <= DRAW_RANGE) {
+		//		rightWall[i].Draw(TEXTURE_INDEX_ICE);
+
+		//	} else if (sinf(rad + GetPlayer()->rotation.y) < 0 && vecLen <= BACK_DRAW_RANGE) {
+		//		//プレイヤーの後ろ方向でも距離が30以内だったら描画する
+		//		rightWall[i].Draw(TEXTURE_INDEX_ICE);
+		//	}
+		//}
+
+
+		//for (int i = 0; i < LEFT_WALL_NUM; i++) {
+		//	distance = leftWall[i].position - GetPlayerPos();   //ソリとオブジェクトとの距離を計算
+		//	float rad = atan2f(distance.z, distance.x);		//cubeとプレイヤーとのｘｚ軸をとって角度を取得
+		//	float vecLen = pow(distance.x*distance.x +      //距離のベクトルの長さを取得
+		//		distance.y*distance.y +
+		//		distance.z*distance.z, 0.5f);
+
+		//	//プレイヤーの正面方向&距離が150以内だったら描画する
+		//	if (sinf(rad + GetPlayer()->rotation.y) >= 0 && vecLen <= DRAW_RANGE) {
+		//		leftWall[i].Draw(TEXTURE_INDEX_ICE);
+
+		//	} else if (sinf(rad + GetPlayer()->rotation.y) < 0 && vecLen <= BACK_DRAW_RANGE) {
+		//		//プレイヤーの後ろ方向でも距離が30以内だったら描画する
+		//		leftWall[i].Draw(TEXTURE_INDEX_ICE);
+		//	}
+		//}
 	}
-	for (int i = 0; i < LEFT_WALL_NUM; i++) {
-		distance = leftWall[i].position - GetPlayerPos();   //ソリとオブジェクトとの距離を計算
+	{
+		distance = drawLeftWall[0].position - GetPlayerPos();   //ソリとオブジェクトとの距離を計算
 		float rad = atan2f(distance.z, distance.x);		//cubeとプレイヤーとのｘｚ軸をとって角度を取得
 		float vecLen = pow(distance.x*distance.x +      //距離のベクトルの長さを取得
 			distance.y*distance.y +
 			distance.z*distance.z, 0.5f);
 
-		//プレイヤーの正面方向&距離が150以内だったら描画する
-		if (sinf(rad + GetPlayer()->rotation.y) >= 0 && vecLen <= DRAW_RANGE) {
-			leftWall[i].Draw(TEXTURE_INDEX_ICE);
+		if (sinf(rad + GetPlayer()->rotation.y) < 0 && vecLen > 20) {
+			leftWallCount++;
+			for (int i = leftWallCount; i < leftWallCount + DRAW_LEFT_WALL_NUM; i++) {
+				drawLeftWall[i - leftWallCount].position = leftWall[i].position;
+				drawLeftWall[i - leftWallCount].rotation = leftWall[i].rotation;
+				drawLeftWall[i - leftWallCount].scale	 = leftWall[i].scale;
+			}
+		}
 
-		} else if (sinf(rad + GetPlayer()->rotation.y) < 0 && vecLen <= BACK_DRAW_RANGE) {
-			//プレイヤーの後ろ方向でも距離が30以内だったら描画する
-			leftWall[i].Draw(TEXTURE_INDEX_ICE);
+	}
+	{
+		distance = drawRightWall[0].position - GetPlayerPos();   //ソリとオブジェクトとの距離を計算
+		float rad = atan2f(distance.z, distance.x);		//cubeとプレイヤーとのｘｚ軸をとって角度を取得
+		float vecLen = pow(distance.x*distance.x +      //距離のベクトルの長さを取得
+			distance.y*distance.y +
+			distance.z*distance.z, 0.5f);
+
+		if (sinf(rad + GetPlayer()->rotation.y) < 0 && vecLen > 20) {
+			rightWallCount++;
+			for (int i = leftWallCount; i < leftWallCount + DRAW_LEFT_WALL_NUM; i++) {
+				drawRightWall[i - leftWallCount].position = rightWall[i].position;
+				drawRightWall[i - leftWallCount].rotation = rightWall[i].rotation;
+				drawRightWall[i - leftWallCount].scale = rightWall[i].scale;
+			}
+		}
+		//両サイドの壁の描画
+		for (int i = 0; i < DRAW_LEFT_WALL_NUM; i++) {
+			drawRightWall[i].Draw(TEXTURE_INDEX_ICE);
+			drawLeftWall[i].Draw(TEXTURE_INDEX_ICE);
 		}
 	}
 
@@ -8462,10 +8538,10 @@ SpeedAccel* GetAccelSpeedCube(int n) {
 	return &accelSpeed[n];
 }
 Cube GetRightWall(int n) {
-	return rightWall[n];
+	return drawRightWall[n];
 }
 Cube GetLeftWall(int n) {
-	return leftWall[n];
+	return drawLeftWall[n];
 }
 Plane GetGoalCube(int n) {
 	return goalCube[n];
@@ -8479,10 +8555,10 @@ int GetAccelSpeedNum() {
 	return ACCEL_SPEED_NUM;
 }
 int GetRightWallNum() {
-	return RIGHT_WALL_NUM;
+	return DRAW_RIGHT_WALL_NUM;
 }
 int GetLeftWallNum() {
-	return LEFT_WALL_NUM;
+	return DRAW_LEFT_WALL_NUM;
 }
 int GetGoalCubeNum() {
 	return GOAL_CUBE_NUM;

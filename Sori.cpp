@@ -98,8 +98,8 @@ void Sori::Update() {
 		}
 	}
 
-	shaveIce[0].Update(GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed*50);
-	shaveIce[1].Update(-GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 50 ,-1);
+	shaveIce[0].Update(GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed*35);
+	shaveIce[1].Update(-GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 35 ,-1);
 }
 void Sori::Draw() {
 	//É\ÉäópÇÃçsóÒÇçÏê¨
