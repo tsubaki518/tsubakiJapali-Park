@@ -41,7 +41,7 @@ void RankingInit() {
 	FadeOutInit();
 	wasChangeScene = false;
 	//デバッグ用ランキング初期化
-	//Score[0].Scoretime = 0.00f;
+	Score[0].Scoretime = 0.00f;
 
 	if (Score[0].Scoretime == 0.00f) {
 		for (int i = 0; i < 21; i++) {
@@ -51,18 +51,24 @@ void RankingInit() {
 			Score[i].Player2 = 2;
 		}
 	}
-
-	//ランキングスコア移動
-	posadd_y = SCREEN_HEIGHT * 2.2 * -1;
-	//ランクインカットイン初期位置
-	RankposX1 = SCREEN_WIDTH * 3 * -1;
-	RankposX2 = SCREEN_WIDTH * 3;
 	//WriteSave();
 
 	isRankcutin = false;
 	isRankanime = false;
 	isChangeAl = false;
 	isRankingin = ChangeScene_Title();
+
+	if (isRankingin == true) {
+		//ランキングスコア移動
+		posadd_y = SCREEN_HEIGHT * 2.2 * -1;
+	}
+	else {
+		posadd_y = SCREEN_HEIGHT * 3.2 * -1;
+	}
+	//ランクインカットイン初期位置
+	RankposX1 = SCREEN_WIDTH * 3 * -1;
+	RankposX2 = SCREEN_WIDTH * 3;
+
 	juni = 21;
 
 	//リザルト→ランキング
@@ -168,7 +174,9 @@ void RankingUpdate() {
 			posadd_y = SCREEN_HEIGHT * 0.21;
 		}
 		if (posadd_y < SCREEN_HEIGHT * 2.2 * -1) {
-			posadd_y = SCREEN_HEIGHT * 2.2 * -1;
+			if (isRankingin == true) {
+				posadd_y = SCREEN_HEIGHT * 2.2 * -1;
+			}
 		}
 	}
 
@@ -250,16 +258,16 @@ void RankingDraw() {
 
 		//2Pの体重によって表示するキャラクターを変える
 		if (Score[i].Player2 == 1) {
-			Sprite_Draw(TEXTURE_INDEX_ICON_BEAR, SCREEN_WIDTH * 0.35, i*SCREEN_HEIGHT * 3 / 19.1 + posadd_y, 0, 0, 150, 150);
+			Sprite_Draw(TEXTURE_INDEX_ICON_BEAR, SCREEN_WIDTH * 0.35, i*SCREEN_HEIGHT * 3 / 19 + posadd_y, 0, 0, 150, 150);
 		}
 		else if (Score[i].Player2 == 2) {
-			Sprite_Draw(TEXTURE_INDEX_ICON_DOG, SCREEN_WIDTH * 0.35, i*SCREEN_HEIGHT * 3 / 19.1 + posadd_y, 0, 0, 150, 150);
+			Sprite_Draw(TEXTURE_INDEX_ICON_DOG, SCREEN_WIDTH * 0.35, i*SCREEN_HEIGHT * 3 / 19 + posadd_y, 0, 0, 150, 150);
 		}
 		else if (Score[i].Player2 == 3) {
-			Sprite_Draw(TEXTURE_INDEX_ICON_RABBIT, SCREEN_WIDTH * 0.35, i*SCREEN_HEIGHT * 3 / 19.1 - SCREEN_HEIGHT * 0.01 + posadd_y, 0, 0, 150, 150);
+			Sprite_Draw(TEXTURE_INDEX_ICON_RABBIT, SCREEN_WIDTH * 0.35, i*SCREEN_HEIGHT * 3 / 19 - SCREEN_HEIGHT * 0.01 + posadd_y, 0, 0, 150, 150);
 		}
 		else if (Score[i].Player2 == 4) {
-			Sprite_Draw(TEXTURE_INDEX_ICON_HAMSTER, SCREEN_WIDTH * 0.35, i*SCREEN_HEIGHT * 3 / 19.1 + posadd_y, 0, 0, 150, 150);
+			Sprite_Draw(TEXTURE_INDEX_ICON_HAMSTER, SCREEN_WIDTH * 0.35, i*SCREEN_HEIGHT * 3 / 19 + posadd_y, 0, 0, 150, 150);
 		}
 	}
 

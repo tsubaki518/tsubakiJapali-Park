@@ -205,15 +205,16 @@ void ResultDraw() {
 		Sprite_Draw(TEXTURE_INDEX_ICON_HAMSTER, SCREEN_WIDTH / 5 * 2.8, SCREEN_HEIGHT / 3 * 1.35, 0, 0, 150, 150);
 	}
 
+	//目標タイム表示
 	if (isRankin == false) {
 		Sprite_Draw2(TEXTURE_INDEX_RESULT_NORANKIN, SCREEN_WIDTH*0.8, SCREEN_HEIGHT*0.2, 0, 0, SCREEN_WIDTH / 5, SCREEN_HEIGHT / 5, addAl);
 		if (addAl >= 255) {
 			Sprite_SetColor(D3DCOLOR_RGBA(0, 0, 0, 255));
-			ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 5 / 100 * 85, SCREEN_HEIGHT*2.5 / 50 * 29), D3DXVECTOR2(0.2f, 0.2f), score4 / 60);
+			ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 5 / 100 * 85, SCREEN_HEIGHT*2.5 / 50 * 29), D3DXVECTOR2(0.2f, 0.2f), score4 / 6000);
 			if ((int)score4 % 60 < 10) {
 				ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 5 / 100 * 87.5, SCREEN_HEIGHT*2.5 / 50 * 29), D3DXVECTOR2(0.2f, 0.2f), 0);
 			}
-			ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 5 / 100 * 90.5, SCREEN_HEIGHT*2.5 / 50 * 29), D3DXVECTOR2(0.2f, 0.2f), (int)score4 % 60);
+			ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 5 / 100 * 90.5, SCREEN_HEIGHT*2.5 / 50 * 29), D3DXVECTOR2(0.2f, 0.2f), (int)score4 % 6000 / 100);
 			if ((int)score4 % 100 < 10) {
 				ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 5 / 100 * 93, SCREEN_HEIGHT*2.5 / 50 * 29), D3DXVECTOR2(0.2f, 0.2f), 0);
 			}
@@ -221,7 +222,9 @@ void ResultDraw() {
 			Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
 		}
 	}
+
 	FadeOut();
+
 	if (wasChangeSceneRanking == true) {
 		SetScene(RANKING);
 	}
