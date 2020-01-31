@@ -4,3 +4,5 @@ void ResultInit();
 void ResultUpdate();
 void ResultDraw();
 void ResultUnInit();
+
+float GetReTime();
