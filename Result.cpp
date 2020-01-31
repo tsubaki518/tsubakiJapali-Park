@@ -223,9 +223,7 @@ void ResultDraw() {
 	}
 	FadeOut();
 	if (wasChangeSceneRanking == true) {
-		if (FadeIn()) {
-			SetScene(RANKING);
-		}
+		SetScene(RANKING);
 	}
 	if (wasChangeSceneTitle == true) {
 		if (FadeIn()) {

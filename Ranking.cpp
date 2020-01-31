@@ -41,7 +41,7 @@ void RankingInit() {
 	FadeOutInit();
 	wasChangeScene = false;
 	//デバッグ用ランキング初期化
-	Score[0].Scoretime = 0.00f;
+	//Score[0].Scoretime = 0.00f;
 
 	if (Score[0].Scoretime == 0.00f) {
 		for (int i = 0; i < 21; i++) {
@@ -112,8 +112,8 @@ void RankingInit() {
 
 		//順位を判定する
 		for (int i = 0; i < 21; i++) {
-			if (GetTime() < Score[i].Scoretime) {
-				juni = i;
+			if (GetReTime() < Score[i].Scoretime) {
+				juni = i - 1;
 				break;
 			}
 
@@ -290,7 +290,10 @@ void RankingDraw() {
 	//左下アニメ
 	Sprite_Draw(TEXTURE_INDEX_RANKING_ANIME, SCREEN_WIDTH*0.01, SCREEN_HEIGHT * 0.8, SCREEN_WIDTH / 10 * rankanime_x, SCREEN_HEIGHT / 4.5 * rankanime_y, SCREEN_WIDTH / 10, SCREEN_HEIGHT / 4.5, 1, 1);
 
-	FadeOut();
+	if (isRankingin == true) {
+		FadeOut();
+	}
+	
 	if (wasChangeScene == true) {
 		if (FadeIn()) {
 			SetScene(TITLE);
