@@ -13,7 +13,7 @@
 #define SPIN_NUM 4
 #define SPIN_SPEED 1.0f
 #define ACCEL_FLOOR_ACCEL_SPEED 0.3f
-#define CENTRIFUGAL_FORCE 0.035f //遠心力
+#define CENTRIFUGAL_FORCE 0.035f //遠心力っぽいなにか
 #define YOKONOSYAMENNNINOTTAATOKASOKUSURUYATU 0.3f //横の斜面に乗った後加速するやつ
 #define BPARD_VALUE_BOARDER 4
 
@@ -98,8 +98,8 @@ void Sori::Update() {
 		}
 	}
 
-	shaveIce[0].Update(GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed*35);
-	shaveIce[1].Update(-GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 35 ,-1);
+	shaveIce[0].Update(GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed*15);
+	shaveIce[1].Update(-GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 15 ,-1);
 }
 void Sori::Draw() {
 	//ソリ用の行列を作成
@@ -145,10 +145,7 @@ void Sori::Draw() {
 	character[0]->Draw();
 	character[1]->Draw();
 
-	if (isGoalGround == false) {
-		shaveIce[0].Draw();
-		shaveIce[1].Draw();
-	}
+	
 	if (isGoalGround == true) {
 		rad += 0.8f;
 		confetti.Init(D3DXVECTOR3(position.x+cosf(rad)*5+5, position.y+4, position.z + cosf(rad)*5));
@@ -222,6 +219,12 @@ void Sori::DrawCharacterIcon() {
 	} else if (weight[1] <= 49)
 	{
 		Sprite_Draw(TEXTURE_INDEX_ICON_HAMSTER, SCREEN_WIDTH*0.157552f, SCREEN_HEIGHT*0.756944f, 0, 0, 150, 150);
+	}
+}
+void Sori::DrawParticle() {
+	if (isGoalGround == false) {
+		shaveIce[0].Draw();
+		shaveIce[1].Draw();
 	}
 }
 

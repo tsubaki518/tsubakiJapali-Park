@@ -105,6 +105,7 @@ void GameUpdate() {
 }
 
 void GameDraw() {
+
 	Sky sky;
 	sky.Draw();
 	//そりの描画
@@ -114,7 +115,8 @@ void GameDraw() {
 	camera.SetCamera(sori);
 	//ステージの描画
 	StageDraw();
-
+	sori.DrawParticle();
+	npc.DrawParticle();
 	//UIを描画する
 	//UIの描画はこの関数内でやる
 	UIDraw();

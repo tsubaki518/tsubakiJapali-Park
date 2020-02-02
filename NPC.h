@@ -81,7 +81,7 @@ public:
 	void Draw();
 	void UnInit();
 	~NPC();
-
+	void DrawParticle();
 	//“–‚½‚è”»’è
 	bool CollisionWall(Collider3D c);
 	bool Collision(Collider3D c);

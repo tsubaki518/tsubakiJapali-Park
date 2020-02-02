@@ -72,13 +72,14 @@ void ShaveIce::Init() {
 
 }
 void ShaveIce::Update(D3DXVECTOR3 pos, D3DXVECTOR3 rot,D3DXVECTOR3 direction, int amout,float Speed) {
+	float size = 0.1f;
 	for (int i = 0; i < amout; i++) {
-		plane.push_back(Plane(direction*(float)(rand()%2000/1000)+pos, D3DXVECTOR3(0.03f, 0.03f, 0.03f)));
+		plane.push_back(Plane(direction*(float)(rand()%2000/1000)+pos, D3DXVECTOR3(size, size, size)));
 		speed.push_back((float)(rand() % 1000) / 5000+0.05f);
 		upSpeed.push_back((float)(rand() & 1000) / 3500);
 		lifeCount.push_back(0);
 
-		plane2.push_back(Plane(direction*(float)(rand() % 2000 / 1000) + pos, D3DXVECTOR3(0.03f, 0.03f, 0.03f)));
+		plane2.push_back(Plane(direction*(float)(rand() % 2000 / 1000) + pos, D3DXVECTOR3(size, size, size)));
 		speed2.push_back((float)(rand() % 1000) / 5000 + 0.05f);
 		upSpeed2.push_back((float)(rand() & 1000) / 3500);
 		lifeCount2.push_back(0);
@@ -88,7 +89,7 @@ void ShaveIce::Update(D3DXVECTOR3 pos, D3DXVECTOR3 rot,D3DXVECTOR3 direction, in
 		plane[i].rotation = rot;
 		plane[i].rotation.x -= 1.5f;
 		plane[i].position += plane[i].GetRight()*speed[i]* Speed;
-		plane[i].position.y += upSpeed[i];
+		plane[i].position.y += upSpeed[i]+amout*0.01f;
 		upSpeed[i] -= GRAVITY;
 		lifeCount[i]++;
 
@@ -119,12 +120,21 @@ void ShaveIce::Update(D3DXVECTOR3 pos, D3DXVECTOR3 rot,D3DXVECTOR3 direction, in
 	}
 }
 void ShaveIce::Draw() {
+	LPDIRECT3DDEVICE9 g_pD3DDevice = MyDirect3D_GetDevice();
+
+	// 加算合成に設定
+	//g_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);				// Zバッファーの書き込みをしない
+	g_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);			// αデスティネーションカラーの指定
 	for (int i = 0; i < (int)plane.size(); i++) {
-		plane[i].Draw(TEXTURE_INDEX_MAX);
+		plane[i].Draw(TEXTURE_INDEX_PARTICLE);
 	}
 	for (int i = 0; i < (int)plane2.size(); i++) {
-		plane2[i].Draw(TEXTURE_INDEX_MAX);
+		plane2[i].Draw(TEXTURE_INDEX_PARTICLE);
 	}
+	// SetRenderStateの設定を戻す
+	//g_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);				// Zバッファーの書き込みを有効にする有効にする
+	g_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
 }
 void ShaveIce::UnInit() {
 	for (int i = 0; i < (int)plane.size(); i++) {

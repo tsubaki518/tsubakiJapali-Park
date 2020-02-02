@@ -94,8 +94,8 @@ void NPC::Update() {
 	CollisionOrverlap();
 
 	//氷が削れるパーティクル
-	shaveIce[0].Update(GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 35);
-	shaveIce[1].Update(-GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 35, -1);
+	shaveIce[0].Update(GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 15);
+	shaveIce[1].Update(-GetRight()*0.5f + position - GetForward(), rotation, GetForward(), speed * 15, -1);
 }
 void NPC::Draw() {
 	//ソリ用の行列を作成
@@ -141,11 +141,7 @@ void NPC::Draw() {
 	character[0]->Draw();
 	character[1]->Draw();
 
-	if (isGoalGround == false) {
-		//氷が削れるパーティクル
-		shaveIce[0].Draw();
-		shaveIce[1].Draw();
-	}
+
 
 }
 void NPC::UnInit() {
@@ -163,6 +159,12 @@ void NPC::UnInit() {
 
 NPC::~NPC() {
 
+}
+void NPC::DrawParticle() {
+	if (isGoalGround == false) {
+		shaveIce[0].Draw();
+		shaveIce[1].Draw();
+	}
 }
 
 

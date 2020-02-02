@@ -85,6 +85,7 @@ public:
 	~Sori();
 
 	void DrawCharacterIcon();
+	void DrawParticle();
 
 	//“–‚½‚è”»’è
 	bool CollisionWall(Collider3D c);

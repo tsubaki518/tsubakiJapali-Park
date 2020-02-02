@@ -21,20 +21,21 @@ const int GOAL_CUBE_NUM = 15;
 //2179→1581
 
 //rotationのx,zは1.4ｆまで
-Plane cube[CUBE_NUM];				//床
 SpeedAccel accelSpeed[ACCEL_SPEED_NUM];	//加速床
-Cube rightWall[RIGHT_WALL_NUM];		//右側の壁
-Cube leftWall[LEFT_WALL_NUM];		//左側の壁
+Wall rightWall[RIGHT_WALL_NUM];		//右側の壁
+Wall leftWall[LEFT_WALL_NUM];		//左側の壁
 Plane goalCube[GOAL_CUBE_NUM];		//ゴール_床
 Obstacle obstacle[OBSTACLE_NUM];
 
 //----------------実際に使うオブジェクト----------------//
+Plane cube[CUBE_NUM];				//床
+
 const int DRAW_LEFT_WALL_NUM = 30;
-Cube drawLeftWall[DRAW_LEFT_WALL_NUM];
+Wall drawLeftWall[DRAW_LEFT_WALL_NUM];
 int leftWallCount = 0;
 
 const int DRAW_RIGHT_WALL_NUM = 30;
-Cube drawRightWall[DRAW_LEFT_WALL_NUM];
+Wall drawRightWall[DRAW_RIGHT_WALL_NUM];
 int rightWallCount = 0;
 
 
@@ -8332,8 +8333,6 @@ void StageInit() {			//座標とサイズと角度を入れる
 	
 	////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////
-
 
 	leftWallCount = 0;
 	for (int i = 0; i < DRAW_LEFT_WALL_NUM; i++) {
@@ -8537,10 +8536,10 @@ Plane GetCube(int n) {
 SpeedAccel* GetAccelSpeedCube(int n) {
 	return &accelSpeed[n];
 }
-Cube GetRightWall(int n) {
+Wall GetRightWall(int n) {
 	return drawRightWall[n];
 }
-Cube GetLeftWall(int n) {
+Wall GetLeftWall(int n) {
 	return drawLeftWall[n];
 }
 Plane GetGoalCube(int n) {

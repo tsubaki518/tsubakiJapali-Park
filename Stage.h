@@ -8,8 +8,8 @@ void StageUnInit();
 //---ˆø”‚Åw’è‚µ‚½cube‚ğ“¾‚é
 Plane GetCube(int n);
 SpeedAccel* GetAccelSpeedCube(int n);
-Cube GetRightWall(int n);
-Cube GetLeftWall(int n);
+Wall GetRightWall(int n);
+Wall GetLeftWall(int n);
 Plane GetGoalCube(int n);
 
 
