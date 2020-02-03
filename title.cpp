@@ -26,6 +26,7 @@ static bool wasChangeSceneOption = false;
 static bool wasChangeSceneRanking = false;
 
 void TitleInit() {
+	StopSound();
 	FadeInInit();
 	FadeOutInit();
 	wasChangeSceneSetting = false;
