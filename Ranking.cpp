@@ -114,11 +114,11 @@ void RankingInit() {
 			Score[21].Player2 = 4;
 		}
 
-		SetRank(GetReTime(), GetRating());
+		SetRank(GetTime(), GetRating());
 
 		//‡ˆÊ‚ğ”»’è‚·‚é
 		for (int i = 0; i < 21; i++) {
-			if (GetReTime() < Score[i].Scoretime) {
+			if (GetTime()*100 < Score[i].Scoretime) {
 				juni = i - 1;
 				break;
 			}
@@ -340,7 +340,7 @@ void LoadSave(void) {
 }
 
 void SetRank(float time, float rating) {
-	Score[21].Scoretime = time;
+	Score[21].Scoretime = time * 100;
 	Score[21].Scorerating = rating;
 	int rank;
 	bool isSetRank = false;

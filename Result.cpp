@@ -330,7 +330,3 @@ D3DXVECTOR3 GetRight2() {
 	}
 	return direction;
 }
-
-float GetReTime() {
-	return (score1 * 100) + score3;
-}

@@ -66,7 +66,7 @@ void TimerDraw(float x, float y) {
 }
 
 float GetTime() {
-	return hun * 60 + byou + syousuu / 100;
+	return hun * 60 + seisuu + syousuu / 100;
 }
 
 float Getsyousuu() {
