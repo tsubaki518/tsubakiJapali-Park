@@ -160,7 +160,7 @@ void ResultDraw() {
 	//Ž‹’®—¦
 	Sprite_SetColor(D3DCOLOR_RGBA(0, 0, 0, 255));
 	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2.5 / 100 * 80, SCREEN_HEIGHT*1.25 / 50 * 51), D3DXVECTOR2(0.4f, 0.4f), score2 / 10);
-	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 10 / 3 / 100 * 84, SCREEN_HEIGHT / 3 * 5 / 50 * 54), D3DXVECTOR2(0.3f, 0.3f), (int)score2 % 10);
+	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 10 / 3 / 100 * 85, SCREEN_HEIGHT / 3 * 5 / 50 * 54), D3DXVECTOR2(0.3f, 0.3f), (int)score2 % 10);
 
 	//ƒ^ƒCƒ€
 	ImageNumberDraw(D3DXVECTOR2(SCREEN_WIDTH * 2.5 / 100 * 60, SCREEN_HEIGHT*1.25 / 50 * 39), D3DXVECTOR2(0.4f, 0.4f), score1 / 60);
