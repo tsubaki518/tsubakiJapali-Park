@@ -16,6 +16,7 @@ private:
 	int amount;
 	int intervalCount;
 	int generationRange;
+	float scale;
 
 public:
 	//ˆø”
@@ -23,7 +24,7 @@ public:
 	//range:		¶¬‚·‚é”ÍˆÍx,z
 	//Amount:		¶¬‚·‚é—Ê
 	//dropDistance: —‰º‚·‚é‹——£
-	void Init(D3DXVECTOR3 pos,int range=10, int Amount =2, float drapDistance=10);
+	void Init(D3DXVECTOR3 pos,int range=10, int Amount =2, float drapDistance=10, float size=1);
 	void Update();
 	void Draw();
 	void UnInit();

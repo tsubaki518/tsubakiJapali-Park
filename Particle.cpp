@@ -4,11 +4,12 @@
 #define GENERATE_NUM 5
 #define PARPER_SIZE 0.2f
 
-void Confetti::Init(D3DXVECTOR3 pos, int range, int Amount, float dorpDistance) {
+void Confetti::Init(D3DXVECTOR3 pos, int range, int Amount, float dorpDistance, float size) {
 	position = pos;
 	amount = Amount;
 	generationRange = range;
 	distance = dorpDistance;
+	scale = size;
 }
 void Confetti::Update() {
 	D3DXCOLOR c[8];
@@ -39,7 +40,7 @@ void Confetti::Update() {
 	//Ž†‚ð“®‚©‚·
 	for (int i = 0; i < (int)cube.size(); i++) {
 		cube[i].position -= D3DXVECTOR3(0,0.1f,0)-movement[i]; //Ž†‚²‚Æ‚ÉˆÚ“®—Ê‚ð•Ï‚¦‚é
-		cube[i].scale = D3DXVECTOR3(PARPER_SIZE, PARPER_SIZE, 0);
+		cube[i].scale = D3DXVECTOR3(PARPER_SIZE, PARPER_SIZE, 0)*scale;
 		cube[i].rotation += rot[i];
 
 		//íœ

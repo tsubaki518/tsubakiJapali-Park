@@ -26,6 +26,7 @@ static float ResultposX2;//カットイン(下)の移動
 static int addAl;
 
 SettingPlayer SP;
+Confetti pcon;//紙吹雪
 static D3DXVECTOR3 rotation;
 
 static D3DXVECTOR3 GetUp2();
@@ -35,6 +36,8 @@ static bool wasChangeSceneRanking = false;
 static bool wasChangeSceneTitle = false;
 
 static bool isRankin;//ランクイン判定
+
+static float razian;
 
 void ResultInit() {
 	FadeInInit();
@@ -120,6 +123,9 @@ void ResultUpdate() {
 		}
 	}
 
+	razian += 0.1f;
+	pcon.Init(D3DXVECTOR3(-2.5f+cosf(razian)*0.3f, 3, -3), 5, 2, 5, 0.5f);
+	pcon.Update();
 }
 
 void ResultDraw() {
@@ -152,6 +158,8 @@ void ResultDraw() {
 		SP.character[i]->rotation.x -= 0.45f;
 		SP.character[i]->Draw();
 	}
+
+	pcon.Draw();
 
 	//スコアの下地
 	Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
@@ -222,7 +230,6 @@ void ResultDraw() {
 			Sprite_SetColor(D3DCOLOR_RGBA(255, 255, 255, 255));
 		}
 	}
-
 	FadeOut();
 
 	if (wasChangeSceneRanking == true) {
@@ -236,6 +243,7 @@ void ResultDraw() {
 }
 
 void ResultUnInit() {
+	pcon.UnInit();
 	for (int i = 0; i < 2; i++) {
 		SP.character[i]->UnInit();
 		delete SP.character[i];
