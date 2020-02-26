@@ -306,7 +306,7 @@ void RankingDraw() {
 	
 	if (wasChangeScene == true) {
 		if (FadeIn()) {
-			SetScene(TITLE);
+			SetScene(THANK);
 		}
 	}
 }

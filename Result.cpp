@@ -237,7 +237,7 @@ void ResultDraw() {
 	}
 	if (wasChangeSceneTitle == true) {
 		if (FadeIn()) {
-			SetScene(TITLE);
+			SetScene(THANK);
 		}
 	}
 }

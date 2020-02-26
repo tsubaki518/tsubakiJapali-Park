@@ -26,6 +26,7 @@
 #include"Setting.h"
 #include"sound.h"
 #include"BalanceBoardInput.h"
+#include"Thank.h"
 
 //ここまで3D用追加コード
 //===============================================
@@ -276,6 +277,10 @@ void Update(void){
 	case RANKING:
 		RankingUpdate();
 		break;
+
+	case THANK:
+		ThankUpdate();
+		break;
 	}
 }
 
@@ -317,6 +322,11 @@ void Draw(void)
 
 	case RANKING:
 		RankingDraw();
+		break;
+
+
+	case THANK:
+		ThankDraw();
 		break;
 	}
 	
@@ -373,6 +383,11 @@ void SetScene(int scene) {
 	case RANKING:
 		RankingUnInit();
 		break;
+
+
+	case THANK:
+		ThankUnInit();
+		break;
 	}
 	nowScene = scene;
 
@@ -406,6 +421,11 @@ void SetScene(int scene) {
 			ChangeTitle = false;
 		}
 		RankingInit();
+		break;
+
+
+	case THANK:
+		ThankInit();
 		break;
 	}
 

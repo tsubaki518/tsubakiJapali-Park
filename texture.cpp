@@ -94,7 +94,7 @@ static const TextureFile g_TextureFiles[] = {
 
 { "asset/texture/雪パーティクル用.png",SCREEN_WIDTH,SCREEN_HEIGHT },
 
-
+{ "asset/texture/ありがと.png",SCREEN_WIDTH,SCREEN_HEIGHT },
 };
 // 読み込みテクスチャ数
 static const int TEXTURE_FILE_COUNT = sizeof(g_TextureFiles) / sizeof(g_TextureFiles[0]);
